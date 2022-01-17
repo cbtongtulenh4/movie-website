@@ -3,9 +3,16 @@ package com.website.movie.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+    /**
+     * @Project: MovieWebsite
+     * @Author: Fu.Minh_Phuc on 17/01/2022
+     * @Github: https://github.com/cbtongtulenh4
+     * @ModifiedBy:
+     */
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{ DataConfig.class };
     }
 
     @Override

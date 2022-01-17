@@ -12,6 +12,11 @@
     <properties>
         <spring.framework.version>5.3.14</spring.framework.version>
         <thymeleaf.version>3.0.14.RELEASE</thymeleaf.version>
+        <lombok.version>1.18.22</lombok.version>
+        <mapstruct-processor.version>1.5.0.Beta2</mapstruct-processor.version>
+        <hibernate.version>5.5.6</hibernate.version>
+        <spring.data-jpa>2.6.1</spring.data-jpa>
+        <sql.version>8.0.13</sql.version>
     </properties>
 
     <dependencies>
@@ -22,6 +27,27 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.framework.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+<!--    The spring-orm module provides the Spring integration with Hibernate-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+
+<!--    ############## Spring data ##################     -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring.data-jpa}</version>
+        </dependency>
+
 
 <!--    ############## Thymeleaf ##################     -->
         <dependency>
@@ -35,6 +61,56 @@
             <version>${thymeleaf.version}</version>
         </dependency>
 
+        <!--    ############## Lombok ##################     -->
+<!--    Have to install lombok in plugins in intellij-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct-processor</artifactId>-->
+<!--            <version>${mapstruct-processor.version}</version>-->
+<!--        </dependency>-->
+
+        <!--    ############## Hibernate ##################     -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.2.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>javax.xml.bind</groupId>-->
+<!--            <artifactId>jaxb-api</artifactId>-->
+<!--            <version>2.3.1</version>-->
+<!--        </dependency>-->
+
+
+        <!--    ############## SQL ##################     -->
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${sql.version}</version>
+        </dependency>
+
         <!--    ############## Javax ##################     -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -43,24 +119,34 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- ####### Javax Mail ###### -->
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
+        </dependency>
+
 
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <warSourceDirectory>WebContent</warSourceDirectory>
+                </configuration>
+
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <warSourceDirectory>WebContent</warSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>

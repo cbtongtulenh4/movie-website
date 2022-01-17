@@ -1,0 +1,5 @@
+com\website\movie\config\WebConfig.class
+com\website\movie\config\WebAppInitializer.class
+com\website\movie\persistence\entity\BaseEntity.class
+com\website\movie\web\controller\web\HomeController.class
+com\website\movie\utils\EmailUtil.class

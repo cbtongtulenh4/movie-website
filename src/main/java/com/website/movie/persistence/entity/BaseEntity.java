@@ -1,0 +1,26 @@
+package com.website.movie.persistence.entity;
+
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+
+@MappedSuperclass
+public class BaseEntity {
+    /**
+     * @Project: MovieWebsite
+     * @Author: Fu.Minh_Phuc on 17/01/2022
+     * @Github: https://github.com/cbtongtulenh4
+     * @ModifiedBy:
+     */
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+}

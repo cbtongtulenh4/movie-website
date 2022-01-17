@@ -1,5 +1,7 @@
 package com.website.movie.config;
 
+import com.website.movie.events.listener.RegistrationListener;
+import com.website.movie.utils.EmailUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,8 +24,17 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.website.movie")
+@ComponentScan(basePackages = {
+        "com.website.movie"
+})
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
+    /**
+     * @Project: MovieWebsite
+     * @Author: Fu.Minh_Phuc on 17/01/2022
+     * @Github: https://github.com/cbtongtulenh4
+     * @ModifiedBy:
+     */
+
 
     ApplicationContext applicationContext;
 
@@ -52,7 +64,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ISpringTemplateEngine templateEngine(ITemplateResolver templateResolver) {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver);
-        engine.setTemplateEngineMessageSource(messageSource());
+        engine.setTemplateEngineMessageSource(messageSourceThymeleaf());
         return engine;
     }
 
@@ -69,7 +81,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return resolver;
     }
 
-    private ResourceBundleMessageSource messageSource() {
+    private ResourceBundleMessageSource messageSourceThymeleaf() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("message_en");
         return messageSource;
@@ -83,6 +95,25 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
                 .addResourceLocations("/", "/resource/");
     }
 
+    @Bean
+    public JavaMailSender mailSender(){
+        return EmailUtil.constructMailSender();
+    }
+
+    @Bean
+    // Create this bean in container, to ApplicationEventPublisher call
+    public RegistrationListener registrationListener(){
+        return new RegistrationListener();
+    }
+
+
+    @Bean
+    public ResourceBundleMessageSource messageSource(){
+        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+        source.setBasenames("message_en");
+        source.setUseCodeAsDefaultMessage(true);
+        return source;
+    }
 
 
 }
