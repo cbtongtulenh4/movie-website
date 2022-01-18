@@ -1,0 +1,8 @@
+
+
+In spring web you have these annotations:
+
+RequestParam - used for get params (/path?name=)
+PathVariable - used for path params (/path/{name})
+RequestBody - used for post/put/patch etc. body
+RequestHeader - for headers

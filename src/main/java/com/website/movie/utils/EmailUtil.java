@@ -14,6 +14,23 @@ public class EmailUtil {
      * @ModifiedBy:
      */
 
+    // LEARN MORE: https://www.baeldung.com/java-email-validation-regex
+
+    // simplest for regular expression username@domain.com
+    public static final String REGEX_EMAIL_1 = "^(.+)@(\\S+) $";
+    // strict regular expression ( best for English language )
+    public static final String REGEX_EMAIL_2 = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+    // strict and best for all language
+    public static final String REGEX_EMAIL_3 = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@"
+            + "[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$";
+    // RFC 5322 best for do with SQL
+    public static final String REGEX_EMAIL_4 = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    // base regular expression
+    public static final String REGEX_EMAIL_5 = "^[_A-Za-z0-9-+]+"
+            + "(.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
+
+
     private static ResourceBundle resourceBundle = ResourceBundle.getBundle("application");
 
     private final static String HOST = resourceBundle.getString("spring.mail.host");
@@ -50,7 +67,7 @@ public class EmailUtil {
         return mailSender;
     }
 
-    private static Properties constructMailProperties(){
+    public static Properties constructMailProperties(){
         Properties javaMailProperties = new Properties();
         javaMailProperties.setProperty("mail.transport.protocol", TRANSPORT_PROTOCOL);
         javaMailProperties.setProperty("mail.smtps.auth", SMTPS_AUTH);

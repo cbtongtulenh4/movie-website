@@ -1,5 +1,7 @@
 package com.website.movie.web.dto;
 
+import com.website.movie.validation.PasswordMatches;
+import com.website.movie.validation.ValidEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@PasswordMatches
 public class UserDto {
     /**
      * @Project: MovieWebsite
@@ -16,6 +19,7 @@ public class UserDto {
      */
 
     private Long id;
+    @ValidEmail
     private String email;
     private String password;
     private String matchingPassword;

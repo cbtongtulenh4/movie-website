@@ -2,6 +2,8 @@ package com.website.movie.config;
 
 import com.website.movie.events.listener.RegistrationListener;
 import com.website.movie.utils.EmailUtil;
+import com.website.movie.validation.constraint.EmailValidator;
+import com.website.movie.validation.constraint.PasswordMatchesValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;

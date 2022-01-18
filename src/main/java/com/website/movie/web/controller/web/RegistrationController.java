@@ -13,15 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -54,10 +52,15 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registrationUserAccount(
-            @ModelAttribute("user") final UserDto userDto,
+            @ModelAttribute("user") @Valid final UserDto userDto,
+            final BindingResult result,
             final HttpServletRequest request)
     {
         LOGGER.debug("Registering user account with information: {}", userDto);
+
+        if(result.hasErrors()){
+            return new ModelAndView("redirect:/login");
+        }
 
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
@@ -112,14 +115,19 @@ public class RegistrationController {
         return "redirect:/login?lang=" + locale.getLanguage();
     }
 
-    @RequestMapping("/test")
-    public ModelAndView checkTest(final HttpServletRequest request){
-        Model model = new ConcurrentModel();
-        model.addAttribute(
-                "message",
-                messages.getMessage("message.accountVerified", null, request.getLocale())
-        );
-        return new ModelAndView("redirect:/login", "model", model);
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String checkTest(
+            @ModelAttribute("user") @Valid final UserDto userDto,
+            final BindingResult result)
+    {
+        if (result.hasErrors()){
+            System.out.println("Failure");
+        }else {
+            System.out.println("successfully");
+        }
+        return "web/emailError";
+
     }
+
 
 }
