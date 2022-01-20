@@ -1,6 +1,7 @@
 package com.website.movie.web.controller.web;
 
 import com.website.movie.events.OnRegistrationCompleteEvent;
+import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
@@ -59,7 +60,9 @@ public class RegistrationController {
         LOGGER.debug("Registering user account with information: {}", userDto);
 
         if(result.hasErrors()){
-            return new ModelAndView("redirect:/login");
+            throw new InvalidDataException(result);
+//            throw new MethodArgumentNotValidException(new MethodParameter(
+//                    this.getClass().getDeclaredMethod("registrationUserAccount", UserDto.class), 0), result);
         }
 
         try {
