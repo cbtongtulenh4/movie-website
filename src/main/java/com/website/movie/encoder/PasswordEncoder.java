@@ -1,5 +1,7 @@
 package com.website.movie.encoder;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
@@ -10,6 +12,7 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
+@Component(value = "PasswordEncoder")
 public class PasswordEncoder {
     /**
      * @Project: MovieWebsite
@@ -29,7 +32,7 @@ public class PasswordEncoder {
     // When employed with salt, SHA-512 is still a fair option
     // but there are stronger and slower options out there.
     // ==> Not Recommended
-    public static String hashSHA512(String password){
+    public  String hashSHA512(String password){
         String passHash = null;
         try {
             byte[] salt = getSalt (16);
@@ -62,7 +65,7 @@ public class PasswordEncoder {
     // that's the hacker compare with rainbow tables
     // ==> Not Recommended
 
-    public static String hashMD5(String password){
+    public  String hashMD5(String password){
         StringBuilder generatePassword = null;
         try {
             byte[] salt = getSalt(16);
@@ -106,7 +109,7 @@ public class PasswordEncoder {
     // PBKDF2: implemented using some CPU-intensive algorithms
     // And we can configurable input value to increase strength of password ( Ex: change iteration value )
     // ==> Recommended
-    public static String hashPBKDF2(String password){
+    public  String hashPBKDF2(String password){
         String generatePassword = null;
         try{
             // determines how slow the hash function will be
@@ -133,7 +136,7 @@ public class PasswordEncoder {
 
 
     // convert byte[] to hex
-    public static String toHex(byte[] bytes){
+    public  String toHex(byte[] bytes){
         BigInteger bi = new BigInteger(1, bytes);
         String hex = bi.toString(16);
 
@@ -146,7 +149,7 @@ public class PasswordEncoder {
     }
 
     // Verify Password
-    public static boolean validatePassPBKDF2(String originalPassword, String storedPassword)
+    public  boolean validatePassPBKDF2(String originalPassword, String storedPassword)
             throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         String[] parts = storedPassword.split(":");
@@ -172,7 +175,7 @@ public class PasswordEncoder {
         return diff == 0;
     }
 
-    public static byte[] fromHex(String hex){
+    public  byte[] fromHex(String hex){
         // check from toHex() method
         byte[] bytes = new byte[hex.length() / 2];
         for (int i = 0; i < bytes.length; i++){
@@ -185,7 +188,7 @@ public class PasswordEncoder {
     // set salt for hashing
     // this is a random sequence that is generated for each new hash
     // append salt into hash help for stronger hash password
-    public static byte[] getSalt(int valueSalt)
+    public  byte[] getSalt(int valueSalt)
             throws NoSuchProviderException, NoSuchAlgorithmException {
         // use SecureRandom ( randomness ) we increase the hash's entropy
         SecureRandom random = SecureRandom.getInstance(

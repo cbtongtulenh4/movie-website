@@ -1,12 +1,13 @@
 package com.website.movie.web.controller.web;
 
-import com.website.movie.events.OnRegistrationCompleteEvent;
+import com.website.movie.events.OnVerificationTokenCompleteEvent;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
+import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,6 @@ public class RegistrationController {
      */
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private MessageSource message;
 
     @Autowired
     private IUserService userService;
@@ -49,7 +48,10 @@ public class RegistrationController {
     @Autowired
     private MessageSource messages;
 
-
+    @RequestMapping(value = "/badUser")
+    public String getBadUser(){
+        return "badUser";
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registrationUserAccount(
@@ -67,17 +69,18 @@ public class RegistrationController {
 
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
-            final String appUrl = "http://" + request.getServerName() +
-                    ":" + request.getServerPort() + request.getContextPath();
+            final String appUrl = getAppUrl(request);
             final Locale locale = request.getLocale();
-
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered, locale, appUrl));
+            final MailDto mailDto = new MailDto("registrationConfirm", locale);
+            mailDto.constructRegistrationMail();
+            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
         }catch (final UserAlreadyExistException uaeEx){
             ModelAndView mav = new ModelAndView("web/login", "user", userDto);
             String message = messages.getMessage("message.regError", null, request.getLocale());
             mav.addObject("message",message);
         }catch (final Exception ex){
-            LOGGER.warn("Unable to register user", ex);
+          //  LOGGER.warn("Unable to register user", ex);
+            ex.printStackTrace();
             return new ModelAndView("web/emailError", "user", userDto);
         }
         return new ModelAndView("web/successRegister", "user", userDto);
@@ -118,6 +121,9 @@ public class RegistrationController {
         return "redirect:/login?lang=" + locale.getLanguage();
     }
 
+//    @RequestMapping(value = "/resetPassword", method = RequestMethod.GET)
+//    public
+
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String checkTest(
             @ModelAttribute("user") @Valid final UserDto userDto,
@@ -130,6 +136,14 @@ public class RegistrationController {
         }
         return "web/emailError";
 
+    }
+
+    // =========  NON-API   ==========
+
+
+    private String getAppUrl(HttpServletRequest request){
+        return "http://" + request.getServerName() +
+                ":" + request.getServerPort() + request.getContextPath();
     }
 
 

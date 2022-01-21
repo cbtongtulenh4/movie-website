@@ -1,9 +1,11 @@
 package com.website.movie.config;
 
-import com.website.movie.events.listener.RegistrationListener;
+import com.website.movie.events.custom.EventListener;
+import com.website.movie.events.custom.EventMultiCaster;
+import com.website.movie.events.custom.SimpleEventMultiCaster;
+import com.website.movie.events.listener.VerificationTokenListener;
 import com.website.movie.utils.EmailUtil;
-import com.website.movie.validation.constraint.EmailValidator;
-import com.website.movie.validation.constraint.PasswordMatchesValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+
+import java.util.*;
 
 @Configuration
 @EnableWebMvc
@@ -102,11 +106,11 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return EmailUtil.constructMailSender();
     }
 
-    @Bean
-    // Create this bean in container, to ApplicationEventPublisher call
-    public RegistrationListener registrationListener(){
-        return new RegistrationListener();
-    }
+//    @Bean
+//    // Create this bean in container, to ApplicationEventPublisher call
+//    public VerificationTokenListener registrationListener(){
+//        return new VerificationTokenListener();
+//    }
 
 
     @Bean
@@ -115,6 +119,17 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         source.setBasenames("message_en");
         source.setUseCodeAsDefaultMessage(true);
         return source;
+    }
+
+
+    @Bean
+    @Autowired(required = false)
+    public EventMultiCaster eventMultiCaster(List<EventListener> listeners){
+        EventMultiCaster eventPublisher = new SimpleEventMultiCaster();
+        if(listeners != null){
+            listeners.forEach(eventPublisher::addEventListener);
+        }
+        return eventPublisher;
     }
 
 

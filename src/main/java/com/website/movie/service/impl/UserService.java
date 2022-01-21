@@ -1,6 +1,7 @@
 package com.website.movie.service.impl;
 
 
+import com.website.movie.encoder.PasswordEncoder;
 import com.website.movie.helper.converter.UserConvert;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.RoleEntity;
@@ -12,6 +13,8 @@ import com.website.movie.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.net.URLEncoder;
 
 @Service
 @Transactional
@@ -30,6 +33,9 @@ public class UserService implements IUserService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public UserEntity registerNewUserAccount(UserDto accountDto) {
         if(emailExists(accountDto.getEmail())){
@@ -37,7 +43,7 @@ public class UserService implements IUserService {
                         + accountDto.getEmail()
             );
         }
-
+//        accountDto.setPassword(passwordEncoder.hashPBKDF2(accountDto.getPassword()));
         UserEntity user = UserConvert.toEntity(accountDto);
         RoleEntity role = roleRepository.findByName("user");
         user.getRoles().add(role);

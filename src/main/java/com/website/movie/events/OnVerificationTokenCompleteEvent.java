@@ -1,11 +1,12 @@
 package com.website.movie.events;
 
 import com.website.movie.persistence.entity.UserEntity;
+import com.website.movie.web.dto.MailDto;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.Locale;
 
-public class OnRegistrationCompleteEvent extends ApplicationEvent {
+public class OnVerificationTokenCompleteEvent extends ApplicationEvent {
     /**
      * @Project: MovieWebsite
      * @Author: Fu.Minh_Phuc on 17/01/2022
@@ -16,27 +17,28 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
 
     // url of Application
     private String appUrl;
-    // get locale in request message (from client), to display form language friendly of your customers
-    private Locale locale;
+    // action
+    private MailDto mailDto;
+
     private UserEntity user;
 
-    public OnRegistrationCompleteEvent(final UserEntity user, Locale locale, String appUrl) {
+    public OnVerificationTokenCompleteEvent(final UserEntity user, String appUrl, MailDto mailDto) {
         super(user);
 
         this.user = user;
-        this.locale = locale;
         this.appUrl = appUrl;
+        this.mailDto = mailDto;
     }
 
     public String getAppUrl() {
         return appUrl;
     }
 
-    public Locale getLocale() {
-        return locale;
-    }
-
     public UserEntity getUser() {
         return user;
+    }
+
+    public MailDto getMailDto() {
+        return mailDto;
     }
 }

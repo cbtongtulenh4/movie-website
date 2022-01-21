@@ -52,15 +52,15 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler{
     }
 
 
-    @ResponseStatus(BAD_REQUEST)
-    @ResponseBody
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        BindingResult result = ex.getBindingResult();
-        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
-        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
-        return errorHandler.processFieldErrors(error, fieldErrors);
-    }
+//    @ResponseStatus(BAD_REQUEST)
+//    @ResponseBody
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+//        BindingResult result = ex.getBindingResult();
+//        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
+//        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
+//        return errorHandler.processFieldErrors(error, fieldErrors);
+//    }
 
 
 }

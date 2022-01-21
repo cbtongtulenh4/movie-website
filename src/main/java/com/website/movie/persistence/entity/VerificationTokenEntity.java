@@ -1,5 +1,7 @@
 package com.website.movie.persistence.entity;
 
+import com.website.movie.utils.EmailUtil;
+
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +16,7 @@ public class VerificationTokenEntity {
      * @ModifiedBy:
      */
 
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION = Integer.parseInt(EmailUtil.EXPIRATION);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
