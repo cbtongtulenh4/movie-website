@@ -15,8 +15,10 @@ public interface IUserService {
 
     UserEntity saveRegisteredUser(final UserEntity user);
 
-    public UserEntity save(UserEntity userEntity);
+    UserEntity save(UserEntity userEntity);
 
     UserEntity findByEmail(String email);
+
+    UserEntity changeUserPassword(UserEntity user, String newPassword);
 
 }

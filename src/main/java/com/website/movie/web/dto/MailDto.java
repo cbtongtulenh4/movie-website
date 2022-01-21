@@ -46,9 +46,11 @@ public class MailDto {
         this.message = "You registered successfully";
     }
 
-    public void constructResetPasswordMail(){
-        this.subject = messages.getMessage("email.subject.resetPassword", null, locale);
-        this.message = messages.getMessage("email.message.resetPassword", null, locale);
+    public void constructResetPasswordMail(String newPassword){
+//        this.subject = messages.getMessage("email.subject.resetPassword", null, locale);
+//        this.message = messages.getMessage("email.message.resetPassword", null, locale);
+        this.subject = "ResetPassword Confirm";
+        this.message = "You reset password successfully - new your password: " + newPassword;
     }
 
     public void constructChangePasswordMail(){

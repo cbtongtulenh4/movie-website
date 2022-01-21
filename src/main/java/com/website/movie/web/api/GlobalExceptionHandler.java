@@ -4,12 +4,15 @@ package com.website.movie.web.api;
 import com.website.movie.constant.ErrorConstants;
 import com.website.movie.helper.error.CommonErrorHandler;
 import com.website.movie.helper.error.InvalidDataException;
+import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.web.dto.ErrorDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -26,7 +30,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler{
+public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     /**
      * @Project: MovieWebsite
      * @Author: Fu.Minh_Phuc on 19/01/2022
@@ -38,6 +42,8 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler{
 
     @Autowired
     private CommonErrorHandler errorHandler;
+    @Autowired
+    private MessageSource messages;
 
 
     @ResponseStatus(BAD_REQUEST)
@@ -52,15 +58,36 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler{
     }
 
 
-//    @ResponseStatus(BAD_REQUEST)
-//    @ResponseBody
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-//        BindingResult result = ex.getBindingResult();
-//        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
-//        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
-//        return errorHandler.processFieldErrors(error, fieldErrors);
-//    }
+    @ResponseStatus(BAD_REQUEST)
+    @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        BindingResult result = ex.getBindingResult();
+        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
+        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
+        return errorHandler.processFieldErrors(error, fieldErrors);
+    }
+
+    @ExceptionHandler({MailAuthenticationException.class})
+    @ResponseBody
+    public ErrorDto handleMail(MailAuthenticationException ex, WebRequest request){
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+        ErrorDto errorDto = new ErrorDto(
+                BAD_REQUEST.value(),
+                messages.getMessage("message.email.config.error", null, "Mail Error", request.getLocale())
+        );
+        return errorDto;
+    }
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<?> handleInternal(RuntimeException ex, WebRequest request){
+        LOGGER.error("500 Status error", ex);
+        ErrorDto errorDto = new ErrorDto(
+                BAD_REQUEST.value(),
+                messages.getMessage("message.error", null, "Internal Error", request.getLocale())
+        );
+        return errorHandler.fieldErrorResponse(errorDto);
+    }
 
 
 }

@@ -11,4 +11,5 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
      * @ModifiedBy:
      */
     VerificationTokenEntity findByToken(String token);
+
 }

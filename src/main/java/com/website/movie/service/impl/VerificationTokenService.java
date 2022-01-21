@@ -8,6 +8,8 @@ import com.website.movie.service.IVerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+
 @Service
 public class VerificationTokenService implements IVerificationTokenService {
     /**
@@ -33,7 +35,35 @@ public class VerificationTokenService implements IVerificationTokenService {
 
     @Override
     public void createVerificationTokenForUser(final UserEntity user,final String token) {
+//        if(isExistToken(token)) vTokenRepository.deleteByToken(token);
+        VerificationTokenEntity vTokenEntity = vTokenRepository.findByToken(token);
+        if (vTokenEntity != null) vTokenRepository.delete(vTokenEntity);
         final VerificationTokenEntity vToken = new VerificationTokenEntity(token, user);
         vTokenRepository.save(vToken);
+    }
+
+    @Override
+    public String validateVerificationToken(VerificationTokenEntity vTokenEntity) {
+        return !isFoundToken(vTokenEntity) ? "invalidToken"
+                : isTokenExpired(vTokenEntity) ? "expired"
+                : null;
+    }
+
+    @Override
+    public VerificationTokenEntity findByToken(String token) {
+        return vTokenRepository.findByToken(token);
+    }
+
+    private boolean isFoundToken(VerificationTokenEntity vTokenEntity){
+        return (vTokenEntity != null) ? true : false;
+    }
+
+    private boolean isTokenExpired(VerificationTokenEntity vTokenEntity){
+        Calendar cal = Calendar.getInstance();
+        return vTokenEntity.getExpiryDate().before(cal.getTime());
+    }
+
+    private boolean isExistToken(String token){
+        return (vTokenRepository.findByToken(token) != null) ? true : false;
     }
 }

@@ -70,4 +70,10 @@ public class UserService implements IUserService {
         return userRepository.findOneByEmail(email);
     }
 
+    @Override
+    public UserEntity changeUserPassword(UserEntity user, String newPassword) {
+        user.setPassword(passwordEncoder.hashPBKDF2(newPassword));
+        return userRepository.save(user);
+    }
+
 }

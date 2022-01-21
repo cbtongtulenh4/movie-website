@@ -18,5 +18,7 @@ public interface IVerificationTokenService {
 
     void createVerificationTokenForUser(final UserEntity user,final String token);
 
+    String validateVerificationToken(VerificationTokenEntity vTokenEntity);
 
+    VerificationTokenEntity findByToken(String token);
 }
