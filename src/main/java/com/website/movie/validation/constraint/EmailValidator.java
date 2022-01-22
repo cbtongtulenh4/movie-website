@@ -1,12 +1,11 @@
 package com.website.movie.validation.constraint;
 
 import com.website.movie.utils.EmailUtil;
+import com.website.movie.utils.ValidationUtil;
 import com.website.movie.validation.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 // This is The Custom EmailValidator
 
@@ -18,8 +17,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
      * @ModifiedBy:
      */
 
-    private Pattern pattern;
-    private Matcher matcher;
+    private static final String REGEX_EMAIL = EmailUtil.REGEX_EMAIL_5;
 
     @Override
     public void initialize(ValidEmail constraintAnnotation) {
@@ -28,13 +26,11 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext constraintValidatorContext) {
-        return validateEmail(email);
-    }
+        //Way 1: use matches() method of String
+        //email.matches(regex);
 
-    private boolean validateEmail(final String email){
-        pattern = Pattern.compile(EmailUtil.REGEX_EMAIL_5);
-        matcher = pattern.matcher(email);
-        return matcher.matches();
+        //Way 2: use Pattern -> Matcher
+        return ValidationUtil.validateExecute(email, REGEX_EMAIL);
     }
 
 }

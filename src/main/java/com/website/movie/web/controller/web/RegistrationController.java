@@ -36,6 +36,7 @@ public class RegistrationController {
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
+
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
 
@@ -187,6 +188,37 @@ public class RegistrationController {
         return "redirect:/login?lang=" + request.getLocale().getLanguage();
     }
 
+    @RequestMapping(value = "/resendRegistrationToken", method = RequestMethod.POST)
+    public String resendRegistrationToken(
+        @RequestParam(value = "token") final String expiredToken,
+        final Model model,
+        final HttpServletRequest request)
+    {
+        VerificationTokenEntity vTokenEntity = verificationTokenService.findByToken(expiredToken);
+        UserEntity user = vTokenEntity.getUser();
+        final Locale locale = request.getLocale();
+        try {
+            MailDto mailDto = new MailDto( "registrationConfirm?", locale);
+            mailDto.constructResendMail();
+            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(user, getAppUrl(request), mailDto));
+        }catch (final MailAuthenticationException ex){
+            LOGGER.debug("MailAuthenticationException", ex);
+            model.addAttribute(
+                    "message",
+                    messages.getMessage("message.emailError", null, "Can't Send Email", locale)
+            );
+            return "redirect:/login?lang=" + locale.getLanguage();
+        }catch (final Exception ex){
+            LOGGER.debug(ex.getLocalizedMessage(), ex);
+            model.addAttribute("message", ex.getLocalizedMessage());
+            return "redirect:/login?lang=" + locale.getLanguage();
+        }
+        model.addAttribute(
+                "message",
+                messages.getMessage("message.resendToken", null, "We will send an email with a new registration token to your email account", locale)
+        );
+        return "redirect:/login?lang=" + locale.getLanguage();
+    }
 
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)

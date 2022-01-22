@@ -19,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 // indicate (target | location) use of annotation
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 // indicate this annotation (run | retention) at runtime
-// This annotation describes if the cust    om annotation should be available in the byte code.
+// This annotation describes if the custom annotation should be available in the byte code.
 // If so, Java can read it with the reflection mechanism.
 @Retention(RUNTIME)
 // indicate this annotation (constraint) only use validate by EmailValidator
