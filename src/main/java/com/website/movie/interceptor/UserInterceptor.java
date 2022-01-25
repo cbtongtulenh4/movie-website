@@ -3,6 +3,7 @@ package com.website.movie.interceptor;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.security.custom.ExpressionUrlAuthorization;
 import com.website.movie.security.custom.RequestMatcherRegistry;
+import com.website.movie.utils.InterceptorUtil;
 import com.website.movie.utils.MessageUtil;
 import com.website.movie.utils.SessionUtil;
 import org.slf4j.Logger;
@@ -37,8 +38,8 @@ public class UserInterceptor implements HandlerInterceptor {
         final String targetUrl = getTargetUrl(request);
         if (!targetUrl.contains("login")){
             final RequestMatcherRegistry auth = getAuthorizationRegistry();
-            final MyUserPrincipal user = getUserLogin(request);
-            if(isUserLogged(request)){
+            final MyUserPrincipal user = InterceptorUtil.getUserLogin(request);
+            if(InterceptorUtil.isUserLogged(request)){
                 return checkPermission(auth, user, targetUrl, "NotPermission", request, response);
             }else{
                 return checkPermission(auth, user, targetUrl, "NotLogin", request, response);
@@ -50,15 +51,6 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object object, ModelAndView model) throws Exception {
 
-    }
-
-    private boolean isUserLogged(HttpServletRequest request){
-        try{
-            return (SessionUtil.getInstance().getValue(request, "USERMODEL") != null)
-                    ? true : false;
-        }catch (Exception ex){
-            return false;
-        }
     }
 
     private String getTargetUrl(HttpServletRequest request){
@@ -80,10 +72,6 @@ public class UserInterceptor implements HandlerInterceptor {
         RequestMatcherRegistry registry = new RequestMatcherRegistry();
         registry.antMatchers("/admin").access("ADMIN");
         return registry;
-    }
-
-    private MyUserPrincipal getUserLogin(HttpServletRequest request){
-        return (MyUserPrincipal) request.getSession().getAttribute("USERMODEL");
     }
 
     private boolean checkPermission(
