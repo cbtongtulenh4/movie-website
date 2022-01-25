@@ -1,6 +1,7 @@
 package com.website.movie.utils;
 
 import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
 
 public abstract class AssertUtil {
     /**
@@ -16,5 +17,17 @@ public abstract class AssertUtil {
             throw new IllegalArgumentException(message);
         }
     }
+
+    public static void hasText(@Nullable final String text, final String message){
+        if (!StringUtils.hasText(text)){
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+//    public static Object assertThrows(final Class<?> aClass, ){
+//        try {
+//
+//        }catch ()
+//    }
 
 }

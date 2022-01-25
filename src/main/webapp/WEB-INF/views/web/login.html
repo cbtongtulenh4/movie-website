@@ -15,7 +15,7 @@
 <div class="container">
     <div class="forms-container">
         <div class="signin-signup">
-            <form th:action="@{/login}" class="sign-in-form" method="post">
+            <form th:action="@{/handleLogin}" class="sign-in-form" method="post" th:object="${userLogin}">
                 <h2 class="title">Sign in</h2>
                 <div class="alert alert-danger" th:if="${param.incorrectAccount != null}">
                     <strong>Incorrect Username or Password</strong>
@@ -29,13 +29,16 @@
                 <div class="alert alert-danger" th:if="${param.status == 0}">
                     <strong>Registration Failure</strong>
                 </div>
+                <div class="alert alert-danger" th:unless="${model == null}">
+                    <strong th:text="${model.message}">Error</strong>
+                </div>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" name="username" placeholder="Username" />
+                    <input type="text" th:name="email" placeholder="UserName" />
                 </div>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" name="password" placeholder="Password" />
+                    <input type="password" th:name="password" placeholder="Password" />
                 </div>
                 <input type="submit" value="Login" class="btn solid" />
                 <p class="social-text">Or Sign in with social platforms</p>

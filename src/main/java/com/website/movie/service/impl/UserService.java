@@ -1,20 +1,23 @@
 package com.website.movie.service.impl;
 
 
+import com.website.movie.constant.SystemConstants;
 import com.website.movie.encoder.PasswordEncoder;
 import com.website.movie.helper.converter.UserConvert;
 import com.website.movie.helper.error.UserAlreadyExistException;
+import com.website.movie.helper.error.UserNotFoundException;
 import com.website.movie.persistence.entity.RoleEntity;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.repository.RoleRepository;
 import com.website.movie.persistence.repository.UserRepository;
+import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IUserService;
 import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserLoginDto;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.net.URLEncoder;
 
 @Service
 @Transactional
@@ -43,7 +46,7 @@ public class UserService implements IUserService {
                         + accountDto.getEmail()
             );
         }
-//        accountDto.setPassword(passwordEncoder.hashPBKDF2(accountDto.getPassword()));
+        accountDto.setPassword(passwordEncoder.hashPBKDF2(accountDto.getPassword()));
         UserEntity user = UserConvert.toEntity(accountDto);
         RoleEntity role = roleRepository.findByName("user");
         user.getRoles().add(role);
@@ -75,5 +78,40 @@ public class UserService implements IUserService {
         user.setPassword(passwordEncoder.hashPBKDF2(newPassword));
         return userRepository.save(user);
     }
+
+    @SneakyThrows
+    @Override
+    public MyUserPrincipal loadUserByEmail(UserLoginDto userLogin) {
+        UserEntity user = userRepository.findOneByEmail(userLogin.getEmail());
+        if (user == null){
+            new UserNotFoundException("No user found with email:" + userLogin.getEmail());
+        }
+        MyUserPrincipal myUser = null;
+        if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
+             myUser = new MyUserPrincipal(user);
+        }
+        return myUser;
+    }
+
+    @Override
+    public String checkLoadUser(MyUserPrincipal myUser) {
+        if(myUser == null){
+            return "loginFailure";
+        }
+        if (!myUser.isAccountNonExpired()){
+            return "AccountExpired";
+        }
+        if (!myUser.isAccountNonLocked()){
+            return "AccountLocked";
+        }
+        if (!myUser.isCredentialsNonExpired()){
+            return "CredentialsExpired";
+        }
+        if (!myUser.isEnable()){
+            return "NotEnable";
+        }
+        return SystemConstants.SUCCESS;
+    }
+
 
 }

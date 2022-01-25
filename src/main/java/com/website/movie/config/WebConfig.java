@@ -3,7 +3,8 @@ package com.website.movie.config;
 import com.website.movie.events.custom.EventListener;
 import com.website.movie.events.custom.EventMultiCaster;
 import com.website.movie.events.custom.SimpleEventMultiCaster;
-import com.website.movie.events.listener.VerificationTokenListener;
+import com.website.movie.interceptor.UserInterceptor;
+import com.website.movie.security.custom.RequestMatcherRegistry;
 import com.website.movie.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -15,10 +16,8 @@ import org.springframework.context.annotation.Description;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -26,7 +25,8 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import java.util.*;
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Configuration
 @EnableWebMvc
@@ -44,9 +44,18 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     ApplicationContext applicationContext;
 
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    // hiding ModelAttribute variables from appearing in URL
+    @PostConstruct
+    public void init() {
+        requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
     }
 
     @Override
@@ -130,6 +139,19 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
             listeners.forEach(eventPublisher::addEventListener);
         }
         return eventPublisher;
+    }
+
+    @Override
+    public void addInterceptors(final InterceptorRegistry registry){
+        registry.addInterceptor(new UserInterceptor());
+    }
+
+    @Bean
+    @Autowired(required = false)
+    public RequestMatcherRegistry authorizationRegistry(){
+        RequestMatcherRegistry registry = new RequestMatcherRegistry();
+        registry.antMatchers("/admin").access("ADMIN");
+        return registry;
     }
 
 
