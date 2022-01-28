@@ -12,4 +12,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @ModifiedBy:
      */
     UserEntity findOneByEmail(String email);
+    UserEntity findByEmailAndPassword(String email, String password);
 }

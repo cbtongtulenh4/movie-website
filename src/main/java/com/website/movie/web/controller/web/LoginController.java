@@ -13,10 +13,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -40,15 +39,22 @@ public class LoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLogin(){
-        return "web/login";
+    public ModelAndView getLogin(
+//            @RequestParam("errorMsg", required = false) final String errorMsg,
+//            @RequestParam("message", required = false) final String message)
+            final Model model)
+    {
+        final ModelAndView mav = new ModelAndView("web/login");
+        mav.addObject("errorMsg", model.asMap().get("errorMsg"));
+        mav.addObject("message", model.asMap().get("message"));
+        return mav;
     }
 
     @PostMapping(value = "/handleLogin")
     public String handleLogin(
             @ModelAttribute("userLogin") @Valid final UserLoginDto userLogin,
             final BindingResult result,
-            final Model model,
+            final RedirectAttributes redirectAttributes,
             final HttpServletRequest request)
     {
         LOGGER.debug("Login account with information: {}", userLogin);
@@ -61,18 +67,18 @@ public class LoginController {
         }catch (Exception ex){
             LOGGER.warn(ex.getLocalizedMessage(), ex);
             final String message = messages.getMessage("message.user.loginError", null, request.getLocale());
-            model.addAttribute("message", message);
+            redirectAttributes.addFlashAttribute("errorMsg", message);
             return "redirect:/login?lang=" + request.getLocale().getLanguage();
         }
         final String loginStatus = userService.checkLoadUser(myUser);
         if (loginStatus != SystemConstants.SUCCESS){
             LOGGER.warn("Account Not Enable");
             final String message = messages.getMessage("message.user." + loginStatus, null, request.getLocale());
-            model.addAttribute("message", message);
+            redirectAttributes.addFlashAttribute("errorMsg", message);
             return "redirect:/login?lang=" + request.getLocale().getLanguage();
         }
         final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
-        model.addAttribute("message", message);
+        redirectAttributes.addFlashAttribute("message", message);
         request.getSession().setAttribute("USERMODEL", myUser);
         return AuthorizationUserLogin(myUser.getAuthority(), request);
     }

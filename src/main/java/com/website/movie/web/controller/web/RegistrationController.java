@@ -8,7 +8,6 @@ import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
-import com.website.movie.service.impl.UserService;
 import com.website.movie.utils.PasswordUtil;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.UserDto;
@@ -20,7 +19,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +83,7 @@ public class RegistrationController {
         }catch (final UserAlreadyExistException uaeEx){
             ModelAndView mav = new ModelAndView("web/login", "user", userDto);
             String message = messages.getMessage("message.regError", null, request.getLocale());
-            mav.addObject("message",message);
+            mav.addObject("errorMsg",message);
         }catch (final Exception ex){
           //  LOGGER.warn("Unable to register user", ex);
             ex.printStackTrace();
@@ -102,14 +104,14 @@ public class RegistrationController {
         final VerificationTokenEntity verificationToken = verificationTokenService.getVerificationToken(token);
         if(verificationToken == null){
             final String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("message", message);
+            model.addAttribute("errorMsg", message);
             return "redirect:/badUser?lang=" + locale.getLanguage();
         }
 
         final Calendar cal = Calendar.getInstance();
         if(verificationToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0){
             String message = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("message", message);
+            model.addAttribute("errorMsg", message);
             model.addAttribute("expired", true);
             model.addAttribute("token", token);
             return "redirect:/badUser?lang=" + locale.getLanguage();
@@ -135,7 +137,7 @@ public class RegistrationController {
         final Locale locale = request.getLocale();
         if(user == null){
             model.addAttribute(
-                    "message",
+                    "errorMsg",
                     messages.getMessage("message.userNotFound", null, locale)
             );
             return "redirect:/login?lang=" + locale.getLanguage();
@@ -149,13 +151,13 @@ public class RegistrationController {
         }catch (final MailAuthenticationException ex){
             LOGGER.debug("MailAuthenticationException", ex);
             model.addAttribute(
-                    "message",
+                    "errorMsg",
                     messages.getMessage("message.emailError", null, "Can't Send Email", locale)
             );
             return "redirect:/login?lang=" + locale.getLanguage();
         }catch (final Exception ex){
             LOGGER.debug(ex.getLocalizedMessage(), ex);
-            model.addAttribute("message", ex.getLocalizedMessage());
+            model.addAttribute("errorMsg", ex.getLocalizedMessage());
             return "redirect:/login?lang=" + locale.getLanguage();
         }
         model.addAttribute(
@@ -176,7 +178,7 @@ public class RegistrationController {
         String statusToken = verificationTokenService.validateVerificationToken(vTokenEntity);
         if(statusToken != null){
             final String message = messages.getMessage("message.resetPasswordEmail." + statusToken, null, request.getLocale());
-            model.addAttribute("message", message);
+            model.addAttribute("errorMsg", message);
             return "redirect:/login?lang=" + request.getLocale().getLanguage();
         }
         UserEntity user = vTokenEntity.getUser();
@@ -204,13 +206,13 @@ public class RegistrationController {
         }catch (final MailAuthenticationException ex){
             LOGGER.debug("MailAuthenticationException", ex);
             model.addAttribute(
-                    "message",
+                    "errorMsg",
                     messages.getMessage("message.emailError", null, "Can't Send Email", locale)
             );
             return "redirect:/login?lang=" + locale.getLanguage();
         }catch (final Exception ex){
             LOGGER.debug(ex.getLocalizedMessage(), ex);
-            model.addAttribute("message", ex.getLocalizedMessage());
+            model.addAttribute("errorMsg", ex.getLocalizedMessage());
             return "redirect:/login?lang=" + locale.getLanguage();
         }
         model.addAttribute(

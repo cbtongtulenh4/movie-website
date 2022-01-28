@@ -1,5 +1,8 @@
 package com.website.movie.security.custom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UserBuilder{
     /**
      * @Project: MovieWebsite
@@ -7,6 +10,13 @@ public class UserBuilder{
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
+
+//    private static final Logger LOGGER = LoggerFactory.getLogger(UserBuilder.class);
+//
+//    public static void main(String[] args) {
+//        LOGGER.info("sdfsaffda");
+//        LOGGER.warn("sfsfasf");
+//    }
 
 
 }

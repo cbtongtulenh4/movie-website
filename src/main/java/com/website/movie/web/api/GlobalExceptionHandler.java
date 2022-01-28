@@ -21,7 +21,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -79,6 +82,17 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
         return errorDto;
     }
 
+    @ExceptionHandler({NumberFormatException.class})
+    @ResponseBody
+    public ErrorDto handleNumberFormatException(NumberFormatException ex, WebRequest request){
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+        ErrorDto errorDto = new ErrorDto(
+                BAD_REQUEST.value(),
+                messages.getMessage("message.error.numberFormat", null, "Number Format Error", request.getLocale())
+        );
+        return errorDto;
+    }
+
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<?> handleInternal(RuntimeException ex, WebRequest request){
         LOGGER.error("500 Status error", ex);
@@ -87,6 +101,18 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
                 messages.getMessage("message.error", null, "Internal Error", request.getLocale())
         );
         return errorHandler.fieldErrorResponse(errorDto);
+    }
+
+    @ExceptionHandler({
+            NoHandlerFoundException.class,
+            HttpServerErrorException.InternalServerError.class,
+            NullPointerException.class,
+            ClassNotFoundException.class,
+            HttpClientErrorException.Unauthorized.class,
+            HttpClientErrorException.BadRequest.class
+    })
+    public String errorHandle(){
+        return "redirect:/error";
     }
 
 
