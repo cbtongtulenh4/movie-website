@@ -61,6 +61,31 @@ public class RoleEntity extends BaseEntity{
     }
 
     @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (obj.getClass() != getClass()){
+            return false;
+        }
+        RoleEntity other = (RoleEntity) obj;
+        if (getName() == null){
+            if (other.getName() != null){
+                return false;
+            }
+        }
+        if (getCode() == null){
+            if (other.getCode() != null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public String toString(){
         return "Role[ \n" +
 //                "Id: " + id + "\n" +

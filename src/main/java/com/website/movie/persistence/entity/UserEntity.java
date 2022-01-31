@@ -60,6 +60,47 @@ public class UserEntity extends BaseEntity {
 //    public String toString(){
 //        return Objects.toString(this);
 //    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+        if (obj == null){
+            return false;
+        }
+        if (obj.getClass() != getClass()){
+            return false;
+        }
+        UserEntity other = (UserEntity) obj;
+        if(getRoles() == null){
+            if (other.getRoles() != null){
+                return false;
+            }
+        }
+        if(getPassword() == null){
+            if (other.getPassword() != null){
+                return false;
+            }
+        }
+        if(getName() == null){
+            if (other.getName() != null){
+                return false;
+            }
+        }
+        if(getGender() == null){
+            if (other.getGender() != null){
+                return false;
+            }
+        }
+        if(getEmail() == null){
+            if (other.getEmail() != null){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString(){
         return "Role[ \n" +
