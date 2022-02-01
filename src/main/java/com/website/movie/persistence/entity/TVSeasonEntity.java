@@ -100,4 +100,7 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private List<MovieCrewEntity> crews;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "comment_id")
+    private List<CommentEntity> comments;
 }
