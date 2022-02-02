@@ -18,7 +18,9 @@ public class MovieCastEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    private String name;
+
     @ManyToMany(mappedBy = "casts")
-    List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

@@ -3,7 +3,9 @@ package com.website.movie.persistence.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.*;
 
 @Entity
 @Table(name = "subtitle")
@@ -18,5 +20,8 @@ public class SubtitleEntity extends BaseEntity{
 
     private String code;
     private String name;
+
+    @ManyToMany(mappedBy = "subtitles")
+    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

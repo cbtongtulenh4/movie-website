@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "movie_entity")
+@Table(name = "movie")
 public class MovieEntity extends BaseEntity{
     /**
      * @Project: MovieWebsite
@@ -19,7 +19,7 @@ public class MovieEntity extends BaseEntity{
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(
-            name = "tv_season_id",
+            name = "movie_id",
             foreignKey = @ForeignKey(name = "movie_tv_season")
     )
     private List<TVSeasonEntity> seasons;

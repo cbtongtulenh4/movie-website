@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.*;
 
 @Entity
-@Table(name = "movie_category")
+@Table(name = "category")
 @Data
 public class MovieCategoryEntity extends BaseEntity{
     /**

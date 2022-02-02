@@ -36,8 +36,8 @@ public class TVSeasonEntity extends BaseEntity{
     private MovieFormEntity movieForm;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "episode_id")
-    private List<TVEpisodeEntity> episodes;
+    @JoinColumn(name = "tv_season_id")
+    private List<TVEpisodeEntity> episodes = new ArrayList<>();
     @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "season_genre",
@@ -48,7 +48,7 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "genre_id")
             }
     )
-    private List<MovieGenresEntity> genres;
+    private List<MovieGenresEntity> genres = new ArrayList<>();
     @ManyToMany(targetEntity = CountryEntity.class, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tv_season_country",
@@ -59,13 +59,18 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "country_id")
             }
     )
-    private List<CountryEntity> countries;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "subtitle_id",
-            foreignKey = @ForeignKey(name = "FK_TV_SEASON_SUBTITLE")
+    private List<CountryEntity> countries = new ArrayList<>();
+    @ManyToMany(targetEntity = SubtitleEntity.class, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "tv_season_subtitle",
+            joinColumns = {
+                    @JoinColumn(name = "tv_season_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "subtitle_id")
+            }
     )
-    private List<SubtitleEntity> subtitles;
+    private List<SubtitleEntity> subtitles = new ArrayList<>();
     @ManyToMany(targetEntity = LanguageEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tv_season_language",
@@ -76,7 +81,7 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "language_id")
             }
     )
-    private List<LanguageEntity> languages;
+    private List<LanguageEntity> languages = new ArrayList<>();
     @ManyToMany(targetEntity = MovieCastEntity.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "tv_season_cast",
@@ -87,7 +92,7 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "cast_id")
             }
     )
-    private List<MovieCastEntity> casts;
+    private List<MovieCastEntity> casts = new ArrayList<>();
     @ManyToMany(targetEntity = MovieCrewEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tv_season_crew",
@@ -98,9 +103,9 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "crew_id")
             }
     )
-    private List<MovieCrewEntity> crews;
+    private List<MovieCrewEntity> crews = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "comment_id")
-    private List<CommentEntity> comments;
+    @JoinColumn(name = "tv_season_id")
+    private List<CommentEntity> comments = new ArrayList<>();
 }

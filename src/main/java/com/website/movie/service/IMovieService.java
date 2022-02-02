@@ -12,11 +12,11 @@ public interface IMovieService {
      * @ModifiedBy:
      */
 
-    MovieEntity getMovieById(Long Id);
+    MovieEntity getMovieById(Long id);
     List<MovieEntity> getMovies();
     MovieEntity updateMovie(MovieEntity movieEntity);
     MovieEntity createMovie(MovieEntity movieEntity);
-    MovieEntity deleteMovies(Long[] Id);
+    void deleteMovies(Long[] ids);
 
 
 }

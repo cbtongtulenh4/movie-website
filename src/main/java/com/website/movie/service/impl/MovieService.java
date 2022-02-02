@@ -1,10 +1,16 @@
 package com.website.movie.service.impl;
 
 import com.website.movie.persistence.entity.MovieEntity;
+import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class MovieService implements IMovieService {
     /**
      * @Project: MovieWebsite
@@ -13,29 +19,34 @@ public class MovieService implements IMovieService {
      * @ModifiedBy:
      */
 
+    @Autowired
+    private MovieRepository movieRepository;
+
     @Override
-    public MovieEntity getMovieById(Long Id) {
+    public MovieEntity getMovieById(Long id) {
         return null;
     }
 
     @Override
     public List<MovieEntity> getMovies() {
-        return null;
+        return movieRepository.findAll();
     }
 
     @Override
     public MovieEntity updateMovie(MovieEntity movieEntity) {
-        return null;
+        return movieRepository.save(movieEntity);
     }
 
     @Override
     public MovieEntity createMovie(MovieEntity movieEntity) {
-        return null;
+        return movieRepository.save(movieEntity);
     }
 
     @Override
-    public MovieEntity deleteMovies(Long[] Id) {
-        return null;
+    public void deleteMovies(Long[] ids) {
+        for (Long id : ids){
+            movieRepository.deleteById(id);
+        }
     }
 
 }

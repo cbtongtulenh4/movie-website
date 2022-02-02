@@ -19,6 +19,7 @@
         <spring.data-jpa>2.6.1</spring.data-jpa>
         <sql.version>8.0.13</sql.version>
         <jackson.verson>2.13.0</jackson.verson>
+        <modelmapper.version>3.0.0</modelmapper.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -153,6 +154,14 @@
             <version>${jackson.verson}</version>
         </dependency>
         <!--end json -->
+
+        <!-- Convert data dto -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
+        </dependency>
+
 
         <!-- log4j2 -->
         <dependency>

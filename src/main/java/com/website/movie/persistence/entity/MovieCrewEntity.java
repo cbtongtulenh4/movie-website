@@ -19,7 +19,9 @@ public class MovieCrewEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    private String name;
+
     @ManyToMany(mappedBy = "crews")
-    List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

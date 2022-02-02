@@ -1,9 +1,15 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.MovieCategoryEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class MovieDto {
     /**
      * @Project: MovieWebsite
@@ -15,6 +21,7 @@ public class MovieDto {
     private Long id;
     private String title;
     private String thumbnail;
+    private Float rate;
 
     private List<TVSeasonDto> seasons;
     private List<MovieCategoryEntity> categories;
