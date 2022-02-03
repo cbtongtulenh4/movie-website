@@ -19,7 +19,7 @@ public class CountryEntity extends BaseEntity{
      */
 
     private String name;
-    @ManyToMany(mappedBy = "countries")
-    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+//    @ManyToMany(mappedBy = "countries")
+//    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

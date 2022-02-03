@@ -21,7 +21,7 @@ public class SubtitleEntity extends BaseEntity{
     private String code;
     private String name;
 
-    @ManyToMany(mappedBy = "subtitles")
-    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+//    @ManyToMany(mappedBy = "subtitles")
+//    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

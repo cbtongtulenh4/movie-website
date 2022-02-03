@@ -1,9 +1,16 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TVSeasonDto {
     /**
      * @Project: MovieWebsite
@@ -26,16 +33,18 @@ public class TVSeasonDto {
     private Long views;
     private String summary;
     private Integer seasonNumber;
+    @NotNull
+    private Long movie_id;
 
     private MovieFormEntity movieForm;
 
     private List<TVEpisodeEntity> episodes;
-    private List<MovieGenresEntity> genres;
-    private List<CountryEntity> countries;
-    private List<SubtitleEntity> subtitles;
-    private List<LanguageEntity> languages;
-    private List<MovieCastEntity> casts;
-    private List<MovieCrewEntity> crews;
-    private List<CommentEntity> comments;
+//    private List<MovieGenresEntity> genres;
+//    private List<CountryEntity> countries;
+//    private List<SubtitleEntity> subtitles;
+//    private List<LanguageEntity> languages;
+//    private List<MovieCastEntity> casts;
+//    private List<MovieCrewEntity> crews;
+//    private List<CommentEntity> comments;
 
 }

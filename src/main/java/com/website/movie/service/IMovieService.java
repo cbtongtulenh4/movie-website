@@ -10,6 +10,7 @@ public interface IMovieService {
      * @Author: Fu.Minh_Phuc on 01/02/2022
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
+     * @return
      */
 
     MovieEntity getMovieById(Long id);

@@ -1,6 +1,8 @@
 package com.website.movie.persistence.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -10,6 +12,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "category")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class MovieCategoryEntity extends BaseEntity{
     /**

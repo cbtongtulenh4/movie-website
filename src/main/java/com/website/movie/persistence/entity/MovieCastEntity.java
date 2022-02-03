@@ -20,7 +20,7 @@ public class MovieCastEntity extends BaseEntity{
 
     private String name;
 
-    @ManyToMany(mappedBy = "casts")
-    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+//    @ManyToMany(mappedBy = "casts")
+//    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }

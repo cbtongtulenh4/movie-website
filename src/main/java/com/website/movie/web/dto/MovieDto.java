@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -19,11 +21,12 @@ public class MovieDto {
      */
 
     private Long id;
+    @NotNull
     private String title;
     private String thumbnail;
     private Float rate;
 
-    private List<TVSeasonDto> seasons;
-    private List<MovieCategoryEntity> categories;
+    private List<TVSeasonDto> seasons = new ArrayList<>();
+    private List<MovieCategoryEntity> categories = new ArrayList<>();
 
 }

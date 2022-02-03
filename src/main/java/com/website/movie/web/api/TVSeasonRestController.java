@@ -1,0 +1,56 @@
+package com.website.movie.web.api;
+
+import com.website.movie.helper.converter.Convert;
+import com.website.movie.helper.error.InvalidDataException;
+import com.website.movie.persistence.entity.MovieEntity;
+import com.website.movie.persistence.entity.TVSeasonEntity;
+import com.website.movie.service.IMovieService;
+import com.website.movie.service.ITvSeasonService;
+import com.website.movie.web.dto.TVSeasonDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+@RestController(value = "TvSeasonRestAPI")
+public class TVSeasonRestController {
+    /**
+     * @Project: MovieWebsite
+     * @Author: Fu.Minh_Phuc on 03/02/2022
+     * @Github: https://github.com/cbtongtulenh4
+     * @ModifiedBy:
+     */
+
+    @Autowired
+    private ITvSeasonService tvSeasonService;
+    @Autowired
+    private IMovieService movieService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TVSeasonRestController.class);
+
+    @PostMapping(value = "/api/movie/season")
+    public TVSeasonDto createSeasonMovie(
+            @RequestBody @Valid final TVSeasonDto seasonDto,
+            final BindingResult result)
+    {
+        LOGGER.info("Create a season movie with information: {}", seasonDto);
+        if (result.hasErrors()){
+            throw new InvalidDataException(result);
+        }
+        MovieEntity movieEntity = movieService.getMovieById(seasonDto.getMovie_id());
+          if (movieEntity == null){
+
+        }
+
+        TVSeasonEntity seasonEntity = Convert.convertModel(seasonDto, TVSeasonEntity.class);
+        seasonEntity.setMovie(movieEntity);
+        seasonEntity = tvSeasonService.createSeasonMovie(seasonEntity);
+        return Convert.convertModel(seasonEntity, TVSeasonDto.class);
+    }
+
+}

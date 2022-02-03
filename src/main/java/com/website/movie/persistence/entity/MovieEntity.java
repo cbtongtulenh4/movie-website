@@ -17,12 +17,14 @@ public class MovieEntity extends BaseEntity{
     private String thumbnail;
     private Float rate;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "movie_id",
-            foreignKey = @ForeignKey(name = "movie_tv_season")
-    )
-    private List<TVSeasonEntity> seasons;
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+////    @JoinColumn(
+////            name = "movie_id",
+////            foreignKey = @ForeignKey(name = "movie_tv_season")
+////    )
+//    private List<TVSeasonEntity> seasons = new ArrayList<>();
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
+    private List<TVSeasonEntity> seasons = new ArrayList<>();
     @ManyToMany(targetEntity = MovieCategoryEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_category",
@@ -33,7 +35,11 @@ public class MovieEntity extends BaseEntity{
                     @JoinColumn(name = "category_id")
             }
     )
-    private List<MovieCategoryEntity> categories;
+    private List<MovieCategoryEntity> categories = new ArrayList<>();
+
+    public MovieEntity(){
+        this.rate = 0F;
+    }
 
     public String getTitle() {
         return title;

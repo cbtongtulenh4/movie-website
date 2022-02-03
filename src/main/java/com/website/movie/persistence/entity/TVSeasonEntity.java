@@ -1,11 +1,16 @@
 package com.website.movie.persistence.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.persistence.*;
 
 import java.util.*;
 
 @Entity
 @Table(name = "Movie_Seasons")
+@AllArgsConstructor
+@Data
 public class TVSeasonEntity extends BaseEntity{
     /**
      * @Project: MovieWebsite
@@ -27,18 +32,24 @@ public class TVSeasonEntity extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String summary;
     private Integer seasonNumber;
-
+/*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "form_id",
             foreignKey = @ForeignKey(name = "FK_TV_SEASON_FORM")
     )
     private MovieFormEntity movieForm;
-
+*/
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tv_season_id")
     private List<TVEpisodeEntity> episodes = new ArrayList<>();
-    @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(
+            name = "movie_id",
+            foreignKey = @ForeignKey(name = "movie_tv_season")
+    )
+    private MovieEntity movie;
+ /*   @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "season_genre",
             joinColumns = {
@@ -108,4 +119,5 @@ public class TVSeasonEntity extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tv_season_id")
     private List<CommentEntity> comments = new ArrayList<>();
+ */
 }

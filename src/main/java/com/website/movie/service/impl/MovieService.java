@@ -24,7 +24,7 @@ public class MovieService implements IMovieService {
 
     @Override
     public MovieEntity getMovieById(Long id) {
-        return null;
+        return movieRepository.findById(id).get();
     }
 
     @Override

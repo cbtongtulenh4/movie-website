@@ -74,8 +74,8 @@ public class DataConfig {
                 environment.getProperty("hibernate.cache.use_second_level_cache"));
         hibernateProperties.setProperty("hibernate.cache.use_query_cache",
                 environment.getProperty("hibernate.cache.use_query_cache"));
-        hibernateProperties.setProperty("hibernate.enable_lazy_load_no_trains",
-                environment.getProperty("hibernate.enable_lazy_load_no_trains"));
+//        hibernateProperties.setProperty("hibernate.enable_lazy_load_no_trains",
+//                environment.getProperty("hibernate.enable_lazy_load_no_trains"));
         hibernateProperties.setProperty("hibernate.show_sql",
                 environment.getProperty("hibernate.show_sql"));
         // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");

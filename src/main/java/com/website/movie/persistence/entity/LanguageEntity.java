@@ -21,7 +21,7 @@ public class LanguageEntity extends BaseEntity{
     private String code;
     private String name;
 
-    @ManyToMany(mappedBy = "languages")
-    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+//    @ManyToMany(mappedBy = "languages")
+//    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }
