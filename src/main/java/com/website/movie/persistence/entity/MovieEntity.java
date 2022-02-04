@@ -1,10 +1,15 @@
 package com.website.movie.persistence.entity;
 
+import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "movie")
+@Data
 public class MovieEntity extends BaseEntity{
     /**
      * @Project: MovieWebsite
@@ -23,9 +28,11 @@ public class MovieEntity extends BaseEntity{
 ////            foreignKey = @ForeignKey(name = "movie_tv_season")
 ////    )
 //    private List<TVSeasonEntity> seasons = new ArrayList<>();
-    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
-    private List<TVSeasonEntity> seasons = new ArrayList<>();
-    @ManyToMany(targetEntity = MovieCategoryEntity.class, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH })
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Set<TVSeasonEntity> seasons = new HashSet<>();
+    @ManyToMany(targetEntity = MovieCategoryEntity.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "movie_category",
             joinColumns = {
@@ -35,7 +42,7 @@ public class MovieEntity extends BaseEntity{
                     @JoinColumn(name = "category_id")
             }
     )
-    private List<MovieCategoryEntity> categories = new ArrayList<>();
+    private Set<MovieCategoryEntity> categories = new HashSet<>();
 
     public MovieEntity(){
         this.rate = 0F;
@@ -65,12 +72,20 @@ public class MovieEntity extends BaseEntity{
         this.rate = rate;
     }
 
-    public List<TVSeasonEntity> getSeasons() {
+    public Set<TVSeasonEntity> getSeasons() {
         return seasons;
     }
 
-    public void setSeasons(List<TVSeasonEntity> seasons) {
+    public void setSeasons(Set<TVSeasonEntity> seasons) {
         this.seasons = seasons;
+    }
+
+    public Set<MovieCategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<MovieCategoryEntity> categories) {
+        this.categories = categories;
     }
 
     @Override

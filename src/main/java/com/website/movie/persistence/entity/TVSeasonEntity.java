@@ -2,6 +2,7 @@ package com.website.movie.persistence.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "Movie_Seasons")
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class TVSeasonEntity extends BaseEntity{
@@ -42,7 +44,7 @@ public class TVSeasonEntity extends BaseEntity{
 */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tv_season_id")
-    private List<TVEpisodeEntity> episodes = new ArrayList<>();
+    private Set<TVEpisodeEntity> episodes = new HashSet<>();
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(
             name = "movie_id",

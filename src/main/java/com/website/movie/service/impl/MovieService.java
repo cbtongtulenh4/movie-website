@@ -5,12 +5,13 @@ import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class MovieService implements IMovieService {
     /**
      * @Project: MovieWebsite
@@ -24,7 +25,7 @@ public class MovieService implements IMovieService {
 
     @Override
     public MovieEntity getMovieById(Long id) {
-        return movieRepository.findById(id).get();
+        return movieRepository.findById(id).orElse(null);
     }
 
     @Override

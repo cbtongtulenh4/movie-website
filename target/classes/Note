@@ -22,3 +22,24 @@ performance, albeit ensure consistency (if used properly).
 Use the second option if you need to ensure data consistency, and each thread needs to have an up-to-date
 view of the map. Use the first if performance is critical, and each thread only inserts data to the map,
 with reads happening less frequently.
+
+
+
+
+// You can try to exclude the circular tostring\hashcode reference on one POJO:
+
+@ToString(exclude = "invoice")
+@EqualsAndHashCode(exclude = "invoice")
+@Entity
+@Getter @Setter
+public class InvoiceItem {
+
+// or to do it by using @EqualsAndHashCode.Exclude & @ToString.Exclude on the field
+
+@Entity
+@Data
+public class InvoiceItem {
+    @ManyToOne
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JoinColumn(name="invoice_id", nullable = false)
+    private Invoice invoice;
