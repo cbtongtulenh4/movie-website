@@ -43,10 +43,9 @@ public class TVSeasonRestController {
             throw new InvalidDataException(result);
         }
         MovieEntity movieEntity = movieService.getMovieById(seasonDto.getMovie_id());
-          if (movieEntity == null){
+        if (movieEntity == null){
 
         }
-
         TVSeasonEntity seasonEntity = Convert.convertModel(seasonDto, TVSeasonEntity.class);
         seasonEntity.setMovie(movieEntity);
         seasonEntity = tvSeasonService.createSeasonMovie(seasonEntity);

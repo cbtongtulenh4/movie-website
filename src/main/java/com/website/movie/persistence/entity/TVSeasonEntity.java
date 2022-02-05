@@ -42,12 +42,12 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private MovieFormEntity movieForm;
 */
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tv_season_id")
+    @OneToMany(mappedBy = "tvSeason")
     private Set<TVEpisodeEntity> episodes = new HashSet<>();
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(
             name = "movie_id",
+            nullable = false,
             foreignKey = @ForeignKey(name = "movie_tv_season")
     )
     private MovieEntity movie;

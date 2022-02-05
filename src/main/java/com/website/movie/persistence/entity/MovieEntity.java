@@ -28,11 +28,10 @@ public class MovieEntity extends BaseEntity{
 ////            foreignKey = @ForeignKey(name = "movie_tv_season")
 ////    )
 //    private List<TVSeasonEntity> seasons = new ArrayList<>();
-    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
-            CascadeType.REFRESH })
-    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(mappedBy = "movie")
+//    @Fetch(value = FetchMode.SUBSELECT)
     private Set<TVSeasonEntity> seasons = new HashSet<>();
-    @ManyToMany(targetEntity = MovieCategoryEntity.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = MovieCategoryEntity.class)
     @JoinTable(
             name = "movie_category",
             joinColumns = {

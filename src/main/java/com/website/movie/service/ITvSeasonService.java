@@ -12,4 +12,6 @@ public interface ITvSeasonService {
 
     TVSeasonEntity createSeasonMovie(TVSeasonEntity tvSeason);
 
+    TVSeasonEntity getSeasonMovieById(Long id);
+
 }

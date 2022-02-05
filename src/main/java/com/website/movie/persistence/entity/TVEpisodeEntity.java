@@ -2,8 +2,7 @@ package com.website.movie.persistence.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tv_episodes")
@@ -19,5 +18,14 @@ public class TVEpisodeEntity extends BaseEntity{
     private String title;
     private Float runtime;
     private String summary;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "tv_season_id",
+            nullable = false,
+            foreignKey =  @ForeignKey(name = "tv_season_episode")
+
+    )
+    private TVSeasonEntity tvSeason;
 
 }
