@@ -1,5 +1,7 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class TVSeasonEntity extends BaseEntity{
     private Integer newEpisode;
     private Integer duration;
     private String status;
+//    private String showtime;
     private String directors;
     private Integer followers;
     private Integer ageLimit;
@@ -43,14 +46,18 @@ public class TVSeasonEntity extends BaseEntity{
     private MovieFormEntity movieForm;
 */
     @OneToMany(mappedBy = "tvSeason")
+    @JsonManagedReference
     private Set<TVEpisodeEntity> episodes = new HashSet<>();
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(
             name = "movie_id",
             nullable = false,
             foreignKey = @ForeignKey(name = "movie_tv_season")
     )
     private MovieEntity movie;
+
  /*   @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "season_genre",

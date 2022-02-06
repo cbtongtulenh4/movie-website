@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +27,8 @@ public class TVSeasonDto {
     private Integer newEpisode;
     private Integer duration;
     private String status;
+    private String showtime;
+    private String quality;
     private String directors;
     private Integer followers;
     private Integer ageLimit;
@@ -36,15 +39,20 @@ public class TVSeasonDto {
     @NotNull
     private Long movie_id;
 
-    private MovieFormEntity movieForm;
+//    private MovieFormEntity movieForm;
 
-    private List<TVEpisodeEntity> episodes;
-//    private List<MovieGenresEntity> genres;
-//    private List<CountryEntity> countries;
+//    private List<TVEpisodeEntity> episodes;
+    private Set<MovieGenresEntity> genres;
+    private Set<CountryEntity> countries;
 //    private List<SubtitleEntity> subtitles;
-//    private List<LanguageEntity> languages;
+    private List<LanguageEntity> languages;
 //    private List<MovieCastEntity> casts;
 //    private List<MovieCrewEntity> crews;
 //    private List<CommentEntity> comments;
+
+    
+
+
+
 
 }

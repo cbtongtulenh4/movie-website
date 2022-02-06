@@ -1,6 +1,7 @@
 package com.website.movie.service;
 
 import com.website.movie.persistence.entity.MovieEntity;
+import com.website.movie.web.dto.MovieDto;
 
 import java.util.*;
 
@@ -14,7 +15,7 @@ public interface IMovieService {
      */
 
     MovieEntity getMovieById(Long id);
-    List<MovieEntity> getMovies();
+    List<MovieDto> getMovies();
     MovieEntity updateMovie(MovieEntity movieEntity);
     MovieEntity createMovie(MovieEntity movieEntity);
     void deleteMovies(Long[] ids);

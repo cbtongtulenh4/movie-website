@@ -31,5 +31,10 @@ public class TvSeasonService implements ITvSeasonService {
         return tvSeasonRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public long countSeasonMovie() {
+        return tvSeasonRepository.count();
+    }
+
 
 }

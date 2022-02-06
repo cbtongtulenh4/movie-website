@@ -1,6 +1,10 @@
 package com.website.movie.web.controller.web;
 
+import com.website.movie.helper.converter.Convert;
+import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
+import com.website.movie.service.ITvSeasonService;
+import com.website.movie.web.dto.TVSeasonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,9 @@ public class HomeController {
     @Autowired
     private IMovieService movieService;
 
+    @Autowired
+    private ITvSeasonService seasonService;
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String getHome(){
         return "web/home";
@@ -31,7 +38,8 @@ public class HomeController {
     )
     {
         ModelAndView mav = new ModelAndView("web/movieSingle");
-        mav.addObject("movie", movieService.getMovieById(id));
+        TVSeasonEntity tvSeasonEntity =  seasonService.getSeasonMovieById(id);
+        mav.addObject("SEASON", Convert.convertModel(tvSeasonEntity, TVSeasonDto.class));
         return mav;
     }
 

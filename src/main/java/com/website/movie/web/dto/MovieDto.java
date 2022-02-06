@@ -1,13 +1,14 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.MovieCategoryEntity;
+import com.website.movie.persistence.entity.TVSeasonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class MovieDto {
     private String thumbnail;
     private Float rate;
 
-    private List<TVSeasonDto> seasons = new ArrayList<>();
-    private List<MovieCategoryEntity> categories = new ArrayList<>();
+    private Set<TVSeasonEntity> seasons = new HashSet<>();
+    private Set<MovieCategoryEntity> categories = new HashSet<>();
 
 }

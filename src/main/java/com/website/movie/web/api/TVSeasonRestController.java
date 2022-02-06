@@ -11,11 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Random;
 
 @RestController(value = "TvSeasonRestAPI")
 public class TVSeasonRestController {
@@ -51,5 +55,14 @@ public class TVSeasonRestController {
         seasonEntity = tvSeasonService.createSeasonMovie(seasonEntity);
         return Convert.convertModel(seasonEntity, TVSeasonDto.class);
     }
+
+    @GetMapping(value = "/api/movie/season/random")
+    public ModelAndView getIdSeasonMovieRandom(final RedirectAttributes redirectAttributes){
+        long amountSeasonMovie = tvSeasonService.countSeasonMovie();
+        long id = 1 + (long) (Math.random() * (amountSeasonMovie - 1));
+        redirectAttributes.addAttribute("id", id);
+        return new ModelAndView("redirect:/movieSingle");
+    }
+
 
 }

@@ -14,4 +14,6 @@ public interface ITvSeasonService {
 
     TVSeasonEntity getSeasonMovieById(Long id);
 
+    long countSeasonMovie();
+
 }

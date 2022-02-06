@@ -1,13 +1,16 @@
 package com.website.movie.service.impl;
 
+import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
+import com.website.movie.web.dto.MovieDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,8 +32,11 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public List<MovieEntity> getMovies() {
-        return movieRepository.findAll();
+    public List<MovieDto> getMovies() {
+        List<MovieEntity> movieEntities = movieRepository.findAll();
+        List<MovieDto> movieDtos = new ArrayList<>();
+        movieEntities.forEach(e -> movieDtos.add(MovieConvert.toDto(e)));
+        return movieDtos;
     }
 
     @Override

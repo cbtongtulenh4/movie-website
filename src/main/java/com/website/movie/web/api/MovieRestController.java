@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.*;
 
 @RestController(value = "MovieRestAPI")
 public class MovieRestController {
@@ -30,10 +31,10 @@ public class MovieRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieRestController.class);
 
-//    @GetMapping
-//    public MovieDto getMovies(){
-//        return movieService.getMovies();
-//    }
+    @GetMapping(value = "/api/movie")
+    public List<MovieDto> getMovies(){
+        return movieService.getMovies();
+    }
 
     @PostMapping(value = "/api/movie")
     public MovieDto createMovie(

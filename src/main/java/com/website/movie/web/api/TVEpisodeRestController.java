@@ -34,7 +34,7 @@ public class TVEpisodeRestController {
     @Autowired
     private ITvSeasonService seasonDto;
 
-    @PostMapping(value = "/api/movie/season")
+    @PostMapping(value = "/api/movie/season/episode")
     public TVSeasonDto createEpisodeSeasonMovie(
             @RequestBody @Valid final TVEpisodeDto episodeDto,
             final BindingResult result)
