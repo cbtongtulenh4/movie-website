@@ -44,5 +44,10 @@ public class HomeController {
         mav.addObject("SEASON", MovieConvert.toDto(tvSeasonEntity));
         return mav;
     }
+    @RequestMapping(value = "/movielist")
+    public ModelAndView getMovies(){
+        ModelAndView mav = new ModelAndView("web/movielist");
+        return mav;
+    }
 
 }

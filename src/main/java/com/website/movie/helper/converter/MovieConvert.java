@@ -44,8 +44,10 @@ public class MovieConvert {
             return null;
         }
         TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
-        dto.setNewEpisode(entity.getEpisodes());
-        dto.setDuration(entity.getDuration());
+        dto.initValue(
+                entity.getEpisodes(),
+                entity.getDuration()
+        );
         return dto;
     }
 

@@ -15,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -107,7 +108,8 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
             NullPointerException.class,
             ClassNotFoundException.class,
             HttpClientErrorException.Unauthorized.class,
-            HttpClientErrorException.BadRequest.class
+            HttpClientErrorException.BadRequest.class,
+            HttpMediaTypeNotAcceptableException.class
     })
     public String errorHandle(){
         return "redirect:/error";

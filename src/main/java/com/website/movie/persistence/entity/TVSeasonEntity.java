@@ -43,7 +43,7 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private MovieFormEntity movieForm;
 */
-    @OneToMany(mappedBy = "tvSeason")
+    @OneToMany(mappedBy = "tvSeason", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference
     private Set<TVEpisodeEntity> episodes = new HashSet<>();

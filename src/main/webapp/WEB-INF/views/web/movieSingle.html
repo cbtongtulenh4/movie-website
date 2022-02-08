@@ -417,8 +417,10 @@
                                             <div class="sb-it">
                                                 <h6>New episode: </h6>
                                                 <div th:if="${SEASON.newEpisode}">
-                                                    <p th:each="i : ${SEASON.newEpisode}">
-                                                        <a href="#" th:text="${i}"></a>
+                                                    <p>
+                                                        <nobr th:each="i : ${SEASON.newEpisode}">
+                                                            <a href="#" th:text="${i}"></a>
+                                                        </nobr>
                                                     </p>
                                                 </div>
                                                 <div th:unless="${SEASON.newEpisode}">

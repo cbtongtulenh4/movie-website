@@ -1,9 +1,17 @@
 package com.website.movie.web.dto;
 
+import com.website.movie.persistence.entity.CountryEntity;
+import com.website.movie.persistence.entity.LanguageEntity;
+import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.TVEpisodeEntity;
+import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class TVSeasonUiDto {
     /**
      * @Project: MovieWebsite
@@ -32,25 +40,42 @@ public class TVSeasonUiDto {
     private String summary;
     private Integer seasonNumber;
 
-    public void setNewEpisode(Set<TVEpisodeEntity> episodes) {
-        int size = episodes.size();
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<MovieGenresEntity> genres;
+
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<CountryEntity> countries;
+
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private List<LanguageEntity> languages;
+
+    public void setNewEpisode(int size) {
         if (size > 0){
             this.newEpisode = new int[
                     (size < MAX_NEW_EPISODE) ? size : MAX_NEW_EPISODE
             ];
             int length = this.newEpisode.length;
             for (int i = 0, j = size - MAX_NEW_EPISODE; i < length; i++){
-                this.newEpisode[i] =  j + i;
+                this.newEpisode[i] =  ++j;
             }
         } else {
             this.newEpisode = null;
         }
     }
 
-    public void setDuration(Integer duration){
-        StringBuilder str = new StringBuilder(this.newEpisode + "/");
+    public void setDuration(Integer duration, int epSize){
+        StringBuilder str = new StringBuilder(epSize + "/");
         str.append((duration == null) ? "??" : duration);
         this.duration = str.toString();
+    }
+
+    public void initValue(
+            Set<TVEpisodeEntity> episodes,
+            Integer duration
+    ){
+        int epSize = episodes.size();
+        setNewEpisode(epSize);
+        setDuration(duration, epSize);
     }
 
 
