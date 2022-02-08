@@ -1,10 +1,12 @@
 package com.website.movie.web.controller.web;
 
 import com.website.movie.helper.converter.Convert;
+import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.web.dto.TVSeasonDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +41,7 @@ public class HomeController {
     {
         ModelAndView mav = new ModelAndView("web/movieSingle");
         TVSeasonEntity tvSeasonEntity =  seasonService.getSeasonMovieById(id);
-        mav.addObject("SEASON", Convert.convertModel(tvSeasonEntity, TVSeasonDto.class));
+        mav.addObject("SEASON", MovieConvert.toDto(tvSeasonEntity));
         return mav;
     }
 

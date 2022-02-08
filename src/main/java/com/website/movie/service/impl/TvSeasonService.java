@@ -28,7 +28,11 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public TVSeasonEntity getSeasonMovieById(Long id) {
-        return tvSeasonRepository.findById(id).orElse(null);
+        TVSeasonEntity tvSeason = tvSeasonRepository.findById(id).orElse(null);
+        if (tvSeason != null) {
+            tvSeason.setEpisodes(tvSeason.getEpisodes());
+        }
+        return tvSeason;
     }
 
     @Override

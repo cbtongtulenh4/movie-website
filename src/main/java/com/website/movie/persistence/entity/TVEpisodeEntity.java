@@ -2,6 +2,8 @@ package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -21,6 +23,7 @@ public class TVEpisodeEntity extends BaseEntity{
     private String summary;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonBackReference
     @JoinColumn(
             name = "tv_season_id",

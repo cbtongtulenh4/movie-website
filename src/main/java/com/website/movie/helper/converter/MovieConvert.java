@@ -1,7 +1,11 @@
 package com.website.movie.helper.converter;
 
 import com.website.movie.persistence.entity.MovieEntity;
+import com.website.movie.persistence.entity.TVEpisodeEntity;
+import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.web.dto.MovieDto;
+import com.website.movie.web.dto.TVSeasonDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 import org.modelmapper.ModelMapper;
 
 public class MovieConvert {
@@ -34,5 +38,16 @@ public class MovieConvert {
         dto.setCategories(entity.getCategories());
         return dto;
     }
+
+    public static TVSeasonUiDto toDto(TVSeasonEntity entity){
+        if (entity == null){
+            return null;
+        }
+        TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
+        dto.setNewEpisode(entity.getEpisodes());
+        dto.setDuration(entity.getDuration());
+        return dto;
+    }
+
 
 }

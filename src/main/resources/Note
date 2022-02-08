@@ -48,3 +48,21 @@ public class InvoiceItem {
 // Jackson JSON infinite recursion with bidirectional relationships problem
 
 LEARN MORE: https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
+
+
+// for loop in thymeleaf
+
+The 1st value is the beginning of count, the 2nd is the maximum value and the 3rd is the incremental value
+
+${#numbers.sequence( 1, 4, 1)}
+
+<option th:each="i : ${#numbers.sequence( 1, 4, 1)}">
+   <p th:text="${ i }"></p>
+</option>
+
+or use
+
+<div th:each="str,iterStat : strings">
+   <span th:text="${str}"/><!--This will print the index value-->
+   <span th:text="${iterStat.index}"/><!--This will print the Index-->
+</div>

@@ -416,7 +416,14 @@
                                         <div class="col-md-4 col-xs-12 col-sm-12">
                                             <div class="sb-it">
                                                 <h6>New episode: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
+                                                <div th:if="${SEASON.newEpisode}">
+                                                    <p th:each="i : ${SEASON.newEpisode}">
+                                                        <a href="#" th:text="${i}"></a>
+                                                    </p>
+                                                </div>
+                                                <div th:unless="${SEASON.newEpisode}">
+                                                    <p th:text="#{message.UI.value.null}"></p>
+                                                </div>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Duration: </h6>

@@ -2,6 +2,8 @@ package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -33,7 +35,10 @@ public class MovieEntity extends BaseEntity{
     @JsonManagedReference
 //    @Fetch(value = FetchMode.SUBSELECT)
     private Set<TVSeasonEntity> seasons = new HashSet<>();
+
     @ManyToMany(targetEntity = MovieCategoryEntity.class)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonManagedReference
     @JoinTable(
             name = "movie_category",
             joinColumns = {

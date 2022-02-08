@@ -43,6 +43,9 @@ public class ErrorController {
             case 405:
                 errorMsg = messages.getMessage("message.error.405", null, locale);
                 break;
+            case 406:
+                errorMsg = messages.getMessage("message.error.406", null, locale);
+                break;
             default:
                 errorMsg =  messages.getMessage("message.error", null, locale);
         }

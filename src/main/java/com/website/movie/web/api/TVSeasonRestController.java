@@ -1,20 +1,19 @@
 package com.website.movie.web.api;
 
 import com.website.movie.helper.converter.Convert;
+import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.web.dto.TVSeasonDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -64,5 +63,10 @@ public class TVSeasonRestController {
         return new ModelAndView("redirect:/movieSingle");
     }
 
+    @GetMapping(value = "/api/movie/season/{id}")
+    public TVSeasonUiDto getSeasonMovie(@PathVariable final long id){
+        TVSeasonEntity seasonEntity = tvSeasonService.getSeasonMovieById(id);
+        return MovieConvert.toDto(seasonEntity);
+    }
 
 }
