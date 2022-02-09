@@ -7,6 +7,7 @@ import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
+import com.website.movie.web.dto.MovieFilterDto;
 import com.website.movie.web.dto.TVSeasonDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
 import org.slf4j.Logger;
@@ -68,5 +69,13 @@ public class TVSeasonRestController {
         TVSeasonEntity seasonEntity = tvSeasonService.getSeasonMovieById(id);
         return MovieConvert.toDto(seasonEntity);
     }
+
+    @PostMapping(value = "/api/movie/season/filter")
+    public MovieFilterDto getMoviesByFilter(
+        @RequestBody final MovieFilterDto movieFilterDto
+    ){
+        return movieFilterDto;
+    }
+
 
 }

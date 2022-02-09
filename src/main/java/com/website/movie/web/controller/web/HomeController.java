@@ -1,18 +1,18 @@
 package com.website.movie.web.controller.web;
 
-import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
-import com.website.movie.web.dto.TVSeasonDto;
-import com.website.movie.web.dto.TVSeasonUiDto;
+import com.website.movie.web.dto.SimpleTvSeasonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.*;
 
 @Controller(value = "HomeControllerOfWeb")
 public class HomeController {
@@ -47,6 +47,12 @@ public class HomeController {
     @RequestMapping(value = "/movielist")
     public ModelAndView getMovies(){
         ModelAndView mav = new ModelAndView("web/movielist");
+        List<TVSeasonEntity> tvSeasons =  seasonService.getAllSeasonMovie();
+        List<SimpleTvSeasonDto> result = new ArrayList<>();
+        tvSeasons.forEach(e -> {
+            result.add(MovieConvert.toSimpleTvSeasonDto(e));
+        });
+        mav.addObject("SEASONS", result);
         return mav;
     }
 

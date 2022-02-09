@@ -1,6 +1,9 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +26,8 @@ public class MovieGenresEntity extends BaseEntity{
     private String code;
     private String name;
 
-//    @ManyToMany(mappedBy = "genres")
-//    List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonIgnore
+    List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 }

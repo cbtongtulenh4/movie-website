@@ -12,15 +12,13 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TVSeasonUiDto {
+public class TVSeasonUiDto extends TVSeasonAbstractDto{
     /**
      * @Project: MovieWebsite
      * @Author: Fu.Minh_Phuc on 07/02/2022
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
-
-    private static final int MAX_NEW_EPISODE = 3;
 
 
     private Long id;
@@ -49,33 +47,13 @@ public class TVSeasonUiDto {
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private List<LanguageEntity> languages;
 
-    public void setNewEpisode(int size) {
-        if (size > 0){
-            this.newEpisode = new int[
-                    (size < MAX_NEW_EPISODE) ? size : MAX_NEW_EPISODE
-            ];
-            int length = this.newEpisode.length;
-            for (int i = 0, j = size - MAX_NEW_EPISODE; i < length; i++){
-                this.newEpisode[i] =  ++j;
-            }
-        } else {
-            this.newEpisode = null;
-        }
-    }
-
-    public void setDuration(Integer duration, int epSize){
-        StringBuilder str = new StringBuilder(epSize + "/");
-        str.append((duration == null) ? "??" : duration);
-        this.duration = str.toString();
-    }
-
     public void initValue(
             Set<TVEpisodeEntity> episodes,
             Integer duration
     ){
         int epSize = episodes.size();
-        setNewEpisode(epSize);
-        setDuration(duration, epSize);
+        this.newEpisode = setNewEpisode(epSize);
+        this.duration = setDuration(duration, epSize);
     }
 
 

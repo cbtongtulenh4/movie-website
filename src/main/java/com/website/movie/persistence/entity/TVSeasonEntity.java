@@ -1,6 +1,7 @@
 package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -58,7 +59,9 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private MovieEntity movie;
 
- /*   @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = MovieGenresEntity.class, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonIgnore
     @JoinTable(
             name = "season_genre",
             joinColumns = {
@@ -69,6 +72,7 @@ public class TVSeasonEntity extends BaseEntity{
             }
     )
     private List<MovieGenresEntity> genres = new ArrayList<>();
+/*
     @ManyToMany(targetEntity = CountryEntity.class, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tv_season_country",
