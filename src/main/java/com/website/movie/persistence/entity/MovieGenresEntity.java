@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public class MovieGenresEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    @NotNull
     private String code;
+    @NotNull
     private String name;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)

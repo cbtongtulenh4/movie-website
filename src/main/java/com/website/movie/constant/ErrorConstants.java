@@ -10,7 +10,7 @@ public class ErrorConstants {
      * @ModifiedBy:
      */
 
-    public static final String ERR_VALIDATION = MessageUtil.getMessage("error.validation");
+    public static final String ERR_VALIDATION = MessageUtil.getMessage("message.error.validation");
     public static final String ERR_CONCURRENCY_FAILURE = "";
     public static final String ERR_ACCESS_DENIED = "";
     public static final String ERR_METHOD_NOT_SUPPORTED = "";

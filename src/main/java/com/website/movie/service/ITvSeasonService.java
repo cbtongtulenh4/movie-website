@@ -2,6 +2,7 @@ package com.website.movie.service;
 
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.web.dto.MovieFilterDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 
 import java.util.*;
 
@@ -13,7 +14,7 @@ public interface ITvSeasonService {
      * @ModifiedBy:
       */
 
-    TVSeasonEntity createSeasonMovie(TVSeasonEntity tvSeason);
+    TVSeasonEntity createSeasonMovie(TVSeasonUiDto tvSeasonDto);
 
     TVSeasonEntity getSeasonMovieById(Long id);
 

@@ -1,6 +1,7 @@
 package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class MovieCategoryEntity extends BaseEntity{
 
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @ManyToMany(mappedBy = "categories")
-    @JsonBackReference
+    @JsonIgnore
     List<MovieEntity> movies = new ArrayList<>();
 
 }

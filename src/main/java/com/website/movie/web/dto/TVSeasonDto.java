@@ -1,9 +1,7 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -42,9 +40,12 @@ public class TVSeasonDto {
 //    private MovieFormEntity movieForm;
 
 //    private List<TVEpisodeEntity> episodes;
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<MovieGenresEntity> genres;
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<CountryEntity> countries;
 //    private List<SubtitleEntity> subtitles;
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private List<LanguageEntity> languages;
 //    private List<MovieCastEntity> casts;
 //    private List<MovieCrewEntity> crews;

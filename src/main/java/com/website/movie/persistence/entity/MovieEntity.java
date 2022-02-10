@@ -1,5 +1,6 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,7 +39,7 @@ public class MovieEntity extends BaseEntity{
 
     @ManyToMany(targetEntity = MovieCategoryEntity.class)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     @JoinTable(
             name = "movie_category",
             joinColumns = {

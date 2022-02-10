@@ -7,6 +7,8 @@ import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.SimpleTvSeasonDto;
 import org.modelmapper.ModelMapper;
 
+import java.util.Set;
+
 public class MovieConvert {
     /**
      * @Project: MovieWebsite
@@ -45,10 +47,19 @@ public class MovieConvert {
         TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
         dto.initValue(
                 entity.getEpisodes(),
+                entity.getGenres(),
                 entity.getDuration()
         );
         return dto;
     }
+
+//    public static TVSeasonEntity toTvSeasonEntity(TVSeasonUiDto dto){
+//        if (dto == null){
+//            return null;
+//        }
+//        TVSeasonEntity entity = modelMapper.map(dto, TVSeasonEntity.class);
+//
+//    }
 
     public static SimpleTvSeasonDto toSimpleTvSeasonDto(TVSeasonEntity entity){
         if (entity == null){
@@ -61,6 +72,7 @@ public class MovieConvert {
         );
         return dto;
     }
+
 
 
 }

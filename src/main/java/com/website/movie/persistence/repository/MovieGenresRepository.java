@@ -10,4 +10,7 @@ public interface MovieGenresRepository extends JpaRepository<MovieGenresEntity, 
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
+
+    MovieGenresEntity findByName(String name);
+
 }

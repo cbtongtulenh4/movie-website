@@ -71,7 +71,7 @@ public class TVSeasonEntity extends BaseEntity{
                     @JoinColumn(name = "genre_id")
             }
     )
-    private List<MovieGenresEntity> genres = new ArrayList<>();
+    private Set<MovieGenresEntity> genres = new HashSet<>();
 /*
     @ManyToMany(targetEntity = CountryEntity.class, cascade = CascadeType.ALL)
     @JoinTable(

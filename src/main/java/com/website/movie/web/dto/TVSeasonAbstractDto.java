@@ -1,5 +1,9 @@
 package com.website.movie.web.dto;
 
+import com.website.movie.persistence.entity.MovieGenresEntity;
+
+import java.util.Set;
+
 public class TVSeasonAbstractDto {
     /**
      * @Project: MovieWebsite
@@ -31,5 +35,23 @@ public class TVSeasonAbstractDto {
         str.append((duration == null) ? "??" : duration);
         return str.toString();
     }
+
+    public String[] setGenres(Set<MovieGenresEntity> genres){
+        String[] result;
+        int genreSize = genres.size();
+        if (genreSize > 0){
+            result = new String[genreSize];
+            int i = 0;
+            for (MovieGenresEntity genre : genres ){
+                result[i++] = genre.getName();
+            }
+        }
+        else {
+            result = null;
+        }
+        return result;
+    }
+
+
 
 }

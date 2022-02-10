@@ -1,12 +1,12 @@
 package com.website.movie.web.dto;
 
-import com.website.movie.persistence.entity.CountryEntity;
-import com.website.movie.persistence.entity.LanguageEntity;
 import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.TVEpisodeEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -23,9 +23,9 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
 
     private Long id;
 
+    @NotNull
     private String title;
     private String thumbnail;
-    private int[] newEpisode;
     private String duration;
     private String status;
     private String showtime;
@@ -37,23 +37,22 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private Long views;
     private String summary;
     private Integer seasonNumber;
+    private Long movie_id;
 
-    @EqualsAndHashCode.Exclude @ToString.Exclude
-    private Set<MovieGenresEntity> genres;
-
-    @EqualsAndHashCode.Exclude @ToString.Exclude
-    private Set<CountryEntity> countries;
-
-    @EqualsAndHashCode.Exclude @ToString.Exclude
-    private List<LanguageEntity> languages;
+    private int[] newEpisode;
+    private String[] genres;
+    private String[] countries;
+    private String[] languages;
 
     public void initValue(
             Set<TVEpisodeEntity> episodes,
+            Set<MovieGenresEntity> genres,
             Integer duration
     ){
         int epSize = episodes.size();
         this.newEpisode = setNewEpisode(epSize);
         this.duration = setDuration(duration, epSize);
+        this.genres = setGenres(genres);
     }
 
 

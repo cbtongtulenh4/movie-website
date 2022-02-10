@@ -66,3 +66,6 @@ or use
    <span th:text="${str}"/><!--This will print the index value-->
    <span th:text="${iterStat.index}"/><!--This will print the Index-->
 </div>
+
+
+// WHY variable used in lambda expression should be final or effectively final ???

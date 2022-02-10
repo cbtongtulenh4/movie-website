@@ -3,8 +3,11 @@ package com.website.movie.web.api;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.persistence.entity.MovieCategoryEntity;
+import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.service.IMovieCategoryService;
+import com.website.movie.service.IOtherMovieService;
 import com.website.movie.web.dto.MovieCategoryDto;
+import com.website.movie.web.dto.MovieGenreDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,9 @@ public class OtherRestController {
     @Autowired
     private IMovieCategoryService movieCategoryService;
 
+    @Autowired
+    private IOtherMovieService otherMovieService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(OtherRestController.class);
 
     @PostMapping(value = "/api/movie/category")
@@ -41,6 +47,17 @@ public class OtherRestController {
         MovieCategoryEntity movieCategoryEntity = Convert.convertModel(movieCategoryDto, MovieCategoryEntity.class);
         movieCategoryEntity = movieCategoryService.createMovieCategory(movieCategoryEntity);
         return Convert.convertModel(movieCategoryEntity, MovieCategoryDto.class);
+    }
+
+    @PostMapping(value = "/api/movie/season/genre")
+    public MovieGenresEntity createGenreMovie(
+            @RequestBody @Valid final MovieGenresEntity genreEntity,
+            final BindingResult result )
+    { LOGGER.info("Create a genre movie with information: {}", genreEntity);
+    if (result.hasErrors()) {
+        throw new InvalidDataException(result);
+    }
+    return otherMovieService.saveGenreMovie(genreEntity);
     }
 
 }
