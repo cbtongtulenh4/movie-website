@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/template/css/movie-list.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+</head>
+<body>
+<div class="container" id="containerID">
+<!--    <table class="movie-list">-->
+<!--        <tr>-->
+<!--            <th></th>-->
+<!--            <th>ID</th>-->
+<!--            <th>title</th>-->
+<!--            <th>thumbnail</th>-->
+<!--            <th>rate</th>-->
+<!--            <th>Action</th>-->
+<!--        </tr>-->
+<!--        <tr th:each="movie : ${MOVIES}">-->
+<!--            <td><i onclick="openChild(event);" class="fa fa-plus" aria-hidden="true"></i></td>-->
+<!--            <td th:text="${movie.id}"></td>-->
+<!--            <td th:text="${movie.title}"></td>-->
+<!--            <td th:text="${movie.thumbnail}"></td>-->
+<!--            <td th:text="${movie.rate}"></td>-->
+<!--            <td>-->
+<!--                <div class="fa action">-->
+<!--                    <i class="fa fa-gamepad" aria-hidden="true"></i>-->
+<!--                    <div class="box-control">-->
+<!--                        <i class="fa fa-pencil" aria-hidden="true"></i>-->
+<!--                        <i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--                        <i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+</div>
+
+<script th:inline="javascript">
+    setData('containerID');
+
+    function setData(address){
+        let container = document.getElementById(address);
+        // let movies = [[${MOVIES}]];
+        container.innerHTML = getData([[${MOVIES}]]);
+    }
+
+    function getData(data){
+        let dataHTML = `
+            <table class="movie-list">
+                <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>title</th>
+                    <th>thumbnail</th>
+                    <th>rate</th>
+                    <th>Action</th>
+                </tr>
+            `;
+
+        for (let movie of data) {
+            dataHTML += `
+                <tr>
+                    <td><i onclick="openChild(event);" class="fa fa-plus" aria-hidden="true"></i></td>
+                    <td>`+ movie.id +`</td>
+                    <td>`+ movie.title +`</td>
+                    <td>`+ movie.thumbnail +`</td>
+                    <td>`+ movie.rate +`</td>
+                    <td>
+                        <div class="fa action">
+                            <i class="fa fa-gamepad" aria-hidden="true"></i>
+                            <div class="box-control">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            if(movie.seasons.size != 0 && movie.seasons){
+                dataHTML += `
+                    <tr style="display: none;">
+                        <td></td>
+                        <td class="season-list" style="padding: 5px;" colspan="5">
+                            <table class="ss-data" style="background: #e4eace;">
+                                <tr>
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>code</th>
+                                    <th>title</th>
+                                    <th>thumbnail</th>
+                                    <th>cost</th>
+                                    <th>rate</th>
+                                    <th>status</th>
+                                    <th>directors</th>
+                                    <th>duration</th>
+                                    <th>follower</th>
+                                    <th>summary</th>
+                                    <th>showtime</th>
+                                    <th>action</th>
+                                </tr>
+                `;
+                for(let season of movie.seasons){
+                    dataHTML += `
+                        <tr>
+                            <td><i onclick="openChild(event);" class="fa fa-plus" aria-hidden="true"></i></td>
+                            <td>`+ season.id +`</td>
+                            <td>`+ season.code +`</td>
+                            <td>`+ season.title +`</td>
+                            <td>`+ season.thumbnail +`</td>
+                            <td>`+ season.cost +`</td>
+                            <td>`+ season.rate +`</td>
+                            <td>`+ season.status +`</td>
+                            <td>`+ season.directors +`</td>
+                            <td>`+ season.duration +`</td>
+                            <td>`+ season.followers +`</td>
+                            <td>`+ season.summary +`</td>
+                            <td>`+ season.showtime +`</td>
+                            <td>
+                                <div class="fa action">
+                                    <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                    <div class="box-control">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    if(season.episodes.size != 0 && season.episodes){
+                        dataHTML += `
+                            <tr style="display: none;">
+                                <td></td>
+                                <td style="padding: 5px;" colspan="13">
+                                    <table class="ep-data" style="background: #e1e9bc;">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>title</th>
+                                            <th>runtime</th>
+                                            <th>summary</th>
+                                            <th>action</th>
+                                        </tr>
+                        `;
+                        for (let ep of season.episodes) {
+                            dataHTML += `
+                                <tr>
+                                    <td>`+ ep.id +`</td>
+                                    <td>`+ ep.title +`</td>
+                                    <td>`+ ep.runtime +`</td>
+                                    <td>`+ ep.summary +`</td>
+                                    <td>
+                                        <div class="fa action">
+                                            <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                            <div class="box-control">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
+                        }
+                        dataHTML +=`
+                                    </table>
+                                </td>
+                            </tr>
+                        `;
+                    }
+
+                }
+                dataHTML += `
+                            </table>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        dataHTML +=`</table>`;
+        return dataHTML;
+    }
+
+    function openChild(e) {
+        let newEl = document.createElement('tr');// row container child data
+        let rowClicked = UpToParent(e.target, 'tr');
+        let nextRow = rowClicked.nextElementSibling;
+
+        let iEl = rowClicked.querySelector('i');
+
+        if(iEl.className === "fa fa-plus"){
+            iEl.classList = "fa fa-minus";
+            nextRow.style.display = "table-row";
+            nextRow.style.background = "#f4f9db";
+            nextRow.style.transition = "3s ease-in-out";
+        }else {
+            iEl.classList = "fa fa-plus";
+            nextRow.style.display = "none";
+            nextRow.style.transition = "3s ease-in-out";
+        }
+
+        // iEl.classList = (iEl.className === "fa fa-plus") ? "fa fa-minus" : "fa fa-plus";
+        // let colTotal = rowClicked.querySelectorAll('td');
+        // let colTotal = rowClicked.childElementCount;
+
+        // newEl.innerHTML = `
+        //     <td></td>
+        //     <td colspan="`+ (colTotal - 1) +`"></td>
+        // `;
+
+        // let newTable = document.createElement('table');
+
+        // rowClicked.after(newEl);
+        // var abc = document.getElementById();
+        // abc.style.display
+    }
+
+    function UpToParent(el ,tagName) {
+        tagName = tagName.toLowerCase();
+        while(el && el.parentNode){
+            el = el.parentNode;
+            if(el.tagName && el.tagName.toLowerCase() === tagName){
+                return el;
+            }
+        }
+        return null;
+    }
+</script>
+
+</body>
+</html>

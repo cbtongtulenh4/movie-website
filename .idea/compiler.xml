@@ -10,5 +10,8 @@
         <module name="MovieWebsite" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MovieWebsite" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

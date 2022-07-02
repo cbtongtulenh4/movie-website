@@ -1,0 +1,289 @@
+.page-single .container .ipad-width{
+    /* position: relative;
+    width: 100%;
+    height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .ipad-width main{
+    position: relative;
+    width: 800px;
+    display: inline-block;
+    background-color: chocolate;
+}
+
+/* VIDEO */
+
+main .ht-video{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    background-color: cadetblue;
+    display: grid;
+    grid-template-rows: auto 50px;
+}
+
+main .ht-video .video-vd{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+main .ht-video .vd-tools{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+main .ht-video .vd-tools ul{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 100px);
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.ht-video .vd-tools ul li{
+    list-style: none;
+    /* width: 100px; */
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .5);
+    color: #fff;
+}
+
+
+/* END  VIDEO */
+
+/* Start Episode section */
+
+
+main .ht-episode{
+    position: relative;
+    width: 100%;
+    /* height: 500px; */
+    background-color:burlywood;
+    padding: 20px;
+}
+
+main .ht-episode h1{
+    margin-bottom: 25px;
+    float: left;
+}
+
+
+main .ht-episode ul{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 50px);
+    column-gap: 21px;
+    row-gap: 5px;
+    /* justify-content: center; */
+}
+
+main .ht-episode ul li{
+    list-style: none;
+    width: 50px;
+    height: 50px;
+    background-color: brown;
+    border-radius: 5px;
+    transition: .1s ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+main .ht-episode ul li a{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+main .ht-episode ul li:hover{
+    background-color: #385898;
+    color: #fff;
+    transition: .1s ease-in-out;
+}
+
+main .ht-episode ul li.active{
+    background: #385898;
+    color: #fff;
+}
+
+/* End episode */
+
+/* Start chat */
+
+main .ht-chat{
+    display: inline-block;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, .3);
+    color: #fff;
+    font-family: Helvetica, Arial, sans-serif !important;
+}
+
+
+main .ht-chat h1{
+    margin-bottom: 25px;
+    float: left;
+    color: #fff;
+}
+
+/* comment post level 0 */
+
+main .ht-chat .post-comment{
+    position: relative;
+    width: 100%;
+    display: flex;
+    margin-bottom: 25px;
+}
+
+
+main .ht-chat .post-comment .content-post{
+    display: inline-block;
+    width: 100%;
+}
+
+main .ht-chat .post-comment .content-post textarea{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    resize: none;
+}
+
+main .ht-chat .post-comment .content-post .cm-post-btn{
+    position: relative;
+    width: 100%;
+    background-color: cadetblue;
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.ht-chat .post-comment .content-post .cm-post-btn button{
+    float: right;
+}
+
+
+/* end comment post level 0 */
+
+.ht-chat .post-comment.reply-list{
+    /* display: flex; */
+    margin-bottom: 0;
+    padding-bottom: 15px;
+    width: auto;
+}
+
+/* start comment list level 0 */
+
+main .ht-chat .comments-list{
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    border: 1px solid #000;
+
+}
+
+main .ht-chat li{
+    position: relative;
+    width: 100%;
+    padding: 0 5px;
+}
+
+main .ht-chat li:last-child{
+    padding-bottom: 0;
+}
+
+main .ht-chat .comment-main-level{
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+main .ht-chat img{ /*.comment-main-level */
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    /* border-radius: 50%; */
+    margin-right: 10px;
+}
+
+main .ht-chat .comment-main-level .comment-content{
+    position: relative;
+    width: 100%;
+}
+
+.comment-main-level .comment-content .title-cm{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.comment-main-level .comment-content b{
+    font-size: 14px;
+}
+
+.comment-main-level .title-cm h6{
+    font-size: 20px;
+    color: #385898;
+}
+
+.comment-main-level .title-cm span{
+    position: relative;
+    padding-left: 5px;
+    font-size: 12px;
+}
+
+
+main .ht-chat li .tools{
+    position: relative;
+    width: 100%;
+    display: flex;
+    /* align-items: center; */
+    align-items: baseline;
+    padding: 5px 0;
+}
+
+.ht-chat li .tools .attr-tool{
+    position: relative;
+    padding: 0px 5px;
+}
+
+.ht-chat li .tools .attr-tool i{
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.ht-chat li .tools .attr-tool span{
+    font-size: 12px;
+}
+
+
+/* end comment list level 0 */
+
+
+.ht-chat .reply-list{
+    margin-left: 50px;
+    border-left: 1px solid black;
+}
+
+
+main .ht-chat .see-more-btn{
+    position: relative;
+    width: 100%;
+    height: 50px;
+}

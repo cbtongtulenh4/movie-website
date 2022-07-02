@@ -18,13 +18,17 @@ public class TVEpisodeEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    @Column(nullable = false)
+    private Integer numEp; // numerical order of episode
+    @Column(nullable = false)
+    private String path;
     private String title;
-    private Float runtime;
+    private Float runtime = 0.0F;
     private String summary;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonBackReference
+    @JsonBackReference(value = "season-movie-episode")
     @JoinColumn(
             name = "tv_season_id",
             nullable = false,

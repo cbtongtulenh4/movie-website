@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="commons-dbutils-1.7">
+    <CLASSES>
+      <root url="jar://C:/Program Files/Java/commons-dbutils-1.7.jar!/" />
+      <root url="jar://C:/Program Files/Java/commons-lang3-3.12.0.jar!/" />
+      <root url="jar://C:/Program Files/Java/jackson-annotations-2.13.0-rc1.jar!/" />
+      <root url="jar://C:/Program Files/Java/jackson-core-2.13.0-rc1.jar!/" />
+      <root url="jar://C:/Program Files/Java/jackson-databind-2.13.0-rc1.jar!/" />
+      <root url="jar://C:/Program Files/Java/json-simple-1.1.jar!/" />
+      <root url="jar://C:/Program Files/Java/mysql-connector-java-8.0.13.jar!/" />
+      <root url="jar://C:/Program Files/Java/rs2xml.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://C:/Program Files/Java/rs2xml.jar!/src" />
+    </SOURCES>
+  </library>
+</component>

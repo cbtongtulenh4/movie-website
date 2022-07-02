@@ -1,0 +1,16 @@
+- how to auto reload thymeleaf in js
+- https://stackoverflow.com/questions/14266730/js-how-to-cache-a-variable
+
+- each loop by thymeleaf is repeat itself that element? checkout again
+
+- how to return previous page when click go back?
+
+-- association many to many: how to make table between is valid when id out size
+
+-- Notifications display function on phone or pc ..
+
+-- Don't think of reasonable ways to fetch parentId from Comment Table into commentDto
+
+// WHY variable used in lambda expression should be final or effectively final ???
+
+-- how to call to tag html hide when load page (ex: tag login in page call by id# whenever send message error)

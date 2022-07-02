@@ -33,7 +33,7 @@ public class MovieEntity extends BaseEntity{
 ////    )
 //    private List<TVSeasonEntity> seasons = new ArrayList<>();
     @OneToMany(mappedBy = "movie")
-    @JsonManagedReference
+    @JsonManagedReference(value = "movie-season")
 //    @Fetch(value = FetchMode.SUBSELECT)
     private Set<TVSeasonEntity> seasons = new HashSet<>();
 

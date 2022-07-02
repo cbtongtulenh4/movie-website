@@ -1,5 +1,6 @@
 package com.website.movie.config;
 
+import com.website.movie.utils.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -59,7 +60,7 @@ public class DataConfig {
         entityFactory.setDataSource(dataSource());
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         entityFactory.setJpaVendorAdapter(vendorAdapter);
-        entityFactory.setPackagesToScan(new String[]{"com.website.movie.persistence.entity"});
+        entityFactory.setPackagesToScan(ArrayUtil.array("com.website.movie.persistence.entity"));
         entityFactory.setJpaProperties(additionalProperties());
         return entityFactory;
     }

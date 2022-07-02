@@ -3,6 +3,8 @@ package com.website.movie.persistence.repository;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.*;
+
 public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> {
     /**
      * @Project: MovieWebsite
@@ -10,4 +12,8 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
+
+//    List<TVSeasonEntity> findAllByRate()
+    TVSeasonEntity findOneByCode(String code);
+
 }

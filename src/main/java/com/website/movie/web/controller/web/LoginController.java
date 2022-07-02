@@ -1,10 +1,12 @@
 package com.website.movie.web.controller.web;
 
+import com.website.movie.constant.MessageConstants;
 import com.website.movie.constant.SystemConstants;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.security.custom.GrantedAuthority;
 import com.website.movie.service.IUserService;
+import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.UserLoginDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,19 +42,21 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView getLogin(
-//            @RequestParam("errorMsg", required = false) final String errorMsg,
-//            @RequestParam("message", required = false) final String message)
-            final Model model)
+//            @RequestParam(value = "errorMsg", required = false) final String errorMsg,
+            @RequestParam(value = "authMsg", required = false) final String message1,
+            final Model model,
+            HttpServletRequest request)
     {
         final ModelAndView mav = new ModelAndView("web/login");
         mav.addObject("errorMsg", model.asMap().get("errorMsg"));
         mav.addObject("message", model.asMap().get("message"));
+        mav.addObject("authMsg", message1);
         return mav;
     }
 
     @PostMapping(value = "/handleLogin")
     public String handleLogin(
-            @ModelAttribute("userLogin") @Valid final UserLoginDto userLogin,
+            @ModelAttribute("userLogin") final UserLoginDto userLogin,
             final BindingResult result,
             final RedirectAttributes redirectAttributes,
             final HttpServletRequest request)
@@ -67,19 +71,24 @@ public class LoginController {
         }catch (Exception ex){
             LOGGER.warn(ex.getLocalizedMessage(), ex);
             final String message = messages.getMessage("message.user.loginError", null, request.getLocale());
-            redirectAttributes.addFlashAttribute("errorMsg", message);
-            return "redirect:/login?lang=" + request.getLocale().getLanguage();
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            redirectAttributes.addFlashAttribute("message", msg);
+            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
+            return "redirect:/userprofile?lang=" + request.getLocale().getLanguage();
         }
         final String loginStatus = userService.checkLoadUser(myUser);
-        if (loginStatus != SystemConstants.SUCCESS){
+        if (!loginStatus.equals(SystemConstants.SUCCESS)){
             LOGGER.warn("Account Not Enable");
             final String message = messages.getMessage("message.user." + loginStatus, null, request.getLocale());
-            redirectAttributes.addFlashAttribute("errorMsg", message);
-            return "redirect:/login?lang=" + request.getLocale().getLanguage();
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            redirectAttributes.addFlashAttribute("message", msg);
+            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
+            return "redirect:/" + request.getServletPath() + "?lang=" + request.getLocale().getLanguage();
         }
         final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
-        redirectAttributes.addFlashAttribute("message", message);
-        request.getSession().setAttribute("USERMODEL", myUser);
+        MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+        redirectAttributes.addFlashAttribute("message", msg);
+        request.getSession().setAttribute("USERMODEL", myUser); // save info user for session
         return AuthorizationUserLogin(myUser.getAuthority(), request);
     }
 

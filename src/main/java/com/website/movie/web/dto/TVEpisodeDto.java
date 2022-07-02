@@ -20,6 +20,8 @@ public class TVEpisodeDto {
 
     @NotNull
     private String title;
+    @NotNull
+    private String path;
     private Float runtime;
     private String summary;
     @NotNull

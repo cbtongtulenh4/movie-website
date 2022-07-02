@@ -42,6 +42,11 @@ public class VerificationTokenService implements IVerificationTokenService {
         vTokenRepository.save(vToken);
     }
 
+    /**
+     * check validate verification token
+     * @param vTokenEntity
+     * @return
+     */
     @Override
     public String validateVerificationToken(VerificationTokenEntity vTokenEntity) {
         return !isFoundToken(vTokenEntity) ? "invalidToken"
@@ -55,7 +60,7 @@ public class VerificationTokenService implements IVerificationTokenService {
     }
 
     private boolean isFoundToken(VerificationTokenEntity vTokenEntity){
-        return (vTokenEntity != null) ? true : false;
+        return vTokenEntity != null;
     }
 
     private boolean isTokenExpired(VerificationTokenEntity vTokenEntity){
@@ -64,6 +69,6 @@ public class VerificationTokenService implements IVerificationTokenService {
     }
 
     private boolean isExistToken(String token){
-        return (vTokenRepository.findByToken(token) != null) ? true : false;
+        return vTokenRepository.findByToken(token) != null;
     }
 }

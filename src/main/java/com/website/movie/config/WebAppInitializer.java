@@ -1,7 +1,5 @@
 package com.website.movie.config;
 
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletRegistration;

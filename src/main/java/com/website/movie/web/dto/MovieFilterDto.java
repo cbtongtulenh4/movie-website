@@ -1,11 +1,7 @@
 package com.website.movie.web.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class MovieFilterDto {
     /**
@@ -18,5 +14,15 @@ public class MovieFilterDto {
     private String title;
     private String rating;
     private String[] genres;
+
+    public MovieFilterDto(){
+
+    }
+
+    public MovieFilterDto(String title, String rating, String[] genres){
+        this.title = title;
+        this.rating = rating;
+        this.genres = genres;
+    }
 
 }

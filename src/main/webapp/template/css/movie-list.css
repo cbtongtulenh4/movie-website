@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    ---hight-row: 30px;
+}
+
+
+body{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    position: relative;
+    max-width: 90%;
+    max-height: 500px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+
+table, th, td {
+    position: relative;
+    border: 1px solid #ddd8da;
+    border-collapse: collapse;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+table{
+    background: #f3f3f3;
+    position: relative;
+    /* width: 100%; */
+
+}
+
+table td, th{
+    padding: 5px;
+    height: var(---hight-row);
+}
+
+table th{
+    position: sticky;
+    text-transform: uppercase;
+    top: 0;
+    background-color: #6c7ae0;
+    z-index: 2;
+
+}
+
+table td:first-child{
+    min-width: 50px;
+}
+
+table td{
+    text-align: center;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
+}
+
+table td .fa{
+    cursor: pointer;
+}
+
+/* table td:hover{
+    color: #ddd8da;
+} */
+
+
+table td .box-control{
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    display: flex;
+    padding: 5px;
+    background: blueviolet;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+    transition: .3s ease-in-out;
+    cursor: default;
+    z-index: 2;
+}
+
+table td .box-control::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 15px;
+    width: 15px;
+    height: 15px;
+    /* transform: rotateZ(-45deg); */
+    transform: translateX(-50%) rotateZ(45deg);
+    background: blueviolet;
+    z-index: -1;
+}
+
+table td .box-control i{
+    margin: 0px 10px;
+}
+
+table td .box-control i:hover{
+    color: crimson;
+    transition: .3s ease-in-out;
+}
+
+table .fa.action:hover .fa-gamepad{
+    color: blueviolet;
+    transition: .2s ease-in-out;
+}
+
+table .fa.action:hover .box-control{
+    /* padding: 10px; */
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0px);
+    transition: .3s ease-in-out;
+    z-index: 2;
+}
+
+
+

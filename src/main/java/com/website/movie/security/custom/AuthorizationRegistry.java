@@ -10,7 +10,7 @@ public interface AuthorizationRegistry<T> {
 
     T antMatchers(String pattern);
 
-    T access(String role);
+    T access(String... roles);
 
     T and();
 

@@ -19,8 +19,9 @@ public class TVSeasonDto {
      */
 
     private Long id;
-
+    private String code;
     private String title;
+    private Float cost;
     private String thumbnail;
     private Integer newEpisode;
     private Integer duration;

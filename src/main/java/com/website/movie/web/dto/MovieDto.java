@@ -1,6 +1,5 @@
 package com.website.movie.web.dto;
 
-import com.website.movie.persistence.entity.MovieCategoryEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +27,6 @@ public class MovieDto {
     private Float rate;
 
     private Set<TVSeasonEntity> seasons = new HashSet<>();
-    private Set<MovieCategoryEntity> categories = new HashSet<>();
+//    private Set<MovieCategoryEntity> categories = new HashSet<>();
 
 }

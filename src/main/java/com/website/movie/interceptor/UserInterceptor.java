@@ -36,7 +36,7 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception{
         final String targetUrl = getTargetUrl(request);
-        if (!targetUrl.contains("login")){
+        if (!targetUrl.contains("login")){ // check target url vs /login
             final RequestMatcherRegistry auth = getAuthorizationRegistry();
             final MyUserPrincipal user = InterceptorUtil.getUserLogin(request);
             if(InterceptorUtil.isUserLogged(request)){
@@ -62,6 +62,10 @@ public class UserInterceptor implements HandlerInterceptor {
         }
     }
 
+    /**
+     * input authorization from admin side
+     * @return list authorization access matchers
+     */
     private RequestMatcherRegistry getAuthorizationRegistry(){
 //        try {
 //            return new AnnotationConfigApplicationContext(WebConfig.class).getBean(RequestMatcherRegistry.class);
@@ -70,10 +74,22 @@ public class UserInterceptor implements HandlerInterceptor {
 //            return null;
 //        }
         RequestMatcherRegistry registry = new RequestMatcherRegistry();
-        registry.antMatchers("/admin").access("ADMIN");
+//        registry.antMatchers("/admin").access("ADMIN")
+//                .and().antMatchers("/home").access("USER", "ADMIN");
+//                .and().antMatchers("/userprofile").access("*");
         return registry;
     }
 
+    /**
+     * check permission of user
+     * @param auth list request matcher register
+     * @param myUser is info save when user login
+     * @param targetUrl info target url request
+     * @param message message of authorization when user not permission
+     * @param request
+     * @param response
+     * @return
+     */
     private boolean checkPermission(
             final RequestMatcherRegistry auth,
             final MyUserPrincipal myUser,
@@ -87,7 +103,9 @@ public class UserInterceptor implements HandlerInterceptor {
         try {
             if (!check) {
                 request.setAttribute("message", MessageUtil.getMessage("message.user." + message));
-                response.sendRedirect(request.getContextPath() + "/login?lang=" + request.getLocale().getLanguage());
+                response.sendRedirect(request.getContextPath() + "/login?lang=" + request.getLocale().getLanguage()
+                    + "&authMsg=" + MessageUtil.getMessage("message.user." + message)
+                );
             }
         } catch(IOException e){
             e.printStackTrace();

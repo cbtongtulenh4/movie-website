@@ -5,6 +5,8 @@ import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
 import com.website.movie.web.dto.MovieDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,6 +28,8 @@ public class MovieService implements IMovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieService.class);
+
     @Override
     public MovieEntity getMovieById(Long id) {
         return movieRepository.findById(id).orElse(null);
@@ -35,7 +39,10 @@ public class MovieService implements IMovieService {
     public List<MovieDto> getMovies() {
         List<MovieEntity> movieEntities = movieRepository.findAll();
         List<MovieDto> movieDtos = new ArrayList<>();
-        movieEntities.forEach(e -> movieDtos.add(MovieConvert.toDto(e)));
+        movieEntities.forEach(e -> {
+            LOGGER.info("Get genres season movie with information: {}", e.getCategories());
+            movieDtos.add(MovieConvert.toDto(e));
+        });
         return movieDtos;
     }
 
@@ -56,4 +63,8 @@ public class MovieService implements IMovieService {
         }
     }
 
+    @Override
+    public void deleteAllMovies(){
+        movieRepository.deleteAll();
+    }
 }

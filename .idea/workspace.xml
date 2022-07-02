@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/CommentImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/ProfileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/RateRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IGoogleDriveService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/GoogleDriveService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/payment/CurrencyUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/UserRestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/RateDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/UserProfileDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/WatchTvSeasonDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/NoteForFunctions" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/listData.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/blogList.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieGrid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/payment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/userprofile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/watch.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/css/changeAvatar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/css/listdata.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/css/update.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/css/video.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/css/watch.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/js/custom1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/js/video.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/js/watch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MovieWebsite.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/cache/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/cache/Cache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/cache/InMemoryCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/cache/InMemoryCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/config/DataConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/config/DataConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebAppInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebAppInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/events/listener/VerificationTokenListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/events/listener/VerificationTokenListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/Convert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/UserConvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/UserConvert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/interceptor/UserInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/interceptor/UserInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/GenericDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/GenericDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/IUserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/AbstractDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CommentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CommentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVEpisodeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVEpisodeEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVSeasonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVSeasonEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/TVSeasonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/TVSeasonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/security/MyUserPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/security/MyUserPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/AuthorizationRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/AuthorizationRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/ExpressionUrlAuthorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/ExpressionUrlAuthorization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/RequestMatcherRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/security/custom/RequestMatcherRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IMovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IMovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IOtherMovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IOtherMovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/ITvSeasonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/ITvSeasonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/MovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/MovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/OtherMovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/OtherMovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/VerificationTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/VerificationTokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/InterceptorUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/InterceptorUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/TimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/TimeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/MovieRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/MovieRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/OtherRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/OtherRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/TVSeasonRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/TVSeasonRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/admin/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/admin/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/RegistrationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MovieDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MovieDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MovieFilterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MovieFilterDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVEpisodeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVEpisodeDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonAbstractDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonAbstractDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Note" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/NoteTechniques" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/message_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/message_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/js/custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/Note" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/Cache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/Cache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/InMemoryCache$CacheObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/InMemoryCache$CacheObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/InMemoryCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/cache/InMemoryCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/DataConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/DataConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/WebAppInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/WebAppInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/constant/ErrorConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/constant/ErrorConstants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/events/OnRegistrationCompleteEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/events/listener/RegistrationListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/events/listener/VerificationTokenListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/events/listener/VerificationTokenListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/helper/converter/UserConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/helper/converter/UserConvert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/interceptor/SessionTimerInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/interceptor/SessionTimerInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/interceptor/UserInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/interceptor/UserInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/dao/GenericDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/dao/GenericDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/dao/impl/AbstractDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/dao/impl/AbstractDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/BaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/BaseEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/RoleEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/RoleEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/VerificationTokenEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/entity/VerificationTokenEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/persistence/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/MyUserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/MyUserPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/AuthorizationRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/AuthorizationRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/ExpressionUrlAuthorization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/ExpressionUrlAuthorization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/RequestMatcherRegistry$Authorization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/RequestMatcherRegistry$Authorization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/RequestMatcherRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/security/custom/RequestMatcherRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/impl/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/impl/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/impl/VerificationTokenService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/service/impl/VerificationTokenService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/utils/InterceptorUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/utils/InterceptorUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/utils/TimeUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/utils/TimeUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/api/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/api/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/admin/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/admin/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/controller/web/RegistrationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/dto/UserLoginDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/com/website/movie/web/dto/UserLoginDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/message_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/classes/message_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/lib/hibernate-validator-7.0.2.Final.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/lib/jakarta.validation-api-3.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MovieWebsite/WEB-INF/lib/log4j-1.2.17.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Note" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/cache/Cache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/cache/Cache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/cache/InMemoryCache$CacheObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/cache/InMemoryCache$CacheObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/cache/InMemoryCache.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/cache/InMemoryCache.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/config/DataConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/config/DataConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebAppInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebAppInitializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/events/listener/VerificationTokenListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/events/listener/VerificationTokenListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/Convert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/Convert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/MovieConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/MovieConvert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/UserConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/UserConvert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/interceptor/UserInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/interceptor/UserInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/GenericDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/GenericDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/UserDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/impl/AbstractDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/impl/AbstractDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/BaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/BaseEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CommentEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CommentEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVEpisodeEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVEpisodeEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVSeasonEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVSeasonEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/CommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/TVSeasonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/TVSeasonRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/security/MyUserPrincipal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/security/MyUserPrincipal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/AuthorizationRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/AuthorizationRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/ExpressionUrlAuthorization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/ExpressionUrlAuthorization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/RequestMatcherRegistry$Authorization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/RequestMatcherRegistry$Authorization.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/RequestMatcherRegistry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/security/custom/RequestMatcherRegistry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/IMovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/IMovieService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/IOtherMovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/IOtherMovieService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/ITvSeasonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/ITvSeasonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/IUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/IUserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/MovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/MovieService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/OtherMovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/OtherMovieService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/VerificationTokenService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/VerificationTokenService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/utils/InterceptorUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/utils/InterceptorUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/utils/TimeUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/utils/TimeUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/GlobalExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/MovieRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/MovieRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/OtherRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/OtherRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/TVSeasonRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/TVSeasonRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/admin/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/admin/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/RegistrationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/MovieDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/MovieDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/MovieFilterDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/MovieFilterDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVEpisodeDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVEpisodeDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonAbstractDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonAbstractDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/message_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/message_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\M2" />
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2AiCmOgGKYV5LIZgv0R7bjW2pW4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat8.5" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/MovieWebsite" />
+      <option name="docBase" value="D:\Spring\MovieWebsite\src\main\webapp" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.34" />
+          <option name="number" value="0" />
+          <option name="path" value="C:\apache-tomcat-8.5.34" />
+          <option name="version" value="8.5.34.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="" />
+      <option name="docBase" value="" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.34" />
+          <option name="number" value="0" />
+          <option name="path" value="C:\apache-tomcat-8.5.34" />
+          <option name="version" value="8.5.34.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="" />
+      <created>1655483182392</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1655483182392</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="137" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1656735399302">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="137" y="39" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768@0.0.1366.768" timestamp="1656735399301" />
+    <state x="441" y="186" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1655486317923">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="441" y="186" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1655486317923" />
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1655491032220">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1655491032220" />
+    <state x="424" y="269" key="DetectedRootsChooserDialog" timestamp="1655485360210">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="424" y="269" key="DetectedRootsChooserDialog/0.0.1366.768@0.0.1366.768" timestamp="1655485360210" />
+    <state x="229" y="159" key="FileChooserDialogImpl" timestamp="1655566260792">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="229" y="159" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1655566260792" />
+    <state width="1323" height="2" key="GridCell.Tab.0.bottom" timestamp="1655834905848">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1655834905848" />
+    <state width="1323" height="2" key="GridCell.Tab.0.center" timestamp="1655834905848">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1655834905848" />
+    <state width="1323" height="2" key="GridCell.Tab.0.left" timestamp="1655834905833">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1655834905833" />
+    <state width="1323" height="2" key="GridCell.Tab.0.right" timestamp="1655834905848">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1655834905848" />
+    <state width="1323" height="2" key="GridCell.Tab.1.bottom" timestamp="1655834164029">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1655834164029" />
+    <state width="1323" height="2" key="GridCell.Tab.1.center" timestamp="1655834164029">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1655834164029" />
+    <state width="1323" height="2" key="GridCell.Tab.1.left" timestamp="1655834164029">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1655834164029" />
+    <state width="1323" height="2" key="GridCell.Tab.1.right" timestamp="1655834164029">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="1323" height="2" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1655834164029" />
+    <state x="107" y="0" key="SettingsEditor" timestamp="1655486780219">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="107" y="0" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1655486780219" />
+    <state x="390" y="88" width="585" height="592" key="find.popup" timestamp="1655807955019">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="390" y="88" width="585" height="592" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1655807955019" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1655483791400">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/0.0.1366.768@0.0.1366.768" timestamp="1655483791400" />
+    <state x="65" y="45" key="new project wizard" timestamp="1655539289738">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="65" y="45" key="new project wizard/0.0.1366.768@0.0.1366.768" timestamp="1655539289738" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1655780901988">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1655780901988" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

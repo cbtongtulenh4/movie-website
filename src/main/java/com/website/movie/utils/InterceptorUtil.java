@@ -20,8 +20,7 @@ public class InterceptorUtil {
 
     public static boolean isUserLogged(final HttpServletRequest request){
         try{
-            return (SessionUtil.getInstance().getValue(request, "USERMODEL") != null)
-                    ? true : false;
+            return SessionUtil.getInstance().getValue(request, "USERMODEL") != null;
         }catch (Exception ex){
             return false;
         }

@@ -1,0 +1,19 @@
++ MVC form
++ security
+    + interceptor
+     - check authorization
+       -> build same form spring security
+       ->  can input matcher-access from getAuthorizationRegistry method (RequestMatcherRegistry class)
+       -> need fix hide query in url or change url in request by one send interceptor
+     - check timeout
+    + encode password
+    + login authentication
++ send email when register
++ cache memory from server and client (incomplete)
++ create event for multiple request ex: send email
++ validate
+ - matcher password
+ - valid password
+ - size input
+ - valid email
++ use stripe (Outseta) API for payment

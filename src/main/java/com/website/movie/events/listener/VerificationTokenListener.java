@@ -6,16 +6,15 @@ import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
 import com.website.movie.utils.EmailUtil;
-import com.website.movie.web.dto.MailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -75,7 +74,7 @@ public class VerificationTokenListener implements ApplicationListener<OnVerifica
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(content);
-        email.setFrom(env.getProperty("support.email"));
+        email.setFrom(Objects.requireNonNull(env.getProperty("support.email")));
         return email;
     }
 

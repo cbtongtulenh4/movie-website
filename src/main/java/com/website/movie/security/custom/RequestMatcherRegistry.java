@@ -4,6 +4,8 @@ import com.website.movie.utils.AssertUtil;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class RequestMatcherRegistry implements AuthorizationRegistry<RequestMatcherRegistry>{
@@ -30,9 +32,11 @@ public class RequestMatcherRegistry implements AuthorizationRegistry<RequestMatc
     }
 
     @Override
-    public RequestMatcherRegistry access(String role) {
-        AssertUtil.hasText(role, "Target Domain Object textual representation is required");
-        this.authorization.principal = role;
+    public RequestMatcherRegistry access(String ... roles) {
+      //  AssertUtil.hasText(role, "Target Domain Object textual representation is required");
+        this.authorization.principals = new ArrayList<>(
+                Arrays.asList(roles)
+        );
         this.authorizationRegistry.add(this.authorization);
         return this;
     }
@@ -48,22 +52,40 @@ public class RequestMatcherRegistry implements AuthorizationRegistry<RequestMatc
 
     protected static class Authorization{
         private String patternUrl;
-        private String principal;
+//        private String principal;
+        private List<String> principals;
 
         public Authorization(){
 
         }
-        public Authorization(final String patternUrl, final String principal){
-            this.principal = principal;
+        public Authorization(final String patternUrl, String[] principal){
+//            this.principal = principal;
+            this.principals = new ArrayList<>(
+                    Arrays.asList(principal)
+            );
             this.patternUrl = patternUrl;
+        }
+
+        public void setPatternUrl(String patternUrl) {
+            this.patternUrl = patternUrl;
+        }
+
+        public void setPrincipals(List<String> principals) {
+            this.principals = principals;
+        }
+
+        private List<String> toPrincipals(String principal){
+            return new ArrayList<>(
+                    Arrays.asList(principal.replaceAll("\\s+","").split(","))
+            );
         }
 
         public String getPatternUrl() {
             return patternUrl;
         }
 
-        public String getPrincipal() {
-            return principal;
+        public List<String> getPrincipal() {
+            return principals;
         }
     }
 

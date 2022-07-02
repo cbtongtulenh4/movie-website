@@ -3,11 +3,13 @@ package com.website.movie.helper.converter;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.web.dto.MovieDto;
-import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.SimpleTvSeasonDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 import org.modelmapper.ModelMapper;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MovieConvert {
     /**
@@ -36,7 +38,22 @@ public class MovieConvert {
         }
         MovieDto dto = modelMapper.map(entity, MovieDto.class);
         dto.setSeasons(entity.getSeasons());
-        dto.setCategories(entity.getCategories());
+//        dto.setCategories(entity.getCategories());
+        return dto;
+    }
+
+    public static TVSeasonUiDto toDto(TVSeasonEntity entity, boolean isPaid){
+        if (entity == null){
+            return null;
+        }
+        TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
+        dto.setPaid(isPaid);
+        dto.initValue(
+                entity.getEpisodes(),
+                entity.getGenres(),
+                entity.getRates(),
+                entity.getDuration()
+        );
         return dto;
     }
 
@@ -48,9 +65,25 @@ public class MovieConvert {
         dto.initValue(
                 entity.getEpisodes(),
                 entity.getGenres(),
+                entity.getRates(),
                 entity.getDuration()
         );
         return dto;
+    }
+
+
+//    public static List<TVSeasonUiDto> toDto(List<TVSeasonEntity> entities){
+//        List<TVSeasonUiDto> dtos = new ArrayList<>();
+//        entities.forEach(e -> {
+//            dtos.add(toDto(e));
+//        });
+//        return dtos;
+//    }
+
+    public static List<TVSeasonUiDto> toDto(Collection<TVSeasonEntity> entities){
+        List<TVSeasonUiDto> dtos = new ArrayList<>();
+        entities.forEach(e -> dtos.add(toDto(e)));
+        return dtos;
     }
 
 //    public static TVSeasonEntity toTvSeasonEntity(TVSeasonUiDto dto){
@@ -71,6 +104,15 @@ public class MovieConvert {
                 entity.getDuration()
         );
         return dto;
+    }
+
+    public static List<SimpleTvSeasonDto> toSimpleTvSeasonDto(Collection<TVSeasonEntity> tvSeasons){
+        if (tvSeasons.isEmpty()) return null;
+        List<SimpleTvSeasonDto> rs = new ArrayList<>();
+        tvSeasons.forEach(
+                e -> rs.add(toSimpleTvSeasonDto(e))
+        );
+        return rs;
     }
 
 

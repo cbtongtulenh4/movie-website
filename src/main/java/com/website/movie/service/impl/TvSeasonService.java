@@ -1,6 +1,10 @@
 package com.website.movie.service.impl;
 
+import com.website.movie.cache.InMemoryCache;
 import com.website.movie.helper.converter.Convert;
+import com.website.movie.helper.converter.MovieConvert;
+import com.website.movie.persistence.dao.IUserDAO;
+import com.website.movie.persistence.dao.impl.UserImpl;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
@@ -10,11 +14,13 @@ import com.website.movie.persistence.repository.TVSeasonRepository;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.web.dto.MovieFilterDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
+import com.website.movie.web.dto.WatchTvSeasonDto;
 import lombok.SneakyThrows;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +50,8 @@ public class TvSeasonService implements ITvSeasonService {
     @Autowired
     private MovieGenresRepository movieGenresRepository;
 
+    private final IUserDAO userDAO = new UserImpl();
+
     private static final Logger LOGGER = LoggerFactory.getLogger(TvSeasonService.class);
 
     @Override
@@ -70,12 +78,15 @@ public class TvSeasonService implements ITvSeasonService {
 //        }
         // When add LOGGER.info so fetch LAZY type working, Why?
         LOGGER.info("Get genres season movie with information: {}", temp.getGenres());
+        LOGGER.info("Get genres season movie with information: {}", temp.getEpisodes());
+        LOGGER.info("Get genres season movie with information: {}", temp.getComments());
         return temp;
     }
 
     @Override
     public List<TVSeasonEntity> getAllSeasonMovie() {
-        return tvSeasonRepository.findAll();
+//        return tvSeasonRepository.findAll();
+        return getSeasonMovieCache();
     }
 
     @Override
@@ -94,6 +105,40 @@ public class TvSeasonService implements ITvSeasonService {
         });
         return result;
     }
+
+    @Override
+    public WatchTvSeasonDto getWatchTvSeasonUiByCode(String code) {
+        List<TVSeasonEntity> tvSeasonList = getSeasonMovieCache();
+        for (TVSeasonEntity tvSeason : tvSeasonList){
+            if (tvSeason.getCode().equalsIgnoreCase(code)){
+                return Convert.convertModel(tvSeason, WatchTvSeasonDto.class);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Page<TVSeasonEntity> findAll(Pageable paging) {
+        Page<TVSeasonEntity> pagedResult = tvSeasonRepository.findAll(paging);
+        pagedResult.forEach(e -> LOGGER.info("Get genres season movie with information: {}", e.getGenres()));
+        return pagedResult;
+    }
+
+    @Override
+    public TVSeasonUiDto getSeasonMovieByCode(String code, Long user_id) {
+        TVSeasonEntity seasonEntity = tvSeasonRepository.findOneByCode(code);
+        boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, seasonEntity.getId());
+        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getGenres());
+        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getComments());
+        return MovieConvert.toDto(seasonEntity, isPaid);
+    }
+
+    @Override
+    public TVSeasonEntity getSeasonMovieEntityByCode(String code){
+        return tvSeasonRepository.findOneByCode(code);
+    }
+
+
 
     @SneakyThrows
     private boolean seasonMovieFilter(TVSeasonEntity tvSeason, MovieFilterDto movieFilter){
@@ -137,7 +182,7 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     private boolean titleFilter(String origin, String request){
-        return origin.equals(request);
+        return origin.equalsIgnoreCase(request);
     }
 
     private Set<MovieGenresEntity> setMovieGenresEntity(String[] genresRequest){
@@ -146,6 +191,15 @@ public class TvSeasonService implements ITvSeasonService {
             result.add(movieGenresRepository.findByName(genreRequest));
         }
         return result;
+    }
+
+    private List<TVSeasonEntity> getSeasonMovieCache(){
+        List<TVSeasonEntity> object = (List<TVSeasonEntity>)InMemoryCache.getInstance().get("SEASON_MOVIES");
+        if (object == null){
+            object = tvSeasonRepository.findAll();
+            InMemoryCache.getInstance().add("SEASON_MOVIES", object);
+        }
+        return object;
     }
 
 

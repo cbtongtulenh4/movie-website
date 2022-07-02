@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 import java.util.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "Movie_Seasons")
 @NoArgsConstructor
@@ -22,17 +23,19 @@ public class TVSeasonEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    private String code;
     private String title;
     private String thumbnail;
     private Integer newEpisode;
-    private Integer duration;
+    private Float cost = 0.0F;
+    private Integer duration = 0;
     private String status;
     private String showtime;
     private String directors;
-    private Integer followers;
-    private Integer ageLimit;
-    private Float rate;
-    private Long views;
+    private Integer followers = 0;
+    private Integer ageLimit = 0;
+//    private Float rate = 10.0F;
+    private Long views = 0L;
     @Column(columnDefinition = "TEXT")
     private String summary;
     private Integer seasonNumber;
@@ -44,13 +47,20 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private MovieFormEntity movieForm;
 */
+
+    @OneToMany(mappedBy = "tvSeason", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "season-movie-rate")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<RateEntity> rates = new HashSet<>();
+
+
     @OneToMany(mappedBy = "tvSeason", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonManagedReference
-    private Set<TVEpisodeEntity> episodes = new HashSet<>();
+    @JsonManagedReference(value = "season-movie-episode")
+    private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value = "movie-season")
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JoinColumn(
             name = "movie_id",
@@ -72,6 +82,29 @@ public class TVSeasonEntity extends BaseEntity{
             }
     )
     private Set<MovieGenresEntity> genres = new HashSet<>();
+
+
+
+
+    @ManyToMany(targetEntity = RatingEntity.class, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonIgnore
+    @JoinTable(
+            name = "season_rating",
+            joinColumns = {
+                    @JoinColumn(name = "season_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "rating_id")
+            }
+    )
+    private Set<RatingEntity> ratings = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
+    private Set<CommentEntity> comments = new HashSet<>();
+
+
 /*
     @ManyToMany(targetEntity = CountryEntity.class, cascade = CascadeType.ALL)
     @JoinTable(

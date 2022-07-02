@@ -19,6 +19,7 @@ public interface IMovieService {
     MovieEntity updateMovie(MovieEntity movieEntity);
     MovieEntity createMovie(MovieEntity movieEntity);
     void deleteMovies(Long[] ids);
+    void deleteAllMovies();
 
 
 }

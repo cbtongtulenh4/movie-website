@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html xmlns:th="http://www.thymeleaf.org" class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html xmlns:th="http://www.thymeleaf.org" class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="no-js">
+
+<!-- celebritysingle12:04-->
+<head>
+    <!-- Basic need -->
+    <title>Open Pediatrics</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <!-- Mobile specific meta -->
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone-no">
+
+    <!-- CSS files -->
+    <link rel="stylesheet" th:href="@{/template/css/plugins.css}">
+    <link rel="stylesheet" th:href="@{/template/css/main.css}">
+    <link rel="stylesheet" th:href="@{/template/css/video.css}">
+    <link rel="stylesheet" th:href="@{/template/css/watch.css}">
+
+</head>
+<body>
+<!--preloading-->
+<div id="preloader">
+    <img class="logo" src="images/logo1.png" alt="" width="119" height="58">
+    <div id="status">
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<!--end of preloading-->
+<!--login form popup-->
+<div class="login-wrapper" id="login-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>Login</h3>
+        <form method="post" action="#">
+            <div class="row">
+                <label for="username">
+                    Username:
+                    <input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                </label>
+            </div>
+
+            <div class="row">
+                <label for="password">
+                    Password:
+                    <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <div class="remember">
+                    <div>
+                        <input type="checkbox" name="remember" value="Remember me"><span>Remember me</span>
+                    </div>
+                    <a href="#">Forget password ?</a>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+        <div class="row">
+            <p>Or via social</p>
+            <div class="social-btn-2">
+                <a class="fb" href="#"><i class="ion-social-facebook"></i>Facebook</a>
+                <a class="tw" href="#"><i class="ion-social-twitter"></i>twitter</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of login form popup-->
+<!--signup form popup-->
+<div class="login-wrapper"  id="signup-content">
+    <div class="login-content">
+        <a href="#" class="close">x</a>
+        <h3>sign up</h3>
+        <form method="post" action="#">
+            <div class="row">
+                <label for="username-2">
+                    Username:
+                    <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                </label>
+            </div>
+
+            <div class="row">
+                <label for="email-2">
+                    your email:
+                    <input type="password" name="email" id="email-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="password-2">
+                    Password:
+                    <input type="password" name="password" id="password-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="repassword-2">
+                    re-type Password:
+                    <input type="password" name="password" id="repassword-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                </label>
+            </div>
+            <div class="row">
+                <button type="submit">sign up</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--end of signup form popup-->
+
+<!-- BEGIN | Header -->
+<div th:replace="web/fragments/header :: header"></div>
+<!-- END | Header -->
+
+<div class="hero hero3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- <h1> movie listing - list</h1>
+                <ul class="breadcumb">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- celebrity single section-->
+
+<div class="page-single movie-single cebleb-single">
+    <div class="container">
+        <div class="row ipad-width">
+            <main>
+                <div class="ht-video">
+                    <div class="video-vd">
+                        <section>
+                            <div class="container-vd">
+                                <div id="video_player">
+                                    <video preload="metadata" id="main-video">
+<!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
+<!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
+                                        <!-- <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4">
+                                        <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4"> -->
+                                        <source th:src="${EPISODE.path}" type="video/mp4" />
+                                        <track id="track1" label="English" kind="subtitles" src="./How To Get Started With VSCode.vtt" srclang="en">
+                                        <track id="track2" label="Urdu" kind="subtitles" src="./test.vtt" srclang="en">
+                                    </video>
+                                    <p class="caption_text"></p>
+                                    <div class="progressAreaTime">0:00</div>
+
+                                    <div class="controls">
+                                        <div class="progress-area">
+                                            <div class="progress-bar">
+                                                <span></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls-list">
+                                            <div class="controls-left">
+									  <span class="icon">
+										<i class="material-icons fast-rewind">replay_10</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons play_pause">play_arrow</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons fast-forward">forward_10</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons volume">volume_up</i>
+
+										<input type="range" min="0" max="100" class="volume_range" />
+									  </span>
+
+                                                <div class="timer">
+                                                    <span class="current">0:00</span>
+                                                    <span class="duration">0:00</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="controls-right">
+									  <span class="icon">
+										<i class="material-icons auto-play"></i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons captionsBtn">closed_caption</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons settingsBtn">settings</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons picture_in_picutre">picture_in_picture_alt</i>
+									  </span>
+
+                                                <span class="icon">
+										<i class="material-icons fullscreen">fullscreen</i>
+									  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="settings">
+                                        <div class="playback">
+                                            <span>Playback Speed</span>
+                                            <ul>
+                                                <li data-speed="0.25">0.25</li>
+
+                                                <li data-speed="0.5">0.5</li>
+
+                                                <li data-speed="0.75">0.75</li>
+
+                                                <li data-speed="1" class="active">Normal</li>
+
+                                                <li data-speed="1.25">1.25</li>
+
+                                                <li data-speed="1.5">1.5</li>
+
+                                                <li data-speed="1.75">1.75</li>
+
+                                                <li data-speed="2">2</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="captions">
+                                        <div class="caption">
+                                            <span>Select Subtitle</span>
+                                            <ul>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="vd-tools">
+                        <ul>
+                            <li>
+                                <span>Value</span>
+                            </li>
+                            <li>
+                                <span>Value</span>
+                            </li>
+                            <li>
+                                <span>Value</span>
+                            </li>
+                            <li>
+                                <span>Value</span>
+                            </li>
+                            <li>
+                                <span>Value</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ht-episode">
+                    <h1>Movie Episodes</h1>
+                    <ul>
+                        <li th:each="EP : ${WATCH_MODEL.episodes}" th:class="${EP.numEp} == ${EPISODE.numEp} ? 'active':''">
+                            <a th:href="@{'/' + ${WATCH_MODEL.code} + '/watch/ep-' + ${EP.numEp}}">
+                                <span th:value="${EP.numEp}" th:text="${EP.numEp}">01</span>
+                            </a>
+                        </li>
+                    </ul>
+<!--                    <li>-->
+<!--                        <a href=""><span>01</span></a>-->
+<!--                    </li>-->
+                </div>
+                <div class="ht-chat">
+                    <h1>Leave Comment</h1>
+                    <div class="post-comment" >
+                        <img src="" alt="">
+                        <div class="content-post" id="content-post-cm">
+                            <textarea name="" placeholder="Enter something" cols="30" rows="10"></textarea>
+                            <div class="cm-post-btn">
+                                <button id="post-mn-cm">POST</button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="comments-list" id="comment-list">
+
+                    </ul>
+                    <button class="see-more-btn">See mores 10 comments</button>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+<!-- celebrity single section-->
+
+<!-- footer section-->
+<div th:replace="web/fragments/footer :: footer"></div>
+<!-- end of footer section-->
+
+<script th:src="@{/template/js/jquery.js}"></script>
+<script th:src="@{/template/js/plugins.js}"></script>
+<script th:src="@{/template/js/plugins2.js}"></script>
+<script th:src="@{/template/js/custom.js}"></script>
+<script th:src="@{/template/js/video.js}"></script>
+<script th:src="@{/template/js/watch.js}"></script>
+<script th:inline="javascript">
+
+    var boxCM = document.getElementById('comment-list');
+    var comments = [[${COMMENTS}]];
+
+    function commentHTML(comment){
+        return `
+            <div class="comment-main-level">
+                <img th:src="`+ comment.pathImg +`" alt="">
+                <div class="comment-content">
+                    <div class="title-cm">
+                        <h6>`+ comment.name +`</h6>
+                        <span>- Ep `+ comment.ep +`</span>
+                        <span>- `+ comment.timeAgo +` ago</span>
+                    </div>
+                    <b>`+ comment.content +`</b>
+                    <div class="tools">
+                        <div class="attr-tool">
+                            <i onclick="loadLike(event);" class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            <span>(like `+ comment.numLike +`)</span>
+                        </div>
+                        <span>.</span>
+                        <div class="attr-tool" id="spam-tool">
+                            <i class="fa fa-flag-o" aria-hidden="true"></i>
+                            <span>(ban 10)</span>
+                        </div>
+                        <span>.</span>
+                        <div class="attr-tool">
+                            <i onclick="clicked(event);" class="fa fa-reply" aria-hidden="true"></i>
+                            <span>(Reply)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    loadComments(boxCM, comments);
+
+    function loadComments(boxCM, comments) {
+        let text="";
+		for (const comment of comments) {
+			text += `
+			    <li class="comment-main" value="`+ comment.parentId +`">
+			` + commentHTML(comment);
+			text = inputReply(text, comment.commentDtos);
+			text += `</li>`;
+		}
+		boxCM.innerHTML += text;
+	}
+
+	function inputReply(text ,childCM) {
+		if(childCM.length != 0){
+			text += `<ul class="comment-list reply-list">`;
+			for (const c of childCM) {
+				text += `
+                    <li class="comment-main" value="`+ c.parentId +`">
+                ` + commentHTML(c);
+				text = inputReply(text, c.commentDtos);
+				text += `</li>`;
+			}
+			text += `</ul>`;
+		}
+		return text;
+	}
+
+	var post = document.getElementById('post-mn-cm');
+	var comment_list = document.getElementById('comment-list');
+	// var cm_reply = document.getElementById('cm-reply');
+
+	// cm_reply.addEventListener('click', function(){
+	// 	var li = upToParent(cm_reply, 'li');
+	// 	var cm_post_rp = document.createElement('div');
+	// 	cm_post_rp.classList = "post-comment reply-list";
+	// 	var text_post = `
+	// 		<img src="" alt="">
+	// 		<div class="content-post">
+	// 			<textarea name="" id="content-post-cm" cols="30" rows="10">sfsdfsdfsdfsdfsdfsfad</textarea>
+	// 			<div class="cm-post-btn">
+	// 				<button id="post-mn-cm rp-cm-post">POST</button>
+	// 			</div>
+	// 		</div>
+	// 	`;
+	// 	cm_post_rp.innerHTML += text_post;
+	// 	li.append(cm_post_rp);
+	// })
+
+	var cm_post_rp; // element contain box chat reply
+	var bx_cm_ul; // box comment element ul for contain comment reply list
+
+	function clicked(e) {
+		var li = upToParent(e.target, 'li'); // get li element contain it
+		bx_cm_ul = li.querySelector('.comment-list.reply-list');
+		if (bx_cm_ul === null) {
+			var ul = document.createElement('ul');
+			ul.classList = "comment-list reply-list";
+			li.append(ul);
+			bx_cm_ul = ul;
+		}
+		cm_post_rp = document.createElement('div');
+		cm_post_rp.classList = "post-comment";
+		var text_post = `
+			<img src="" alt="">
+			<div class="content-post" id="content-post-cm">
+				<textarea name="" cols="30" rows="10">Enter something</textarea>
+				<div class="cm-post-btn">
+					<button onClick="onPostReply(`+ li.value +`);">POST</button>
+				</div>
+			</div>
+		`;
+		cm_post_rp.innerHTML += text_post;
+		bx_cm_ul.prepend(cm_post_rp);
+	}
+
+// this method execute for child comment
+	function onPostReply(parentId) {
+	    var li = postComment(cm_post_rp, parentId);
+		cm_post_rp.remove();
+		bx_cm_ul.prepend(li);
+	}
+
+    async function fetchAPI(url, object, method) {
+		const response = await fetch(url,{
+			method : method,
+			body : JSON.stringify(object),
+			headers : {
+			    'Accept': 'application/json',
+				'Content-Type' : 'application/json'
+			}
+		});
+		var data = await response.json();
+        console.log(data);
+        return data;
+	}
+
+	function postComment(postEl, parentId){
+	    var content_cm = postEl.querySelector('textarea').value;
+	    const object = {
+	        name : "userName",
+	        content : content_cm,
+	        pathImg : "/girl1.jpg",
+	        ep : [[${EPISODE.id}]]
+	    };
+	    var data = fetchAPI("/MovieWebsite/api/movie/season/comment?" + new URLSearchParams({
+	        tvSeasonId : [[${WATCH_MODEL.id}]],
+	        parentId : parentId,
+	    }), object, "POST");
+	    console.log(data);
+	    var li = document.createElement('li');// li element for comment reply
+		var textHTML = commentHTML(data);
+		li.classList = "comment-main";
+		li.innerHTML += textHTML;
+		return li;
+	}
+
+// this method execute comment parent id = 0;
+	post.addEventListener('click', function() {
+	    var postEl =  document.getElementById('content-post-cm');
+		var li = postComment(postEl, 0);
+		comment_list.prepend(li); // insert first child into element
+		// comment_list.insertBefore(li, comment_list.firstChild); - this is other way
+	})
+
+	// find first ancestor of el with tagName
+	function upToParent(el, tagName) {
+		tagName = tagName.toLowerCase();
+		while(el && el.parentNode){
+			el = el.parentNode;
+			if (el.tagName && el.tagName.toLowerCase() === tagName) {
+				return el;
+			}
+		}
+		return null;
+	}
+
+</script>
+</body>
+
+<!-- celebritysingle12:18-->
+</html>

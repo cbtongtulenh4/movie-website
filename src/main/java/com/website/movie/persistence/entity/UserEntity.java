@@ -1,16 +1,18 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@AllArgsConstructor
 @Setter
 @Getter
 public class UserEntity extends BaseEntity {
@@ -29,12 +31,48 @@ public class UserEntity extends BaseEntity {
     private Boolean status;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<RoleEntity> roles = new ArrayList<>();
+
+    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(
+            name = "user_tv_season",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tv_season_id")
+    )
+    private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
+
+
+    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(
+            name = "paid_movie",
+            joinColumns = @JoinColumn(
+                    name = "user_id"
+//                    foreignKey = @ForeignKey(name = "user_FK")
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "tvSeason_id"
+//                    foreignKey = @ForeignKey(name = "tvSeason_FK")
+            )
+    )
+    private Set<TVSeasonEntity> paidMovies = new HashSet<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<RateEntity> rates = new HashSet<>();
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
+    private ProfileEntity profile = new ProfileEntity();
+
 
     public UserEntity(){
         super();

@@ -1,0 +1,46 @@
+.topbar-filter .find-movie{
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+.topbar-filter .find-movie input{
+    position: relative;
+    margin-left: 20px;
+    width: 80px;
+    padding-right: 25px;
+    border: none;
+    background: none;
+}
+
+.topbar-filter .find-movie .search-page{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .find-movie .search-page i{
+    position: absolute;
+    right: 0;
+} */
+
+.find-movie .search-page .fa-search{
+    position: absolute;
+    right: 0;
+    /* font-size: 20px; */
+    cursor: pointer;
+    margin: 5px;
+    padding-left: 5px;
+    border-left: 1px solid #405266;
+}
+
+.topbar-filter select{
+    width: auto;
+    /* display: flex; */
+    min-width: 150px;
+}
+
+.topbar-filter .pagination2{
+    min-width: 245px;
+}

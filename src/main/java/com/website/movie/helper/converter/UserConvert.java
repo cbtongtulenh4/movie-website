@@ -3,6 +3,9 @@ package com.website.movie.helper.converter;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.utils.AssertUtil;
 import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserProfileDto;
+
+import java.util.*;
 
 public class UserConvert {
     /**
@@ -29,6 +32,24 @@ public class UserConvert {
         result.setEmail(dto.getEmail());
         result.setPassword(dto.getPassword());
         return result;
+    }
+
+    public static UserProfileDto toUserProfileDto(UserEntity userEntity){
+        AssertUtil.notNull(userEntity, "UserEntity must not null!");
+        UserProfileDto userProfileDto = Convert.convertModel(userEntity.getProfile(), UserProfileDto.class);
+        userProfileDto.setEmail(userEntity.getEmail());
+        userProfileDto.setName(userEntity.getName());
+        userProfileDto.setId(userEntity.getId());
+        return userProfileDto;
+    }
+
+    public static List<UserProfileDto> toListUserProfileDto(Collection<UserEntity> userEntities){
+        if (userEntities.isEmpty()) return null;
+        List<UserProfileDto> rs = new ArrayList<>();
+        for (UserEntity user : userEntities){
+            rs.add(toUserProfileDto(user));
+        }
+        return rs;
     }
 
 

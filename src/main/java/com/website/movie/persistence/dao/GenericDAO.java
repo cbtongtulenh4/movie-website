@@ -11,13 +11,15 @@ public interface GenericDAO<T> {
      */
 
     //    list all object
-    public java.util.List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters);
+    java.util.List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters);
 
     //    update data
-    public void update(String sql, Object... params);
+    void update(String sql, Object... params);
     //    inset data
-    public Long insert(String sql, Object... params);
+    Long insert(String sql, Object... params);
     //     delete data
-    public void delete(String sql, Object... params);
+    void delete(String sql, Object... params);
+
+    long count(String sql, Object... params);
 
 }

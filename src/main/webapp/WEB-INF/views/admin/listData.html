@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/template/css/listdata.css}">
+</head>
+<body>
+<div class="container">
+    <div class="sc-choice">
+        <ul class="co-box-info">
+            <li onclick="clickChoice(event);" value="user">
+                <span>User</span>
+            </li>
+            <li onclick="clickChoice(event);" value="game">
+                <span>Game</span>
+            </li>
+            <li onclick="clickChoice(event);" value="music">
+                <span>Music</span>
+            </li>
+            <li onclick="clickChoice(event);" value="genres">
+                <span>Genres</span>
+            </li>
+        </ul>
+    </div>
+    <div class="sc-title">
+        <span>Get All info User</span>
+    </div>
+    <div class="sc-table-data" id="main">
+
+    </div>
+</div>
+<script th:src="@{/template/js/custom1.js}"></script>
+<script>
+    function clickChoice(e) {
+        let clicked = upToParent(e.target, 'li');
+        if(clicked.getAttribute('class') === 'cl-info') return;
+        let boxClick = upToParent(clicked, 'ul');
+        let lis = boxClick.querySelectorAll('li');
+        lis.forEach(li => {
+            li.classList.remove('cl-info');
+        });
+        fetchAPI("/MovieWebsite/api/" + clicked.getAttribute('value'));
+        clicked.classList = "cl-info";
+    }
+
+var list = [
+    { date: '12/1/2011', reading: 3, id: 20055 },
+    { date: '13/1/2011', reading: 5, id: 20053 },
+    { date: '14/1/2011', reading: 6, id: 45652 }
+];
+    const userURL = "/MovieWebsite/api/user";
+    const movieURL = "/MovieWebsite/api/movie";
+    const genresURL = "/MovieWebsite/api/o";
+
+
+    async function fetchAPI(targetURL) {
+        var response = await fetch(targetURL,{
+            method : 'GET'
+        });
+        var data = await response.json();
+        show(data);
+    }
+
+    function show(data) {
+        let tbContain = document.getElementById('main');
+        tbContain.textContent = "";
+        let table = document.createElement('table');
+
+        let thead = document.createElement('thead');
+        for(const key of Object.keys(data[0])){
+            let th = document.createElement('th');
+            th.textContent = key;
+            thead.appendChild(th);
+        }
+
+        table.appendChild(thead);
+
+        let tbody = document.createElement('tbody');
+        for (const i of data) {
+            let tr = document.createElement('tr');
+            let fragmentTd = document.createDocumentFragment();
+            for(const j of Object.values(i)){
+                let td = document.createElement('td');
+                td.textContent = j;
+                fragmentTd.appendChild(td);
+            }
+            tr.appendChild(fragmentTd);
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        tbContain.appendChild(table);
+    }
+</script>
+</body>
+</html>

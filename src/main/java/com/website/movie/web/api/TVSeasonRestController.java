@@ -1,24 +1,28 @@
 package com.website.movie.web.api;
 
-import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
-import com.website.movie.web.dto.MovieFilterDto;
-import com.website.movie.web.dto.SimpleTvSeasonDto;
-import com.website.movie.web.dto.TVSeasonUiDto;
+import com.website.movie.utils.PageableUtil;
+import com.website.movie.utils.StringUtil;
+import com.website.movie.utils.custom.CustomPageable;
+import com.website.movie.web.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController(value = "TvSeasonRestAPI")
 public class TVSeasonRestController {
@@ -64,14 +68,57 @@ public class TVSeasonRestController {
         return MovieConvert.toDto(seasonEntity);
     }
 
-    @PostMapping(value = "/api/movie/season/filter")
-    public List<SimpleTvSeasonDto> getMoviesByFilter(
-        @RequestBody final MovieFilterDto movieFilterDto
+//    @GetMapping(value = "/api/movie/season/filter")
+//    public List<SimpleTvSeasonDto> getMoviesByFilter(
+//        @RequestBody final MovieFilterDto movieFilterDto
+//    ){
+//        List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto);
+//        List<SimpleTvSeasonDto> simpleTvSeasonDtos = new ArrayList<>();
+//        tvSeasonEntity.forEach(e -> simpleTvSeasonDtos.add(MovieConvert.toSimpleTvSeasonDto(e)));
+//        return simpleTvSeasonDtos;
+//    }
+
+
+    @GetMapping(value = "/api/movie/season/filter")
+    public MovieListPageDto getMoviesByFilter(
+//            @RequestBody final MovieFilterDto movieFilterDto,
+            @RequestParam(value = "sort", defaultValue = "title-1") final String sortParam,
+            @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
+            @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
+            HttpServletRequest request
     ){
+        MovieFilterDto movieFilterDto = new MovieFilterDto(
+                request.getParameter("title").isEmpty() ? null : request.getParameter("title"),
+                request.getParameter("rating"),
+                StringUtil.toArray(request.getParameter("genres"), ",")
+        );
         List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto);
         List<SimpleTvSeasonDto> simpleTvSeasonDtos = new ArrayList<>();
         tvSeasonEntity.forEach(e -> simpleTvSeasonDtos.add(MovieConvert.toSimpleTvSeasonDto(e)));
-        return simpleTvSeasonDtos;
+
+        CustomPageable<SimpleTvSeasonDto> pageable = new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
+
+        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
+
+        return new MovieListPageDto(
+                pageable.paging(),
+                pagination
+        );
+    }
+
+    @GetMapping(value = "/api/movie/season")
+    public List<TVSeasonUiDto> getSeasonsMovie(
+        @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
+        @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie
+    ){
+        Page<TVSeasonEntity> pagination = tvSeasonService.findAll(PageableUtil.paging(pageNo - 1, limitMovie));
+        return MovieConvert.toDto(pagination.getContent());
+    }
+
+    private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store,String sortParam){
+        String[] valueSort = sortParam.split("-");
+
+        return null;
     }
 
 

@@ -18,6 +18,7 @@ public interface Cache {
      * @param periodInMillis expire time
      */
     void add(final String key, final Object value, final long periodInMillis);
+    void add(final String key, final Object value);
 
     /**
      * allows remove object from memory

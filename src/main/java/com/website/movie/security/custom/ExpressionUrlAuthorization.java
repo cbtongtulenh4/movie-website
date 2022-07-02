@@ -44,9 +44,14 @@ public class ExpressionUrlAuthorization {
         for (RequestMatcherRegistry.Authorization authorization : auth){
             if(authorization.getPatternUrl().contains(permission)){
                 if (authorities != null){
+                    List<String> principal = authorization.getPrincipal();
+//                    if (principal.get(0).equals("*")){
+//
+//                    }
                     for (GrantedAuthority role : authorities){
-                        if (role.getAuthority().equals(authorization.getPrincipal()))
+                        if (principal.contains(role.getAuthority())){
                             return true;
+                        }
                     }
                 }
                 return false;

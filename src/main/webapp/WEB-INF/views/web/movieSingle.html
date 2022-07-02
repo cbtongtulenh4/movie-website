@@ -120,116 +120,7 @@
 <!--end of signup form popup-->
 
 <!-- BEGIN | Header -->
-<header class="ht-header">
-    <div class="container">
-        <nav class="navbar navbar-default navbar-custom">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header logo">
-                <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <div id="nav-icon1">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <a href="index-2.html"><img class="logo" th:src="@{/template/img/logo1.png}" alt="" width="119" height="58"></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav flex-child-menu menu-left">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown">
-                            Home <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="index-2.html">Home 01</a></li>
-                            <li><a href="homev2.html">Home 02</a></li>
-                            <li><a href="homev3.html">Home 03</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            movies<i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Movie grid<i class="ion-ios-arrow-forward"></i></a>
-                                <ul class="dropdown-menu level2">
-                                    <li><a href="moviegrid.html">Movie grid</a></li>
-                                    <li><a href="moviegridfw.html">movie grid full width</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="movielist.html">Movie list</a></li>
-                            <li><a href="moviesingle.html">Movie single</a></li>
-                            <li class="it-last"><a href="seriessingle.html">Series single</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            celebrities <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="celebritygrid01.html">celebrity grid 01</a></li>
-                            <li><a href="celebritygrid02.html">celebrity grid 02 </a></li>
-                            <li><a href="celebritylist.html">celebrity list</a></li>
-                            <li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            news <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="bloglist.html">blog List</a></li>
-                            <li><a href="bloggrid.html">blog Grid</a></li>
-                            <li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            community <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="userfavoritegrid.html">user favorite grid</a></li>
-                            <li><a href="userfavoritelist.html">user favorite list</a></li>
-                            <li><a href="userprofile.html">user profile</a></li>
-                            <li class="it-last"><a href="userrate.html">user rate</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav flex-child-menu menu-right">
-                    <li class="dropdown first">
-                        <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                            pages <i class="fa fa-angle-down" aria-hidden="true"></i>
-                        </a>
-                        <ul class="dropdown-menu level1">
-                            <li><a href="landing.html">Landing</a></li>
-                            <li><a href="404.html">404 Page</a></li>
-                            <li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Help</a></li>
-                    <li class="loginLink"><a href="#">LOG In</a></li>
-                    <li class="btn signupLink"><a href="#">sign up</a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <!-- top search form -->
-        <div class="top-search">
-            <select>
-                <option value="united">TV show</option>
-                <option value="saab">Others</option>
-            </select>
-            <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
-        </div>
-    </div>
-</header>
+<div th:replace="web/fragments/header :: header"></div>
 <!-- END | Header -->
 
 <div class="hero mv-single-hero">
@@ -257,41 +148,41 @@
                             <div><a href="https://www.youtube.com/embed/o-0hcF97wy0" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
                         </div>
                         <div class="btn-transform transform-vertical">
-                            <div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
-                            <div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-1 yellowbtn" th:text="${SEASON_MOVIE.isPaid} ? 'WATCH NOW':'BUY TICKET'"> <i class="ion-card"></i></a></div>
+                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost} ?:''"><i class="ion-card"></i></a></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="movie-single-ct main-content">
-                    <h1 class="bd-hd" th:text="${SEASON.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
+                    <h1 class="bd-hd" th:text="${SEASON_MOVIE.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
                     <div class="social-btn">
-                        <a href="#" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i> <span>Add to Favorite</span></div>
                         <div class="hover-bnt">
-                            <a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+                            <div class="parent-btn"><i class="ion-android-share-alt"></i>share</div>
                             <div class="hvr-item">
-                                <a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-googleplus"></i></a>
-                                <a href="#" class="hvr-grow"><i class="ion-social-youtube"></i></a>
+                                <div class="hvr-grow"><i class="ion-social-facebook"></i></div>
+                                <div class="hvr-grow"><i class="ion-social-twitter"></i></div>
+                                <div class="hvr-grow"><i class="ion-social-googleplus"></i></div>
+                                <div class="hvr-grow"><i class="ion-social-youtube"></i></div>
                             </div>
                         </div>
                     </div>
-                    <div class="movie-rate">
-                        <div class="rate">
+                    <div class="movie-rate" >
+                        <div class="rate" id="value-rate">
                             <i class="ion-android-star"></i>
                             <p><span>8.1</span> /10<br>
                                 <span class="rv">56 Reviews</span>
                             </p>
                         </div>
-                        <div class="rate-star">
+                        <div class="rate-star" id="icon-rate">
                             <p>Rate This Movie:  </p>
                             <i class="ion-ios-star"></i>
                             <i class="ion-ios-star"></i>
                             <i class="ion-ios-star"></i>
                             <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
+                            <i class="ion-ios-star-outline"></i>
                             <i class="ion-ios-star"></i>
                             <i class="ion-ios-star"></i>
                             <i class="ion-ios-star"></i>
@@ -416,14 +307,14 @@
                                         <div class="col-md-4 col-xs-12 col-sm-12">
                                             <div class="sb-it">
                                                 <h6>New episode: </h6>
-                                                <div th:if="${SEASON.newEpisode}">
+                                                <div th:if="${SEASON_MOVIE.newEpisode}">
                                                     <p>
-                                                        <nobr th:each="i : ${SEASON.newEpisode}">
+                                                        <nobr th:each="i : ${SEASON_MOVIE.newEpisode}">
                                                             <a href="#" th:text="${i}"></a>
                                                         </nobr>
                                                     </p>
                                                 </div>
-                                                <div th:unless="${SEASON.newEpisode}">
+                                                <div th:unless="${SEASON_MOVIE.newEpisode}">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </div>
                                             </div>
@@ -437,11 +328,11 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Status: </h6>
-                                                <p th:text="${SEASON.status} ?: #{message.UI.value.null}"></p>
+                                                <p th:text="${SEASON_MOVIE.status} ?: #{message.UI.value.null}"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Quality: </h6>
-                                                <p  th:text="${SEASON.quality} ?: #{message.UI.value.null}"></p>
+                                                <p  th:text="${SEASON_MOVIE.quality} ?: #{message.UI.value.null}"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Language: </h6>
@@ -449,10 +340,10 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Director: </h6>
-                                                <div th:if="${SEASON.directors}">
+                                                <div th:if="${SEASON_MOVIE.directors}">
                                                     <p><a href="#" th:text=""></a></p>
                                                 </div>
-                                                <div th:unless="${SEASON.directors}">
+                                                <div th:unless="${SEASON_MOVIE.directors}">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </div>
                                             </div>
@@ -466,10 +357,10 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Genres:</h6>
-                                                <ul th:if="${SEASON.genres == null}">
+                                                <ul th:if="${SEASON_MOVIE.genres == null}">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </ul>
-                                                <p th:each="genre : ${SEASON.genres}">
+                                                <p th:each="genre : ${SEASON_MOVIE.genres}">
                                                     <a href="#" th:text="${genre.name}"></a>
                                                     <span>, </span>
                                                 </p>
@@ -593,7 +484,7 @@
 
                                             <p>THE BAD:</p>
 
-                                            <p>The beginning of the film it's fine until towards the second act and there is when it starts to feel a little rushed. Also I do feel like there are scenes missing but there was talk of an extended version on Blu-Ray so that's cool.</p>
+                                            <p>The beginning of the film  it's fine until towards the second act and there is when it starts to feel a little rushed. Also I do feel like there are scenes missing but there was talk of an extended version on Blu-Ray so that's cool.</p>
                                         </div>
                                         <div class="mv-user-review-item">
                                             <div class="user-infor">
@@ -1104,68 +995,31 @@
     </div>
 </div>
 <!-- footer section-->
-<footer class="ht-footer">
-    <div class="container">
-        <div class="flex-parent-ft">
-            <div class="flex-child-ft item1">
-                <a href="index-2.html"><img class="logo" th:src="@{/template/img/logo1.png}" alt=""></a>
-                <p>5th Avenue st, manhattan<br>
-                    New York, NY 10001</p>
-                <p>Call us: <a href="#">(+01) 202 342 6789</a></p>
-            </div>
-            <div class="flex-child-ft item2">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Blockbuster</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Forums</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Help Center</a></li>
-                </ul>
-            </div>
-            <div class="flex-child-ft item3">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Security</a></li>
-                </ul>
-            </div>
-            <div class="flex-child-ft item4">
-                <h4>Account</h4>
-                <ul>
-                    <li><a href="#">My Account</a></li>
-                    <li><a href="#">Watchlist</a></li>
-                    <li><a href="#">Collections</a></li>
-                    <li><a href="#">User Guide</a></li>
-                </ul>
-            </div>
-            <div class="flex-child-ft item5">
-                <h4>Newsletter</h4>
-                <p>Subscribe to our newsletter system now <br> to get latest news from us.</p>
-                <form action="#">
-                    <input type="text" placeholder="Enter your email...">
-                </form>
-                <a href="#" class="btn">Subscribe now <i class="ion-ios-arrow-forward"></i></a>
-            </div>
-        </div>
-    </div>
-    <div class="ft-copyright">
-        <div class="ft-left">
-            <p><a href="https://www.templatespoint.net" target="_blank">Templates Point</a></p>
-        </div>
-        <div class="backtotop">
-            <p><a href="#" id="back-to-top">Back to top  <i class="ion-ios-arrow-thin-up"></i></a></p>
-        </div>
-    </div>
-</footer>
+<div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
 
 <script th:src="@{/template/js/jquery.js}"></script>
 <script th:src="@{/template/js/plugins.js}"></script>
 <script th:src="@{/template/js/plugins2.js}"></script>
 <script th:src="@{/template/js/custom.js}"></script>
+
+<script>
+    let rate = document.getElementById('icon-rate');
+    rate.addEventListener('click', async function(){
+        const response = await fetch("/MovieWebsite/api/movie/season/rate",{
+            method: 'PUT'
+        });
+        var data = await response.json();
+        let valueRate = document.getElementById('value-rate');
+        valueRate.innerHTML = `
+            <i class="ion-android-star"></i>
+            <p><span>`+ data.value +`</span> /10<br>
+                <span class="rv">`+ data.numPeople +` Reviews</span>
+            </p>
+        `;
+    });
+</script>
+
 </body>
 
 <!-- moviesingle11:03-->

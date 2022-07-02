@@ -1,6 +1,7 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.MovieGenresEntity;
+import com.website.movie.persistence.entity.RateEntity;
 
 import java.util.Set;
 
@@ -18,8 +19,8 @@ public class TVSeasonAbstractDto {
         int[] newEpisode;
         if (size > 0){
             newEpisode = new int[
-                    (size < MAX_NEW_EPISODE) ? size : MAX_NEW_EPISODE
-                    ];
+                    Math.min(size, MAX_NEW_EPISODE)
+            ];
             int length = newEpisode.length;
             for (int i = 0, j = size - MAX_NEW_EPISODE; i < length; i++){
                 newEpisode[i] =  ++j;
@@ -31,9 +32,7 @@ public class TVSeasonAbstractDto {
     }
 
     public String setDuration(Integer duration, int epSize){
-        StringBuilder str = new StringBuilder(epSize + "/");
-        str.append((duration == null) ? "??" : duration);
-        return str.toString();
+        return epSize + "/" + ((duration == null) ? "??" : duration);
     }
 
     public String[] setGenres(Set<MovieGenresEntity> genres){
@@ -52,6 +51,9 @@ public class TVSeasonAbstractDto {
         return result;
     }
 
-
+    public float calRate(Set<RateEntity> rates){
+        if(rates.isEmpty()) return 10.0F;
+        return (float) rates.stream().mapToInt(RateEntity::getValue).sum() / rates.size();
+    }
 
 }

@@ -6,9 +6,12 @@ import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
+import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
+import com.website.movie.utils.MessageUtil;
 import com.website.movie.utils.PasswordUtil;
+import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.UserDto;
 import org.slf4j.Logger;
@@ -67,6 +70,7 @@ public class RegistrationController {
     {
         LOGGER.debug("Registering user account with information: {}", userDto);
 
+        // check error valid
         if(result.hasErrors()){
             throw new InvalidDataException(result);
 //            throw new MethodArgumentNotValidException(new MethodParameter(
@@ -75,18 +79,20 @@ public class RegistrationController {
 
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
-            final String appUrl = getAppUrl(request);
-            final Locale locale = request.getLocale();
-            final MailDto mailDto = new MailDto("registrationConfirm?", locale);
-            mailDto.constructRegistrationMail();
-            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
+//            final String appUrl = getAppUrl(request);
+//            final Locale locale = request.getLocale();
+//            final MailDto mailDto = new MailDto("registrationConfirm?", locale);
+//            mailDto.constructRegistrationMail();
+//            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
         }catch (final UserAlreadyExistException uaeEx){
             ModelAndView mav = new ModelAndView("web/login", "user", userDto);
             String message = messages.getMessage("message.regError", null, request.getLocale());
             mav.addObject("errorMsg",message);
+            return mav;
         }catch (final Exception ex){
           //  LOGGER.warn("Unable to register user", ex);
             ex.printStackTrace();
+            userService.deleteUserAccount(userDto.getEmail());
             return new ModelAndView("web/emailError", "user", userDto);
         }
         return new ModelAndView("web/successRegister", "user", userDto);
@@ -189,6 +195,38 @@ public class RegistrationController {
         );
         return "redirect:/login?lang=" + request.getLocale().getLanguage();
     }
+
+
+    /**
+     * valid password check in client-side
+     * @param passRaw
+     * @param passNew
+     * @return
+     */
+    @RequestMapping(value="/changePassword", method = RequestMethod.POST)
+    public ModelAndView changePassword(
+            @RequestParam("passRaw") final String passRaw,
+            @RequestParam("passNew") final String passNew,
+            HttpServletRequest request
+    ){
+        LOGGER.info("Change Password");
+        MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USERMODEL");
+        ModelAndView mav = new ModelAndView("redirect:/userprofile");
+        if (!userService.validChangePassword(passRaw, myUser.getPassword())){
+            mav.addObject("message",MessageUtil.getMessage("message.changePassword.invalidRaw"));
+            return mav;
+        }
+        try {
+            myUser.setUser(userService.changeUserPassword(myUser.getUser(), passNew));
+            SessionUtil.getInstance().putValue(request, "USERMODEL", myUser);
+        }catch (Exception ex){
+            mav.addObject("message",MessageUtil.getMessage("message.changePassword.Failure"));
+            return mav;
+        }
+        mav.addObject("message",MessageUtil.getMessage("message.changePassword.Suc"));
+        return mav;
+    }
+
 
     @RequestMapping(value = "/resendRegistrationToken", method = RequestMethod.POST)
     public String resendRegistrationToken(

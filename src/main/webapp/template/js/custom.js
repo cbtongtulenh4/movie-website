@@ -483,6 +483,7 @@ $(function(){
 			}	
 		});
     });
+
     // close popup for mobile
     var closebt = $(".close");
    	closebt.on('click', function(e){

@@ -1,5 +1,11 @@
 package com.website.movie.config;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.drive.Drive;
 import com.website.movie.events.custom.EventListener;
 import com.website.movie.events.custom.EventMultiCaster;
 import com.website.movie.events.custom.SimpleEventMultiCaster;
@@ -7,15 +13,15 @@ import com.website.movie.interceptor.SessionTimerInterceptor;
 import com.website.movie.interceptor.UserInterceptor;
 import com.website.movie.security.custom.RequestMatcherRegistry;
 import com.website.movie.utils.EmailUtil;
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -27,12 +33,21 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {
         "com.website.movie"
+})
+@PropertySource({
+        "classpath:application.properties"
 })
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     /**
@@ -42,11 +57,16 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
      * @ModifiedBy:
      */
 
+    @Autowired
+    private Environment env;
 
     ApplicationContext applicationContext;
 
     @Autowired
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @Autowired
+    private GoogleCredential googleCredential;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
@@ -81,6 +101,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver);
         engine.setTemplateEngineMessageSource(messageSourceThymeleaf());
+        engine.addDialect(new LayoutDialect());
         return engine;
     }
 
@@ -93,6 +114,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         resolver.setSuffix(".html");
         //turn off stored data from requests UI
         resolver.setCacheable(false);
+        resolver.setCharacterEncoding("UTF-8");
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
@@ -156,5 +178,51 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return registry;
     }
 
+    /*
+    Google Drive Api setting
+     */
+
+    @Bean
+    public Drive getDrive() throws GeneralSecurityException, IOException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        return new Drive.Builder(
+                HTTP_TRANSPORT,
+                JacksonFactory.getDefaultInstance(),
+                googleCredential
+        ).build();
+    }
+
+    @Bean
+    public GoogleCredential googleCredential() throws URISyntaxException, GeneralSecurityException, IOException {
+//        URL resource = WebConfig.class.getResource(env.getProperty("google.drive.api.service.account_key"));
+//        if(resource == null){
+//            throw new IllegalArgumentException("File not found");
+//        }
+//        java.io.File key = Paths.get(resource.toURI()).toFile();
+        File key = new File("D:\\Spring\\MovieWebsite\\src\\main\\resources\\moviewebsite-352718-7ea337f38c31.p12");
+        Collection<String> elenco = new ArrayList<>();
+        elenco.add("https://www.googleapis.com/auth/drive");
+        HttpTransport httpTransport = new NetHttpTransport();
+        JacksonFactory jacksonFactory = new JacksonFactory();
+        return new GoogleCredential.Builder()
+                .setTransport(httpTransport)
+                .setJsonFactory(jacksonFactory)
+                .setServiceAccountId(env.getProperty("google.drive.api.service.account_email"))
+                .setServiceAccountScopes(elenco)
+                .setServiceAccountPrivateKeyFromP12File(key)
+                .build();
+    }
+
+    /*
+        Config file upload commons - Multipart file
+     */
+
+    @Bean(name = "multipartResolver")
+    public CommonsMultipartResolver multipartResolver()
+    {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(20848820);
+        return multipartResolver;
+    }
 
 }

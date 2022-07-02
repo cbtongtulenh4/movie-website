@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
 
     @Autowired
     private CommonErrorHandler errorHandler;
+
     @Autowired
     private MessageSource messages;
 
@@ -85,11 +87,20 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     @ResponseBody
     public ErrorDto handleNumberFormatException(NumberFormatException ex, WebRequest request){
         LOGGER.error(ex.getLocalizedMessage(), ex);
-        ErrorDto errorDto = new ErrorDto(
+        return new ErrorDto(
                 BAD_REQUEST.value(),
                 messages.getMessage("message.error.numberFormat", null, "Number Format Error", request.getLocale())
         );
-        return errorDto;
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    @ResponseBody
+    public ErrorDto handleMultipartException(MultipartException ex, WebRequest request){
+        LOGGER.error(ex.getLocalizedMessage(), ex);
+        return new ErrorDto(
+                BAD_REQUEST.value(),
+                messages.getMessage("message.error.multipart", null, "Multiple part File error", request.getLocale())
+        );
     }
 
     @ExceptionHandler({ Exception.class })
