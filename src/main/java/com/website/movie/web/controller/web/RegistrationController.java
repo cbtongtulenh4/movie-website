@@ -156,10 +156,11 @@ public class RegistrationController {
         UserEntity user = userService.findByUsername(username);
         final Locale locale = request.getLocale();
         if(user == null){
-            model.addAttribute(
-                    "errorMsg",
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
                     messages.getMessage("message.userNotFound", null, locale)
             );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
         }
         try {

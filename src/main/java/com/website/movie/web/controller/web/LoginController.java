@@ -66,7 +66,6 @@ public class LoginController {
         if (result.hasErrors()){
 //            throw new InvalidDataException(result);
             System.out.println("error");
-
         }
         MyUserPrincipal myUser = null;
         try {
