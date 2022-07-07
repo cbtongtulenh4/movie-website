@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
-    UserEntity findOneByEmail(String email);
-    UserEntity findByEmailAndPassword(String email, String password);
-    void deleteByEmail(String email);
+    UserEntity findOneByUsername(String username);
+    UserEntity findByUsernameAndPassword(String username, String password);
+    void deleteByUsername(String username);
 }

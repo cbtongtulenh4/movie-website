@@ -76,6 +76,7 @@ com\website\movie\web\api\TVEpisodeRestController.class
 com\website\movie\persistence\dao\IUserDAO.class
 com\website\movie\encoder\UrlEncoder.class
 com\website\movie\service\impl\MovieCategoryService.class
+com\website\movie\web\dto\MessageDto.class
 com\website\movie\security\custom\RequestMatcherRegistry$Authorization.class
 com\website\movie\persistence\repository\VerificationTokenRepository.class
 com\website\movie\web\dto\PaginationDto.class
@@ -138,6 +139,7 @@ com\website\movie\persistence\entity\MovieGenresEntity.class
 com\website\movie\interceptor\SessionTimerInterceptor.class
 com\website\movie\service\IRoleService.class
 com\website\movie\utils\ModelUtil.class
+com\website\movie\constant\MessageConstants.class
 com\website\movie\service\impl\VerificationTokenService.class
 com\website\movie\utils\TimeUtil.class
 com\website\movie\utils\PasswordUtil.class

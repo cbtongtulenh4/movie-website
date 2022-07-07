@@ -12,3 +12,5 @@
 -- Don't think of reasonable ways to fetch parentId from Comment Table into commentDto
 
 // WHY variable used in lambda expression should be final or effectively final ???
+
+-- how to call to tag html hide when load page (ex: tag login in page call by id# whenever send message error)

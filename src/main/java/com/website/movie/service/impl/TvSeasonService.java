@@ -7,6 +7,7 @@ import com.website.movie.persistence.dao.IUserDAO;
 import com.website.movie.persistence.dao.impl.UserImpl;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.MovieGenresEntity;
+import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieGenresRepository;
 import com.website.movie.persistence.repository.MovieRepository;
@@ -26,10 +27,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -194,12 +192,19 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     private List<TVSeasonEntity> getSeasonMovieCache(){
-        List<TVSeasonEntity> object = (List<TVSeasonEntity>)InMemoryCache.getInstance().get("SEASON_MOVIES");
-        if (object == null){
-            object = tvSeasonRepository.findAll();
-            InMemoryCache.getInstance().add("SEASON_MOVIES", object);
+        List<TVSeasonEntity> objects = (List<TVSeasonEntity>)InMemoryCache.getInstance().get("SEASON_MOVIES");
+        if (objects == null){
+            objects = tvSeasonRepository.findAll();
+
+//            List<TVSeasonEntity> copy = new ArrayList<>(objects);
+//            for (TVSeasonEntity object : objects){
+//                Set<TVEpisodeEntity> episodeEntities = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
+//                episodeEntities.addAll(object.getEpisodes());
+//                object.setEpisodes(episodeEntities);
+//            }
+            InMemoryCache.getInstance().add("SEASON_MOVIES", objects);
         }
-        return object;
+        return objects;
     }
 
 

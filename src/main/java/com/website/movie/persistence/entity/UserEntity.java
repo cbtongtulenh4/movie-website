@@ -1,7 +1,6 @@
 package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,10 +22,8 @@ public class UserEntity extends BaseEntity {
      * @ModifiedBy:
      */
 
-    private String email;
+    private String username;
     private String password;
-    private String name;
-    private String gender;
     private Boolean enable;
     private Boolean status;
 
@@ -87,9 +84,7 @@ public class UserEntity extends BaseEntity {
         // The 17 and 31 hash code idea is from the classic Java Book - effective Java: item 9
         final int prime = 31;
         int result = 17;// can choice a diff value - ex: 1
-        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
-        result = prime * result + ((getGender() == null) ? 0 : getGender().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         return  result;
     }
@@ -121,20 +116,8 @@ public class UserEntity extends BaseEntity {
                 return false;
             }
         }
-        if(getName() == null){
-            if (other.getName() != null){
-                return false;
-            }
-        }
-        if(getGender() == null){
-            if (other.getGender() != null){
-                return false;
-            }
-        }
-        if(getEmail() == null){
-            if (other.getEmail() != null){
-                return false;
-            }
+        if(getUsername() == null){
+            return other.getUsername() == null;
         }
         return true;
     }
@@ -143,10 +126,8 @@ public class UserEntity extends BaseEntity {
     public String toString(){
         return "Role[ \n" +
 //                "Id: " + id + "\n" +
-                "Email: " + email +"\n" +
                 "Password: " + password + "\n" +
-                "Name: " + name + "\n" +
-                "Gender: " + gender + "\n" +
+                "Name: " + username + "\n" +
                 "Enable: " + enable + "\n" +
                 "Status: " + status + "\n" +
         "]";

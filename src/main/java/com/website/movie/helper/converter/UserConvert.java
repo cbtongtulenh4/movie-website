@@ -1,5 +1,6 @@
 package com.website.movie.helper.converter;
 
+import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.utils.AssertUtil;
 import com.website.movie.web.dto.UserDto;
@@ -19,7 +20,7 @@ public class UserConvert {
 //        if(entity == null) return null;
         AssertUtil.notNull(entity, "UserEntity must not be null!");
         UserDto result = new UserDto();
-        result.setEmail(entity.getEmail());
+        result.setUsername(entity.getUsername());
         result.setId(entity.getId());
         result.setPassword(entity.getPassword());
         return result;
@@ -29,16 +30,18 @@ public class UserConvert {
 //        if(dto == null) return null;
         AssertUtil.notNull(dto, "UserDto must not be null!");
         UserEntity result = new UserEntity();
-        result.setEmail(dto.getEmail());
+        result.setUsername(dto.getUsername());
         result.setPassword(dto.getPassword());
+        ProfileEntity profileEntity = new ProfileEntity();
+        profileEntity.setEmail(dto.getEmail());
+        result.setProfile(profileEntity);
         return result;
     }
 
     public static UserProfileDto toUserProfileDto(UserEntity userEntity){
         AssertUtil.notNull(userEntity, "UserEntity must not null!");
         UserProfileDto userProfileDto = Convert.convertModel(userEntity.getProfile(), UserProfileDto.class);
-        userProfileDto.setEmail(userEntity.getEmail());
-        userProfileDto.setName(userEntity.getName());
+        userProfileDto.setUsername(userEntity.getUsername());
         userProfileDto.setId(userEntity.getId());
         return userProfileDto;
     }

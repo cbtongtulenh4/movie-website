@@ -10,7 +10,7 @@ public interface UserDetails extends Serializable {
      * @ModifiedBy:
      */
 
-    String getEmail();
+    String getUsername();
 
     String getPassword();
 

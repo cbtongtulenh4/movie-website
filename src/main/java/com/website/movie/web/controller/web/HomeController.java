@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller(value = "HomeControllerOfWeb")
 public class HomeController {
@@ -108,6 +107,9 @@ public class HomeController {
     ){
         ModelAndView mav = new ModelAndView("web/watch");
         WatchTvSeasonDto watchTvSeasonDto = seasonService.getWatchTvSeasonUiByCode(code);
+        Set<TVEpisodeEntity> episodeEntities = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
+        episodeEntities.addAll(watchTvSeasonDto.getEpisodes());
+        watchTvSeasonDto.setEpisodes(episodeEntities);
         TVEpisodeEntity episode = null;
         for (TVEpisodeEntity ep : watchTvSeasonDto.getEpisodes()){
             if (ep.getNumEp() == id){
@@ -127,7 +129,6 @@ public class HomeController {
         return "web/blogList";
     }
 
-
     @RequestMapping(value = "/userprofile")
     public ModelAndView getUserProfile(
             HttpServletRequest request
@@ -143,13 +144,11 @@ public class HomeController {
         UserProfileDto userProfileDto = new UserProfileDto();
         userProfileDto.setId(1L);
         userProfileDto.setEmail("cbtongtulenh4@gmail.com");
-        userProfileDto.setAvatar("1AgSl-hwXANHMURIA0niPyD5hhZ7jqYvD");
+        userProfileDto.setAvatar("1krE9UFmEAiVP2oc9jbyf-8oZapHqb1gz");
         userProfileDto.setAge(18);
         userProfileDto.setCountry("New York");
-        userProfileDto.setFirstName("Jonh");
-        userProfileDto.setLastName("Max");
         userProfileDto.setGender("Boy");
-        userProfileDto.setName("Fu");
+        userProfileDto.setUsername("Fu.MinhPhuc");
         userProfileDto.setState("Free");
         mav.addObject("USER_PROFILE", userProfileDto);
         return mav;

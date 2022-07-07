@@ -58,8 +58,8 @@ public class UserRestController {
     public void updateUser(
             @ModelAttribute("userProfile") final UserProfileDto userProfileDto
     ){
-        UserEntity userEntity = userService.findByEmail(userProfileDto.getEmail());
-        userEntity.setEmail(userProfileDto.getEmail());
+        UserEntity userEntity = userService.findByUsername(userProfileDto.getUsername());
+        userEntity.setUsername(userProfileDto.getUsername());
         userEntity.setProfile(
                 Convert.convertModel(userProfileDto, ProfileEntity.class)
         );

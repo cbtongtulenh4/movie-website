@@ -31,6 +31,21 @@ public class test {
 //        System.out.println(arr);
 
 
+        Set<Integer> abc = new TreeSet<>(Comparator.comparingInt(Integer::intValue));
+        List<Integer> intOrder = new ArrayList<>();
+        intOrder.add(5);
+        intOrder.add(2);
+        intOrder.add(7);
+        intOrder.add(3);
+        intOrder.add(1);
+        intOrder.add(4);
+
+        abc.addAll(intOrder);
+        System.out.println(Arrays.toString(intOrder.toArray()));
+        System.out.println(Arrays.toString(abc.toArray()));
+
+
+
     }
 
 }

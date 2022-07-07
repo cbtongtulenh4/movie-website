@@ -79,3 +79,8 @@ or use
     + PUT request represent a single resource
     + MultiPart means multiple resources in a single body
  - more info: https://stackoverflow.com/questions/20373912/spring-mvc-framework-multipartresolver-with-put-method
+
+
+// error NotFoundException: Could not open servletContext resource[....]
+    - or is cause by tomcat deployment directory not direct to webapp
+    - or can specific full url in config resource in webConfig by point end of tomcat

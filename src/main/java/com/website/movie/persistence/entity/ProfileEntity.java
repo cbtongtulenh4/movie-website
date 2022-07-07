@@ -20,13 +20,11 @@ public class ProfileEntity extends BaseEntity{
      */
 
 
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
+    private String email;
     private Integer age;
     private String gender;
     private String country;
     private String state;
+    private String avatar;
 
 }

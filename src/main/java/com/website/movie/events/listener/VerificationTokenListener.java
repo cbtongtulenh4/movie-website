@@ -48,7 +48,7 @@ public class VerificationTokenListener implements ApplicationListener<OnVerifica
     }
 
     private void confirmRegistration(final OnVerificationTokenCompleteEvent event){
-        final UserEntity user = userService.findByEmail(event.getUser().getEmail());
+        final UserEntity user = userService.findByUsername(event.getUser().getUsername());
         // UUID - Universally Unique Identifier - Globally Unique Identifier
         final String token = UUID.randomUUID().toString();
         vTokenService.createVerificationTokenForUser(user, token);
@@ -61,11 +61,11 @@ public class VerificationTokenListener implements ApplicationListener<OnVerifica
             final OnVerificationTokenCompleteEvent event, final UserEntity user, final String token)
     {
         // email address of recipient
-        final String recipientAddress = user.getEmail();
+        final String recipientAddress = user.getProfile().getEmail();
         final String subject = event.getMailDto().getSubject();
         final String confirmationUrl = event.getAppUrl() + "/" + event.getMailDto().getTarget() + "token=" + token;
         final String content = EmailUtil.buildContentEmail(
-                user.getName(),
+                user.getUsername(),
                 confirmationUrl,
                 event.getMailDto().getMessage(),
                 event.getMailDto().getSubject()

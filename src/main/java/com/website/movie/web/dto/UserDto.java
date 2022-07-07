@@ -21,6 +21,7 @@ public class UserDto {
     private Long id;
     @ValidEmail
     private String email;
+    private String username;
     private String password;
     private String matchingPassword;
 

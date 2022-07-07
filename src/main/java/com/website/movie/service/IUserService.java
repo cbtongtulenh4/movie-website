@@ -23,7 +23,7 @@ public interface IUserService {
 
     ProfileEntity save(ProfileEntity profileEntity);
 
-    UserEntity findByEmail(String email);
+    UserEntity findByUsername(String username);
 
     UserProfileDto findById(Long id);
 
@@ -39,7 +39,7 @@ public interface IUserService {
 
     UserEntity changeUserPassword(UserEntity user, String newPassword);
 
-    MyUserPrincipal loadUserByEmail(UserLoginDto userLogin);
+    MyUserPrincipal loadUserByUsername(UserLoginDto userLogin);
 
     String checkLoadUser(MyUserPrincipal myUser);
 

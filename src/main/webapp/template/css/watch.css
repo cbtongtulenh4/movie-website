@@ -19,10 +19,10 @@
 main .ht-video{
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 600px;
     background-color: cadetblue;
     display: grid;
-    grid-template-rows: auto 50px;
+    grid-template-rows: auto 150px;
 }
 
 main .ht-video .video-vd{
@@ -32,6 +32,14 @@ main .ht-video .video-vd{
     overflow: hidden;
 }
 
+main .ht-video .video-vd iframe{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 main .ht-video .vd-tools{
     position: relative;
     width: 100%;
@@ -40,8 +48,9 @@ main .ht-video .vd-tools{
 
 main .ht-video .vd-tools ul{
     position: relative;
+    margin: 0;
     width: 100%;
-    height: 100%;
+    padding: 15px 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, 100px);
     align-items: center;
@@ -59,8 +68,53 @@ main .ht-video .vd-tools ul{
     cursor: pointer;
     background-color: rgba(0, 0, 0, .5);
     color: #fff;
+    border-radius: 4px;
 }
 
+
+.ht-video .vd-tools ul li:hover{
+    color: aqua;
+    background-color: rgba(0, 0, 0, .75);
+}
+
+.ht-video .vd-tools ul li:active{
+    background-color: rgba(0, 0, 0, .15);
+}
+
+
+.ht-video .vd-tools .swap-server{
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ht-video .vd-tools .swap-server .title-server{
+    position: relative;
+    display: flex;
+    padding: 5px 10px;
+    font-size: 17px;
+    background-color: #385898;
+    border-radius: 1px;
+    color: #fff;
+}
+
+.ht-video .vd-tools .swap-server .active-server{
+    background-color: rgba(0, 0, 0, .75);
+    color:aqua;
+}
+
+.ht-video .vd-tools .swap-server .btn-server ul{
+    position: relative;
+    display: flex;
+}
+
+.ht-video .vd-tools .swap-server .btn-server li{
+    padding: 10px;
+}
 
 /* END  VIDEO */
 

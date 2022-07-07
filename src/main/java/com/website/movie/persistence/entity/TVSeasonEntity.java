@@ -58,6 +58,7 @@ public class TVSeasonEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
+//    private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "movie-season")

@@ -81,7 +81,7 @@ public class OtherRestController {
             HttpServletRequest request
     ){
         MyUserPrincipal myUser = (MyUserPrincipal) request.getAttribute("USER_MODEL");
-        UserEntity user = userService.findByEmail(myUser.getEmail());
+        UserEntity user = userService.findByUsername(myUser.getUsername());
         TVSeasonEntity tvSeason = tvSeasonService.getSeasonMovieById(seasonId);
         otherMovieService.save(new RateEntity(rateVal, user, tvSeason));
         return otherMovieService.getRateMovieSeason(seasonId);

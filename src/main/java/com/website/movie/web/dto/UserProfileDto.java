@@ -1,5 +1,6 @@
 package com.website.movie.web.dto;
 
+import com.website.movie.validation.ValidEmail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,9 @@ public class UserProfileDto {
      */
 
     private Long id;
-    private String name;
+    private String username;
     private String email;
     private String avatar;
-    private String firstName;
-    private String lastName;
     private Integer age;
     private String gender;
     private String country;

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Optional;
 
 @Controller(value = "LoginControllerOfWeb")
 public class LoginController {
@@ -63,18 +64,20 @@ public class LoginController {
     {
         LOGGER.debug("Login account with information: {}", userLogin);
         if (result.hasErrors()){
-            throw new InvalidDataException(result);
+//            throw new InvalidDataException(result);
+            System.out.println("error");
+
         }
         MyUserPrincipal myUser = null;
         try {
-            myUser = userService.loadUserByEmail(userLogin);
+            myUser = userService.loadUserByUsername(userLogin);
         }catch (Exception ex){
             LOGGER.warn(ex.getLocalizedMessage(), ex);
             final String message = messages.getMessage("message.user.loginError", null, request.getLocale());
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
             redirectAttributes.addFlashAttribute("message", msg);
-            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
-            return "redirect:/userprofile?lang=" + request.getLocale().getLanguage();
+//            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
+            return getPreviousPageByRequest(request).orElse("/");
         }
         final String loginStatus = userService.checkLoadUser(myUser);
         if (!loginStatus.equals(SystemConstants.SUCCESS)){
@@ -82,8 +85,7 @@ public class LoginController {
             final String message = messages.getMessage("message.user." + loginStatus, null, request.getLocale());
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
             redirectAttributes.addFlashAttribute("message", msg);
-            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
-            return "redirect:/" + request.getServletPath() + "?lang=" + request.getLocale().getLanguage();
+            return getPreviousPageByRequest(request).orElse("/");
         }
         final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
         MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
@@ -100,5 +102,14 @@ public class LoginController {
         }
         return "redirect:/admin?lang=" + request.getLocale().getLanguage();
     }
+
+    /*
+        Returns the viewName to return for coming back to the sender url
+     */
+    private Optional<String> getPreviousPageByRequest(HttpServletRequest request){
+        return Optional.ofNullable(request.getHeader("Referer")).map(requestURL -> "redirect:" + requestURL);
+
+    }
+
 
 }

@@ -39,7 +39,7 @@ public class UserService implements IUserService {
      */
 
 
-    private IUserDAO userDAO = new UserImpl();
+    private final IUserDAO userDAO = new UserImpl();
 
     @Autowired
     UserRepository userRepository;
@@ -57,9 +57,9 @@ public class UserService implements IUserService {
 
     @Override
     public UserEntity registerNewUserAccount(UserDto accountDto) {
-        if(emailExists(accountDto.getEmail())){
-            throw new UserAlreadyExistException("There is an account with that email address: "
-                        + accountDto.getEmail()
+        if(usernameExists(accountDto.getUsername())){
+            throw new UserAlreadyExistException("There is an account with that username: "
+                        + accountDto.getUsername()
             );
         }
         accountDto.setPassword(passwordEncoder.hashPBKDF2(accountDto.getPassword()));
@@ -74,8 +74,8 @@ public class UserService implements IUserService {
         return userRepository.save(user);
     }
 
-    private boolean emailExists(String email) {
-        return userRepository.findOneByEmail(email) != null;
+    private boolean usernameExists(String username) {
+        return userRepository.findOneByUsername(username) != null;
     }
 
 
@@ -90,17 +90,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserEntity findByEmail(String email) {
-        return userRepository.findOneByEmail(email);
+    public UserEntity findByUsername(String username) {
+        return userRepository.findOneByUsername(username);
     }
 
     @Override
     public UserProfileDto findById(Long id){
-        UserEntity userEntity = userRepository.findById(id).get();
-        UserProfileDto userProfileDto = Convert.convertModel(userEntity.getProfile(), UserProfileDto.class);
-        userProfileDto.setEmail(userEntity.getEmail());
-        userProfileDto.setName(userEntity.getName());
-        return userProfileDto;
+        UserEntity userEntity = userRepository.findById(id).orElse(null);
+        assert userEntity != null;
+        return Convert.convertModel(userEntity.getProfile(), UserProfileDto.class);
     }
 
     @Override
@@ -109,8 +107,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<TVSeasonUiDto> getAllFavoriteMovie(String email) {
-        UserEntity userEntity = userRepository.findOneByEmail(email);
+    public List<TVSeasonUiDto> getAllFavoriteMovie(String username) {
+        UserEntity userEntity = userRepository.findOneByUsername(username);
         LOGGER.info("Get favorite movie seasons with information: {}", userEntity.getTvSeasons());
 //        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getComments());
 //        return MovieConvert.toDto(seasonEntity);
@@ -142,10 +140,10 @@ public class UserService implements IUserService {
 
     @SneakyThrows
     @Override
-    public MyUserPrincipal loadUserByEmail(UserLoginDto userLogin) {
-        UserEntity user = userRepository.findOneByEmail(userLogin.getEmail());
+    public MyUserPrincipal loadUserByUsername(UserLoginDto userLogin) {
+        UserEntity user = userRepository.findOneByUsername(userLogin.getUsername());
         if (user == null){
-            throw new UserNotFoundException("No user found with email:" + userLogin.getEmail());
+            throw new UserNotFoundException("No user found with username:" + userLogin.getUsername());
         }
         MyUserPrincipal myUser = null;
 //        if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
@@ -176,8 +174,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteUserAccount(final String email) {
-        userRepository.deleteByEmail(email);
+    public void deleteUserAccount(final String username) {
+        userRepository.deleteByUsername(username);
     }
 
     @SneakyThrows

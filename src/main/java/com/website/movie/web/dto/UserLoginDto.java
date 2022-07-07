@@ -10,29 +10,28 @@ public class UserLoginDto {
      * @ModifiedBy:
      */
 
-    @ValidEmail
-    private String email;
+    private String username;
     private String password;
 
     public UserLoginDto(){
 
     }
 
-    public UserLoginDto(String email){
-        this.email = email;
+    public UserLoginDto(String username){
+        this.username = username;
     }
 
     public UserLoginDto(String email, String password){
-        this.email = email;
+        this.username = email;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -42,11 +41,5 @@ public class UserLoginDto {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    public static void main(String[] args) {
-//        UserLoginDto s1 = new UserLoginDto("a", "b");
-//        UserLoginDto s2 = new UserLoginDto(s1);
-//        UserLoginDto s3 = s1;
-//    }
 
 }

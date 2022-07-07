@@ -52,30 +52,31 @@
         <div class="login-content">
             <a href="#" class="close">x</a>
             <h3>sign up</h3>
+            <div th:replace="web/fragments/alert :: alert(${message})"></div>
             <form method="post" th:action="@{/registration}" th:object="${user}">
                 <div class="row">
                     <label for="username-2">
                         Username:
-                        <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                        <input type="text" th:name="username" id="username-2" placeholder="Hugh Jackman" required="required" />
                     </label>
                 </div>
 
                 <div class="row">
                     <label for="email-2">
                         your email:
-                        <input type="password" th:name="email" id="email-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                        <input type="text" th:name="email" id="email-2" placeholder="cbtongtulenhxxx@gmail.com" required="required" />
                     </label>
                 </div>
                 <div class="row">
                     <label for="password-2">
                         Password:
-                        <input type="password" th:name="password" id="password-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                        <input type="password" th:name="password" id="password-2" placeholder="********" required="required" />
                     </label>
                 </div>
                 <div class="row">
                     <label for="repassword-2">
                         re-type Password:
-                        <input type="password" th:name="matchingPassword" id="repassword-2" placeholder="" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                        <input type="password" th:name="matchingPassword" id="repassword-2" placeholder="********" required="required" />
                     </label>
                 </div>
                 <div class="row">
@@ -131,7 +132,7 @@
                                     <li><a href="moviegridfw.html">movie grid full width</a></li>
                                 </ul>
                             </li>
-                            <li><a href="movielist.html">Movie list</a></li>
+                            <li><a th:href="@{/movie-list}">Movie list</a></li>
                             <li><a href="moviesingle.html">Movie single</a></li>
                             <li class="it-last"><a href="seriessingle.html">Series single</a></li>
                         </ul>
@@ -152,8 +153,8 @@
                             news <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
-                            <li><a href="bloglist.html">blog List</a></li>
-                            <li><a href="bloggrid.html">blog Grid</a></li>
+                            <li><a th:href="@{/blog-list}">blog List</a></li>
+                            <li><a th:href="@{/blog-grid}">blog Grid</a></li>
                             <li class="it-last"><a href="blogdetail.html">blog Detail</a></li>
                         </ul>
                     </li>
@@ -162,10 +163,10 @@
                             community <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
-                            <li><a href="userfavoritegrid.html">user favorite grid</a></li>
-                            <li><a href="userfavoritelist.html">user favorite list</a></li>
-                            <li><a href="userprofile.html">user profile</a></li>
-                            <li class="it-last"><a href="userrate.html">user rate</a></li>
+                            <li><a th:href="@{/userfavoritegrid}">user favorite grid</a></li>
+                            <li><a th:href="@{/userfavoritelist}">user favorite list</a></li>
+                            <li><a th:href="@{/userprofile}">user profile</a></li>
+                            <li class="it-last"><a th:href="@{/userrate}">user rate</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -175,9 +176,9 @@
                             pages <i class="fa fa-angle-down" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu level1">
-                            <li><a href="landing.html">Landing</a></li>
-                            <li><a href="404.html">404 Page</a></li>
-                            <li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
+                            <li><a th:href="@{/landing}">Landing</a></li>
+                            <li><a th:href="@{/404}">404 Page</a></li>
+                            <li class="it-last"><a th:href="@{/comingsoon}">Coming soon</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Help</a></li>

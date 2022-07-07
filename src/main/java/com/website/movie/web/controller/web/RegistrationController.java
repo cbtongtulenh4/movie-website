@@ -1,5 +1,6 @@
 package com.website.movie.web.controller.web;
 
+import com.website.movie.constant.MessageConstants;
 import com.website.movie.events.OnVerificationTokenCompleteEvent;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.MailAuthenticationException;
@@ -13,6 +14,7 @@ import com.website.movie.utils.MessageUtil;
 import com.website.movie.utils.PasswordUtil;
 import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.MailDto;
+import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,25 +79,35 @@ public class RegistrationController {
 //                    this.getClass().getDeclaredMethod("registrationUserAccount", UserDto.class), 0), result);
         }
 
+        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("/");
+        ModelAndView mav = new ModelAndView(targetURL, "user", userDto);
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
-//            final String appUrl = getAppUrl(request);
-//            final Locale locale = request.getLocale();
-//            final MailDto mailDto = new MailDto("registrationConfirm?", locale);
-//            mailDto.constructRegistrationMail();
-//            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
+            final String appUrl = getAppUrl(request);
+            final Locale locale = request.getLocale();
+            final MailDto mailDto = new MailDto("registrationConfirm?", locale);
+            mailDto.constructRegistrationMail();
+            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
         }catch (final UserAlreadyExistException uaeEx){
-            ModelAndView mav = new ModelAndView("web/login", "user", userDto);
             String message = messages.getMessage("message.regError", null, request.getLocale());
-            mav.addObject("errorMsg",message);
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            mav.addObject("message", msg);
             return mav;
         }catch (final Exception ex){
-          //  LOGGER.warn("Unable to register user", ex);
+            LOGGER.warn("Unable to register user", ex);
             ex.printStackTrace();
             userService.deleteUserAccount(userDto.getEmail());
-            return new ModelAndView("web/emailError", "user", userDto);
+            mav.addObject(
+                    "message",
+                    new MessageDto(MessageConstants.DANGER, "Unable to register user")
+            );
+            return mav;
         }
-        return new ModelAndView("web/successRegister", "user", userDto);
+        String message = messages.getMessage("message.checkEmail", null, request.getLocale());
+        MessageDto msg = new MessageDto(MessageConstants.INFO, message);
+        mav.addObject("message", msg);
+        SessionUtil.getInstance().savePreviousPageByRequest(request);
+        return mav;
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
@@ -106,40 +118,42 @@ public class RegistrationController {
             @RequestParam("token") final String token)
     {
         final Locale locale = request.getLocale();
-
+        String targetURL = SessionUtil.getInstance().getAndRemovePreviousPage(request);
         final VerificationTokenEntity verificationToken = verificationTokenService.getVerificationToken(token);
         if(verificationToken == null){
             final String message = messages.getMessage("auth.message.invalidToken", null, locale);
-            model.addAttribute("errorMsg", message);
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            model.addAttribute("message", msg);
+            return targetURL;
         }
 
         final Calendar cal = Calendar.getInstance();
         if(verificationToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0){
             String message = messages.getMessage("auth.message.expired", null, locale);
-            model.addAttribute("errorMsg", message);
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            model.addAttribute("message", msg);
             model.addAttribute("expired", true);
             model.addAttribute("token", token);
-            return "redirect:/badUser?lang=" + locale.getLanguage();
+            return targetURL;
         }
 
         final UserEntity user = verificationToken.getUser();
         user.setEnable(true);
         userService.saveRegisteredUser(user);
-        model.addAttribute(
-                "message",
-                messages.getMessage("message.accountVerified", null, locale)
-        );
-        return "redirect:/login?lang=" + locale.getLanguage();
+        MessageDto msg = new MessageDto(
+                MessageConstants.DANGER,
+                messages.getMessage("message.accountVerified", null, locale));
+        model.addAttribute("message", msg);
+        return targetURL;
     }
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     public String resetPassword(
-            @RequestParam(value = "email")final String userEmail,
+            @RequestParam(value = "username")final String username,
             final Model model,
             final HttpServletRequest request
     ){
-        UserEntity user = userService.findByEmail(userEmail);
+        UserEntity user = userService.findByUsername(username);
         final Locale locale = request.getLocale();
         if(user == null){
             model.addAttribute(
@@ -156,20 +170,26 @@ public class RegistrationController {
             eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(user, getAppUrl(request), mailDto));
         }catch (final MailAuthenticationException ex){
             LOGGER.debug("MailAuthenticationException", ex);
-            model.addAttribute(
-                    "errorMsg",
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
                     messages.getMessage("message.emailError", null, "Can't Send Email", locale)
             );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
         }catch (final Exception ex){
             LOGGER.debug(ex.getLocalizedMessage(), ex);
-            model.addAttribute("errorMsg", ex.getLocalizedMessage());
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
+                    ex.getLocalizedMessage()
+            );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
         }
-        model.addAttribute(
-                "message",
+        MessageDto msg = new MessageDto(
+                MessageConstants.INFO,
                 messages.getMessage("message.resetPasswordEmail", null, "You should receive an Password Reset Email shortly", locale)
         );
+        model.addAttribute("message", msg);
         return "redirect:/login?lang=" + locale.getLanguage();
     }
 
@@ -184,15 +204,20 @@ public class RegistrationController {
         String statusToken = verificationTokenService.validateVerificationToken(vTokenEntity);
         if(statusToken != null){
             final String message = messages.getMessage("message.resetPasswordEmail." + statusToken, null, request.getLocale());
-            model.addAttribute("errorMsg", message);
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
+                    message
+            );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + request.getLocale().getLanguage();
         }
         UserEntity user = vTokenEntity.getUser();
         userService.changeUserPassword(user, newPassword);
-        model.addAttribute(
-                "message",
+        MessageDto msg = new MessageDto(
+                MessageConstants.SUCCESS,
                 messages.getMessage("message.resetPasswordSuc", null, request.getLocale())
         );
+        model.addAttribute("message", msg);
         return "redirect:/login?lang=" + request.getLocale().getLanguage();
     }
 
@@ -213,17 +238,29 @@ public class RegistrationController {
         MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USERMODEL");
         ModelAndView mav = new ModelAndView("redirect:/userprofile");
         if (!userService.validChangePassword(passRaw, myUser.getPassword())){
-            mav.addObject("message",MessageUtil.getMessage("message.changePassword.invalidRaw"));
+            MessageDto msg = new MessageDto(
+                    MessageConstants.WARNING,
+                    MessageUtil.getMessage("message.changePassword.invalidRaw")
+            );
+            mav.addObject("message", msg);
             return mav;
         }
         try {
             myUser.setUser(userService.changeUserPassword(myUser.getUser(), passNew));
             SessionUtil.getInstance().putValue(request, "USERMODEL", myUser);
         }catch (Exception ex){
-            mav.addObject("message",MessageUtil.getMessage("message.changePassword.Failure"));
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
+                    MessageUtil.getMessage("message.changePassword.Failure")
+            );
+            mav.addObject("message", msg);
             return mav;
         }
-        mav.addObject("message",MessageUtil.getMessage("message.changePassword.Suc"));
+        MessageDto msg = new MessageDto(
+                MessageConstants.SUCCESS,
+                MessageUtil.getMessage("message.changePassword.Suc")
+        );
+        mav.addObject("message", msg);
         return mav;
     }
 
@@ -243,20 +280,26 @@ public class RegistrationController {
             eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(user, getAppUrl(request), mailDto));
         }catch (final MailAuthenticationException ex){
             LOGGER.debug("MailAuthenticationException", ex);
-            model.addAttribute(
-                    "errorMsg",
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
                     messages.getMessage("message.emailError", null, "Can't Send Email", locale)
             );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
         }catch (final Exception ex){
             LOGGER.debug(ex.getLocalizedMessage(), ex);
-            model.addAttribute("errorMsg", ex.getLocalizedMessage());
+            MessageDto msg = new MessageDto(
+                    MessageConstants.DANGER,
+                    ex.getLocalizedMessage()
+            );
+            model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
         }
-        model.addAttribute(
-                "message",
+        MessageDto msg = new MessageDto(
+                MessageConstants.INFO,
                 messages.getMessage("message.resendToken", null, "We will send an email with a new registration token to your email account", locale)
         );
+        model.addAttribute("message", msg);
         return "redirect:/login?lang=" + locale.getLanguage();
     }
 
@@ -272,7 +315,6 @@ public class RegistrationController {
             System.out.println("successfully");
         }
         return "web/emailError";
-
     }
 
     // =========  NON-API   ==========
