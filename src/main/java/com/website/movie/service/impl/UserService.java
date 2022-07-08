@@ -146,10 +146,9 @@ public class UserService implements IUserService {
             throw new UserNotFoundException("No user found with username:" + userLogin.getUsername());
         }
         MyUserPrincipal myUser = null;
-//        if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
-//             myUser = new MyUserPrincipal(user);
-//        }
-//        myUser = new MyUserPrincipal(user);
+        if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
+             myUser = new MyUserPrincipal(user);
+        }
         return myUser;
     }
 

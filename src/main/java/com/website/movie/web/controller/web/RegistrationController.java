@@ -118,7 +118,7 @@ public class RegistrationController {
             @RequestParam("token") final String token)
     {
         final Locale locale = request.getLocale();
-        String targetURL = SessionUtil.getInstance().getAndRemovePreviousPage(request);
+        String targetURL = SessionUtil.getInstance().getPreviousPage(request);
         final VerificationTokenEntity verificationToken = verificationTokenService.getVerificationToken(token);
         if(verificationToken == null){
             final String message = messages.getMessage("auth.message.invalidToken", null, locale);
@@ -317,9 +317,6 @@ public class RegistrationController {
         }
         return "web/emailError";
     }
-
-    // =========  NON-API   ==========
-
 
     private String getAppUrl(HttpServletRequest request){
         return "http://" + request.getServerName() +

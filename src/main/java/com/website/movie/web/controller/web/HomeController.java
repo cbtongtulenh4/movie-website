@@ -1,5 +1,6 @@
 package com.website.movie.web.controller.web;
 
+import com.website.movie.constant.MessageConstants;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.MovieGenresEntity;
@@ -14,6 +15,7 @@ import com.website.movie.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,7 +75,6 @@ public class HomeController {
             seasons.add(MovieConvert.toSimpleTvSeasonDto(e));
         });
         List<MovieGenresEntity> genres = otherMovieService.findAllGenreMovie();
-
 
         mav.addObject("SEASONS", seasons);
         mav.addObject("GENRES", genres);

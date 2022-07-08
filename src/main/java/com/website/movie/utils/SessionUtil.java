@@ -52,5 +52,9 @@ public class SessionUtil {
         return url;
     }
 
+    public String getPreviousPage(HttpServletRequest request){
+        return (String) request.getSession().getAttribute("PreviousPage");
+    }
+
 
 }
