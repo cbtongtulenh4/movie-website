@@ -1,6 +1,7 @@
 package com.website.movie.helper.converter;
 
 import com.website.movie.persistence.entity.CommentEntity;
+import com.website.movie.utils.TimeUtil;
 import com.website.movie.web.dto.CommentDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -30,7 +31,7 @@ public class Convert {
     // commentEntity != null;
     public static CommentDto toCommentDto(CommentEntity commentEntity, long parentId){
         CommentDto comment = convertModel(commentEntity, CommentDto.class);
-        comment.setTimeAgo("3 hours");
+        comment.setTimeAgo(TimeUtil.getTimeAgoCustom(commentEntity.getCreatedOn()));
         comment.setParentId(parentId);
         for (CommentEntity c : commentEntity.getComments()) {
             comment.getCommentDtos().add(toCommentDto(c, c.getId()));
