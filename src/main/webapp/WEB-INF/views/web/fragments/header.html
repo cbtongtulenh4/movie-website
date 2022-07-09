@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" th:href="@{/template/css/update.css}">
 </head>
 <body>
 
@@ -182,29 +183,29 @@
                         </ul>
                     </li>
                     <li><a href="#">Help</a></li>
-                    <div th:if="${USER_MODEL}" th:remove="tag">
+                    <div th:if="${session.USER_MODEL}" th:remove="tag">
                         <li>
-<!--                            <div class="account" id="ic-account">-->
-<!--                                <div class="profile" id="sm-profile" onclick="smallProfile();">-->
-<!--                                    <img src="girl.jpg" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="menu hide">-->
-<!--                                    <h3>XXX signed in</h3>-->
-<!--                                    <ul>-->
-<!--                                        <li>-->
-<!--                                            <i class="fa fa-user" aria-hidden="true"></i>-->
-<!--                                            <a href="#">My Profile</a>-->
-<!--                                        </li>-->
-<!--                                        <li>-->
-<!--                                            <i class="fa fa-sign-out" aria-hidden="true"></i>-->
-<!--                                            <a href="#">Logout</a>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div class="account" id="ic-account">
+                                <div class="profile" id="sm-profile" onclick="smallProfile();">
+                                    <img th:src="@{/template/img/uploads/girl.jpg}" alt="">
+                                </div>
+                                <div class="menu hide">
+                                    <h3 th:text="${session.USER_MODEL.user.username}">XXX</h3>
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <a href="#">My Profile</a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                            <a th:href="@{/login}">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                     </div>
-                    <div th:unless="${USER_MODEL}" th:remove="tag">
+                    <div th:unless="${session.USER_MODEL}" th:remove="tag">
                         <li class="loginLink"><a href="#">LOG In</a></li>
                         <li class="btn signupLink"><a href="#">sign up</a></li>
                     </div>

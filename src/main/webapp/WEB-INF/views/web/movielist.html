@@ -66,13 +66,11 @@
 				<div class="topbar-filter">
 					<p>Found <span id="am-movies-tt" th:text="${PAGINATION.maxItems}"></span> movies in total</p>
 					<label>Sort by:</label>
-					<select>
-						<option value="title-2">Popularity Descending</option>
-						<option value="title-1">Popularity Ascending</option>
-						<option value="rating">Rating Descending</option>
-						<option value="rating">Rating Ascending</option>
-						<option value="date">Release date Descending</option>
-						<option value="date">Release date Ascending</option>
+					<select id="field-sort">
+						<option value="views-des">Popularity Descending</option>
+						<option value="views-asc">Popularity Ascending</option>
+						<option value="rating-des">Rating Descending</option>
+						<option value="rating-asc">Rating Ascending</option>
 					</select>Movies per page:
 					<a href="movielist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
 					<a  href="moviegrid.html" class="grid"><i class="ion-grid"></i></a>

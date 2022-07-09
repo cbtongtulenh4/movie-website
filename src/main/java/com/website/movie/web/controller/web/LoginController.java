@@ -2,10 +2,10 @@ package com.website.movie.web.controller.web;
 
 import com.website.movie.constant.MessageConstants;
 import com.website.movie.constant.SystemConstants;
-import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.security.custom.GrantedAuthority;
 import com.website.movie.service.IUserService;
+import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.UserLoginDto;
 import org.slf4j.Logger;
@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -89,8 +88,15 @@ public class LoginController {
         final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
         MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
         redirectAttributes.addFlashAttribute("message", msg);
-        request.getSession().setAttribute("USERMODEL", myUser); // save info user for session
+        SessionUtil.getInstance().putValue(request,"USER_MODEL", myUser);// save info user for session
+//        redirectAttributes.addAttribute("USER_MODEL", myUser);
         return AuthorizationUserLogin(myUser.getAuthority(), request);
+    }
+
+    @RequestMapping(value = "/logout")
+    public String getLogout( HttpServletRequest request){
+        SessionUtil.getInstance().removeValue(request, "USER_MODEL");
+        return SessionUtil.getInstance().getPreviousPage(request);
     }
 
     private String AuthorizationUserLogin(final Collection<? extends GrantedAuthority> authorities, final HttpServletRequest request){
@@ -107,7 +113,6 @@ public class LoginController {
      */
     private Optional<String> getPreviousPageByRequest(HttpServletRequest request){
         return Optional.ofNullable(request.getHeader("Referer")).map(requestURL -> "redirect:" + requestURL);
-
     }
 
 

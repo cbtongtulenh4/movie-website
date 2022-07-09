@@ -7,13 +7,13 @@ import com.website.movie.persistence.dao.IUserDAO;
 import com.website.movie.persistence.dao.impl.UserImpl;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.MovieGenresEntity;
-import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieGenresRepository;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.persistence.repository.TVSeasonRepository;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.web.dto.MovieFilterDto;
+import com.website.movie.web.dto.TVSeasonAbstractDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.WatchTvSeasonDto;
 import lombok.SneakyThrows;
@@ -27,7 +27,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -147,7 +150,8 @@ public class TvSeasonService implements ITvSeasonService {
         Field[] fieldsFilter = aClass.getDeclaredFields();
         for (Field field : fieldsFilter){
             //
-            field.setAccessible(true);
+            boolean isAccessible = field.isAccessible();
+            if (!isAccessible) field.setAccessible(true);
             // check value filed
             if (field.get(movieFilter) != null){
                 // check field need to filter
@@ -161,8 +165,22 @@ public class TvSeasonService implements ITvSeasonService {
                         if (!genresFilter(tvSeason.getGenres(), movieFilter.getGenres()))
                             return false;
                         break;
+                    case "rating":
+                        if(TVSeasonAbstractDto.calRate(tvSeason.getRates()) < movieFilter.getRate())
+                            return false;
+                        break;
+                    case "year":
+                        int year = TVSeasonAbstractDto.getYear(tvSeason);
+                        int[] yearFilter = movieFilter.getYear();
+                        if (yearFilter[0] > year || yearFilter[1] < year)
+                            return false;
+                        break;
+                    default:
                 }
             }
+
+            field.setAccessible(isAccessible);
+
         }
         return true;
     }

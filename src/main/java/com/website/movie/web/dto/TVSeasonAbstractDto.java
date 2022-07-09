@@ -2,6 +2,7 @@ package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.RateEntity;
+import com.website.movie.persistence.entity.TVSeasonEntity;
 
 import java.util.Set;
 
@@ -51,9 +52,13 @@ public class TVSeasonAbstractDto {
         return result;
     }
 
-    public float calRate(Set<RateEntity> rates){
+    public static float calRate(Set<RateEntity> rates){
         if(rates.isEmpty()) return 10.0F;
         return (float) rates.stream().mapToInt(RateEntity::getValue).sum() / rates.size();
+    }
+
+    public static int getYear(TVSeasonEntity tvSeason){
+        return tvSeason.getRelease().getYear();
     }
 
 }

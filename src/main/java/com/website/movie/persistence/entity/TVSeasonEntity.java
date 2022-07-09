@@ -6,8 +6,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-
-import java.util.*;
+import java.time.LocalDate;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -39,6 +42,7 @@ public class TVSeasonEntity extends BaseEntity{
     @Column(columnDefinition = "TEXT")
     private String summary;
     private Integer seasonNumber;
+    private LocalDate release; // date for release
 /*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(

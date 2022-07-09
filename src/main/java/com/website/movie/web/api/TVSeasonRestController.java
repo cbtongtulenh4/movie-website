@@ -6,14 +6,12 @@ import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.utils.PageableUtil;
-import com.website.movie.utils.StringUtil;
 import com.website.movie.utils.custom.CustomPageable;
 import com.website.movie.web.dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -87,11 +85,8 @@ public class TVSeasonRestController {
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
     ){
-        MovieFilterDto movieFilterDto = new MovieFilterDto(
-                request.getParameter("title").isEmpty() ? null : request.getParameter("title"),
-                request.getParameter("rating"),
-                StringUtil.toArray(request.getParameter("genres"), ",")
-        );
+        MovieFilterDto movieFilterDto = new MovieFilterDto();
+        movieFilterDto.init(request, "title", "rating", "genres", "yearFrom", "yearTo");
         List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto);
         List<SimpleTvSeasonDto> simpleTvSeasonDtos = new ArrayList<>();
         tvSeasonEntity.forEach(e -> simpleTvSeasonDtos.add(MovieConvert.toSimpleTvSeasonDto(e)));
@@ -115,8 +110,10 @@ public class TVSeasonRestController {
         return MovieConvert.toDto(pagination.getContent());
     }
 
-    private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store,String sortParam){
+    private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store, String sortParam){
         String[] valueSort = sortParam.split("-");
+
+
 
         return null;
     }

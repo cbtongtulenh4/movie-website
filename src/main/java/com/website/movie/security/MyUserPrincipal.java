@@ -71,4 +71,11 @@ public class MyUserPrincipal implements UserDetails {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "MyUserPrincipal{" +
+                "user=" + user +
+                '}';
+    }
 }
