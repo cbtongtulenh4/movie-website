@@ -74,7 +74,7 @@ public class UserInterceptor implements HandlerInterceptor {
 //            return null;
 //        }
         RequestMatcherRegistry registry = new RequestMatcherRegistry();
-//        registry.antMatchers("/admin").access("ADMIN")
+        registry.antMatchers("/admin").access("ADMIN");
 //                .and().antMatchers("/home").access("USER", "ADMIN");
 //                .and().antMatchers("/userprofile").access("*");
         return registry;
@@ -102,10 +102,10 @@ public class UserInterceptor implements HandlerInterceptor {
                 ExpressionUrlAuthorization.hasPermission(auth, targetUrl);
         try {
             if (!check) {
-                request.setAttribute("message", MessageUtil.getMessage("message.user." + message));
-                response.sendRedirect(request.getContextPath() + "/login?lang=" + request.getLocale().getLanguage()
-                    + "&authMsg=" + MessageUtil.getMessage("message.user." + message)
-                );
+//                request.setAttribute("message", MessageUtil.getMessage("message.user." + message));
+                SessionUtil.getInstance().putValue(request, "message", MessageUtil.getMessage("message.user." + message));
+//                request.getServletContext().getRequestDispatcher(request.getRequestURI()).forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/logout");
             }
         } catch(IOException e){
             e.printStackTrace();

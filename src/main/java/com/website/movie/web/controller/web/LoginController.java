@@ -75,7 +75,7 @@ public class LoginController {
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
             redirectAttributes.addFlashAttribute("message", msg);
 //            System.out.println("sfdajsfj: " + request.getContextPath() + request.getServletPath());
-            return getPreviousPageByRequest(request).orElse("/");
+            return getPreviousPageByRequest(request).orElse("redirect:/");
         }
         final String loginStatus = userService.checkLoadUser(myUser);
         if (!loginStatus.equals(SystemConstants.SUCCESS)){
@@ -83,7 +83,7 @@ public class LoginController {
             final String message = messages.getMessage("message.user." + loginStatus, null, request.getLocale());
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
             redirectAttributes.addFlashAttribute("message", msg);
-            return getPreviousPageByRequest(request).orElse("/");
+            return getPreviousPageByRequest(request).orElse("redirect:/");
         }
         final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
         MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
@@ -96,7 +96,7 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public String getLogout( HttpServletRequest request){
         SessionUtil.getInstance().removeValue(request, "USER_MODEL");
-        return SessionUtil.getInstance().getPreviousPage(request);
+        return SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/home");
     }
 
     private String AuthorizationUserLogin(final Collection<? extends GrantedAuthority> authorities, final HttpServletRequest request){

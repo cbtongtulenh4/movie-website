@@ -4,7 +4,9 @@ import com.website.movie.persistence.entity.CommentEntity;
 import com.website.movie.utils.TimeUtil;
 import com.website.movie.web.dto.CommentDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.Module;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +19,14 @@ public class Convert {
      * @ModifiedBy:
      */
 
-    private static final ModelMapper MODEL_MAPPER = new ModelMapper();
+    private static ModelMapper MODEL_MAPPER = new ModelMapper();
 
     public static <T, E> E convertModel(T obj, Class<E> zClass){
         if (obj == null){
             return null;
         }
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        MODEL_MAPPER.registerModule((Module) new Jsr310JpaConverters.LocalDateTimeConverter());
         return MODEL_MAPPER.map(obj, zClass);
     }
 

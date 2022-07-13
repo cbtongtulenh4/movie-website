@@ -2,6 +2,7 @@ package com.website.movie.service.impl;
 
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.MovieEntity;
+import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
 import com.website.movie.web.dto.MovieDto;
@@ -41,6 +42,9 @@ public class MovieService implements IMovieService {
         List<MovieDto> movieDtos = new ArrayList<>();
         movieEntities.forEach(e -> {
             LOGGER.info("Get genres season movie with information: {}", e.getCategories());
+            for (TVSeasonEntity seasonEntity: e.getSeasons()) {
+                seasonEntity.getRates().size();
+            }
             movieDtos.add(MovieConvert.toDto(e));
         });
         return movieDtos;

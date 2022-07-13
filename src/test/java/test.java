@@ -26,7 +26,7 @@ public class test {
             = DateTimeFormatter.ofPattern(defaultDateFormat, defaultFormattingLocale);
 
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
 
         LocalDate sampleDate

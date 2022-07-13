@@ -157,29 +157,29 @@
 							</div>
 						</div>	
 					</form>
-					<form th:action="@{/changePassword}" class="password" method="POST">
+					<form action="" id="changePassForm" class="password">
 						<h4>02. Change password</h4>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Old Password</label>
-								<input type="text" name="passRaw" placeholder="**********">
+								<input type="text" name="passRaw" placeholder="**********" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>New Password</label>
-								<input type="text" name="passNew" placeholder="***************">
+								<input type="text" name="passNew" placeholder="***************" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Confirm New Password</label>
-								<input type="text" placeholder="*************** ">
+								<input type="text" name="passConfirm" placeholder="***************" required>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<input class="submit" type="submit" value="change">
+								<input class="submit" id="changePass-btn" type="button" value="change">
 							</div>
 						</div>	
 					</form>
@@ -213,6 +213,34 @@
 		var avatarIdNew = await response.text();
 		avatarCt.setAttribute('src', "https://drive.google.com/uc?export=view&id=" + avatarIdNew);
 	}
+
+	let changePassBtn = document.getElementById('changePass-btn');
+	changePassBtn.addEventListener('click', async function(){
+		let changePassForm = document.getElementById('changePassForm');
+		let requestForm = document.forms.changePassForm;
+		let changePassData = new FormData(requestForm);
+		console.log(changePassData.get('passNew'));
+
+		let test = {
+			'passRaw' : '123456',
+			'passNew' : '1234',
+			'passConfirm' : '1234'
+		}
+		var request = await fetch("/MovieWebsite/changePassword", {
+			method : 'POST',
+			body : JSON.stringify(test),
+			headers : {
+			    'Accept': 'application/json',
+				'Content-Type' : 'application/json'
+			}
+		}).then(response => {
+			var messageDto = response.json();
+			alert(messageDto.content);
+		}).catch(error => {
+			alert(error);
+		});
+	});
+
 </script>
 
 </body>

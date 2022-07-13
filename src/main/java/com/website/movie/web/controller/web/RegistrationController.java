@@ -13,6 +13,7 @@ import com.website.movie.service.IVerificationTokenService;
 import com.website.movie.utils.MessageUtil;
 import com.website.movie.utils.PasswordUtil;
 import com.website.movie.utils.SessionUtil;
+import com.website.movie.web.dto.ChangePasswordDto;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.UserDto;
@@ -24,10 +25,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,7 +77,7 @@ public class RegistrationController {
 //                    this.getClass().getDeclaredMethod("registrationUserAccount", UserDto.class), 0), result);
         }
 
-        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("/");
+        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/");
         ModelAndView mav = new ModelAndView(targetURL, "user", userDto);
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
@@ -225,44 +223,43 @@ public class RegistrationController {
 
     /**
      * valid password check in client-side
-     * @param passRaw
-     * @param passNew
+     * @param changePassword
      * @return
      */
-    @RequestMapping(value="/changePassword", method = RequestMethod.POST)
-    public ModelAndView changePassword(
-            @RequestParam("passRaw") final String passRaw,
-            @RequestParam("passNew") final String passNew,
+    @PostMapping(value="/changePassword")
+    public @ResponseBody MessageDto changePassword(
+            @RequestBody @Valid ChangePasswordDto changePassword,
+            final BindingResult result,
             HttpServletRequest request
     ){
         LOGGER.info("Change Password");
-        MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USERMODEL");
+        if (result.hasErrors()){
+            return new MessageDto(
+                    MessageConstants.WARNING,
+                    result.getAllErrors().get(0).getDefaultMessage()
+            );
+        }
+        MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL");
         ModelAndView mav = new ModelAndView("redirect:/userprofile");
-        if (!userService.validChangePassword(passRaw, myUser.getPassword())){
-            MessageDto msg = new MessageDto(
+        if (!userService.validChangePassword(changePassword.getPassRaw(), myUser.getPassword())){
+            return new MessageDto(
                     MessageConstants.WARNING,
                     MessageUtil.getMessage("message.changePassword.invalidRaw")
             );
-            mav.addObject("message", msg);
-            return mav;
         }
         try {
-            myUser.setUser(userService.changeUserPassword(myUser.getUser(), passNew));
-            SessionUtil.getInstance().putValue(request, "USERMODEL", myUser);
+            myUser.setUser(userService.changeUserPassword(myUser.getUser(), changePassword.getPassNew()));
+            SessionUtil.getInstance().putValue(request, "USER_MODEL", myUser);
         }catch (Exception ex){
-            MessageDto msg = new MessageDto(
+            return new MessageDto(
                     MessageConstants.DANGER,
                     MessageUtil.getMessage("message.changePassword.Failure")
             );
-            mav.addObject("message", msg);
-            return mav;
         }
-        MessageDto msg = new MessageDto(
+        return new MessageDto(
                 MessageConstants.SUCCESS,
                 MessageUtil.getMessage("message.changePassword.Suc")
         );
-        mav.addObject("message", msg);
-        return mav;
     }
 
 

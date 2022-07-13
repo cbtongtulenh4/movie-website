@@ -66,7 +66,7 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public TVSeasonEntity getSeasonMovieById(Long id) {
-        TVSeasonEntity temp = tvSeasonRepository.findById(id).orElse(null);
+//        TVSeasonEntity temp = tvSeasonRepository.findById(id).orElse(null);
 //        LOGGER.info("Get a season movie with information: {}", temp);
 //        if (temp != null){
 //            TVSeasonEntity result = new TVSeasonEntity();
@@ -77,11 +77,12 @@ public class TvSeasonService implements ITvSeasonService {
 ////            LOGGER.info("Result of get a season movie with information: {}", result);
 //            return result;
 //        }
-        // When add LOGGER.info so fetch LAZY type working, Why?
-        LOGGER.info("Get genres season movie with information: {}", temp.getGenres());
-        LOGGER.info("Get genres season movie with information: {}", temp.getEpisodes());
-        LOGGER.info("Get genres season movie with information: {}", temp.getComments());
-        return temp;
+//        assert temp != null;
+//        temp.getGenres().size();
+//        temp.getEpisodes().size();
+//        temp.getComments().size();
+//        temp.getRates().size();
+        return tvSeasonRepository.findByIdAndFetchAllEagerly(id);
     }
 
     @Override
@@ -121,7 +122,10 @@ public class TvSeasonService implements ITvSeasonService {
     @Override
     public Page<TVSeasonEntity> findAll(Pageable paging) {
         Page<TVSeasonEntity> pagedResult = tvSeasonRepository.findAll(paging);
-        pagedResult.forEach(e -> LOGGER.info("Get genres season movie with information: {}", e.getGenres()));
+        pagedResult.forEach(e -> {
+            e.getGenres().size();
+            e.getRates().size();
+        });
         return pagedResult;
     }
 
@@ -129,8 +133,8 @@ public class TvSeasonService implements ITvSeasonService {
     public TVSeasonUiDto getSeasonMovieByCode(String code, Long user_id) {
         TVSeasonEntity seasonEntity = tvSeasonRepository.findOneByCode(code);
         boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, seasonEntity.getId());
-        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getGenres());
-        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getComments());
+        seasonEntity.getGenres().size();
+        seasonEntity.getComments().size();
         return MovieConvert.toDto(seasonEntity, isPaid);
     }
 
@@ -165,8 +169,8 @@ public class TvSeasonService implements ITvSeasonService {
                         if (!genresFilter(tvSeason.getGenres(), movieFilter.getGenres()))
                             return false;
                         break;
-                    case "rating":
-                        if(TVSeasonAbstractDto.calRate(tvSeason.getRates()) < movieFilter.getRate())
+                    case "rate":
+                        if(TVSeasonAbstractDto.calRate(tvSeason.getRates()) > movieFilter.getRate())
                             return false;
                         break;
                     case "year":
@@ -214,12 +218,10 @@ public class TvSeasonService implements ITvSeasonService {
         if (objects == null){
             objects = tvSeasonRepository.findAll();
 
-//            List<TVSeasonEntity> copy = new ArrayList<>(objects);
-//            for (TVSeasonEntity object : objects){
-//                Set<TVEpisodeEntity> episodeEntities = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
-//                episodeEntities.addAll(object.getEpisodes());
-//                object.setEpisodes(episodeEntities);
-//            }
+            for (TVSeasonEntity object : objects){
+                object.getRates().size();
+            }
+
             InMemoryCache.getInstance().add("SEASON_MOVIES", objects);
         }
         return objects;

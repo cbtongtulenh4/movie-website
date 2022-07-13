@@ -1,7 +1,5 @@
 package com.website.movie.utils;
 
-import jdk.nashorn.internal.runtime.options.Option;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
@@ -37,13 +35,18 @@ public class SessionUtil {
         request.getSession().removeAttribute(key);
     }
 
+    public Object getAndRemoveValue(final HttpServletRequest request, final String key){
+        Object obj = getValue(request, key);
+        removeValue(request, key);
+        return obj;
+    }
 
     public Optional<String> getPreviousPageByRequest(HttpServletRequest request){
         return Optional.ofNullable(request.getHeader("Referer")).map(requestURL -> "redirect:" + requestURL);
     }
 
     public void savePreviousPageByRequest(HttpServletRequest request){
-        putValue(request, "PreviousPage", getPreviousPageByRequest(request).orElse("/"));
+        putValue(request, "PreviousPage", getPreviousPageByRequest(request).orElse("redirect:/"));
     }
 
     public String getAndRemovePreviousPage(HttpServletRequest request){
@@ -53,7 +56,7 @@ public class SessionUtil {
     }
 
     public String getPreviousPage(HttpServletRequest request){
-        return (String) request.getSession().getAttribute("PreviousPage");
+        return request.getSession().getAttribute("PreviousPage").toString();
     }
 
 

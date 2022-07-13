@@ -33,7 +33,7 @@ public class MovieFilterDto {
         this.title = request.getParameter(title).isEmpty() ? null : request.getParameter(title);
         this.rate = request.getParameter(rate).isEmpty() ? null : Float.valueOf(request.getParameter(rate));
         this.genres = StringUtil.toArray(request.getParameter(genres), ",");
-        if (request.getParameter(yF) == null || request.getParameter(yT) == null){
+        if (!request.getParameter(yF).isEmpty() && !request.getParameter(yT).isEmpty()){
             this.year = new int[]{Integer.parseInt(request.getParameter(yF)), Integer.parseInt(request.getParameter(yT))};
         }
     }

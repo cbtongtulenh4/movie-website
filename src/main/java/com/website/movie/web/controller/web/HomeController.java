@@ -1,21 +1,19 @@
 package com.website.movie.web.controller.web;
 
 import com.website.movie.constant.MessageConstants;
-import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
-import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.utils.PageableUtil;
+import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,8 +42,11 @@ public class HomeController {
     private IOtherMovieService otherMovieService;
 
     @RequestMapping(value = {"/home", "", "/"}, method = RequestMethod.GET)
-    public String getHome(){
-        return "web/home";
+    public ModelAndView getHome(HttpServletRequest request){
+        MessageDto msg = new MessageDto(MessageConstants.DANGER, (String) SessionUtil.getInstance().getAndRemoveValue(request, "message"));
+        ModelAndView mav = new ModelAndView("web/home");
+        mav.addObject("message", msg);
+        return mav;
     }
 
 //    @RequestMapping(value = "/movie-single", method = RequestMethod.GET)

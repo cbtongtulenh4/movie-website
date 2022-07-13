@@ -1,11 +1,8 @@
 package com.website.movie.utils;
 
 import com.website.movie.security.MyUserPrincipal;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class InterceptorUtil {
     /**
@@ -20,18 +17,18 @@ public class InterceptorUtil {
 
     public static boolean isUserLogged(final HttpServletRequest request){
         try{
-            return SessionUtil.getInstance().getValue(request, "USERMODEL") != null;
+            return SessionUtil.getInstance().getValue(request, "USER_MODEL") != null;
         }catch (Exception ex){
             return false;
         }
     }
 
     public static MyUserPrincipal getUserLogin(final HttpServletRequest request){
-        return (MyUserPrincipal) request.getSession().getAttribute("USERMODEL");
+        return (MyUserPrincipal) request.getSession().getAttribute("USER_MODEL");
     }
 
     public static void clearContext(final HttpServletRequest request){
-        SessionUtil.getInstance().removeValue(request, "USERMODEL");
+        SessionUtil.getInstance().removeValue(request, "USER_MODEL");
     }
 
 }

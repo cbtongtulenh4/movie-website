@@ -29,6 +29,7 @@
 	<link rel="stylesheet" th:href="@{/template/css/plugins.css}">
 	<link rel="stylesheet" th:href="@{/template/css/main.css}">
 	<link rel="stylesheet" th:href="@{/template/css/update.css}">
+	<script th:src="@{/template/js/update.js}"></script>
 
 </head>
 <body>
@@ -133,12 +134,11 @@
 								<div class="col-md-12 form-it">
 									<label>Rating Range</label>
 									
-									 <select>
-										 <option value="">--below --</option>
-										<option value="range">-- Select the rating range below --</option>
-										<option value="saab">-- Select the rating range below --</option>
-										<option value="saab">-- Select the rating range below --</option>
-										<option value="saab">-- Select the rating range below --</option>
+									 <select name="rate">
+										<option value="10">-- Below 10 star --</option>
+										<option value="9">-- Below 9 star --</option>
+										<option value="8">-- Below 8 star --</option>
+										<option value="7">-- Below 7 star --</option>
 									</select>
 									
 								</div>
@@ -146,19 +146,19 @@
 									<label>Release Year</label>
 									<div class="row">
 										<div class="col-md-6">
-											<select>
-												<option value="range">From</option>
-												<option value="number">10</option>
-												<option value="number">20</option>
-												<option value="number">30</option>
+											<select name="yearFrom">
+												<option value="">From</option>
+												<option value="2010">2010</option>
+												<option value="2012">2012</option>
+												<option value="2014">2014</option>
 											</select>
 										</div>
 										<div class="col-md-6">
-											<select>
-												<option value="range">To</option>
-												<option value="number">20</option>
-												<option value="number">30</option>
-												<option value="number">40</option>
+											<select name="yearTo">
+												<option value="">To</option>
+												<option value="2018">2018</option>
+												<option value="2020">2020</option>
+												<option value="2022">2022</option>
 											</select>
 										</div>
 									</div>
@@ -208,12 +208,15 @@
 		var formData = new FormData(requestForm);
 
 		let genresData = document.getElementById('genres-sl').selectedOptions;
+		console.log((formData.get('rating')==null) ? '' : formData.get('rating'));
         const response = await fetch(url + "?" + new URLSearchParams({
         	nextPage: nextPage,
         	maxPageItem: maxPageItem,
         	title: formData.get('title'),
-        	rating: formData.get('rating'),
-        	genres: Array.from(genresData).map(({value}) => value)
+        	rating: formData.get('rate'),
+        	genres: Array.from(genresData).map(({value}) => value),
+        	yearFrom : formData.get('yearFrom'),
+        	yearFrom : formData.get('yearTo')
         }));
 
         var data = await response.json();

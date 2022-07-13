@@ -62,7 +62,6 @@ public class TVSeasonEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
-//    private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "movie-season")
@@ -88,9 +87,6 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private Set<MovieGenresEntity> genres = new HashSet<>();
 
-
-
-
     @ManyToMany(targetEntity = RatingEntity.class, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
@@ -105,7 +101,7 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private Set<RatingEntity> ratings = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
     private Set<CommentEntity> comments = new HashSet<>();
 
