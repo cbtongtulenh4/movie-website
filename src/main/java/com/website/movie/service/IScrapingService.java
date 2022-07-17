@@ -14,4 +14,6 @@ public interface IScrapingService {
 
     List<MovieEntity> getJsoupAllMovie(final String URL, final String container);
 
+    List<String> getJsoupGenres(final String URL, final String container);
+
 }

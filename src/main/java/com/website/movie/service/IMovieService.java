@@ -21,5 +21,7 @@ public interface IMovieService {
     void deleteMovies(Long[] ids);
     void deleteAllMovies();
 
+    List<MovieEntity> scrapingMovieData(final String URL, final String container);
+
 
 }

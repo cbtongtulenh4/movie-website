@@ -6,13 +6,11 @@ import com.website.movie.persistence.dao.ICommentDAO;
 import com.website.movie.persistence.dao.impl.CommentImpl;
 import com.website.movie.persistence.entity.*;
 import com.website.movie.security.MyUserPrincipal;
-import com.website.movie.service.IMovieCategoryService;
-import com.website.movie.service.IOtherMovieService;
-import com.website.movie.service.ITvSeasonService;
-import com.website.movie.service.IUserService;
+import com.website.movie.service.*;
 import com.website.movie.web.dto.CommentDto;
 import com.website.movie.web.dto.MovieCategoryDto;
 import com.website.movie.web.dto.RateDto;
+import com.website.movie.web.dto.ScrapingDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +41,9 @@ public class OtherRestController {
 
     @Autowired
     private ITvSeasonService tvSeasonService;
+
+    @Autowired
+    private IScrapingService scrapingService;
 
     private ICommentDAO commentDAO = new CommentImpl();
 
@@ -126,4 +127,28 @@ public class OtherRestController {
         
         otherMovieService.updateSpamCommentById(isSpam, commentId);
     }
+
+
+    @PostMapping(value = "/api/scraping/movie")
+    public List<MovieEntity> scrapingAllMovie(
+            @RequestBody ScrapingDto scrapingDto
+    ){
+        return scrapingService.getJsoupAllMovie(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        );
+    }
+
+
+    @PostMapping(value = "/api/scraping/genres")
+    public List<String> scrapingGenres(
+            @RequestBody ScrapingDto scrapingDto
+    ){
+        return scrapingService.getJsoupGenres(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        );
+    }
+
+
 }

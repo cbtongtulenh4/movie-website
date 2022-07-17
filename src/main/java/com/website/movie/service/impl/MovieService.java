@@ -71,4 +71,10 @@ public class MovieService implements IMovieService {
     public void deleteAllMovies(){
         movieRepository.deleteAll();
     }
+
+    @Override
+    public List<MovieEntity> scrapingMovieData(String URL, String container) {
+
+        return null;
+    }
 }

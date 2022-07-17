@@ -41,7 +41,7 @@ public class TVSeasonEntity extends BaseEntity{
     private Long views = 0L;
     @Column(columnDefinition = "TEXT")
     private String summary;
-    private Integer seasonNumber;
+    private Integer seasonNumber; // season th of movie
     private LocalDate release; // date for release
 /*
     @OneToOne(cascade = CascadeType.ALL)
