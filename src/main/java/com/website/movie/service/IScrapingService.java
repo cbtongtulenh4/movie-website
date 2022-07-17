@@ -1,5 +1,9 @@
 package com.website.movie.service;
 
+import com.website.movie.persistence.entity.MovieEntity;
+
+import java.util.List;
+
 public interface IScrapingService {
     /**
      * @Project: MovieWebsite
@@ -8,6 +12,6 @@ public interface IScrapingService {
      * @ModifiedBy:
      */
 
-
+    List<MovieEntity> getJsoupAllMovie(final String URL, final String container);
 
 }

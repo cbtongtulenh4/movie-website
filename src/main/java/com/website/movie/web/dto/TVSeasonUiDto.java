@@ -29,15 +29,15 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private String title;
     private String thumbnail;
     private String duration;
-    private Float cost;
+    private Float cost = 0F;
     private String status;
     private String showtime;
     private String quality;
     private String directors;
     private Integer followers;
-    private Integer ageLimit;
+    private Integer ageLimit = 0;
     private Float rate = 10.0F;
-    private Long views;
+    private Long views = 0L;
     private String summary;
     private Integer seasonNumber;
     private Long movie_id;
