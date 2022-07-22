@@ -20,6 +20,7 @@ public interface IMovieService {
     MovieEntity createMovie(MovieEntity movieEntity);
     void deleteMovies(Long[] ids);
     void deleteAllMovies();
+    List<MovieEntity> insertListMovieEntity(List<MovieEntity> movieEntities);
 
     List<MovieEntity> scrapingMovieData(final String URL, final String container);
 

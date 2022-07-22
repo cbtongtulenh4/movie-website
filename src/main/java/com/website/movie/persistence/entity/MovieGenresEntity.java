@@ -4,17 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SQLInsert;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "movie_genres")
+@SQLInsert(sql = "INSERT IGNORE INTO movie_genres(code, name) VALUES(?, ?)")
 @Data
 public class MovieGenresEntity extends BaseEntity{
     /**
@@ -25,6 +24,7 @@ public class MovieGenresEntity extends BaseEntity{
      */
 
     @NotNull
+    @Column(unique = true, nullable = false)
     private String code;
     @NotNull
     private String name;

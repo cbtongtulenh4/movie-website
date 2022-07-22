@@ -5,11 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie")
@@ -22,6 +21,7 @@ public class MovieEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    private String code;
     private String title;
     private String thumbnail;
     private Float rate;
@@ -32,12 +32,12 @@ public class MovieEntity extends BaseEntity{
 ////            foreignKey = @ForeignKey(name = "movie_tv_season")
 ////    )
 //    private List<TVSeasonEntity> seasons = new ArrayList<>();
-    @OneToMany(mappedBy = "movie")
-    @JsonManagedReference(value = "movie-season")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "movie-tvSeason")
 //    @Fetch(value = FetchMode.SUBSELECT)
-    private Set<TVSeasonEntity> seasons = new HashSet<>();
+    private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
 
-    @ManyToMany(targetEntity = MovieCategoryEntity.class)
+    @ManyToMany(targetEntity = MovieCategoryEntity.class, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
     @JoinTable(
@@ -79,12 +79,20 @@ public class MovieEntity extends BaseEntity{
         this.rate = rate;
     }
 
-    public Set<TVSeasonEntity> getSeasons() {
-        return seasons;
+    public String getCode() {
+        return code;
     }
 
-    public void setSeasons(Set<TVSeasonEntity> seasons) {
-        this.seasons = seasons;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Set<TVSeasonEntity> getTvSeasons() {
+        return tvSeasons;
+    }
+
+    public void setTvSeasons(Set<TVSeasonEntity> tvSeasons) {
+        this.tvSeasons = tvSeasons;
     }
 
     public Set<MovieCategoryEntity> getCategories() {

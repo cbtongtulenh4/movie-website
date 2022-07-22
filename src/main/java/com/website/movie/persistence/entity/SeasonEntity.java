@@ -1,7 +1,8 @@
 package com.website.movie.persistence.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "seasons")
@@ -13,8 +14,42 @@ public class SeasonEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+    @Column(nullable = false, unique = true)
+    private String code;
     private String name;
     private Integer year;
+
+    @OneToMany(mappedBy = "season",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true
+    )
+    private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
+
+    public SeasonEntity(){
+
+    }
+
+    public SeasonEntity(String code, String name, Integer year) {
+        this.code = code;
+        this.name = name;
+        this.year = year;
+    }
+
+    public SeasonEntity(Long id, String code, String name, Integer year) {
+        super(id);
+        this.code = code;
+        this.name = name;
+        this.year = year;
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;
@@ -59,9 +94,7 @@ public class SeasonEntity extends BaseEntity{
             }
         }
         if (getYear() == null){
-            if (other.getYear() != null){
-                return false;
-            }
+            return other.getYear() == null;
         }
         return true;
     }

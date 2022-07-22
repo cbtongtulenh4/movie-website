@@ -4,7 +4,9 @@ import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.service.IMovieService;
+import com.website.movie.service.IScrapingService;
 import com.website.movie.web.dto.MovieDto;
+import com.website.movie.web.dto.ScrapingDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 
 @RestController(value = "MovieRestAPI")
 public class MovieRestController {
@@ -25,6 +27,8 @@ public class MovieRestController {
 
     @Autowired
     private IMovieService movieService;
+    @Autowired
+    private IScrapingService scrapingService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MovieRestController.class);
 
@@ -50,6 +54,18 @@ public class MovieRestController {
     @DeleteMapping(value = "/api/movie")
     public void deleteMovies(){
 
+    }
+
+
+    @PostMapping(value = "/api/movie/scrapping")
+    public List<MovieEntity> scrapingAllMovie(
+            @RequestBody ScrapingDto scrapingDto
+    ){
+        return movieService.insertListMovieEntity(
+                scrapingService.getJsoupAllMovie(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        ));
     }
 
 

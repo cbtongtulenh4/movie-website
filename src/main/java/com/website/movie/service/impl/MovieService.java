@@ -73,6 +73,11 @@ public class MovieService implements IMovieService {
     }
 
     @Override
+    public List<MovieEntity> insertListMovieEntity(List<MovieEntity> movieEntities) {
+        return movieRepository.saveAll(movieEntities);
+    }
+
+    @Override
     public List<MovieEntity> scrapingMovieData(String URL, String container) {
 
         return null;

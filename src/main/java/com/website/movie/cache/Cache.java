@@ -44,4 +44,7 @@ public interface Cache {
      */
     long size();
 
+
+
+
 }

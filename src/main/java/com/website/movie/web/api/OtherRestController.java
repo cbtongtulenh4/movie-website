@@ -75,6 +75,19 @@ public class OtherRestController {
         return otherMovieService.saveGenreMovie(genreEntity);
     }
 
+    @PostMapping(value = "/api/movie/season/list-genre")
+    public List<MovieGenresEntity> createGenreMovie(
+            @RequestBody List<MovieGenresEntity> genres
+    )
+    {
+//        LOGGER.info("Create a genre movie with information: {}", genres);
+//        if (result.hasErrors()) {
+//            throw new InvalidDataException(genres);
+//        }
+        return otherMovieService.saveListGenreMovie(genres);
+    }
+
+
     @PutMapping(value = "/api/movie/season/rate")
     public RateDto updateRate(
             @RequestParam(value = "rateVal") final Integer rateVal,
@@ -129,15 +142,17 @@ public class OtherRestController {
     }
 
 
-    @PostMapping(value = "/api/scraping/movie")
-    public List<MovieEntity> scrapingAllMovie(
-            @RequestBody ScrapingDto scrapingDto
-    ){
-        return scrapingService.getJsoupAllMovie(
-                scrapingDto.getUrl(),
-                scrapingDto.getContainer()
-        );
-    }
+//    @PostMapping(value = "/api/scraping/movie")
+//    public List<MovieEntity> scrapingAllMovie(
+//            @RequestBody ScrapingDto scrapingDto
+//    ){
+//        return scrapingService.getJsoupAllMovie(
+//                scrapingDto.getUrl(),
+//                scrapingDto.getContainer()
+//        );
+//    }
+
+
 
 
     @PostMapping(value = "/api/scraping/genres")

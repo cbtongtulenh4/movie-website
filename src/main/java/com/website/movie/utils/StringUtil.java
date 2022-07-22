@@ -15,4 +15,22 @@ public class StringUtil {
         return str.split(regex);
     }
 
+    public static String getValueByURL(String url, int index){
+//        AssertUtil.notNull(url, "String input have to not null");
+        String[] values = url.split("/");
+        int i = (index < 0) ? values.length - 1 : index;
+        return values[i];
+    }
+
+    public static String getSplitValue(String str, String regex, int index){
+        String[] values = str.split(regex);
+        return values[index];
+    }
+
+
+    public static String convertToCode(String value){
+        AssertUtil.notNull(value, "Value can not null");
+        return value.trim().replace(" ", "-").toLowerCase();
+    }
+
 }

@@ -26,6 +26,11 @@ public class RatingEntity extends BaseEntity{
     private String code;
     private String name;
 
+    public RatingEntity(String code, String name){
+        this.code = code;
+        this.name = name;
+    }
+
     @ManyToMany(mappedBy = "ratings", fetch = FetchType.LAZY)
     @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude

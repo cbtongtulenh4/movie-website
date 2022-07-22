@@ -1,5 +1,7 @@
 package com.website.movie.service.impl;
 
+import com.website.movie.cache.InMemoryCache;
+import com.website.movie.constant.CacheConstants;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.persistence.dao.ICommentDAO;
 import com.website.movie.persistence.dao.impl.CommentImpl;
@@ -11,12 +13,10 @@ import com.website.movie.persistence.repository.RatingRepository;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.web.dto.CommentDto;
 import com.website.movie.web.dto.RateDto;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -50,6 +50,17 @@ public class OtherMovieService implements IOtherMovieService {
     @Override
     public MovieGenresEntity saveGenreMovie(MovieGenresEntity genreMovie) {
         return movieGenresRepository.save(genreMovie);
+    }
+
+    @Override
+    public List<MovieGenresEntity> saveListGenreMovie(List<MovieGenresEntity> movieGenresEntities) {
+        List<MovieGenresEntity> store = getAllMovieGenres();
+        movieGenresEntities.removeIf(store::contains);
+        if (movieGenresEntities.isEmpty()){
+            return null;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_GENRES);
+        return movieGenresRepository.saveAll(movieGenresEntities);
     }
 
     @Override
@@ -149,5 +160,14 @@ public class OtherMovieService implements IOtherMovieService {
         return Convert.toListCommentDto(commentRepository.findByParentIdAndTvSeasonId(cmParentId, tvSeasonId));
     }
 
+
+    private List<MovieGenresEntity> getAllMovieGenres(){
+        List<MovieGenresEntity> movieGenres = (List<MovieGenresEntity>) InMemoryCache.getInstance().get(CacheConstants.MOVIE_GENRES);
+        if (movieGenres == null){
+            movieGenres = movieGenresRepository.findAll();
+            InMemoryCache.getInstance().add(CacheConstants.MOVIE_GENRES, movieGenres);
+        }
+        return movieGenres;
+    }
 
 }

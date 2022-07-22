@@ -38,7 +38,7 @@ public class MovieConvert {
         }
         MovieDto dto = modelMapper.map(entity, MovieDto.class);
         dto.setSeasons(entity.getSeasons());
-//        dto.setCategories(entity.getCategories());
+        dto.setCategories(entity.getCategories());
         return dto;
     }
 

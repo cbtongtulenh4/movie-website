@@ -13,4 +13,7 @@ public interface MovieGenresRepository extends JpaRepository<MovieGenresEntity, 
 
     MovieGenresEntity findByName(String name);
 
+//    @Query("INSERT IGNORE INTO MovieGenresEntity(code, name) values(:genres)")
+//    List<MovieGenresEntity> saveAllInsertIgnore(@Param("genres") List<MovieGenresEntity> genres);
+
 }

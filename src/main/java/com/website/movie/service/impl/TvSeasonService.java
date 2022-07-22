@@ -1,6 +1,5 @@
 package com.website.movie.service.impl;
 
-import com.website.movie.cache.InMemoryCache;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.dao.IUserDAO;
@@ -88,7 +87,7 @@ public class TvSeasonService implements ITvSeasonService {
     @Override
     public List<TVSeasonEntity> getAllSeasonMovie() {
 //        return tvSeasonRepository.findAll();
-        return getSeasonMovieCache();
+        return UtilService.getSeasonMovieCache();
     }
 
     @Override
@@ -110,7 +109,7 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public WatchTvSeasonDto getWatchTvSeasonUiByCode(String code) {
-        List<TVSeasonEntity> tvSeasonList = getSeasonMovieCache();
+        List<TVSeasonEntity> tvSeasonList = UtilService.getSeasonMovieCache();
         for (TVSeasonEntity tvSeason : tvSeasonList){
             if (tvSeason.getCode().equalsIgnoreCase(code)){
                 return Convert.convertModel(tvSeason, WatchTvSeasonDto.class);
@@ -174,7 +173,8 @@ public class TvSeasonService implements ITvSeasonService {
                             return false;
                         break;
                     case "year":
-                        int year = TVSeasonAbstractDto.getYear(tvSeason);
+//                        int year = TVSeasonAbstractDto.getYear(tvSeason);
+                        int year = 2001;
                         int[] yearFilter = movieFilter.getYear();
                         if (yearFilter[0] > year || yearFilter[1] < year)
                             return false;
@@ -211,20 +211,6 @@ public class TvSeasonService implements ITvSeasonService {
             result.add(movieGenresRepository.findByName(genreRequest));
         }
         return result;
-    }
-
-    private List<TVSeasonEntity> getSeasonMovieCache(){
-        List<TVSeasonEntity> objects = (List<TVSeasonEntity>)InMemoryCache.getInstance().get("SEASON_MOVIES");
-        if (objects == null){
-            objects = tvSeasonRepository.findAll();
-
-            for (TVSeasonEntity object : objects){
-                object.getRates().size();
-            }
-
-            InMemoryCache.getInstance().add("SEASON_MOVIES", objects);
-        }
-        return objects;
     }
 
 

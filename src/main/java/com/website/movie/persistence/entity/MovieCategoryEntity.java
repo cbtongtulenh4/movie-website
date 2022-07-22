@@ -1,19 +1,17 @@
 package com.website.movie.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class MovieCategoryEntity extends BaseEntity{
     /**
@@ -26,8 +24,24 @@ public class MovieCategoryEntity extends BaseEntity{
     private String code;
     private String name;
 
+    public MovieCategoryEntity(){
+
+    }
+
+    public MovieCategoryEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public MovieCategoryEntity(long id,String code, String name) {
+        super(id);
+        this.code = code;
+        this.name = name;
+    }
+
+
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     @JsonIgnore
     List<MovieEntity> movies = new ArrayList<>();
 

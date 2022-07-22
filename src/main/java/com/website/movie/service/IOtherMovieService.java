@@ -16,6 +16,8 @@ public interface IOtherMovieService {
 
     MovieGenresEntity saveGenreMovie(MovieGenresEntity genre);
 
+    List<MovieGenresEntity> saveListGenreMovie(List<MovieGenresEntity> movieGenresEntities);
+
     void deleteGenresMovie(long[] ids);
 
     MovieGenresEntity findOneGenreMovieById(long id);

@@ -3,9 +3,7 @@ package com.website.movie.persistence.entity;
 import lombok.Data;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "languages")
@@ -21,7 +19,22 @@ public class LanguageEntity extends BaseEntity{
     private String code;
     private String name;
 
-//    @ManyToMany(mappedBy = "languages")
+    public LanguageEntity(){
+
+    }
+
+    public LanguageEntity(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public LanguageEntity(Long id, String code, String name) {
+        super(id);
+        this.code = code;
+        this.name = name;
+    }
+
+    //    @ManyToMany(mappedBy = "languages")
 //    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 
 }
