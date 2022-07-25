@@ -34,6 +34,9 @@ public class OtherRestController {
     private IMovieCategoryService movieCategoryService;
 
     @Autowired
+    private IMovieService movieService;
+
+    @Autowired
     private IOtherMovieService otherMovieService;
 
     @Autowired
@@ -142,15 +145,15 @@ public class OtherRestController {
     }
 
 
-//    @PostMapping(value = "/api/scraping/movie")
-//    public List<MovieEntity> scrapingAllMovie(
-//            @RequestBody ScrapingDto scrapingDto
-//    ){
-//        return scrapingService.getJsoupAllMovie(
-//                scrapingDto.getUrl(),
-//                scrapingDto.getContainer()
-//        );
-//    }
+    @PostMapping(value = "/api/scraping/movie")
+    public List<MovieEntity> scrapingAllMovie(
+            @RequestBody ScrapingDto scrapingDto
+    ){
+        return movieService.saveAllMovies(scrapingService.getJsoupAllMovie(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        ));
+    }
 
 
 

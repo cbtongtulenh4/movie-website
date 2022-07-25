@@ -64,8 +64,11 @@ public class TVSeasonEntity extends BaseEntity{
     private MovieFormEntity movieForm;
 */
 
-    @ManyToMany(targetEntity = StudioEntity.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "season-movie-studio")
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
+    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<StudioEntity> studios = new HashSet<>();
 
@@ -75,7 +78,7 @@ public class TVSeasonEntity extends BaseEntity{
     private Set<RateEntity> rates = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "tvSeason", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tvSeason", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
@@ -90,55 +93,77 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private MovieEntity movie;
 
-    @ManyToMany(targetEntity = MovieGenresEntity.class,
-            cascade = CascadeType.MERGE, fetch = FetchType.LAZY
-    )
+    @ManyToMany(cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
     @JoinTable(
             name = "season_genre",
-            joinColumns = {
-                    @JoinColumn(name = "season_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "genre_id")
-            }
+            joinColumns = @JoinColumn(name = "season_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private Set<MovieGenresEntity> genres = new HashSet<>();
 
-    @ManyToMany(targetEntity = RatingEntity.class,
-            cascade = CascadeType.MERGE, fetch = FetchType.LAZY
-    )
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonIgnore
     @JoinTable(
             name = "season_rating",
-            joinColumns = {
-                    @JoinColumn(name = "season_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "rating_id")
-            }
+            joinColumns = @JoinColumn(name = "season_id"),
+            inverseJoinColumns = @JoinColumn(name = "rating_id")
     )
     private Set<RatingEntity> ratings = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = CommentEntity.class,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY
+    )
     @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
     private Set<CommentEntity> comments = new HashSet<>();
 
-    @ManyToMany(targetEntity = LanguageEntity.class,
-            cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tv_season_language",
-            joinColumns = {
-                    @JoinColumn(name = "tv_season_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "language_id")
-            }
+            joinColumns = @JoinColumn(name = "tv_season_id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id")
     )
     private Set<LanguageEntity> languages = new HashSet<>();
 
+
+    public void removeGenres(final long genresId){
+        MovieGenresEntity genres = this.genres.stream().filter(e -> e.getId() == genresId).findFirst().orElse(null);
+        if (genres != null){
+            genres.getTvSeasons().remove(this);
+            this.genres.remove(genres);
+        }
+    }
+
+    public void removeLanguage(final long languageId){
+        LanguageEntity language = this.languages.stream().filter(e -> e.getId() == languageId).findFirst().orElse(null);
+        if (language != null){
+            language.getTvSeasons().remove(this);
+            this.languages.remove(language);
+        }
+    }
+
+    public void removeRating(final long ratingId){
+        RatingEntity rating = this.ratings.stream().filter(e -> e.getId() == ratingId).findFirst().orElse(null);
+        if (rating != null){
+            rating.getTvSeasons().remove(this);
+            this.ratings.remove(rating);
+        }
+    }
+
+    public void addGenres(final MovieGenresEntity genres){
+        this.genres.add(genres);
+        genres.getTvSeasons().add(this);
+    }
 
     /*
     @ManyToMany(targetEntity = SubtitleEntity.class, cascade = CascadeType.ALL)
@@ -175,9 +200,5 @@ public class TVSeasonEntity extends BaseEntity{
             }
     )
     private List<MovieCrewEntity> crews = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tv_season_id")
-    private List<CommentEntity> comments = new ArrayList<>();
  */
 }

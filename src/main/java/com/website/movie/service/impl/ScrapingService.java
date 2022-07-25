@@ -61,7 +61,7 @@ public class ScrapingService implements IScrapingService {
                     movie.setRate(Float.valueOf(item.select("span.Vote.AAIco-star").first().text()));
 
                     String tvSeasonURL = item.select("article a").first().attr("href");
-                    movie.setSeasons(getJsoupAllTVSeason(tvSeasonURL));
+                    movie.setTvSeasons(getJsoupAllTVSeason(tvSeasonURL));
 
                     movieEntities.add(movie);
                 }

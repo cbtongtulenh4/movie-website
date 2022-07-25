@@ -3,7 +3,7 @@ package com.website.movie.service;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.web.dto.MovieDto;
 
-import java.util.*;
+import java.util.List;
 
 public interface IMovieService {
     /**
@@ -15,9 +15,11 @@ public interface IMovieService {
      */
 
     MovieEntity getMovieById(Long id);
-    List<MovieDto> getMovies();
-    MovieEntity updateMovie(MovieEntity movieEntity);
     MovieEntity createMovie(MovieEntity movieEntity);
+
+    List<MovieEntity> saveAllMovies(List<MovieEntity> movies);
+
+    List<MovieDto> getMovies();
     void deleteMovies(Long[] ids);
     void deleteAllMovies();
     List<MovieEntity> insertListMovieEntity(List<MovieEntity> movieEntities);

@@ -36,4 +36,10 @@ public class RatingEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     Set<TVSeasonEntity> tvSeasons = new HashSet<>();
 
+    public void closeTvSeasons(){
+        tvSeasons.forEach(tvSeason -> {
+            tvSeason.getRatings().remove(this);
+        });
+    }
+
 }

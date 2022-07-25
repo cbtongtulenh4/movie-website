@@ -6,16 +6,14 @@ import com.website.movie.helper.converter.Convert;
 import com.website.movie.persistence.dao.ICommentDAO;
 import com.website.movie.persistence.dao.impl.CommentImpl;
 import com.website.movie.persistence.entity.*;
-import com.website.movie.persistence.repository.CommentRepository;
-import com.website.movie.persistence.repository.MovieGenresRepository;
-import com.website.movie.persistence.repository.RateRepository;
-import com.website.movie.persistence.repository.RatingRepository;
+import com.website.movie.persistence.repository.*;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.web.dto.CommentDto;
 import com.website.movie.web.dto.RateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +39,19 @@ public class OtherMovieService implements IOtherMovieService {
     private RateRepository rateRepository;
 
     @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private LanguageRepository languageRepository;
+
+    @Autowired
+    private SeasonRepository seasonRepository;
+
+    @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private StudioRepository studioRepository;
 
     private ICommentDAO commentDAO = new CommentImpl();
 
@@ -49,6 +59,12 @@ public class OtherMovieService implements IOtherMovieService {
 
     @Override
     public MovieGenresEntity saveGenreMovie(MovieGenresEntity genreMovie) {
+        if (genreMovie.getId() == null){
+            List<MovieGenresEntity> genresList = UtilService.getMemoryCacheValue(movieGenresRepository, CacheConstants.MOVIE_GENRES);
+            MovieGenresEntity genres = genresList.stream().filter(e -> e.getCode().equals(genreMovie.getCode())).findFirst().orElse(null);
+            if (genres != null) return genres;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_GENRES);
         return movieGenresRepository.save(genreMovie);
     }
 
@@ -82,13 +98,25 @@ public class OtherMovieService implements IOtherMovieService {
 
     @Override
     public RatingEntity save(RatingEntity rating) {
+        if (rating.getId() == null){
+            List<RatingEntity> ratings = UtilService.getMemoryCacheValue(ratingRepository, CacheConstants.MOVIE_RATINGS);
+            RatingEntity temp = ratings.stream().filter(e -> e.getCode().equals(rating.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_RATINGS);
         return ratingRepository.save(rating);
     }
 
     @Override
     public void deleteRatings(long[] ids) {
+        List<RatingEntity> ratings = UtilService.getMemoryCacheValue(ratingRepository, CacheConstants.MOVIE_RATINGS);
+        RatingEntity rating;
         for (long id : ids){
-            ratingRepository.deleteById(id);
+            rating = ratings.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
+            if (rating != null){
+                rating.closeTvSeasons();
+                ratingRepository.deleteById(id);
+            }
         }
     }
 
@@ -160,6 +188,49 @@ public class OtherMovieService implements IOtherMovieService {
         return Convert.toListCommentDto(commentRepository.findByParentIdAndTvSeasonId(cmParentId, tvSeasonId));
     }
 
+    @Override
+    public CountryEntity saveCountry(CountryEntity country) {
+        if (country.getId() == null){
+            List<CountryEntity> countries = UtilService.getMemoryCacheValue(countryRepository, CacheConstants.MOVIE_COUNTRIES);
+            CountryEntity temp = countries.stream().filter(e -> e.getCode().equals(country.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_COUNTRIES);
+        return countryRepository.save(country);
+    }
+
+    @Override
+    public LanguageEntity saveLanguage(LanguageEntity language) {
+        if (language.getId() == null){
+            List<LanguageEntity> languages = UtilService.getMemoryCacheValue(languageRepository, CacheConstants.MOVIE_LANGUAGES);
+            LanguageEntity temp = languages.stream().filter(e -> e.getCode().equals(language.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_LANGUAGES);
+        return languageRepository.save(language);
+    }
+
+    @Override
+    public StudioEntity saveStudio(StudioEntity studio) {
+        if (studio.getId() == null){
+            List<StudioEntity> studios = UtilService.getMemoryCacheValue(studioRepository, CacheConstants.MOVIE_STUDIOS);
+            StudioEntity temp = studios.stream().filter(e -> e.getCode().equals(studio.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_LANGUAGES);
+        return studioRepository.save(studio);
+    }
+
+    @Override
+    public SeasonEntity saveSeason(SeasonEntity season) {
+        if (season.getId() == null){
+            List<SeasonEntity> seasons = UtilService.getMemoryCacheValue(seasonRepository, CacheConstants.MOVIE_STUDIOS);
+            SeasonEntity temp = seasons.stream().filter(e -> e.getCode().equals(season.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_SEASONS);
+        return seasonRepository.save(season);
+    }
 
     private List<MovieGenresEntity> getAllMovieGenres(){
         List<MovieGenresEntity> movieGenres = (List<MovieGenresEntity>) InMemoryCache.getInstance().get(CacheConstants.MOVIE_GENRES);
@@ -168,6 +239,19 @@ public class OtherMovieService implements IOtherMovieService {
             InMemoryCache.getInstance().add(CacheConstants.MOVIE_GENRES, movieGenres);
         }
         return movieGenres;
+    }
+
+    private <T, D> T checkSave(T object, JpaRepository<T, D> repository, String nameCache){
+//        List<T> valueCache = UtilService.getMemoryCacheValue(repository, nameCache);
+//        RatingEntity rating;
+//        for (long id : ids){
+//            rating = valueCache.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
+//            if (rating != null){
+//                rating.closeTvSeasons();
+//                ratingRepository.deleteById(id);
+//            }
+//        }
+        return null;
     }
 
 }

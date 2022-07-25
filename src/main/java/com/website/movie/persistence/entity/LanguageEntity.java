@@ -1,9 +1,15 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "languages")
@@ -19,6 +25,12 @@ public class LanguageEntity extends BaseEntity{
     private String code;
     private String name;
 
+    @ManyToMany(mappedBy = "languages")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonIgnore
+    private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
+
+
     public LanguageEntity(){
 
     }
@@ -33,8 +45,4 @@ public class LanguageEntity extends BaseEntity{
         this.code = code;
         this.name = name;
     }
-
-    //    @ManyToMany(mappedBy = "languages")
-//    java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
-
 }

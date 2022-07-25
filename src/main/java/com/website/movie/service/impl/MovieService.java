@@ -42,7 +42,7 @@ public class MovieService implements IMovieService {
         List<MovieDto> movieDtos = new ArrayList<>();
         movieEntities.forEach(e -> {
             LOGGER.info("Get genres season movie with information: {}", e.getCategories());
-            for (TVSeasonEntity seasonEntity: e.getSeasons()) {
+            for (TVSeasonEntity seasonEntity: e.getTvSeasons()) {
                 seasonEntity.getRates().size();
             }
             movieDtos.add(MovieConvert.toDto(e));
@@ -51,13 +51,13 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public MovieEntity updateMovie(MovieEntity movieEntity) {
+    public MovieEntity createMovie(MovieEntity movieEntity) {
         return movieRepository.save(movieEntity);
     }
 
     @Override
-    public MovieEntity createMovie(MovieEntity movieEntity) {
-        return movieRepository.save(movieEntity);
+    public List<MovieEntity> saveAllMovies(List<MovieEntity> movies) {
+        return movieRepository.saveAll(movies);
     }
 
     @Override

@@ -48,5 +48,13 @@ public interface IOtherMovieService {
 
     List<CommentDto> getCommentByParentIdAndTvSeasonId(Long cmParentId, Long tvSeasonId);
 
+    CountryEntity saveCountry(CountryEntity country);
+
+    LanguageEntity saveLanguage(LanguageEntity language);
+
+    StudioEntity saveStudio(StudioEntity studio);
+
+    SeasonEntity saveSeason(SeasonEntity season);
+
 
 }

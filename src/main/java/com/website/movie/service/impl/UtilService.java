@@ -5,6 +5,7 @@ import com.website.movie.constant.CacheConstants;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.TVSeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -32,5 +33,15 @@ public class UtilService {
         }
         return objects;
     }
+
+    public static <T, D> List<T> getMemoryCacheValue(JpaRepository<T, D> repository, String key){
+        List<T> objects = (List<T>) InMemoryCache.getInstance().get(key);
+        if (objects == null){
+            objects = repository.findAll();
+            InMemoryCache.getInstance().add(key, objects);
+        }
+        return objects;
+    }
+
 
 }

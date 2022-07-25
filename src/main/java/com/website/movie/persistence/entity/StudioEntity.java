@@ -1,6 +1,6 @@
 package com.website.movie.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -27,8 +27,8 @@ public class StudioEntity extends BaseEntity{
     private String name;
 
 
-    @ManyToMany(mappedBy = "studios", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToMany(mappedBy = "studios", fetch = FetchType.LAZY)
+    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<TVSeasonEntity> tvSeason = new HashSet<>();
 

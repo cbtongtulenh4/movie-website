@@ -10,5 +10,10 @@ public class CacheConstants {
 
     public static final String SEASON_MOVIES = "SEASON_MOVIES";
     public static final String MOVIE_GENRES = "MOVIE_GENRES";
+    public static final String MOVIE_RATINGS = "MOVIE_RATINGS";
+    public static final String MOVIE_COUNTRIES = "MOVIE_COUNTRIES";
+    public static final String MOVIE_LANGUAGES = "MOVIE_LANGUAGES";
+    public static final String MOVIE_SEASONS = "MOVIE_SEASONS";
+    public static final String MOVIE_STUDIOS = "MOVIE_STUDIOS";
 
 }
