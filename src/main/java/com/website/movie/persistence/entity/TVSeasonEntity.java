@@ -88,7 +88,6 @@ public class TVSeasonEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JoinColumn(
             name = "movie_id",
-            nullable = false,
             foreignKey = @ForeignKey(name = "movie_tv_season")
     )
     private MovieEntity movie;
