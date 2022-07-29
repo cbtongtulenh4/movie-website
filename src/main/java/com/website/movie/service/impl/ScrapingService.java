@@ -1,6 +1,8 @@
 package com.website.movie.service.impl;
 
 import com.website.movie.persistence.entity.*;
+import com.website.movie.service.IMovieService;
+import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.IScrapingService;
 import com.website.movie.utils.StringUtil;
 import org.jsoup.Jsoup;
@@ -9,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,7 +32,12 @@ public class ScrapingService implements IScrapingService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ScrapingService.class);
 
-    private static HashSet<String> links = new HashSet<>();
+    @Autowired
+    private IOtherMovieService otherMovieService;
+    @Autowired
+    private IMovieService movieService;
+
+    private static final HashSet<String> links = new HashSet<>();
     private Document loadJsoupDocumentCustomized(final String URL) throws IOException {
         // check if URL already crawled
 //        if (links.contains(URL)){
@@ -40,7 +48,7 @@ public class ScrapingService implements IScrapingService {
         return Jsoup.connect(URL)
                 .userAgent("Mozilla")
                 .cookie("auth", "token")
-                .timeout(3000)
+                .timeout(5000)
                 .post();
     }
 
@@ -59,6 +67,7 @@ public class ScrapingService implements IScrapingService {
                     movie.setTitle(item.select(".Title").first().text());
                     movie.setThumbnail(item.select("img[src]").first().attr("src"));
                     movie.setRate(Float.valueOf(item.select("span.Vote.AAIco-star").first().text()));
+                    movieService.
 
                     String tvSeasonURL = item.select("article a").first().attr("href");
                     movie.setTvSeasons(getJsoupAllTVSeason(tvSeasonURL));
@@ -157,17 +166,33 @@ public class ScrapingService implements IScrapingService {
                 MovieGenresEntity movieGenre = new MovieGenresEntity();
                 movieGenre.setCode(StringUtil.getValueByURL(item.attr("href"), -1));
                 movieGenre.setName(item.text());
-                genres.add(movieGenre);
+                genres.add(otherMovieService.saveGenreMovie(movieGenre));
             }
             tvSeasonEntity.setGenres(genres);
-            tag = items.get(3).select("a").first();
-            if (!tag.ownText().isEmpty()){
-                tvSeasonEntity.setCountry(new CountryEntity(
+            tag = items.get(3+diff).select("a").first();
+            if (tag != null && !tag.ownText().isEmpty()){
+                tvSeasonEntity.setCountry(otherMovieService.saveCountry(new CountryEntity(
                         StringUtil.getValueByURL(tag.attr("href"), -1),
                         tag.ownText()
-                ));
+                )));
             }
-
+            tag = items.get(0).select("a").first();
+            if (tag != null){
+                int maxEp;
+                try {
+                    maxEp = Integer.parseInt(tag.ownText().split("_")[0]);
+                }catch (NumberFormatException ex){
+                    maxEp = 1;
+                }
+                Set<TVEpisodeEntity> tvEpisodes = new HashSet<>();
+                for (int i = 1; i <= maxEp; i++){
+                    TVEpisodeEntity tvEpisode = new TVEpisodeEntity();
+                    tvEpisode.setNumEp(i);
+                    tvEpisode.setPath("DiUKh_MjsI0");
+                    tvEpisodes.add(tvEpisode);
+                }
+                tvSeasonEntity.setEpisodes(tvEpisodes);
+            }
             contain2 = contain1.select("#MvTb-Info .mvici-right").first();
             items = contain2.select("li");
             diff = items.size();
@@ -178,24 +203,27 @@ public class ScrapingService implements IScrapingService {
 //            );
             String language = items.get(3).ownText().trim();
             tvSeasonEntity.setLanguages(
-                    new HashSet<LanguageEntity>(){{add(new LanguageEntity(StringUtil.convertToCode(language), language));}}
+                    new HashSet<LanguageEntity>(){{
+                        add(otherMovieService.saveLanguage(
+                            new LanguageEntity(StringUtil.convertToCode(language), language)));
+                    }}
             );
 
             if(diff == 0){
                 String studio = items.get(4).ownText().trim();
                 tvSeasonEntity.setStudios(
-                        new HashSet<StudioEntity>(){{add(new StudioEntity(StringUtil.convertToCode(studio), studio));}}
+                        new HashSet<StudioEntity>(){{add(otherMovieService.saveStudio(new StudioEntity(StringUtil.convertToCode(studio), studio)));}}
                 );
             }
             tag = items.get(5-diff).select("a").first();
             String seasonText = tag.ownText();
             String[] seasonUrl = tag.attr("href").split("/");
             int seasonSize = seasonUrl.length;
-            tvSeasonEntity.setSeason(new SeasonEntity(
+            tvSeasonEntity.setSeason(otherMovieService.saveSeason(new SeasonEntity(
                     seasonUrl[seasonSize - 2] + "-" + seasonUrl[seasonSize - 1],
                     seasonText.split(" - ")[0],
                     Integer.valueOf(seasonUrl[seasonSize-1])
-            ));
+            )));
 
             return tvSeasonEntity;
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -26,6 +27,7 @@ public class CountryEntity extends BaseEntity{
             cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY
     )
+    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     java.util.List<TVSeasonEntity> tvSeasons = new ArrayList<>();
 

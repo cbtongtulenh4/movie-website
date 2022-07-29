@@ -1,5 +1,9 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +27,8 @@ public class SeasonEntity extends BaseEntity{
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true
     )
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
 
     public SeasonEntity(){

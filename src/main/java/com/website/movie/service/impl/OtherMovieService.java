@@ -217,14 +217,14 @@ public class OtherMovieService implements IOtherMovieService {
             StudioEntity temp = studios.stream().filter(e -> e.getCode().equals(studio.getCode())).findFirst().orElse(null);
             if (temp != null) return temp;
         }
-        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_LANGUAGES);
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_STUDIOS);
         return studioRepository.save(studio);
     }
 
     @Override
     public SeasonEntity saveSeason(SeasonEntity season) {
         if (season.getId() == null){
-            List<SeasonEntity> seasons = UtilService.getMemoryCacheValue(seasonRepository, CacheConstants.MOVIE_STUDIOS);
+            List<SeasonEntity> seasons = UtilService.getMemoryCacheValue(seasonRepository, CacheConstants.MOVIE_SEASONS);
             SeasonEntity temp = seasons.stream().filter(e -> e.getCode().equals(season.getCode())).findFirst().orElse(null);
             if (temp != null) return temp;
         }

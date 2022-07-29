@@ -33,7 +33,6 @@ public class TVEpisodeEntity extends BaseEntity{
             name = "tv_season_id",
             nullable = false,
             foreignKey =  @ForeignKey(name = "tv_season_episode")
-
     )
     private TVSeasonEntity tvSeason;
 

@@ -32,19 +32,14 @@ public class OtherRestController {
 
     @Autowired
     private IMovieCategoryService movieCategoryService;
-
     @Autowired
     private IMovieService movieService;
-
     @Autowired
     private IOtherMovieService otherMovieService;
-
     @Autowired
     private IUserService userService;
-
     @Autowired
     private ITvSeasonService tvSeasonService;
-
     @Autowired
     private IScrapingService scrapingService;
 
@@ -76,6 +71,11 @@ public class OtherRestController {
             throw new InvalidDataException(result);
         }
         return otherMovieService.saveGenreMovie(genreEntity);
+    }
+
+    @PostMapping(value = "/api/movie/season/studio")
+    public StudioEntity createStudio(@RequestBody final StudioEntity studioEntity){
+        return otherMovieService.saveStudio(studioEntity);
     }
 
     @PostMapping(value = "/api/movie/season/list-genre")

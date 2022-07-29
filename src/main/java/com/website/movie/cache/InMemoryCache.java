@@ -89,7 +89,8 @@ public class InMemoryCache implements Cache{
 
     @Override
     public Object get(String key) {
-        return Optional.ofNullable(cache.get(key)).map(SoftReference::get).orElse(null);
+        return Optional.ofNullable(cache.get(key)).
+                map(SoftReference::get).orElse(null);
     }
 
     @Override

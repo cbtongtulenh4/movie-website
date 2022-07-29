@@ -1,7 +1,6 @@
 package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -65,10 +64,8 @@ public class TVSeasonEntity extends BaseEntity{
 */
 
     @ManyToMany(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH
+            CascadeType.MERGE, CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
-    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<StudioEntity> studios = new HashSet<>();
 
@@ -78,7 +75,7 @@ public class TVSeasonEntity extends BaseEntity{
     private Set<RateEntity> rates = new HashSet<>();
 
 
-    @OneToMany(mappedBy = "tvSeason", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tvSeason",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
@@ -93,10 +90,9 @@ public class TVSeasonEntity extends BaseEntity{
     private MovieEntity movie;
 
     @ManyToMany(cascade = {
-            CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+            CascadeType.MERGE, CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonIgnore
     @JoinTable(
             name = "season_genre",
             joinColumns = @JoinColumn(name = "season_id"),
@@ -105,11 +101,9 @@ public class TVSeasonEntity extends BaseEntity{
     private Set<MovieGenresEntity> genres = new HashSet<>();
 
     @ManyToMany(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH
+            CascadeType.MERGE,CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonIgnore
     @JoinTable(
             name = "season_rating",
             joinColumns = @JoinColumn(name = "season_id"),
@@ -124,8 +118,7 @@ public class TVSeasonEntity extends BaseEntity{
     private Set<CommentEntity> comments = new HashSet<>();
 
     @ManyToMany(cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH
+            CascadeType.MERGE, CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tv_season_language",
