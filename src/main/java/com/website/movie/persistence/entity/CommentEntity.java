@@ -1,6 +1,10 @@
 package com.website.movie.persistence.entity;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -9,7 +13,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "comment")
+@Table(name = "comments")
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CommentEntity extends BaseEntity{
     /**
@@ -23,20 +30,14 @@ public class CommentEntity extends BaseEntity{
     private String name;
     @Column(name = "cm_path_image")
     private String pathImg;
-    @Column(
-            name = "cm_content",
-            columnDefinition = "TEXT"
-    )
+    @Column(name = "cm_content", columnDefinition = "TEXT")
     private String content;
-    @Column(
-            name = "cm_ep",
-            columnDefinition = "0"
-    )
-    private int ep;
+    @Column(name = "cm_ep")
+    private int ep = 0;
     @Column(name = "cm_like")
     private Integer numLike = 0;
 
-    private Integer spam = 0;
+    private Integer numSpam = 0;
 //    @Column(name = "cm_reply")
 //    private Integer numReply;
 
@@ -46,12 +47,9 @@ public class CommentEntity extends BaseEntity{
 
 //    @Column(name = "cm_parent_id")
 //    private Long parentId = 0L;
-
+//
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = "cm_parent_id",
-            columnDefinition = "0"
-    )
+    @JoinColumn(name = "cm_parent_id")
 //    @ColumnDefault(value = "0")
     private Set<CommentEntity> comments = new HashSet<>();
 

@@ -67,7 +67,7 @@
             <main>
                 <div class="ht-video">
                     <div class="video-vd">
-                        <iframe id="server-2" th:src="'https://www.youtube.com/' + ${EPISODE.path}" frameborder="10" ></iframe>
+                        <iframe id="server-2" th:src="'https://www.youtube.com/embed/' + ${EPISODE.path}" frameborder="10" ></iframe>
                         <section style="display: none;">
                             <div class="container-vd">
                                 <div id="video_player">
@@ -76,7 +76,7 @@
 <!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
                                         <!-- <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4">
                                         <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4"> -->
-                                        <source th:src="${EPISODE.path}" type="video/mp4" />
+                                        <source th:src="'https://www.youtube.com/watch?v=' + ${EPISODE.path}" type="video/mp4" />
                                         <track id="track1" label="English" kind="subtitles" src="./How To Get Started With VSCode.vtt" srclang="en">
                                         <track id="track2" label="Urdu" kind="subtitles" src="./test.vtt" srclang="en">
                                     </video>

@@ -78,14 +78,15 @@
 				</div>
 				<div id="season-list">
 					<div class="movie-item-style-2" th:each="SEASON : ${SEASONS}">
-						<img th:src="@{/template/img/uploads/mv1.jpg}" alt="">
+						<img th:src="${SEASON.thumbnail}" alt="">
 						<div class="mv-item-infor">
-							<h6><a th:href="@{'/' + ${SEASON.code}}" th:text="${SEASON.title} ?: #{message.UI.value.null}">oblivion <span>(2012)</span></a></h6>
+							<h6><a th:href="@{'/' + ${SEASON.code}}" th:text="${SEASON.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${SEASON.year}+ ')'"></span></a></h6>
 							<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-							<p class="describe">Earth'sa team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+							<p class="describe" th:text="${SEASON.summary}">...</p>
+							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
+							<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
 							<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
-							<p>Views: <span th:text="${SEASON.views} ?: #{message.UI.value.null}"></span></p>
+							<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
 						</div>
 					</div>
 				</div>
@@ -232,12 +233,13 @@
 		for(let SEASON of data.simpleTvSeasons){
 			seasonList += `
 				<div class="movie-item-style-2">
-					<img src="` + host +`/template/img/uploads/mv1.jpg" alt="">
+					<img src="` + SEASON.thumbnail +`" alt="">
 					<div class="mv-item-infor">
-						<h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `<span>(2012)</span></a></h6>
+						<h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `<span> (`+ SEASON.year +`)</span></a></h6>
 						<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-						<p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-						<p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
+						<p class="describe">`+ SEASON.summary +`</p>
+						<p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: `+ SEASON.release +`</span></p>
+						<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
 						<p>Duration: <a href="#">`+ ((SEASON.duration != null) ?  SEASON.duration : updating) +`</a></p>
 						<p>Views: <span>`+ ((SEASON.views != null) ? SEASON.views : updating) +`</span></p>
 					</div>

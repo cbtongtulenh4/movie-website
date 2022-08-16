@@ -4,7 +4,7 @@ import com.website.movie.persistence.entity.*;
 import com.website.movie.web.dto.CommentDto;
 import com.website.movie.web.dto.RateDto;
 
-import java.util.*;
+import java.util.List;
 
 public interface IOtherMovieService {
     /**
@@ -25,6 +25,10 @@ public interface IOtherMovieService {
     List<MovieGenresEntity> findAllGenreMovie();
 
     RatingEntity save(RatingEntity rating);
+
+    MovieCharacterEntity save(MovieCharacterEntity character);
+    MovieCastEntity save(MovieCastEntity cast);
+    MovieDirectorEntity save(MovieDirectorEntity director);
 
     void deleteRatings(long[] ids);
 

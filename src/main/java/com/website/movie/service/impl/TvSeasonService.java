@@ -64,6 +64,12 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     @Override
+    public TVSeasonEntity createSeasonMovie(TVSeasonEntity tvSeasonEntity) {
+        TVSeasonEntity temp = getSeasonMovieEntityByCode(tvSeasonEntity.getCode());
+        return (temp != null) ? temp : tvSeasonRepository.save(tvSeasonEntity);
+    }
+
+    @Override
     public TVSeasonEntity getSeasonMovieById(Long id) {
 //        TVSeasonEntity temp = tvSeasonRepository.findById(id).orElse(null);
 //        LOGGER.info("Get a season movie with information: {}", temp);
@@ -87,7 +93,7 @@ public class TvSeasonService implements ITvSeasonService {
     @Override
     public List<TVSeasonEntity> getAllSeasonMovie() {
 //        return tvSeasonRepository.findAll();
-        return UtilService.getSeasonMovieCache();
+        return UtilService.getSeasonMovieCache(tvSeasonRepository);
     }
 
     @Override
@@ -100,7 +106,9 @@ public class TvSeasonService implements ITvSeasonService {
         List<TVSeasonEntity> tvSeasons = tvSeasonRepository.findAll();
         List<TVSeasonEntity> result = new ArrayList<>();
         tvSeasons.forEach(e -> {
+            e.getSeason();
             if(seasonMovieFilter(e, movieFilter)){
+                e.getLanguages().size();
                 result.add(e);
             }
         });
@@ -109,7 +117,7 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public WatchTvSeasonDto getWatchTvSeasonUiByCode(String code) {
-        List<TVSeasonEntity> tvSeasonList = UtilService.getSeasonMovieCache();
+        List<TVSeasonEntity> tvSeasonList = UtilService.getSeasonMovieCache(tvSeasonRepository);
         for (TVSeasonEntity tvSeason : tvSeasonList){
             if (tvSeason.getCode().equalsIgnoreCase(code)){
                 return Convert.convertModel(tvSeason, WatchTvSeasonDto.class);
@@ -124,6 +132,7 @@ public class TvSeasonService implements ITvSeasonService {
         pagedResult.forEach(e -> {
             e.getGenres().size();
             e.getRates().size();
+            e.getLanguages().size();
         });
         return pagedResult;
     }
@@ -133,7 +142,9 @@ public class TvSeasonService implements ITvSeasonService {
         TVSeasonEntity seasonEntity = tvSeasonRepository.findOneByCode(code);
         boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, seasonEntity.getId());
         seasonEntity.getGenres().size();
-        seasonEntity.getComments().size();
+        seasonEntity.getStudios().size();
+        seasonEntity.getLanguages().size();
+        seasonEntity.getCountry();
         return MovieConvert.toDto(seasonEntity, isPaid);
     }
 
@@ -174,7 +185,7 @@ public class TvSeasonService implements ITvSeasonService {
                         break;
                     case "year":
 //                        int year = TVSeasonAbstractDto.getYear(tvSeason);
-                        int year = 2001;
+                        int year = tvSeason.getSeason().getYear();
                         int[] yearFilter = movieFilter.getYear();
                         if (yearFilter[0] > year || yearFilter[1] < year)
                             return false;

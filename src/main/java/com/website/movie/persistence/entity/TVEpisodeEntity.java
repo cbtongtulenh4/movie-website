@@ -26,12 +26,11 @@ public class TVEpisodeEntity extends BaseEntity{
     private Float runtime = 0.0F;
     private String summary;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonBackReference(value = "season-movie-episode")
     @JoinColumn(
             name = "tv_season_id",
-            nullable = false,
             foreignKey =  @ForeignKey(name = "tv_season_episode")
     )
     private TVSeasonEntity tvSeason;

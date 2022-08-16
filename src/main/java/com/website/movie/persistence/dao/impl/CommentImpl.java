@@ -15,7 +15,7 @@ public class CommentImpl extends AbstractDAO<CommentEntity> implements ICommentD
 
     @Override
     public void saveCommentEntity(Long cmId, Long cmParentId, Long tvSeasonId) {
-        String sql = "UPDATE comment " +
+        String sql = "UPDATE comments " +
                 "SET cm_parent_id = ?, " +
                 "cm_season_id = ? " +
                 "WHERE id = ?";
@@ -29,13 +29,13 @@ public class CommentImpl extends AbstractDAO<CommentEntity> implements ICommentD
 
     @Override
     public void updateNumLikeById(int numLike, long commentId) {
-        String sql = "UPDATE comment SET cm_like = cm_like + ? WHERE id = ?";
+        String sql = "UPDATE comments SET cm_like = cm_like + ? WHERE id = ?";
         update(sql, numLike, commentId);
     }
 
     @Override
     public void updateSpamById(int spam, long commentId) {
-        String sql = "UPDATE comment SET spam = spam + ? WHERE id = ?";
+        String sql = "UPDATE comments SET spam = spam + ? WHERE id = ?";
         update(sql, spam, commentId);
     }
 

@@ -32,8 +32,9 @@ public class MovieEntity extends BaseEntity{
 ////            foreignKey = @ForeignKey(name = "movie_tv_season")
 ////    )
 //    private List<TVSeasonEntity> seasons = new ArrayList<>();
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "movie-tvSeason")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
 //    @Fetch(value = FetchMode.SUBSELECT)
     private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
 

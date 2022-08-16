@@ -22,7 +22,7 @@ public class StudioEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String code;
     private String name;
 

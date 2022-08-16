@@ -52,7 +52,8 @@ public class MovieConvert {
                 entity.getEpisodes(),
                 entity.getGenres(),
                 entity.getRates(),
-                entity.getDuration()
+                entity.getDuration(),
+                entity.getSeason()
         );
         return dto;
     }
@@ -66,7 +67,8 @@ public class MovieConvert {
                 entity.getEpisodes(),
                 entity.getGenres(),
                 entity.getRates(),
-                entity.getDuration()
+                entity.getDuration(),
+                entity.getSeason()
         );
         return dto;
     }
@@ -101,7 +103,9 @@ public class MovieConvert {
         SimpleTvSeasonDto dto = modelMapper.map(entity, SimpleTvSeasonDto.class);
         dto.initValue(
                 entity.getEpisodes(),
-                entity.getDuration()
+                entity.getDuration(),
+                entity.getSeason(),
+                entity.getLanguages()
         );
         return dto;
     }

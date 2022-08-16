@@ -15,13 +15,13 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
      * @ModifiedBy:
      */
 
-    @Query(value = "SELECT * FROM comment WHERE cm_parent_id = :cmParentId AND cm_season_id = :tvSeasonId", nativeQuery = true)
+    @Query(value = "SELECT * FROM comments WHERE cm_parent_id = :cmParentId AND cm_season_id = :tvSeasonId", nativeQuery = true)
     List<CommentEntity> findByParentIdAndTvSeasonId(@Param(value = "cmParentId") Long cmParentId,@Param(value = "tvSeasonId") Long tvSeasonId);
 
-    @Query(value = "UPDATE comment SET cm_like = cm_like + 1 WHERE id = 2", nativeQuery = true)
+    @Query(value = "UPDATE comments SET cm_like = cm_like + 1 WHERE id = 2", nativeQuery = true)
     int updateNumLikeById(int numLike, long id);
 
-    @Query(value = "SELECT cm_like FROM comment WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT cm_like FROM comments WHERE id = ?1", nativeQuery = true)
     int getLikeById(long id);
 
 

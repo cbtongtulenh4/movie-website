@@ -1,11 +1,15 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie_cast")
@@ -18,9 +22,21 @@ public class MovieCastEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+
+    private String code;
     private String name;
 
 //    @ManyToMany(mappedBy = "casts")
 //    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();
+
+//    @OneToMany(mappedBy = "cast", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonManagedReference(value = "cast-character")
+//    @EqualsAndHashCode.Exclude @ToString.Exclude
+//    private List<MovieCharacterEntity> characters = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "cast", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<TVSeasonEntity> tvSeasons;
 
 }

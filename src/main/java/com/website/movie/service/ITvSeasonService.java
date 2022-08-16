@@ -1,6 +1,5 @@
 package com.website.movie.service;
 
-import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.web.dto.MovieFilterDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
@@ -8,7 +7,7 @@ import com.website.movie.web.dto.WatchTvSeasonDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.*;
+import java.util.List;
 
 public interface ITvSeasonService {
     /**
@@ -19,6 +18,7 @@ public interface ITvSeasonService {
       */
 
     TVSeasonEntity createSeasonMovie(TVSeasonUiDto tvSeasonDto);
+    TVSeasonEntity createSeasonMovie(TVSeasonEntity tvSeasonEntity);
 
     TVSeasonEntity getSeasonMovieById(Long id);
 

@@ -60,11 +60,11 @@
         <div class="row ipad-width2">
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="movie-img sticky-sb">
-                    <img th:src="@{/template/img/uploads/movie-single.jpg}" alt="">
+                    <img th:src="${SEASON_MOVIE.thumbnail}" alt="">
                     <div class="movie-btn">
                         <div class="btn-transform transform-vertical red">
                             <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-                            <div><a href="https://www.youtube.com/embed/o-0hcF97wy0" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+                            <div><a th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.trailer}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
                         </div>
                         <div class="btn-transform transform-vertical">
                             <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-1 yellowbtn" th:text="${SEASON_MOVIE.isPaid} ? 'WATCH NOW':'BUY TICKET'"> <i class="ion-card"></i></a></div>
@@ -121,7 +121,7 @@
                                 <div id="overview" class="tab active">
                                     <div class="row">
                                         <div class="col-md-8 col-sm-12 col-xs-12">
-                                            <p>Tony Stark creates the Ultron Program to protect the world, but when the peacekeeping program becomes hostile, The Avengers go into action to try and defeat a virtually impossible enemy together. Earth's mightiest heroes must come together once again to protect the world from global extinction.</p>
+                                            <p th:text="${SEASON_MOVIE.summary}">...</p>
                                             <div class="title-hd-sm">
                                                 <h4>Videos & Photos</h4>
                                                 <a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
@@ -226,14 +226,14 @@
                                         <div class="col-md-4 col-xs-12 col-sm-12">
                                             <div class="sb-it">
                                                 <h6>New episode: </h6>
-                                                <div th:if="${SEASON_MOVIE.newEpisode}">
+                                                <div th:if="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
                                                     <p>
                                                         <nobr th:each="i : ${SEASON_MOVIE.newEpisode}">
                                                             <a href="#" th:text="${i}"></a>
                                                         </nobr>
                                                     </p>
                                                 </div>
-                                                <div th:unless="${SEASON_MOVIE.newEpisode}">
+                                                <div th:unless="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </div>
                                             </div>
@@ -255,14 +255,27 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Language: </h6>
-                                                <p><a href="#"></a></p>
+                                                <div th:if="${SEASON_MOVIE.languages.empty}">
+                                                    <p th:text="#{message.UI.value.null}"></p>
+                                                </div>
+                                                <p>
+                                                <div th:each="language : ${SEASON_MOVIE.languages}" th:remove="tag">
+                                                    <a href="#" th:text="${language.name}"></a>
+                                                    <span>, </span>
+                                                </div>
+                                                </p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Director: </h6>
-                                                <div th:if="${SEASON_MOVIE.directors}">
-                                                    <p><a href="#" th:text=""></a></p>
+                                                <div th:if="${SEASON_MOVIE.directors}" th:remove="tag">
+                                                    <p>
+                                                    <div th:each="director : ${SEASON_MOVIE.directors}" th:remove="tag">
+                                                        <a href="#" th:text="${director.name}"></a>
+                                                        <span>,</span>
+                                                    </div>
+                                                    </p>
                                                 </div>
-                                                <div th:unless="${SEASON_MOVIE.directors}">
+                                                <div th:unless="${SEASON_MOVIE.directors}" th:remove="tag">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </div>
                                             </div>
@@ -279,14 +292,16 @@
                                                 <ul th:if="${SEASON_MOVIE.genres == null}">
                                                     <p th:text="#{message.UI.value.null}"></p>
                                                 </ul>
-                                                <p th:each="genre : ${SEASON_MOVIE.genres}">
-                                                    <a href="#" th:text="${genre.name}"></a>
-                                                    <span>, </span>
+                                                <p>
+                                                    <div th:each="genre : ${SEASON_MOVIE.genres}" th:remove="tag">
+                                                        <a href="#" th:text="${genre}"></a>
+                                                        <span>, </span>
+                                                    </div>
                                                 </p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Release Date:</h6>
-                                                <p>May 1, 2015 (U.S.A)</p>
+                                                <p th:text="${SEASON_MOVIE.release}">...</p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Run Time:</h6>
@@ -294,7 +309,15 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Studio: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
+                                                <div th:if="${SEASON_MOVIE.studios.empty}">
+                                                    <p th:text="#{message.UI.value.null}"></p>
+                                                </div>
+                                                <p>
+                                                <div th:each="studio : ${SEASON_MOVIE.studios}" th:remove="tag">
+                                                    <a href="#" th:text="${studio.name}"></a>
+                                                    <span>, </span>
+                                                </div>
+                                                </p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>MMPA Rating:</h6>
@@ -302,15 +325,16 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Country: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Season: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
+                                                <div th:if="${SEASON_MOVIE.country}">
+                                                    <p><a href="#" th:text="${SEASON_MOVIE.country.name}"></a></p>
+                                                </div>
+                                                <div th:unless="${SEASON_MOVIE.country}">
+                                                    <p th:text="#{message.UI.value.null}"></p>
+                                                </div>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Number of followers: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
+                                                <p><a href="#" th:text="${SEASON_MOVIE.followers}"></a></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Plot Keywords:</h6>
@@ -822,9 +846,9 @@
                                 <div id="moviesrelated" class="tab">
                                     <div class="row">
                                         <h3>Related Movies To</h3>
-                                        <h2>Skyfall: Quantum of Spectre</h2>
+                                        <h2 th:text="${SEASON_MOVIE.title}"></h2>
                                         <div class="topbar-filter">
-                                            <p>Found <span>12 movies</span> in total</p>
+                                            <p>Found <span th:text="${TVSEASON_RELATE.length} + 'movies'"></span> in total</p>
                                             <label>Sort by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
@@ -835,72 +859,29 @@
                                                 <option value="date">Release date Ascending</option>
                                             </select>
                                         </div>
-                                        <div class="movie-item-style-2">
-                                            <img th:src="@{/template/img/uploads/mv1.jpg}" alt="">
+                                        <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE}">
+                                            <img th:src="${tvSeason.thumbnail}" alt="">
                                             <div class="mv-item-infor">
-                                                <h6><a href="#">oblivion <span>(2012)</span></a></h6>
+                                                <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
                                                 <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                                <p class="describe">Earth's mightiest heroes must come together and learn to fight as a team if they are to stop the mischievous Loki and his alien army from enslaving humanity...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Joss Whedon</a></p>
-                                                <p>Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a> <a href="#">  Chris Hemsworth</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img th:src="@{/template/img/uploads/mv2.jpg}" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">into the wild <span>(2014)</span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.8</span> /10</p>
-                                                <p class="describe">As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Anthony Russo,</a><a href="#">Joe Russo</a></p>
-                                                <p>Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a> <a href="#">  Scarlett Johansson</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img th:src="@{/template/img/uploads/mv3.jpg}" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">blade runner  <span>(2015)</span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.3</span> /10</p>
-                                                <p class="describe">Armed with a super-suit with the astonishing ability to shrink in scale but increase in strength, cat burglar Scott Lang must embrace his inner hero and help...</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Peyton Reed</a></p>
-                                                <p>Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img th:src="@{/template/img/uploads/mv4.jpg}" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">Mulholland pride<span> (2013)  </span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.2</span> /10</p>
-                                                <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Shane Black</a></p>
-                                                <p>Stars: <a href="#">Robert Downey Jr., </a> <a href="#">  Guy Pearce,</a><a href="#">Don Cheadle</a></p>
-                                            </div>
-                                        </div>
-                                        <div class="movie-item-style-2">
-                                            <img th:src="@{/template/img/uploads/mv5.jpg}" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a href="#">skyfall: evil of boss<span> (2013)  </span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>7.0</span> /10</p>
-                                                <p class="describe">When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.</p>
-                                                <p class="run-time"> Run Time: 2h21’    .     <span>MMPA: PG-13 </span>    .     <span>Release: 1 May 2015</span></p>
-                                                <p>Director: <a href="#">Alan Taylor</a></p>
-                                                <p>Stars: <a href="#">Chris Hemsworth,  </a> <a href="#">  Natalie Portman,</a><a href="#">Tom Hiddleston</a></p>
+                                                <p class="describe" th:text="${tvSeason.summary}">...</p>
+                                                <p class="run-time"> Run Time: <span th:text="${tvSeason.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${tvSeason.release}">...</span></p>
+                                                <p><span th:text="'Languages: ' + ${tvSeason.languages}"></span></p>
+                                                <p>Duration: <a href="#" th:text="${tvSeason.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
+                                                <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
                                             </div>
                                         </div>
                                         <div class="topbar-filter">
                                             <label>Movies per page:</label>
                                             <select>
-                                                <option value="range">5 Movies</option>
-                                                <option value="saab">10 Movies</option>
+                                                <option value="5">5 Movies</option>
+                                                <option value="10">10 Movies</option>
                                             </select>
-                                            <div class="pagination2">
-                                                <span>Page 1 of 2:</span>
-                                                <a class="active" href="#">1</a>
-                                                <a href="#">2</a>
-                                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+                                            <div class="pagination2" style="display: flex;">
+                                                <span id="page-info">Page 1 of 2:</span>
+                                                <div id="pagination" style="display: flex;">
+                                                    <div id="pages"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 @Entity
@@ -25,7 +22,7 @@ public class TVSeasonEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
-//    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 50)
     private String code;
     private String title;
     private String thumbnail;
@@ -34,9 +31,9 @@ public class TVSeasonEntity extends BaseEntity{
     private Integer duration = 0;
     private String status;
     private String showtime;
-    private String directors;
     private Integer followers = 0;
     private Integer ageLimit = 0;
+    private String trailer;
 //    private Float rate = 10.0F;
     private Long views = 0L;
     @Column(columnDefinition = "TEXT")
@@ -46,11 +43,11 @@ public class TVSeasonEntity extends BaseEntity{
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "season_id")
     private SeasonEntity season;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 
@@ -74,13 +71,12 @@ public class TVSeasonEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RateEntity> rates = new HashSet<>();
 
-
-    @OneToMany(mappedBy = "tvSeason",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "tvSeason", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JsonBackReference(value = "movie-tvSeason")
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JoinColumn(
@@ -127,6 +123,22 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private Set<LanguageEntity> languages = new HashSet<>();
 
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<MovieCastEntity> cast = new HashSet<>();
+
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<MovieDirectorEntity> directors = new HashSet<>();
+
+    @OneToMany(mappedBy = "tvSeason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonManagedReference(value = "tvSeason-character")
+    private Set<MovieCharacterEntity> characters = new HashSet<>();
 
     public void removeGenres(final long genresId){
         MovieGenresEntity genres = this.genres.stream().filter(e -> e.getId() == genresId).findFirst().orElse(null);
@@ -152,6 +164,22 @@ public class TVSeasonEntity extends BaseEntity{
         }
     }
 
+    public void removeCast(final long castId){
+        MovieCastEntity castEntity = this.cast.stream().filter(e -> e.getId() == castId).findFirst().orElse(null);
+        if (castEntity != null){
+            castEntity.getTvSeasons().remove(this);
+            this.cast.remove(castEntity);
+        }
+    }
+
+    public void removeDirector(final long directorId){
+        MovieDirectorEntity directorEntity = this.directors.stream().filter(e -> e.getId() == directorId).findFirst().orElse(null);
+        if (directorEntity != null){
+            directorEntity.getTvSeasons().remove(this);
+            this.directors.remove(directorEntity);
+        }
+    }
+
     public void addGenres(final MovieGenresEntity genres){
         this.genres.add(genres);
         genres.getTvSeasons().add(this);
@@ -170,17 +198,6 @@ public class TVSeasonEntity extends BaseEntity{
     )
     private List<SubtitleEntity> subtitles = new ArrayList<>();
 
-    @ManyToMany(targetEntity = MovieCastEntity.class, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "tv_season_cast",
-            joinColumns = {
-                    @JoinColumn(name = "tv_season_id")
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "cast_id")
-            }
-    )
-    private List<MovieCastEntity> casts = new ArrayList<>();
     @ManyToMany(targetEntity = MovieCrewEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tv_season_crew",

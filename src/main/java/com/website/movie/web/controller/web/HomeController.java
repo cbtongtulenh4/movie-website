@@ -98,7 +98,17 @@ public class HomeController {
     ){
         ModelAndView mav = new ModelAndView("web/movieSingle");
         TVSeasonUiDto tvSeason =  seasonService.getSeasonMovieByCode(code, 1L);
+
+        Page<TVSeasonEntity> pagination = seasonService.findAll(
+                PageableUtil.paging(0, 5)
+        );
+        List<SimpleTvSeasonDto> tvSeasonRelate = new ArrayList<>();
+        pagination.getContent().forEach(e -> {
+            tvSeasonRelate.add(MovieConvert.toSimpleTvSeasonDto(e));
+        });
+
         mav.addObject("SEASON_MOVIE", tvSeason);
+        mav.addObject("TVSEASON_RELATE", tvSeasonRelate);
         return mav;
     }
 

@@ -31,27 +31,28 @@ public class OtherMovieService implements IOtherMovieService {
 
     @Autowired
     private MovieGenresRepository movieGenresRepository;
-
     @Autowired
     private RatingRepository ratingRepository;
-
     @Autowired
     private RateRepository rateRepository;
-
     @Autowired
     private CountryRepository countryRepository;
-
     @Autowired
     private LanguageRepository languageRepository;
-
     @Autowired
     private SeasonRepository seasonRepository;
-
     @Autowired
     private CommentRepository commentRepository;
-
     @Autowired
     private StudioRepository studioRepository;
+    @Autowired
+    private MovieDirectorRepository directorRepository;
+    @Autowired
+    private MovieCastRepository castRepository;
+    @Autowired
+    private MovieCharacterRepository characterRepository;
+
+
 
     private ICommentDAO commentDAO = new CommentImpl();
 
@@ -105,6 +106,39 @@ public class OtherMovieService implements IOtherMovieService {
         }
         InMemoryCache.getInstance().remove(CacheConstants.MOVIE_RATINGS);
         return ratingRepository.save(rating);
+    }
+
+    @Override
+    public MovieCharacterEntity save(MovieCharacterEntity character) {
+        if (character.getId() == null){
+            List<MovieCharacterEntity> characters = UtilService.getMemoryCacheValue(characterRepository, CacheConstants.MOVIE_CHARACTERS);
+            MovieCharacterEntity temp = characters.stream().filter(e -> e.getName().equals(character.getName())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_CHARACTERS);
+        return characterRepository.save(character);
+    }
+
+    @Override
+    public MovieCastEntity save(MovieCastEntity cast) {
+        if (cast.getId() == null){
+            List<MovieCastEntity> castList = UtilService.getMemoryCacheValue(castRepository, CacheConstants.MOVIE_CAST);
+            MovieCastEntity temp = castList.stream().filter(e -> e.getCode().equals(cast.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_CAST);
+        return castRepository.save(cast);
+    }
+
+    @Override
+    public MovieDirectorEntity save(MovieDirectorEntity director) {
+        if (director.getId() == null){
+            List<MovieDirectorEntity> directorList = UtilService.getMemoryCacheValue(directorRepository, CacheConstants.MOVIE_DIRECTORS);
+            MovieDirectorEntity temp = directorList.stream().filter(e -> e.getCode().equals(director.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_DIRECTORS);
+        return directorRepository.save(director);
     }
 
     @Override
@@ -163,7 +197,7 @@ public class OtherMovieService implements IOtherMovieService {
     @Override
   //  @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class) - not working
     public List<CommentEntity> getAllComment() {
-        List<CommentEntity> comments = commentRepository.findAll();
+//        List<CommentEntity> comments = commentRepository.findAll();
 //        comments.forEach(
 //                e -> LOGGER.info("children with info: ", e.getComments())
 //        );

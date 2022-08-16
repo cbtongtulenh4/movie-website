@@ -3,16 +3,12 @@ package com.website.movie.service.impl;
 import com.website.movie.cache.InMemoryCache;
 import com.website.movie.constant.CacheConstants;
 import com.website.movie.persistence.entity.TVSeasonEntity;
-import com.website.movie.persistence.repository.CountryRepository;
-import com.website.movie.persistence.repository.MovieGenresRepository;
-import com.website.movie.persistence.repository.SeasonRepository;
-import com.website.movie.persistence.repository.TVSeasonRepository;
-import com.website.movie.service.IOtherMovieService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UtilService {
     /**
      * @Project: MovieWebsite
@@ -21,19 +17,10 @@ public class UtilService {
      * @ModifiedBy:
      */
 
-    @Autowired
-    private static TVSeasonRepository tvSeasonRepository;
-    @Autowired
-    private static MovieGenresRepository genresRepository;
-    @Autowired
-    private static SeasonRepository seasonRepository;
-    @Autowired
-    private static CountryRepository countryRepository;
-    @Autowired
-    private static IOtherMovieService otherMovieService;
 
 
-    public static List<TVSeasonEntity> getSeasonMovieCache(){
+
+    public static List<TVSeasonEntity> getSeasonMovieCache(JpaRepository<TVSeasonEntity, Long> tvSeasonRepository){
         List<TVSeasonEntity> objects = (List<TVSeasonEntity>) InMemoryCache.getInstance().get(CacheConstants.SEASON_MOVIES);
         if (objects == null){
             objects = tvSeasonRepository.findAll();
@@ -57,9 +44,6 @@ public class UtilService {
     }
 
     public static TVSeasonEntity scrawlTvSeason(TVSeasonEntity tvSeason){
-        if (tvSeason.getId() != null) return tvSeason;
-        tvSeason.setSeason(otherMovieService.saveSeason(tvSeason.getSeason()));
-        tvSeason.setCountry(otherMovieService.saveCountry(tvSeason.getCountry()));
         return null;
     }
 
