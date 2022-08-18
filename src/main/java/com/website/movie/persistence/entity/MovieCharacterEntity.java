@@ -28,10 +28,6 @@ public class MovieCharacterEntity extends BaseEntity{
     @ManyToOne
     @JsonBackReference(value = "tvSeason-character")
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JoinColumn(
-            name = "tv_season_id",
-            foreignKey =  @ForeignKey(name = "tv_season_character")
-    )
     private TVSeasonEntity tvSeason;
 
 }

@@ -1,6 +1,8 @@
 package com.website.movie.persistence.entity;
 
 import com.website.movie.utils.EmailUtil;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -30,6 +32,7 @@ public class VerificationTokenEntity {
             name = "user_id",
             foreignKey = @ForeignKey(name = "FK_VERIFY_USER")
     )
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private UserEntity user;
 
     private Date expiryDate;

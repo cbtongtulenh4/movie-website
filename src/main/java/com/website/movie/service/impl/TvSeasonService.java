@@ -71,22 +71,6 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public TVSeasonEntity getSeasonMovieById(Long id) {
-//        TVSeasonEntity temp = tvSeasonRepository.findById(id).orElse(null);
-//        LOGGER.info("Get a season movie with information: {}", temp);
-//        if (temp != null){
-//            TVSeasonEntity result = new TVSeasonEntity();
-//            ModelMapper modelMapper = new ModelMapper();
-//            result = modelMapper.map(temp, TVSeasonEntity.class);
-//
-//            result.setGenres(temp.getGenres());
-////            LOGGER.info("Result of get a season movie with information: {}", result);
-//            return result;
-//        }
-//        assert temp != null;
-//        temp.getGenres().size();
-//        temp.getEpisodes().size();
-//        temp.getComments().size();
-//        temp.getRates().size();
         return tvSeasonRepository.findByIdAndFetchAllEagerly(id);
     }
 
@@ -133,6 +117,8 @@ public class TvSeasonService implements ITvSeasonService {
             e.getGenres().size();
             e.getRates().size();
             e.getLanguages().size();
+            e.getStudios().size();
+            e.getDirectors().size();
         });
         return pagedResult;
     }

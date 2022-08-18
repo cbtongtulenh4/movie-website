@@ -254,6 +254,7 @@
 <script th:src="@{/template/js/custom.js}"></script>
 <script th:src="@{/template/js/video.js}"></script>
 <script th:src="@{/template/js/watch.js}"></script>
+<script th:src="@{/template/js/utils.js}"></script>
 <script th:inline="javascript">
 
     var boxCM = document.getElementById('comment-list');
@@ -291,7 +292,7 @@
         `;
     }
 
-    loadComments(boxCM, comments);F
+    loadComments(boxCM, comments);
 
     function loadComments(boxCM, comments) {
         let text="";
@@ -417,22 +418,8 @@
 		// comment_list.insertBefore(li, comment_list.firstChild); - this is other way
 	})
 
-	// find first ancestor of el with tagName
-	function upToParent(el, tagName) {
-		tagName = tagName.toLowerCase();
-		while(el && el.parentNode){
-			el = el.parentNode;
-			if (el.tagName && el.tagName.toLowerCase() === tagName) {
-				return el;
-			}
-		}
-		return null;
-	}
-
 
 
 </script>
 </body>
-
-<!-- celebritysingle12:18-->
 </html>

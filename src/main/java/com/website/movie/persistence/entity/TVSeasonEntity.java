@@ -76,6 +76,14 @@ public class TVSeasonEntity extends BaseEntity{
     @JsonManagedReference(value = "season-movie-episode")
     private Set<TVEpisodeEntity> episodes = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
 
+    @OneToMany(mappedBy = "tvSeason", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE, CascadeType.REFRESH
+    }, fetch = FetchType.LAZY)
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JsonManagedReference(value = "tvSeason-character")
+    private Set<MovieCharacterEntity> characters = new HashSet<>();
+
     @ManyToOne
     @JsonBackReference(value = "movie-tvSeason")
     @EqualsAndHashCode.Exclude @ToString.Exclude
@@ -135,10 +143,6 @@ public class TVSeasonEntity extends BaseEntity{
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<MovieDirectorEntity> directors = new HashSet<>();
 
-    @OneToMany(mappedBy = "tvSeason", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JsonManagedReference(value = "tvSeason-character")
-    private Set<MovieCharacterEntity> characters = new HashSet<>();
 
     public void removeGenres(final long genresId){
         MovieGenresEntity genres = this.genres.stream().filter(e -> e.getId() == genresId).findFirst().orElse(null);

@@ -23,146 +23,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCharacterEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/MovieCharacterRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_5_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_13_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_13_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_13_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_13_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_api_client_google_api_client_1_25_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_api_client_google_api_client_1_25_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_apis_google_api_services_drive_v3_rev197_1_25_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_apis_google_api_services_drive_v3_rev197_1_25_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_20_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_http_client_google_http_client_1_25_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_http_client_google_http_client_1_25_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_http_client_google_http_client_jackson2_1_25_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_http_client_google_http_client_jackson2_1_25_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_oauth_client_google_oauth_client_1_25_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_oauth_client_google_oauth_client_1_25_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_ocpsoft_ocpsoft_pretty_time_1_0_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_ocpsoft_ocpsoft_pretty_time_1_0_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_stripe_stripe_java_20_113_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_stripe_stripe_java_20_113_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_istack_istack_commons_runtime_3_0_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_15.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_1_2_15.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_annotation_javax_annotation_api_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_5_0_b01.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_5_0_b01.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_money_money_api_1_0_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_money_money_api_1_0_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_persistence_javax_persistence_api_2_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_persistence_javax_persistence_api_2_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_validation_validation_api_2_0_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_11_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_11_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_groovy_groovy_extensions_2_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_groovy_groovy_extensions_2_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_expression_processor_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_expression_processor_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nz_net_ultraq_thymeleaf_thymeleaf_layout_dialect_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_1_26.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ognl_ognl_3_1_26.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_groovy_groovy_4_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_groovy_groovy_4_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_16_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_16_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_16_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_16_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_slf4j_impl_2_11_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_slf4j_impl_2_11_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_attoparser_attoparser_2_0_5_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_jaxb_runtime_2_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_jaxb_txw2_2_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_1_2_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_5_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_5_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_5_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_5_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_4_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_validator_5_4_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_2_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_2_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javamoney_moneta_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javamoney_moneta_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_27_0_GA.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_2_3_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_4_2_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_spec_javax_transaction_jboss_transaction_api_1_2_spec_1_1_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_spec_javax_transaction_jboss_transaction_api_1_2_spec_1_1_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_10_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_10_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jvnet_staxex_stax_ex_1_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_modelmapper_modelmapper_3_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_modelmapper_modelmapper_3_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_22.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_22.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_32.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_6_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_6_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_14_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_3_0_14_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_14_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_thymeleaf_thymeleaf_spring5_3_0_14_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/js/comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/template/js/utils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/constant/CacheConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/constant/CacheConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/Convert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/Convert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/CommentImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/CommentImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CommentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CommentEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CountryEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/CountryEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCastEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCastEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCrewEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieDirectorEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieGenresEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieGenresEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/SeasonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/SeasonEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/StudioEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/StudioEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVEpisodeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVEpisodeEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCharacterEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/MovieCharacterEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/RateEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/RateEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/RoleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/RoleEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVSeasonEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/TVSeasonEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/MovieCrewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/MovieDirectorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IOtherMovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IOtherMovieService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/ITvSeasonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/ITvSeasonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/OtherMovieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/OtherMovieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/VerificationTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/VerificationTokenEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/TVSeasonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/TVSeasonRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/ScrapingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/ScrapingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UtilService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UtilService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/listData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/listData.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/movielist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/movielist.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/watch.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/watch.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/config/WebConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/constant/CacheConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/constant/CacheConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/Convert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/Convert.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/MovieConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/helper/converter/MovieConvert.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/impl/CommentImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/dao/impl/CommentImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CommentEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CommentEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CountryEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/CountryEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieCastEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieCastEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieCrewEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieGenresEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieGenresEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/SeasonEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/SeasonEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/StudioEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/StudioEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVEpisodeEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVEpisodeEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieCharacterEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/MovieCharacterEntity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVSeasonEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/TVSeasonEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/CommentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/MovieCrewRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/IOtherMovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/IOtherMovieService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/ITvSeasonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/ITvSeasonService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/OtherMovieService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/OtherMovieService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/ScrapingService$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/ScrapingService$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/TVSeasonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/TVSeasonRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/ScrapingService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/ScrapingService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/UtilService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/UtilService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/HomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,38 +226,38 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1660039820274" />
-    <state width="1323" height="141" key="GridCell.Tab.0.bottom" timestamp="1660624388456">
+    <state width="1323" height="99" key="GridCell.Tab.0.bottom" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1660624388456" />
-    <state width="1323" height="141" key="GridCell.Tab.0.center" timestamp="1660624388456">
+    <state width="1323" height="99" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.0.center" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1660624388456" />
-    <state width="1323" height="141" key="GridCell.Tab.0.left" timestamp="1660624388456">
+    <state width="1323" height="99" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.0.left" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1660624388456" />
-    <state width="1323" height="141" key="GridCell.Tab.0.right" timestamp="1660624388456">
+    <state width="1323" height="99" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.0.right" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1660624388456" />
-    <state width="1323" height="141" key="GridCell.Tab.1.bottom" timestamp="1660624374669">
+    <state width="1323" height="99" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.1.bottom" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1660624374669" />
-    <state width="1323" height="141" key="GridCell.Tab.1.center" timestamp="1660624374668">
+    <state width="1323" height="99" key="GridCell.Tab.1.bottom/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.1.center" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1660624374668" />
-    <state width="1323" height="141" key="GridCell.Tab.1.left" timestamp="1660624374668">
+    <state width="1323" height="99" key="GridCell.Tab.1.center/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.1.left" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1660624374668" />
-    <state width="1323" height="141" key="GridCell.Tab.1.right" timestamp="1660624374668">
+    <state width="1323" height="99" key="GridCell.Tab.1.left/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
+    <state width="1323" height="99" key="GridCell.Tab.1.right" timestamp="1660678520249">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state width="1323" height="141" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1660624374668" />
+    <state width="1323" height="99" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1660678520249" />
     <state x="500" y="298" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1658158134918">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -384,10 +266,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="dock-window-1/0.0.1366.768@0.0.1366.768" timestamp="1658310276754" />
-    <state x="390" y="88" width="585" height="592" key="find.popup" timestamp="1658304182897">
+    <state x="390" y="88" width="585" height="592" key="find.popup" timestamp="1660855992464">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="390" y="88" width="585" height="592" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1658304182897" />
+    <state x="390" y="88" width="585" height="592" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1660855992464" />
     <state x="65" y="45" key="new project wizard" timestamp="1658319570048">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -396,10 +278,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="339" y="172" key="run.anything.popup/0.0.1366.768@0.0.1366.768" timestamp="1659109674006" />
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1660625051804">
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1660674890541">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1660625051804" />
+    <state x="346" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1366.768@0.0.1366.768" timestamp="1660674890541" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -408,11 +290,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/RegistrationController.java</url>
           <line>235</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/ScrapingService.java</url>
-          <line>245</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

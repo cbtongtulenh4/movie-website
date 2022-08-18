@@ -1,13 +1,14 @@
 package com.website.movie.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,14 +28,10 @@ public class UserEntity extends BaseEntity {
     private Boolean enable;
     private Boolean status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private List<RoleEntity> roles = new ArrayList<>();
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -43,33 +40,26 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tv_season_id")
     )
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
-
 
     @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinTable(
             name = "paid_movie",
-            joinColumns = @JoinColumn(
-                    name = "user_id"
-//                    foreignKey = @ForeignKey(name = "user_FK")
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "tvSeason_id"
-//                    foreignKey = @ForeignKey(name = "tvSeason_FK")
-            )
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tvSeason_id")
     )
     private Set<TVSeasonEntity> paidMovies = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonManagedReference(value = "user-rate")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RateEntity> rates = new HashSet<>();
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile = new ProfileEntity();
-
 
     public UserEntity(){
         super();
@@ -77,7 +67,6 @@ public class UserEntity extends BaseEntity {
         this.enable = false;
         this.status = true;
     }
-
 
     @Override
     public int hashCode(){

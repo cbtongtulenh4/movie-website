@@ -1,13 +1,16 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "roles")
@@ -24,8 +27,10 @@ public class RoleEntity extends BaseEntity{
     private String code;
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private java.util.List<UserEntity> users = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ToString.Exclude @EqualsAndHashCode.Exclude
+    private java.util.Set<UserEntity> users = new HashSet<>();
 
     public RoleEntity(final String code,final String name){
         super();

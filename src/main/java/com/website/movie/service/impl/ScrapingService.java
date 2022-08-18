@@ -239,15 +239,15 @@ public class ScrapingService implements IScrapingService {
             )));
 
 
-            contain2 = contain1.select("#MvTb-Cast ul").first();
-            items = contain2.select("li");
-            for (Element item : items){
-                MovieCharacterEntity character = new MovieCharacterEntity();
-                String link = item.select("a").first().attr("href");
-                character.setName(item.select("figcaption").first().ownText());
-                character.setTvSeason(tvSeasonEntity);
-                tvSeasonEntity.getCharacters().add(otherMovieService.save(character));
-            }
+//            contain2 = contain1.select("#MvTb-Cast ul").first();
+//            items = contain2.select("li");
+//            for (Element item : items){
+//                MovieCharacterEntity character = new MovieCharacterEntity();
+//                String link = item.select("a").first().attr("href");
+//                character.setName(item.select("figcaption").first().ownText());
+//                character.setTvSeason(tvSeasonEntity);
+//                tvSeasonEntity.getCharacters().add(otherMovieService.save(character));
+//            }
 
             contain2 = contain1.select("#MvTb-Trailer iframe").first();
             if(contain2 != null){

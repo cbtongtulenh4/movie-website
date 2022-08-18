@@ -34,11 +34,6 @@ public class RateEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonBackReference(value = "user-rate")
-    @JoinColumn(
-            name = "user_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "user_rate")
-    )
     private UserEntity user;
 
     public RateEntity(){

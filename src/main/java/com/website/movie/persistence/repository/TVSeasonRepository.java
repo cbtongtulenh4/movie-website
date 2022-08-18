@@ -20,6 +20,9 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
             "LEFT JOIN FETCH ms.genres " +
             "LEFT JOIN FETCH ms.rates " +
             "LEFT JOIN FETCH ms.episodes " +
+            "LEFT JOIN FETCH ms.directors " +
+            "LEFT JOIN FETCH ms.studios " +
+            "LEFT JOIN FETCH ms.languages " +
             "LEFT JOIN FETCH ms.comments WHERE ms.id = :id")
     TVSeasonEntity findByIdAndFetchAllEagerly(@Param("id") Long id);
 
