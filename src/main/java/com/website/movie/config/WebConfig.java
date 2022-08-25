@@ -40,6 +40,7 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Configuration
 @EnableWebMvc
@@ -199,7 +200,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 //            throw new IllegalArgumentException("File not found");
 //        }
 //        java.io.File key = Paths.get(resource.toURI()).toFile();
-        File key = new File("D:\\Spring\\MovieWebsite\\src\\main\\resources\\moviewebsite-352718-7ea337f38c31.p12");
+        File key = new File(Objects.requireNonNull(WebConfig.class.getClassLoader().getResource("moviewebsite-352718-7ea337f38c31.p12")).getPath());
         Collection<String> elenco = new ArrayList<>();
         elenco.add("https://www.googleapis.com/auth/drive");
         HttpTransport httpTransport = new NetHttpTransport();

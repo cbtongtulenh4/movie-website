@@ -43,9 +43,12 @@ public class HomeController {
 
     @RequestMapping(value = {"/home", "", "/"}, method = RequestMethod.GET)
     public ModelAndView getHome(HttpServletRequest request){
-        MessageDto msg = new MessageDto(MessageConstants.DANGER, (String) SessionUtil.getInstance().getAndRemoveValue(request, "message"));
         ModelAndView mav = new ModelAndView("web/home");
-        mav.addObject("message", msg);
+        String contentMsg = (String) SessionUtil.getInstance().getAndRemoveValue(request, "message");
+        if (!contentMsg.isEmpty()){
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, contentMsg);
+            mav.addObject("message", msg);
+        }
 
         mav.addObject("ListTvSeason1", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-le")));
         mav.addObject("ListTvSeason2", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-bo")));

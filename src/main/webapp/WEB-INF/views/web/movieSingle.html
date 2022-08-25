@@ -849,7 +849,7 @@
                                         <h3>Related Movies To</h3>
                                         <h2 th:text="${SEASON_MOVIE.title}"></h2>
                                         <div class="topbar-filter">
-                                            <p>Found <span th:text="${TVSEASON_RELATE.length} + 'movies'"></span> in total</p>
+                                            <p>Found <span th:text="${#lists.size(TVSEASON_RELATE)} + 'movies'"></span> in total</p>
                                             <label>Sort by:</label>
                                             <select>
                                                 <option value="popularity">Popularity Descending</option>
