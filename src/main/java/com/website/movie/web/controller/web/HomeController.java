@@ -45,7 +45,7 @@ public class HomeController {
     public ModelAndView getHome(HttpServletRequest request){
         ModelAndView mav = new ModelAndView("web/home");
         String contentMsg = (String) SessionUtil.getInstance().getAndRemoveValue(request, "message");
-        if (!contentMsg.isEmpty()){
+        if (contentMsg != null && !contentMsg.isEmpty()){
             MessageDto msg = new MessageDto(MessageConstants.DANGER, contentMsg);
             mav.addObject("message", msg);
         }

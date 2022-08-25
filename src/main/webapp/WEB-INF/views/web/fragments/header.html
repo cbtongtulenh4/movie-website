@@ -8,7 +8,7 @@
 
 <div th:fragment="sign-in-up" th:remove="tag">
     <!--login form popup-->
-    <div th:class="'overlay ' + (${message.content} ? 'openform':'')">
+    <div th:class="'overlay ' + (${message} ? 'openform':'')">
     <div class="login-wrapper" id="login-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
