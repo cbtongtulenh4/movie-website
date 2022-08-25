@@ -29,10 +29,10 @@ public class TVEpisodeEntity extends BaseEntity{
     @ManyToOne
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonBackReference(value = "season-movie-episode")
-    @JoinColumn(
-            name = "tv_season_id",
-            foreignKey =  @ForeignKey(name = "tv_season_episode")
-    )
+//    @JoinColumn(
+//            name = "tv_season_id",
+//            foreignKey =  @ForeignKey(name = "tv_season_episode")
+//    )
     private TVSeasonEntity tvSeason;
 
 }

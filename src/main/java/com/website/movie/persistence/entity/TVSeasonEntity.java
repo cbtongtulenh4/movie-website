@@ -5,7 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 @Entity
@@ -22,7 +25,7 @@ public class TVSeasonEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 100)
     private String code;
     private String title;
     private String thumbnail;
@@ -51,14 +54,10 @@ public class TVSeasonEntity extends BaseEntity{
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 
-/*
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "form_id",
-            foreignKey = @ForeignKey(name = "FK_TV_SEASON_FORM")
-    )
-    private MovieFormEntity movieForm;
-*/
+    @ManyToOne
+    @JsonBackReference(value = "tvSeason-form")
+    @JoinColumn(name = "form_id")
+    private MovieFormEntity form;
 
     @ManyToMany(cascade = {
             CascadeType.MERGE, CascadeType.REFRESH
@@ -84,51 +83,34 @@ public class TVSeasonEntity extends BaseEntity{
     @JsonManagedReference(value = "tvSeason-character")
     private Set<MovieCharacterEntity> characters = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "movie-tvSeason")
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JoinColumn(
-            name = "movie_id",
-            foreignKey = @ForeignKey(name = "movie_tv_season")
-    )
     private MovieEntity movie;
 
     @ManyToMany(cascade = {
             CascadeType.MERGE, CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JoinTable(
-            name = "season_genre",
-            joinColumns = @JoinColumn(name = "season_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
     private Set<MovieGenresEntity> genres = new HashSet<>();
 
     @ManyToMany(cascade = {
             CascadeType.MERGE,CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    @JoinTable(
-            name = "season_rating",
-            joinColumns = @JoinColumn(name = "season_id"),
-            inverseJoinColumns = @JoinColumn(name = "rating_id")
-    )
     private Set<RatingEntity> ratings = new HashSet<>();
 
     @OneToMany(targetEntity = CommentEntity.class,
             cascade = CascadeType.ALL, fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+//    @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
     private Set<CommentEntity> comments = new HashSet<>();
 
     @ManyToMany(cascade = {
             CascadeType.MERGE, CascadeType.REFRESH
     }, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "tv_season_language",
-            joinColumns = @JoinColumn(name = "tv_season_id"),
-            inverseJoinColumns = @JoinColumn(name = "language_id")
-    )
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<LanguageEntity> languages = new HashSet<>();
 
     @ManyToMany(cascade = {
@@ -142,7 +124,6 @@ public class TVSeasonEntity extends BaseEntity{
     }, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<MovieDirectorEntity> directors = new HashSet<>();
-
 
     public void removeGenres(final long genresId){
         MovieGenresEntity genres = this.genres.stream().filter(e -> e.getId() == genresId).findFirst().orElse(null);

@@ -1,6 +1,7 @@
 package com.website.movie.web.dto;
 
 import com.website.movie.persistence.entity.LanguageEntity;
+import com.website.movie.persistence.entity.RateEntity;
 import com.website.movie.persistence.entity.SeasonEntity;
 import com.website.movie.persistence.entity.TVEpisodeEntity;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,11 @@ public class SimpleTvSeasonDto extends TVSeasonAbstractDto{
     private String code;
     private String title;
     private String thumbnail;
+    private String trailer;
     private String summary;
     private String runtime;
     private String duration;
+    private Float rate = 10.0F;
     private Long views;
     private Integer year;
     private String release;
@@ -37,6 +40,7 @@ public class SimpleTvSeasonDto extends TVSeasonAbstractDto{
             Set<TVEpisodeEntity> episodes,
             Integer duration,
             SeasonEntity season,
+            Set<RateEntity> rates,
             Set<LanguageEntity> languages
     ){
         int epSize = episodes.size();
@@ -46,6 +50,9 @@ public class SimpleTvSeasonDto extends TVSeasonAbstractDto{
         StringBuilder str = new StringBuilder();
         languages.forEach(e -> str.append(e.getName()).append(", "));
         this.languages = str.toString();
+        this.rate = calRate(rates);
+
+//        this.views = new DecimalFormat("###,###,###").format(this.views);
     }
 
 }

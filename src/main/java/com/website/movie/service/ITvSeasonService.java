@@ -6,6 +6,7 @@ import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.WatchTvSeasonDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface ITvSeasonService {
 
     long countSeasonMovie();
 
-    List<TVSeasonEntity> getSeasonMoviesByFilter(MovieFilterDto movieFilter);
+    List<TVSeasonEntity> getSeasonMoviesByFilter(MovieFilterDto movieFilter, Sort sort);
 
     WatchTvSeasonDto getWatchTvSeasonUiByCode(String code);
 
@@ -35,6 +36,8 @@ public interface ITvSeasonService {
     Page<TVSeasonEntity> findAll(Pageable paging);
 
     TVSeasonUiDto getSeasonMovieByCode(String code, final Long user_id);
+
+    List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit);
 
     //List<TVSeasonEntity> findAll(Pageable paging);
 

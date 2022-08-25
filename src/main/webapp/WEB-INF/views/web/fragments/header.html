@@ -8,6 +8,7 @@
 
 <div th:fragment="sign-in-up" th:remove="tag">
     <!--login form popup-->
+    <div th:class="'overlay ' + (${message} ? 'openform':'')">
     <div class="login-wrapper" id="login-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
@@ -48,8 +49,10 @@
             </div>
         </div>
     </div>
+    </div>
     <!--end of login form popup-->
     <!--signup form popup-->
+    <div class="overlay">
     <div class="login-wrapper"  id="signup-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
@@ -86,6 +89,7 @@
                 </div>
             </form>
         </div>
+    </div>
     </div>
     <!--end of signup form popup-->
 </div>

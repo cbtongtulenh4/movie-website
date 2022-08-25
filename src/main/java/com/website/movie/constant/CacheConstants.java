@@ -18,5 +18,6 @@ public class CacheConstants {
     public static final String MOVIE_CAST = "MOVIE_CAST";
     public static final String MOVIE_DIRECTORS = "MOVIE_DIRECTORS";
     public static final String MOVIE_CHARACTERS = "MOVIE_CHARACTERS";
+    public static final String MOVIE_FORMS = "MOVIE_FORMS";
 
 }

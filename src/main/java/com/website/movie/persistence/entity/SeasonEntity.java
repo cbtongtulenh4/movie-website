@@ -18,7 +18,7 @@ public class SeasonEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(nullable = false, unique = true, length = 100)
     private String code;
     private String name;
     private Integer year;

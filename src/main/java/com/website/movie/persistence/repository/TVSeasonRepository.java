@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.*;
+
 public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> {
     /**
      * @Project: MovieWebsite
@@ -15,6 +17,9 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
 
 //    List<TVSeasonEntity> findAllByRate()
     TVSeasonEntity findOneByCode(String code);
+
+    @Query(value = "SELECT * FROM movie_seasons ORDER BY ?1 ?2 LIMIT ?3", nativeQuery = true)
+    List<TVSeasonEntity> findLimitPopularByViews(String filed, String sort, int limit);
 
     @Query("SELECT DISTINCT ms FROM TVSeasonEntity ms " +
             "LEFT JOIN FETCH ms.genres " +

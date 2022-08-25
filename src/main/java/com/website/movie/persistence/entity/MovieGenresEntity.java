@@ -24,7 +24,7 @@ public class MovieGenresEntity extends BaseEntity{
      */
 
     @NotNull
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 100)
     private String code;
     @NotNull
     private String name;

@@ -46,19 +46,12 @@ public class HomeController {
         MessageDto msg = new MessageDto(MessageConstants.DANGER, (String) SessionUtil.getInstance().getAndRemoveValue(request, "message"));
         ModelAndView mav = new ModelAndView("web/home");
         mav.addObject("message", msg);
+
+        mav.addObject("ListTvSeason1", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-le")));
+        mav.addObject("ListTvSeason2", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-bo")));
+
         return mav;
     }
-
-//    @RequestMapping(value = "/movie-single", method = RequestMethod.GET)
-//    public ModelAndView getMovieSingle(
-//            @RequestParam(value = "id") final Long id
-//    )
-//    {
-//        ModelAndView mav = new ModelAndView("web/movie-single");
-//        TVSeasonEntity tvSeasonEntity =  seasonService.getSeasonMovieById(id);
-//        mav.addObject("SEASON", MovieConvert.toDto(tvSeasonEntity));
-//        return mav;
-//    }
 
     @RequestMapping(value = "/movie-list")
     public ModelAndView getMovies(

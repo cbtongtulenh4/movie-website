@@ -13,7 +13,13 @@ public class UserImpl extends AbstractDAO<UserEntity> implements IUserDAO {
 
     @Override
     public void appendFavoriteMovieSeason(Long user_id, Long tvSeason_id) {
-        insertSimpleTable("user_tv_season", user_id, tvSeason_id);
+        insertSimpleTable("favorite_movie", user_id, tvSeason_id);
+    }
+
+    @Override
+    public void deleteFavoriteMovieSeason(Long user_id, Long tvSeason_id) {
+        String sql = "DELETE FROM favorite_movie WHERE user_id = ? AND tvSeason_id = ?";
+        delete(sql, user_id, tvSeason_id);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.website.movie.web.api;
 
 import com.website.movie.helper.converter.Convert;
-import com.website.movie.helper.converter.UserConvert;
 import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.service.IGoogleDriveService;
@@ -12,7 +11,6 @@ import com.website.movie.web.dto.UserProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -77,12 +75,20 @@ public class UserRestController {
     }
 
 
-    @PutMapping(value = "/api/user/favorite")
+    @PostMapping(value = "/api/user/favorite")
     public void addFavoriteMovie(
             @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
             HttpServletRequest request
     ){
         userService.appendFavoriteMovie(1, tvSeasonId);
+    }
+
+    @DeleteMapping(value = "/api/user/favorite")
+    public void deleteFavoriteMovie(
+            @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
+            HttpServletRequest request
+    ){
+        userService.deleteFavoriteMovie(1, tvSeasonId);
     }
 
     @GetMapping(value = "/api/user/favorite")

@@ -77,7 +77,7 @@
                 <div class="movie-single-ct main-content">
                     <h1 class="bd-hd" th:text="${SEASON_MOVIE.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
                     <div class="social-btn">
-                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i> <span>Add to Favorite</span></div>
+                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i> <span onclick="favoriteAction(event);">Add to Favorite</span></div>
                         <div class="hover-bnt">
                             <div class="parent-btn"><i class="ion-android-share-alt"></i>share</div>
                             <div class="hvr-item">
@@ -97,15 +97,16 @@
                         </div>
                         <div class="rate-star" id="icon-rate">
                             <p>Rate This Movie:  </p>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star-outline"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star"></i>
-                            <i class="ion-ios-star-outline"></i>
+                            <i class="ion-ios-star" value="1" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="2" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="3" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="4" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="5" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="6" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="7" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="8" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="9" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" value="10" onclick="rateAction(event);"></i>
                         </div>
                     </div>
                     <div class="movie-tabs">
@@ -903,12 +904,12 @@
 <script th:src="@{/template/js/plugins2.js}"></script>
 <script th:src="@{/template/js/custom.js}"></script>
 
-<script>
-    let rate = document.getElementById('icon-rate');
-    rate.addEventListener('click', async function(){
-        const response = await fetch("/MovieWebsite/api/movie/season/rate",{
-            method: 'PUT'
-        });
+<script th:inline="javascript">
+    async function rateAction(e){
+        const response = await fetch("/MovieWebsite/api/movie/season/rate?" + new URLSearchParams({
+            rateVal : e.target.attribute("value"),
+            tvSeasonId : [[${SEASON_MOVIE.id}]]
+        }),method: 'PUT');
         var data = await response.json();
         let valueRate = document.getElementById('value-rate');
         valueRate.innerHTML = `
@@ -918,9 +919,19 @@
             </p>
         `;
     });
+
+
+
+    async function favoriteAction(e){
+        const tvSeasonId = [[${SEASON_MOVIE.id}]];
+        let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonId";
+        await fetch(url, method: 'POST');
+        e.target.addEventListener('click', async function(){
+            await fetch(url, method: 'DELETE');
+        })
+    }
+
 </script>
 
 </body>
-
-<!-- moviesingle11:03-->
 </html>

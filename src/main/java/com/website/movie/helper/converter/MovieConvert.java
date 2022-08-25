@@ -105,6 +105,7 @@ public class MovieConvert {
                 entity.getEpisodes(),
                 entity.getDuration(),
                 entity.getSeason(),
+                entity.getRates(),
                 entity.getLanguages()
         );
         return dto;

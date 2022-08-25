@@ -13,6 +13,8 @@ public interface IUserDAO extends GenericDAO<UserEntity> {
 
     void appendFavoriteMovieSeason(final Long user_id, final Long tvSeason_id);
 
+    void deleteFavoriteMovieSeason(final Long user_id, final Long tvSeason_id);
+
     void savePaidSeasonMovie(final Long user_id, final Long tvSeason_id);
 
     boolean checkPaidSeasonMovie(final Long user_id, final Long tvSeason_id);

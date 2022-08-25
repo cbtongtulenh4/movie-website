@@ -29,6 +29,7 @@
 	<link rel="stylesheet" th:href="@{/template/css/plugins.css}">
 	<link rel="stylesheet" th:href="@{/template/css/main.css}">
 	<link rel="stylesheet" th:href="@{/template/css/update.css}">
+	<link rel="stylesheet" th:href="@{/template/css/loading.css}">
 	<script th:src="@{/template/js/update.js}"></script>
 
 </head>
@@ -36,6 +37,14 @@
 <!--preloading-->
 <div th:replace="web/fragments/loader :: preloader"></div>
 <!--end of preloading-->
+
+<div id="loading-page" style="display: none;">
+	<div class="ls-icon">
+		<div class="nb-spinner"></div>
+		<div class="animation" id="an-box">
+		</div>
+	</div>
+</div>
 
 <!-- sig in - up -->
 <div th:replace="web/fragments/header :: sign-in-up"></div>
@@ -85,7 +94,7 @@
 							<p class="describe" th:text="${SEASON.summary}">...</p>
 							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
 							<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
-							<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
+							<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???</a></p>
 							<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
 						</div>
 					</div>
@@ -195,6 +204,14 @@
 <div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
 
+
+<script th:src="@{/template/js/jquery.js}"></script>
+<script th:src="@{/template/js/plugins.js}"></script>
+<script th:src="@{/template/js/plugins2.js}"></script>
+<script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
+<script th:src="@{/template/js/utils.js}"></script>
+<script th:src="@{/template/js/animation.js}"></script>
+
 <script th:inline="javascript">
 
 	let formSubmit = document.getElementById('formSubmit');
@@ -205,11 +222,11 @@
     })
 
     async function getAPI(url, nextPage, maxPageItem) {
+    	startAnimation(20, "/MovieWebsite/template/img/animation/");
 		let requestForm = document.forms.formSubmit;
 		var formData = new FormData(requestForm);
 
 		let genresData = document.getElementById('genres-sl').selectedOptions;
-		console.log((formData.get('rating')==null) ? '' : formData.get('rating'));
         const response = await fetch(url + "?" + new URLSearchParams({
         	nextPage: nextPage,
         	maxPageItem: maxPageItem,
@@ -251,6 +268,7 @@
 		document.getElementById('am-movies-tt').innerHTML = pagination.maxItems;
 
 		customPagination(pagination.nextPage, 2, pagination.maxPage);
+		stopAnimation();
 	}
 </script>
 
@@ -258,78 +276,7 @@
 	var maxPage = [[${PAGINATION.maxPage}]];
 	var currentPage = [[${PAGINATION.nextPage}]];
 	customPagination(currentPage, 2, maxPage);
-	function customPagination(currentPage, visiblePage, maxPage){
-		let boundLower = document.getElementById('lower-bound');
-		if (maxPage == 0){
-			boundLower.style.display = 'none';
-			return;
-		}
-		boundLower.style.display = 'flex';
-		var endPage = visiblePage;
-		var startPage = 1;
-		document.getElementById('page-info').innerHTML = "Page " + currentPage + " of " + maxPage + ": ";
-		let pagination = document.getElementById('pagination');
-		pagination.innerHTML = '<div id="pages"></div>';
-		let pages = document.getElementById('pages');
-<!--		var temp = Math.floor(currentPage / endPage);-->
-		var temp = currentPage / endPage;
-<!--		if(temp != 0 && temp != 1){ // check currentPage not in 1 to 5 ?-->
-		if(temp > 1){ // check currentPage not in 1 to 5 ?
-			var temp1 = currentPage % endPage;
-			startPage = currentPage - ((temp1 == 0) ? endPage : temp1) + 1; // assign value startPage by currentPage
-			if (maxPage - startPage < endPage) { // check exist endPage
-				endPage = maxPage;
-			}else{
-				endPage += startPage - 1;
-			}
-			pagination.prepend(newElement('a', "next-left","ion-arrow-left-b"));// add icon next left
-			nextSubmit("next-left", startPage, endPage);
-		}else if(endPage > maxPage){
-			endPage = maxPage;
-		}
-		if(endPage < maxPage){ // check add icon next right
-			pagination.appendChild(newElement('a', "next-right", "ion-arrow-right-b"));
-			nextSubmit("next-right", startPage, endPage);
-		}
-
-		for (let i = startPage; i <= endPage; i++) {
-			let page = document.createElement('a');
-			if(currentPage == i){
-				page.classList = 'active';
-			}
-			page.textContent = i;
-			page.addEventListener('click', function(){
-				nextPage = i;
-				var maxPageItem = document.getElementById('max-page-item').value;
-				getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
-			});
-			pages.appendChild(page);
-		}
-	}
-	function newElement(tagName, id, className) { // create icon next
-		let element = document.createElement(tagName);
-		let icon = document.createElement('i');
-		icon.className = className;
-		element.setAttribute("id", id);
-		element.appendChild(icon);
-		return element;
-	}
-
-	function nextSubmit(id, startPage, endPage) {
-		let next = document.getElementById(id);
-		next.addEventListener('click', function(){
-			var nextPage = (id === "next-left") ? (startPage - 1) : (endPage + 1);
-			var maxPageItem = document.getElementById('max-page-item').value;
-//			window.location.href = "/movie-list?nextPage=" + nextPage + "&maxPageItem=" + maxPageItem;
-			getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
-		})
-	}
 </script>
-
-<script th:src="@{/template/js/jquery.js}"></script>
-<script th:src="@{/template/js/plugins.js}"></script>
-<script th:src="@{/template/js/plugins2.js}"></script>
-<script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
 </body>
 
 <!-- movielist07:38-->

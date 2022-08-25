@@ -1,6 +1,5 @@
 package com.website.movie.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,22 +28,19 @@ public class UserEntity extends BaseEntity {
     private Boolean status;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RoleEntity> roles = new HashSet<>();
 
     @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinTable(
-            name = "user_tv_season",
+            name = "favorite_movie",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tv_season_id")
     )
     @EqualsAndHashCode.Exclude @ToString.Exclude
-    private Set<TVSeasonEntity> tvSeasons = new HashSet<>();
+    private Set<TVSeasonEntity> favoriteMovies = new HashSet<>();
 
     @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinTable(
             name = "paid_movie",
             joinColumns = @JoinColumn(name = "user_id"),

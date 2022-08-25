@@ -21,17 +21,13 @@ public class MovieEntity extends BaseEntity{
      * @ModifiedBy:
      */
 
+//    @Column(nullable = false, unique = true, length = 100)
     private String code;
     private String title;
     private String thumbnail;
     private Float rate;
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-////    @JoinColumn(
-////            name = "movie_id",
-////            foreignKey = @ForeignKey(name = "movie_tv_season")
-////    )
-//    private List<TVSeasonEntity> seasons = new ArrayList<>();
+
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "movie-tvSeason")
     @EqualsAndHashCode.Exclude @ToString.Exclude

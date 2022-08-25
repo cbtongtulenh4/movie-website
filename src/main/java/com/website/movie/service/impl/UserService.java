@@ -109,10 +109,7 @@ public class UserService implements IUserService {
     @Override
     public List<TVSeasonUiDto> getAllFavoriteMovie(String username) {
         UserEntity userEntity = userRepository.findOneByUsername(username);
-        LOGGER.info("Get favorite movie seasons with information: {}", userEntity.getTvSeasons());
-//        LOGGER.info("Get genres season movie with information: {}", seasonEntity.getComments());
-//        return MovieConvert.toDto(seasonEntity);
-        return MovieConvert.toDto(userEntity.getTvSeasons());
+        return MovieConvert.toDto(userEntity.getFavoriteMovies());
     }
 
     @Override
@@ -121,15 +118,20 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void deleteFavoriteMovie(long user_id, long tvSeason_id) {
+        userDAO.deleteFavoriteMovieSeason(user_id, tvSeason_id);
+    }
+
+    @Override
     public void savePaidSeasonMovie(long user_id, long tvSeason_id) {
         userDAO.savePaidSeasonMovie(user_id, tvSeason_id);
     }
 
     @Override
-    public List<SimpleTvSeasonDto> getAllPaidSeasonMovie(Long id) {
-        UserEntity userEntity = userRepository.findById(id).get();
-        LOGGER.info("Get favorite movie seasons with information: {}", userEntity.getTvSeasons());
-        return MovieConvert.toSimpleTvSeasonDto(userEntity.getTvSeasons());
+    public List<SimpleTvSeasonDto> getAllPaidSeasonMovie(Long userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElse(null);
+        assert userEntity != null;
+        return MovieConvert.toSimpleTvSeasonDto(userEntity.getPaidMovies());
     }
 
     @Override

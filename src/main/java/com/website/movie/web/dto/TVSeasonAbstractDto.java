@@ -32,7 +32,7 @@ public class TVSeasonAbstractDto {
     }
 
     public String setDuration(Integer duration, int epSize){
-        return epSize + "/" + ((duration == null) ? "??" : duration);
+        return epSize + "/" + ((duration == null || duration == 0) ? "??" : duration);
     }
 
     public String[] setGenres(Set<MovieGenresEntity> genres){

@@ -33,6 +33,8 @@ public interface IUserService {
 
     void appendFavoriteMovie(final long user_id, final long tvSeason_id);
 
+    void deleteFavoriteMovie(final long user_id, final long tvSeason_id);
+
     void savePaidSeasonMovie(final long user_id, final long tvSeason_id);
 
     List<SimpleTvSeasonDto> getAllPaidSeasonMovie(final Long id);

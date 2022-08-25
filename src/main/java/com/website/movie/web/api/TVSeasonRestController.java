@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -80,14 +81,15 @@ public class TVSeasonRestController {
     @GetMapping(value = "/api/movie/season/filter")
     public MovieListPageDto getMoviesByFilter(
 //            @RequestBody final MovieFilterDto movieFilterDto,
-            @RequestParam(value = "sort", defaultValue = "title-1") final String sortParam,
+            @RequestParam(value = "sort", defaultValue = "views-des") final String sortParam,
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
     ){
+
         MovieFilterDto movieFilterDto = new MovieFilterDto();
         movieFilterDto.init(request, "title", "rating", "genres", "yearFrom", "yearTo");
-        List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto);
+        List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto, sortBy(sortParam));
         List<SimpleTvSeasonDto> simpleTvSeasonDtos = new ArrayList<>();
         tvSeasonEntity.forEach(e -> simpleTvSeasonDtos.add(MovieConvert.toSimpleTvSeasonDto(e)));
 
@@ -110,12 +112,25 @@ public class TVSeasonRestController {
         return MovieConvert.toDto(pagination.getContent());
     }
 
+    @GetMapping(value = "/api/movie/tv-season/populars")
+    public List<TVSeasonUiDto> getPopularSeasonsMovie(){
+        return tvSeasonService.findLimitPopularByViews("views", "ASddC", 5);
+    }
+
+
     private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store, String sortParam){
         String[] valueSort = sortParam.split("-");
 
 
 
         return null;
+    }
+
+
+    private Sort sortBy(String sortParam){
+        String[] params = sortParam.split("-");
+        Sort.Direction direction = params[1].equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return Sort.by(direction, params[0]);
     }
 
 

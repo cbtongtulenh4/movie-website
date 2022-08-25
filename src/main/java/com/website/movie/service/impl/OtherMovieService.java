@@ -17,6 +17,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -51,6 +52,8 @@ public class OtherMovieService implements IOtherMovieService {
     private MovieCastRepository castRepository;
     @Autowired
     private MovieCharacterRepository characterRepository;
+    @Autowired
+    private MovieFormRepository movieFormRepository;
 
 
 
@@ -96,6 +99,8 @@ public class OtherMovieService implements IOtherMovieService {
     public List<MovieGenresEntity> findAllGenreMovie() {
         return movieGenresRepository.findAll();
     }
+
+
 
     @Override
     public RatingEntity save(RatingEntity rating) {
@@ -181,9 +186,6 @@ public class OtherMovieService implements IOtherMovieService {
         return null;
     }
 
-
-
-
     @Override
     public RatingEntity findOneRatingById(long id) {
         return null;
@@ -192,6 +194,30 @@ public class OtherMovieService implements IOtherMovieService {
     @Override
     public CommentEntity save(CommentEntity commentEntity) {
         return commentRepository.save(commentEntity);
+    }
+
+    @Override
+    public MovieFormEntity saveFormMovie(MovieFormEntity formMovie) {
+        if (formMovie.getId() == null){
+            List<MovieFormEntity> formMovies = UtilService.getMemoryCacheValue(movieFormRepository, CacheConstants.MOVIE_FORMS);
+            MovieFormEntity temp = formMovies.stream().filter(e -> e.getCode().equals(formMovie.getCode())).findFirst().orElse(null);
+            if (temp != null) return temp;
+        }
+        InMemoryCache.getInstance().remove(CacheConstants.MOVIE_FORMS);
+        return movieFormRepository.save(formMovie);
+    }
+
+    @Override
+    public List<TVSeasonEntity> findLimitTvSeasonByForm(String code) {
+        MovieFormEntity formMovie = movieFormRepository.findOneByCode(code);
+        formMovie.getTvSeasons().forEach(e -> {
+            e.getEpisodes().size();
+            e.getLanguages().size();
+            e.getSeason();
+            e.getRates().size();
+        });
+        formMovie.getTvSeasons().sort(Comparator.comparingLong(TVSeasonEntity::getViews));
+        return formMovie.getTvSeasons();
     }
 
     @Override

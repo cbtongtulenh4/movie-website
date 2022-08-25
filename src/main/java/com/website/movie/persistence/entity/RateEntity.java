@@ -24,11 +24,11 @@ public class RateEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     @JsonBackReference(value = "season-movie-rate")
-    @JoinColumn(
-            name = "tvSeason_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "tvSeason_rate")
-    )
+//    @JoinColumn(
+//            name = "tvSeason_id",
+//            nullable = false,
+//            foreignKey = @ForeignKey(name = "tvSeason_rate")
+//    )
     private TVSeasonEntity tvSeason;
 
     @ManyToOne(fetch = FetchType.LAZY)

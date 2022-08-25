@@ -10,4 +10,7 @@ public interface MovieFormRepository extends JpaRepository<MovieFormEntity, Long
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
+
+    MovieFormEntity findOneByCode(String code);
+
 }

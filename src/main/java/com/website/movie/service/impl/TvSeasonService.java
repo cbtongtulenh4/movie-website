@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,8 +87,8 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     @Override
-    public List<TVSeasonEntity> getSeasonMoviesByFilter(MovieFilterDto movieFilter) {
-        List<TVSeasonEntity> tvSeasons = tvSeasonRepository.findAll();
+    public List<TVSeasonEntity> getSeasonMoviesByFilter(MovieFilterDto movieFilter, Sort sort) {
+        List<TVSeasonEntity> tvSeasons = tvSeasonRepository.findAll(sort);
         List<TVSeasonEntity> result = new ArrayList<>();
         tvSeasons.forEach(e -> {
             e.getSeason();
@@ -125,13 +126,18 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public TVSeasonUiDto getSeasonMovieByCode(String code, Long user_id) {
-        TVSeasonEntity seasonEntity = tvSeasonRepository.findOneByCode(code);
-        boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, seasonEntity.getId());
-        seasonEntity.getGenres().size();
-        seasonEntity.getStudios().size();
-        seasonEntity.getLanguages().size();
-        seasonEntity.getCountry();
-        return MovieConvert.toDto(seasonEntity, isPaid);
+        TVSeasonEntity tvSeason = tvSeasonRepository.findOneByCode(code);
+        boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
+        tvSeason.getGenres().size();
+        tvSeason.getStudios().size();
+        tvSeason.getLanguages().size();
+        tvSeason.getCountry();
+        return MovieConvert.toDto(tvSeason, isPaid);
+    }
+
+    @Override
+    public List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit) {
+        return MovieConvert.toDto(tvSeasonRepository.findLimitPopularByViews(field, sort, limit));
     }
 
     @Override

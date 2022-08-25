@@ -94,14 +94,14 @@ public class OtherRestController {
     @PutMapping(value = "/api/movie/season/rate")
     public RateDto updateRate(
             @RequestParam(value = "rateVal") final Integer rateVal,
-            @RequestParam(value = "seasonId") final Long seasonId,
+            @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
             HttpServletRequest request
     ){
         MyUserPrincipal myUser = (MyUserPrincipal) request.getAttribute("USER_MODEL");
         UserEntity user = userService.findByUsername(myUser.getUsername());
-        TVSeasonEntity tvSeason = tvSeasonService.getSeasonMovieById(seasonId);
+        TVSeasonEntity tvSeason = tvSeasonService.getSeasonMovieById(tvSeasonId);
         otherMovieService.save(new RateEntity(rateVal, user, tvSeason));
-        return otherMovieService.getRateMovieSeason(seasonId);
+        return otherMovieService.getRateMovieSeason(tvSeasonId);
     }
 
     @GetMapping(value = "/api/movie/season/rate")
