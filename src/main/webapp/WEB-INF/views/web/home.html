@@ -258,44 +258,40 @@
 			        <div id="tab21-h2" class="tab active">
 			            <div class="row">
 			            	<div class="slick-multiItem2">
-			            		<div class="slide-it">
-									<div class="slide-it" th:each="TvSeason : ${ListTvSeason2}">
-										<div class="movie-item">
-											<div class="mv-img">
-												<img th:src="${TvSeason.thumbnail}" alt="">
-											</div>
-											<div class="hvr-inner">
-												<a th:href="@{'/' + ${TvSeason.code}}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-											</div>
-											<div class="title-in">
-												<h6><a href="#" th:text="${TvSeason.title}">Interstellar</a></h6>
-												<p><i class="ion-android-star"></i><span th:text="${TvSeason.rate}">10</span> /10</p>
-											</div>
+								<div class="slide-it" th:each="TvSeason : ${ListTvSeason2}">
+									<div class="movie-item">
+										<div class="mv-img">
+											<img th:src="${TvSeason.thumbnail}" alt="">
+										</div>
+										<div class="hvr-inner">
+											<a th:href="@{'/' + ${TvSeason.code}}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+										</div>
+										<div class="title-in">
+											<h6><a href="#" th:text="${TvSeason.title}">Interstellar</a></h6>
+											<p><i class="ion-android-star"></i><span th:text="${TvSeason.rate}">10</span> /10</p>
 										</div>
 									</div>
-			            		</div>
+								</div>
 			            	</div>
 			            </div>
 			        </div>
 			        <div id="tab22-h2" class="tab" loading="lazy">
 			           <div class="row">
 			            	<div class="slick-multiItem2">
-			            		<div class="slide-it">
-									<div class="slide-it" th:each="TvSeason : ${ListTvSeason2}">
-										<div class="movie-item">
-											<div class="mv-img">
-												<img th:src="${TvSeason.thumbnail}" alt="">
-											</div>
-											<div class="hvr-inner">
-												<a th:href="@{'/' + ${TvSeason.code}}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
-											</div>
-											<div class="title-in">
-												<h6><a href="#" th:text="${TvSeason.title}">Interstellar</a></h6>
-												<p><i class="ion-android-star"></i><span th:text="${TvSeason.rate}">10</span> /10</p>
-											</div>
+								<div class="slide-it" th:each="TvSeason : ${ListTvSeason2}">
+									<div class="movie-item">
+										<div class="mv-img">
+											<img th:src="${TvSeason.thumbnail}" alt="">
+										</div>
+										<div class="hvr-inner">
+											<a th:href="@{'/' + ${TvSeason.code}}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+										</div>
+										<div class="title-in">
+											<h6><a href="#" th:text="${TvSeason.title}">Interstellar</a></h6>
+											<p><i class="ion-android-star"></i><span th:text="${TvSeason.rate}">10</span> /10</p>
 										</div>
 									</div>
-			            		</div>
+								</div>
 			            	</div>
 			            </div>
 			        </div>
@@ -539,6 +535,7 @@
 <script th:src="@{/template/js/plugins.js}"></script>
 <script th:src="@{/template/js/plugins2.js}"></script>
 <script th:src="@{/template/js/custom.js}"></script>
+<th:block th:replace="web/fragments/header :: script"></th:block>
 </body>
 
 <!-- homev207:28-->

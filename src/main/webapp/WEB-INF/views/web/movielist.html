@@ -205,12 +205,9 @@
 <!-- end of footer section-->
 
 
-<script th:src="@{/template/js/jquery.js}"></script>
-<script th:src="@{/template/js/plugins.js}"></script>
-<script th:src="@{/template/js/plugins2.js}"></script>
-<script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
 <script th:src="@{/template/js/utils.js}"></script>
 <script th:src="@{/template/js/animation.js}"></script>
+<th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
 

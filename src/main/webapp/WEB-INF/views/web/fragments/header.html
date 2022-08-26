@@ -8,7 +8,7 @@
 
 <div th:fragment="sign-in-up" th:remove="tag">
     <!--login form popup-->
-    <div th:class="'overlay ' + (${message} ? 'openform':'')">
+    <div class="overlay" id="login-form">
     <div class="login-wrapper" id="login-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
@@ -52,8 +52,8 @@
     </div>
     <!--end of login form popup-->
     <!--signup form popup-->
-    <div class="overlay">
-    <div class="login-wrapper"  id="signup-content">
+    <div class="overlay" id="signup-form">
+    <div class="login-wrapper" id="signup-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
             <h3>sign up</h3>
@@ -229,5 +229,29 @@
         </div>
     </div>
 </header>
+<th:block th:replace="script">
+    <script th:src="@{/template/js/jquery.js}"></script>
+    <script th:src="@{/template/js/plugins.js}"></script>
+    <script th:src="@{/template/js/plugins2.js}"></script>
+    <script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
+    <script th:inline="javascript">
+        if([[${message}]]){
+            let message = [[${message}]];
+            let loginForm = document.getElementById('login-form');
+            let signupForm = document.getElementById('signup-form');
+            if(message.target == 'login'){
+                loginForm.classList.add('openform');
+            }else{
+                signupForm.classList.add('openform');
+            }
+            document.addEventListener('click', function hideForm(e){
+                if(e.target.classList.contains('overlay')){
+                    e.target.classList.remove('openform');
+                    document.removeEventListener('click', hideForm);
+                }
+            });
+        }
+    </script>
+</th:block>
 </body>
 </html>

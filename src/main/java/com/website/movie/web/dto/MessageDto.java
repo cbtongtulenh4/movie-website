@@ -13,6 +13,7 @@ public class MessageDto {
 
     private String type;
     private String content;
+    private String target;
 
     public MessageDto(){
 
@@ -22,4 +23,9 @@ public class MessageDto {
         this.content = content;
     }
 
+    public MessageDto(String type, String content, String target) {
+        this.type = type;
+        this.content = content;
+        this.target = target;
+    }
 }

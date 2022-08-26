@@ -24,7 +24,12 @@
   <component name="ChangeListManager">
     <list default="true" id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MessageDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/MessageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movielist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/js/utils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
