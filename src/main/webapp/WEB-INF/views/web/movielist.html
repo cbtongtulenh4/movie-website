@@ -206,7 +206,6 @@
 
 
 <script th:src="@{/template/js/utils.js}"></script>
-<script th:src="@{/template/js/animation.js}"></script>
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
@@ -219,7 +218,7 @@
     })
 
     async function getAPI(url, nextPage, maxPageItem) {
-    	startAnimation(20, "/MovieWebsite/template/img/animation/");
+    	startAnimation();
 		let requestForm = document.forms.formSubmit;
 		var formData = new FormData(requestForm);
 

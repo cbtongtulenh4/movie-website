@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit">Login</button>
+                    <button type="submit" onclick="startAnimation();">Login</button>
                 </div>
             </form>
             <div class="row">
@@ -58,34 +58,34 @@
             <a href="#" class="close">x</a>
             <h3>sign up</h3>
             <div th:replace="web/fragments/alert :: alert(${message})"></div>
-            <form method="post" th:action="@{/registration}" th:object="${user}">
+            <form method="post">
                 <div class="row">
                     <label for="username-2">
                         Username:
-                        <input type="text" th:name="username" id="username-2" placeholder="Hugh Jackman" required="required" />
+                        <input type="text" name="username" id="username-2" placeholder="Hugh Jackman" required="required" />
                     </label>
                 </div>
 
                 <div class="row">
                     <label for="email-2">
                         your email:
-                        <input type="text"  th:name="email" id="email-2" placeholder="cbtongtulenhxxx@gmail.com" required="required" />
+                        <input type="text"  name="email" id="email-2" placeholder="cbtongtulenhxxx@gmail.com" required="required" />
                     </label>
                 </div>
                 <div class="row">
                     <label for="password-2">
                         Password:
-                        <input type="password" th:name="password" id="password-2" placeholder="********" required="required" />
+                        <input type="password" name="password" id="password-2" placeholder="********" required="required" />
                     </label>
                 </div>
                 <div class="row">
                     <label for="repassword-2">
                         re-type Password:
-                        <input type="password" th:name="matchingPassword" id="repassword-2" placeholder="********" required="required" />
+                        <input type="password" name="matchingPassword" id="repassword-2" placeholder="********" required="required" />
                     </label>
                 </div>
                 <div class="row">
-                    <button type="submit">sign up</button>
+                    <button type="button" id="signup-submit">sign up</button>
                 </div>
             </form>
         </div>
@@ -233,13 +233,14 @@
     <script th:src="@{/template/js/jquery.js}"></script>
     <script th:src="@{/template/js/plugins.js}"></script>
     <script th:src="@{/template/js/plugins2.js}"></script>
+    <script th:src="@{/template/js/animation.js}"></script>
     <script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
     <script th:inline="javascript">
         if([[${message}]]){
             let message = [[${message}]];
             let loginForm = document.getElementById('login-form');
             let signupForm = document.getElementById('signup-form');
-            if(message.target == 'login'){
+            if(message.target == 'signup'){
                 loginForm.classList.add('openform');
             }else{
                 signupForm.classList.add('openform');
@@ -251,6 +252,35 @@
                 }
             });
         }
+        let signupBtn = document.getElementById('signup-submit');
+        signupBtn.addEventListener('click', function(){
+            registrationUserAccount();
+        });
+        async function registrationUserAccount(){
+            startAnimation();
+            let registerForm = document.querySelector('#signup-content form');
+            var formData = new FormData(registerForm);
+            var response = await fetch("/MovieWebsite/api/registration", {
+                method : 'POST',
+                body : JSON.stringify(Object.fromEntries(formData)),
+                headers : {
+                    'Accept' : 'application/json',
+                    'Content-Type' : 'application/json'
+                }
+            });
+            var message = await response.json();
+            registerForm.parentNode.insertBefore(createMessageBox(message.type, message.content), registerForm);
+            stopAnimation();
+        }
+
+        function createMessageBox(typeMsg, contentMsg){
+            let msgBox = document.createElement('div');
+            msgBox.classList = "alert alert-" + typeMsg;
+            msgBox.style = "text-align: center !important;";
+            msgBox.innerHTML = `<strong>`+ contentMsg +`</strong>`;
+            return msgBox;
+        }
+
     </script>
 </th:block>
 </body>

@@ -10,8 +10,10 @@ function createImg(totalImg, urlImg){
         container.appendChild(img);
     }
 }
-
-function startAnimation(totalImg, urlImg){
+// totalImg, urlImg
+function startAnimation(){
+    let totalImg = 20;
+    let urlImg = "/MovieWebsite/template/img/animation/";
     loadPage.style.display = "flex";
     const images = document.getElementById('an-box').children;
     var sum = images.length;

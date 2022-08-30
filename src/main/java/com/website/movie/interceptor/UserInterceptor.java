@@ -97,7 +97,7 @@ public class UserInterceptor implements HandlerInterceptor {
             final String message,
             final HttpServletRequest request,
             final HttpServletResponse response) {
-        boolean check = (myUser != null) ?
+            boolean check = (myUser != null) ?
                 ExpressionUrlAuthorization.hasPermission(auth, myUser, targetUrl) :
                 ExpressionUrlAuthorization.hasPermission(auth, targetUrl);
         try {

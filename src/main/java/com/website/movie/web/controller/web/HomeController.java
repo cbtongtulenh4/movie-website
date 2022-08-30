@@ -73,8 +73,6 @@ public class HomeController {
         });
         List<MovieGenresEntity> genres = otherMovieService.findAllGenreMovie();
 
-        MessageDto msg = new MessageDto(MessageConstants.DANGER, "Login Failure", "signup");
-        mav.addObject("message", msg);
         mav.addObject("SEASONS", seasons);
         mav.addObject("GENRES", genres);
         mav.addObject(

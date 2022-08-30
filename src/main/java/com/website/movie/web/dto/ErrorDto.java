@@ -14,7 +14,7 @@ public class ErrorDto implements Serializable {
      * @ModifiedBy:
      */
 
-    private static Long SerialVersionUID = 1L;
+    private static final Long SerialVersionUID = 1L;
 
     private int status;
     private String message;

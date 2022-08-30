@@ -2,8 +2,6 @@ import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Locale;
 
 public class test {
@@ -25,9 +23,9 @@ public class test {
 
     public static void main(String[] args) {
 
-        java.util.List<Integer> temp = Arrays.asList(4,6,4,2,8,6,1);
-        Collections.reverse(temp);
-        System.out.println(temp);
+//        java.util.List<Integer> temp = Arrays.asList(4,6,4,2,8,6,1);
+//        Collections.reverse(temp);
+//        System.out.println(temp);
 //
 //        Scanner inputScanner = new Scanner(System.in);
 //

@@ -9,7 +9,7 @@
 <!--    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>-->
 <!--    <span th:text="${message}">Test</span>-->
 <!--</div>-->
-<div th:fragment="alert(message)" th:if="${!#strings.isEmpty(message)}" th:class="'alert alert-' + ${message.type}" style="text-align: center !important;" >
+<div th:fragment="alert(message)" th:if="${message}" th:class="'alert alert-' + ${message.type}" style="text-align: center !important;">
     <strong th:text="${message.content}">Error</strong>
 </div>
 </body>

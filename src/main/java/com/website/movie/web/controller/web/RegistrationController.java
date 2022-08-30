@@ -2,7 +2,6 @@ package com.website.movie.web.controller.web;
 
 import com.website.movie.constant.MessageConstants;
 import com.website.movie.events.OnVerificationTokenCompleteEvent;
-import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
@@ -63,22 +62,22 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView registrationUserAccount(
-            @ModelAttribute("user") @Valid final UserDto userDto,
+    public @ResponseBody MessageDto registrationUserAccount(
+            @RequestBody @Valid final UserDto userDto,
             final BindingResult result,
             final HttpServletRequest request)
     {
         LOGGER.debug("Registering user account with information: {}", userDto);
 
         // check error valid
-        if(result.hasErrors()){
-            throw new InvalidDataException(result);
-//            throw new MethodArgumentNotValidException(new MethodParameter(
-//                    this.getClass().getDeclaredMethod("registrationUserAccount", UserDto.class), 0), result);
-        }
+//        if(result.hasErrors()){
+//            throw new InvalidDataException(result);
+////            throw new MethodArgumentNotValidException(new MethodParameter(
+////                    this.getClass().getDeclaredMethod("registrationUserAccount", UserDto.class), 0), result);
+//        }
 
-        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/");
-        ModelAndView mav = new ModelAndView(targetURL, "user", userDto);
+//        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/");
+//        ModelAndView mav = new ModelAndView(targetURL, "user", userDto);
         try {
             UserEntity registered = userService.registerNewUserAccount(userDto);
             final String appUrl = getAppUrl(request);
@@ -89,23 +88,24 @@ public class RegistrationController {
         }catch (final UserAlreadyExistException uaeEx){
             String message = messages.getMessage("message.regError", null, request.getLocale());
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
-            mav.addObject("message", msg);
-            return mav;
+//            mav.addObject("message", msg);
+//            return mav;
+            return msg;
         }catch (final Exception ex){
             LOGGER.warn("Unable to register user", ex);
             ex.printStackTrace();
             userService.deleteUserAccount(userDto.getEmail());
-            mav.addObject(
-                    "message",
-                    new MessageDto(MessageConstants.DANGER, "Unable to register user")
-            );
-            return mav;
+//            mav.addObject(
+//                    "message",
+//                    new MessageDto(MessageConstants.DANGER, "Unable to register user")
+//            );
+            return new MessageDto(MessageConstants.DANGER, "Unable to register user");
         }
         String message = messages.getMessage("message.checkEmail", null, request.getLocale());
         MessageDto msg = new MessageDto(MessageConstants.INFO, message);
-        mav.addObject("message", msg);
-        SessionUtil.getInstance().savePreviousPageByRequest(request);
-        return mav;
+//        mav.addObject("message", msg);
+//        SessionUtil.getInstance().savePreviousPageByRequest(request);
+        return msg;
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
