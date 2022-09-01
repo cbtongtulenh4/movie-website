@@ -2,8 +2,10 @@ package com.website.movie.web.api.web;
 
 import com.website.movie.constant.MessageConstants;
 import com.website.movie.events.OnVerificationTokenCompleteEvent;
+import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
+import com.website.movie.persistence.entity.VerificationTokenEntity;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
 import com.website.movie.web.dto.MailDto;
@@ -14,9 +16,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 import java.util.Locale;
 
 @RestController(value = "RegistrationAPI")
@@ -65,6 +69,70 @@ public class RegistrationRestController {
         MessageDto msg = new MessageDto(MessageConstants.INFO, message);
         return msg;
     }
+
+
+    @PostMapping(value = "/api/registrationConfirm")
+    public MessageDto ConfirmRegistration(
+            final HttpServletRequest request,
+            @RequestParam("token") final String token)
+    {
+        final Locale locale = request.getLocale();
+        final VerificationTokenEntity verificationToken = verificationTokenService.getVerificationToken(token);
+        if(verificationToken == null){
+            final String message = messages.getMessage("auth.message.invalidToken", null, locale);
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+            return msg;
+        }
+
+        final Calendar cal = Calendar.getInstance();
+        if(verificationToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0){
+            String message = messages.getMessage("auth.message.expired", null, locale);
+            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+//            mav.addObject("expired", true);
+//            mav.addObject("token", token);
+            return msg;
+        }
+        final UserEntity user = verificationToken.getUser();
+        user.setEnable(true);
+        userService.saveRegisteredUser(user);
+
+        verificationTokenService.deleteAllByUserId(user.getId());
+
+        MessageDto msg = new MessageDto(
+                MessageConstants.SUCCESS,
+                messages.getMessage("message.accountVerified", null, locale));
+        return msg;
+    }
+
+    @PostMapping(value = "/api/resendRegistrationToken")
+    public MessageDto resendRegistrationToken(
+            @RequestParam(value = "token") final String expiredToken,
+            final HttpServletRequest request)
+    {
+        VerificationTokenEntity vTokenEntity = verificationTokenService.findByToken(expiredToken);
+        UserEntity user = vTokenEntity.getUser();
+        final Locale locale = request.getLocale();
+        try {
+            MailDto mailDto = new MailDto( "registrationConfirm?", locale);
+            mailDto.constructResendMail();
+            eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(user, getAppUrl(request), mailDto));
+        }catch (final MailAuthenticationException ex){
+//            LOGGER.debug("MailAuthenticationException", ex);
+            return new MessageDto(
+                    MessageConstants.DANGER,
+                    messages.getMessage("message.emailError", null, "Can't Send Email", locale)
+            );
+        }catch (final Exception ex){
+//            LOGGER.debug(ex.getLocalizedMessage(), ex);
+            return new MessageDto(MessageConstants.DANGER, ex.getLocalizedMessage());
+        }
+        verificationTokenService.deleteVerificationTokenEntity(vTokenEntity);
+        return new MessageDto(
+                MessageConstants.INFO,
+                messages.getMessage("message.resendToken", null, "We will send an email with a new registration token to your email account", locale)
+        );
+    }
+
 
     private String getAppUrl(HttpServletRequest request){
         return "http://" + request.getServerName() +

@@ -85,9 +85,9 @@ public class LoginController {
             redirectAttributes.addFlashAttribute("message", msg);
             return getPreviousPageByRequest(request).orElse("redirect:/");
         }
-        final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
-        MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
-        redirectAttributes.addFlashAttribute("message", msg);
+//        final String message = messages.getMessage("message.user.loginSuccessful", null, request.getLocale());
+//        MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
+//        redirectAttributes.addFlashAttribute("message", msg);
         SessionUtil.getInstance().putValue(request,"USER_MODEL", myUser);// save info user for session
 //        redirectAttributes.addAttribute("USER_MODEL", myUser);
         return AuthorizationUserLogin(myUser.getAuthority(), request);

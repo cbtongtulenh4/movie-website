@@ -8,7 +8,7 @@
 
 <div th:fragment="sign-in-up" th:remove="tag">
     <!--login form popup-->
-    <div class="overlay" id="login-form">
+    <div class="overlay" id="login-section">
     <div class="login-wrapper" id="login-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
@@ -52,7 +52,7 @@
     </div>
     <!--end of login form popup-->
     <!--signup form popup-->
-    <div class="overlay" id="signup-form">
+    <div class="overlay" id="signup-section">
     <div class="login-wrapper" id="signup-content">
         <div class="login-content">
             <a href="#" class="close">x</a>
@@ -88,6 +88,13 @@
                     <button type="button" id="signup-submit">sign up</button>
                 </div>
             </form>
+            <div id="token-form" style="display: none;">
+                <label for="code-token" style="position: relative; top: 10px;">=> Enter code</label>
+                <input type="text" id="code-token" value="">
+                <div class="row" style="position: relative; top: 10px;">
+                    <button type="button">BACK</button>
+                </div>
+            </div>
         </div>
     </div>
     </div>
@@ -236,14 +243,14 @@
     <script th:src="@{/template/js/animation.js}"></script>
     <script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
     <script th:inline="javascript">
+        let loginSection = document.getElementById('login-section');
+        let signupSection = document.getElementById('signup-section');
         if([[${message}]]){
             let message = [[${message}]];
-            let loginForm = document.getElementById('login-form');
-            let signupForm = document.getElementById('signup-form');
             if(message.target == 'signup'){
-                loginForm.classList.add('openform');
+                loginSection.classList.add('openform');
             }else{
-                signupForm.classList.add('openform');
+                signupSection.classList.add('openform');
             }
             document.addEventListener('click', function hideForm(e){
                 if(e.target.classList.contains('overlay')){
@@ -260,7 +267,7 @@
             startAnimation();
             let registerForm = document.querySelector('#signup-content form');
             var formData = new FormData(registerForm);
-            var response = await fetch("/MovieWebsite/api/registration", {
+            let response = await fetch("/MovieWebsite/api/registration", {
                 method : 'POST',
                 body : JSON.stringify(Object.fromEntries(formData)),
                 headers : {
@@ -268,18 +275,51 @@
                     'Content-Type' : 'application/json'
                 }
             });
-            var message = await response.json();
-            registerForm.parentNode.insertBefore(createMessageBox(message.type, message.content), registerForm);
+            let message = await response.json();
+            await setSignMessageBox(registerForm, message.type, message.content);
+            if(message.type == 'info'){
+                registerForm.style.display = "none";
+                let tokenForm = document.getElementById('token-form');
+                tokenForm.style.display = "block";
+                tokenForm.querySelector('button').addEventListener('click', function(){
+                    tokenForm.style.display = "none";
+                    registerForm.style.display = "block";
+                });
+                document.addEventListener('keydown', async function(event) {
+					if(event.keyCode == 13){
+					    startAnimation();
+                        let codeToken = tokenForm.querySelector('#code-token');
+                        console.log(codeToken.value);
+                        let response = await fetch("/MovieWebsite/api/registrationConfirm?token=" + codeToken.value, {method : 'POST'});
+                        let message = await response.json();
+                        if(message.type == 'success'){
+                            await setSignMessageBox(loginSection.querySelector('form'), message.type, message.content);
+                        } else {
+                            await setSignMessageBox(SignupSection.querySelector('form'), message.type, message.content);
+                        }
+                        stopAnimation();
+					}
+				});
+            }
             stopAnimation();
         }
 
-        function createMessageBox(typeMsg, contentMsg){
-            let msgBox = document.createElement('div');
-            msgBox.classList = "alert alert-" + typeMsg;
-            msgBox.style = "text-align: center !important;";
-            msgBox.innerHTML = `<strong>`+ contentMsg +`</strong>`;
-            return msgBox;
+        function setSignMessageBox(afterTag, typeMsg, contentMsg){
+            let signMsg = document.getElementById('sign-msg');
+            if(signMsg == null) {
+                let msgBox = document.createElement('div');
+                msgBox.id = "sign-msg";
+                msgBox.classList = "alert alert-" + typeMsg;
+                msgBox.style = "text-align: center !important;";
+                msgBox.innerHTML = `<strong>`+ contentMsg +`</strong>`;
+                afterTag.parentNode.insertBefore(msgBox, afterTag);
+                return;
+            }
+            signMsg.classList = "alert alert-" + typeMsg;
+            signMsg.innerHTML = `<strong>`+ contentMsg +`</strong>`;
         }
+
+
 
     </script>
 </th:block>

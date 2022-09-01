@@ -63,10 +63,10 @@ public class VerificationTokenListener implements ApplicationListener<OnVerifica
         // email address of recipient
         final String recipientAddress = user.getProfile().getEmail();
         final String subject = event.getMailDto().getSubject();
-        final String confirmationUrl = event.getAppUrl() + "/" + event.getMailDto().getTarget() + "token=" + token;
+//        final String confirmationUrl = event.getAppUrl() + "/" + event.getMailDto().getTarget() + "token=" + token;
         final String content = EmailUtil.buildContentEmail(
                 user.getUsername(),
-                confirmationUrl,
+                token,
                 event.getMailDto().getMessage(),
                 event.getMailDto().getSubject()
         );

@@ -1,6 +1,8 @@
 package com.website.movie.service.impl;
 
 
+import com.website.movie.persistence.dao.IVerificationTokenDAO;
+import com.website.movie.persistence.dao.impl.VerificationTokenImpl;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
 import com.website.movie.persistence.repository.VerificationTokenRepository;
@@ -21,6 +23,8 @@ public class VerificationTokenService implements IVerificationTokenService {
 
     @Autowired
     VerificationTokenRepository vTokenRepository;
+
+    private final IVerificationTokenDAO verificationTokenDAO = new VerificationTokenImpl();
 
     @Override
     public VerificationTokenEntity getVerificationToken(String vToken) {
@@ -57,6 +61,26 @@ public class VerificationTokenService implements IVerificationTokenService {
     @Override
     public VerificationTokenEntity findByToken(String token) {
         return vTokenRepository.findByToken(token);
+    }
+
+    @Override
+    public VerificationTokenEntity saveVerificationTokenEntity(VerificationTokenEntity verificationToken) {
+        return vTokenRepository.save(verificationToken);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        vTokenRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteVerificationTokenEntity(VerificationTokenEntity verificationToken) {
+        vTokenRepository.delete(verificationToken);
+    }
+
+    @Override
+    public void deleteAllByUserId(long userId) {
+        verificationTokenDAO.deleteAllByUserId(userId);
     }
 
     private boolean isFoundToken(VerificationTokenEntity vTokenEntity){

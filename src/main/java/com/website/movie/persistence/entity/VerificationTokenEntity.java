@@ -1,5 +1,6 @@
 package com.website.movie.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.website.movie.utils.EmailUtil;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -26,12 +27,13 @@ public class VerificationTokenEntity {
 
     private String token;
 
-    @OneToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(
             nullable = false,
             name = "user_id",
             foreignKey = @ForeignKey(name = "FK_VERIFY_USER")
     )
+    @JsonIgnore
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private UserEntity user;
 

@@ -21,4 +21,12 @@ public interface IVerificationTokenService {
     String validateVerificationToken(VerificationTokenEntity vTokenEntity);
 
     VerificationTokenEntity findByToken(String token);
+
+    VerificationTokenEntity saveVerificationTokenEntity(VerificationTokenEntity verificationToken);
+
+    void deleteById(long id);
+
+    void deleteVerificationTokenEntity(VerificationTokenEntity verificationToken);
+
+    void deleteAllByUserId(long userId);
 }

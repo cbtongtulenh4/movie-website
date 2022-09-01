@@ -56,7 +56,9 @@ public class SessionUtil {
     }
 
     public String getPreviousPage(HttpServletRequest request){
-        return request.getSession().getAttribute("PreviousPage").toString();
+        Object rs = request.getSession().getAttribute("PreviousPage");
+        if (rs == null) return "redirect:/";
+        return rs.toString();
     }
 
 

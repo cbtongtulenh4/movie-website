@@ -109,30 +109,31 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
-    public String ConfirmRegistration(
+    public ModelAndView ConfirmRegistration(
             final HttpServletRequest request,
             final UserDto userDto,
             final Model model,
             @RequestParam("token") final String token)
     {
         final Locale locale = request.getLocale();
-        String targetURL = SessionUtil.getInstance().getPreviousPage(request);
+//        String targetURL = SessionUtil.getInstance().getPreviousPage(request);
+        ModelAndView mav = new ModelAndView("web/home");
         final VerificationTokenEntity verificationToken = verificationTokenService.getVerificationToken(token);
         if(verificationToken == null){
             final String message = messages.getMessage("auth.message.invalidToken", null, locale);
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
-            model.addAttribute("message", msg);
-            return targetURL;
+            mav.addObject("message", msg);
+            return mav;
         }
 
         final Calendar cal = Calendar.getInstance();
         if(verificationToken.getExpiryDate().getTime() - cal.getTime().getTime() <= 0){
             String message = messages.getMessage("auth.message.expired", null, locale);
             MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
-            model.addAttribute("message", msg);
-            model.addAttribute("expired", true);
-            model.addAttribute("token", token);
-            return targetURL;
+            mav.addObject("expired", true);
+            mav.addObject("token", token);
+            mav.addObject("message", msg);
+            return mav;
         }
 
         final UserEntity user = verificationToken.getUser();
@@ -141,8 +142,8 @@ public class RegistrationController {
         MessageDto msg = new MessageDto(
                 MessageConstants.DANGER,
                 messages.getMessage("message.accountVerified", null, locale));
-        model.addAttribute("message", msg);
-        return targetURL;
+        mav.addObject("message", msg);
+        return mav;
     }
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
