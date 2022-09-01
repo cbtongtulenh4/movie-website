@@ -36,7 +36,7 @@ public class UserInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception{
         final String targetUrl = getTargetUrl(request);
-        if (!targetUrl.contains("login")){ // check target url vs /login
+//        if (!targetUrl.contains("login")){ // check target url vs /login
             final RequestMatcherRegistry auth = getAuthorizationRegistry();
             final MyUserPrincipal user = InterceptorUtil.getUserLogin(request);
             if(InterceptorUtil.isUserLogged(request)){
@@ -44,8 +44,8 @@ public class UserInterceptor implements HandlerInterceptor {
             }else{
                 return checkPermission(auth, user, targetUrl, "NotLogin", request, response);
             }
-        }
-        return true;
+//        }
+//        return true;
     }
 
     @Override

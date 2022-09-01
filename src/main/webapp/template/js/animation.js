@@ -33,4 +33,11 @@ function startAnimation(){
 function stopAnimation(){
     loadPage.style.display = "none";
     if(refreshIntervalId != null) clearInterval(refreshIntervalId);
+    let images = document.getElementById('an-box').children;
+    images.forEach(img => {
+        if(img.getAttribute('class') == "block"){
+            img.className = "none";
+            break;
+        }
+    });
 }

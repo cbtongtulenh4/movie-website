@@ -23,32 +23,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/IVerificationTokenDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/VerificationTokenImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/events/listener/VerificationTokenListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/events/listener/VerificationTokenListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/AbstractDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/AbstractDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/VerificationTokenEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/VerificationTokenEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/VerificationTokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/repository/VerificationTokenRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IVerificationTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/IVerificationTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/VerificationTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/VerificationTokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/EmailUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/EmailUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/SessionUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/utils/SessionUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/interceptor/UserInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/interceptor/UserInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/web/RegistrationRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/web/RegistrationRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error/errorPage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/error/errorPage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/events/listener/VerificationTokenListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/events/listener/VerificationTokenListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/VerificationTokenEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/entity/VerificationTokenEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/VerificationTokenRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/persistence/repository/VerificationTokenRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/IVerificationTokenService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/IVerificationTokenService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/VerificationTokenService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/VerificationTokenService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/utils/EmailUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/utils/EmailUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/utils/SessionUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/utils/SessionUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/js/animation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/js/animation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/web/RegistrationRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/api/web/RegistrationRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/RegistrationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/controller/web/RegistrationController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,6 +216,21 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/ScrapingService.java</url>
           <line>281</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/security/MyUserPrincipal.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/website/movie/web/controller/web/LoginController.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

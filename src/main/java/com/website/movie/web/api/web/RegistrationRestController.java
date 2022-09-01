@@ -97,7 +97,6 @@ public class RegistrationRestController {
         userService.saveRegisteredUser(user);
 
         verificationTokenService.deleteAllByUserId(user.getId());
-
         MessageDto msg = new MessageDto(
                 MessageConstants.SUCCESS,
                 messages.getMessage("message.accountVerified", null, locale));
