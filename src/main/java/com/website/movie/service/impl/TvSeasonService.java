@@ -125,7 +125,7 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     @Override
-    public TVSeasonUiDto getSeasonMovieByCode(String code, Long user_id) {
+    public TVSeasonUiDto getSeasonMovieByCode(String code, long user_id) {
         TVSeasonEntity tvSeason = tvSeasonRepository.findOneByCode(code);
         boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
         tvSeason.getGenres().size();

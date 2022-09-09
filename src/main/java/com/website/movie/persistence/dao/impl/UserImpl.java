@@ -33,7 +33,7 @@ public class UserImpl extends AbstractDAO<UserEntity> implements IUserDAO {
         return count(sql, user_id, tvSeason_id) != 0;
     }
 
-    private long insertSimpleTable(final String tableName, final long user_id, final long tvSeason_id){
+    private Long insertSimpleTable(final String tableName, final long user_id, final long tvSeason_id){
         String sql = "INSERT INTO " + tableName + " VALUES(?, ?)";
         return insert(sql, user_id, tvSeason_id);
     }

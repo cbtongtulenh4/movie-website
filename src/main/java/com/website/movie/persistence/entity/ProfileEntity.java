@@ -1,16 +1,13 @@
 package com.website.movie.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "profile")
-@Setter
-@Getter
+@Data
 public class ProfileEntity extends BaseEntity{
     /**
      * @Project: MovieWebsite
@@ -25,6 +22,6 @@ public class ProfileEntity extends BaseEntity{
     private String gender;
     private String country;
     private String state;
-    private String avatar;
+    private String avatar = "1TW5hzygr4wl4jJDL0qVOVuVnX1KKuSww";
 
 }

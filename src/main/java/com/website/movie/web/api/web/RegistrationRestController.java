@@ -6,20 +6,26 @@ import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.persistence.entity.VerificationTokenEntity;
+import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IUserService;
 import com.website.movie.service.IVerificationTokenService;
+import com.website.movie.utils.MessageUtil;
+import com.website.movie.utils.SessionUtil;
+import com.website.movie.web.dto.ChangePasswordDto;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -71,7 +77,7 @@ public class RegistrationRestController {
     }
 
 
-    @PostMapping(value = "/api/registrationConfirm")
+    @PostMapping(value = "/api/registration/confirm")
     public MessageDto ConfirmRegistration(
             final HttpServletRequest request,
             @RequestParam("token") final String token)
@@ -103,7 +109,7 @@ public class RegistrationRestController {
         return msg;
     }
 
-    @PostMapping(value = "/api/resendRegistrationToken")
+    @PostMapping(value = "/api/registration/resendToken")
     public MessageDto resendRegistrationToken(
             @RequestParam(value = "token") final String expiredToken,
             final HttpServletRequest request)
@@ -129,6 +135,42 @@ public class RegistrationRestController {
         return new MessageDto(
                 MessageConstants.INFO,
                 messages.getMessage("message.resendToken", null, "We will send an email with a new registration token to your email account", locale)
+        );
+    }
+
+    @PostMapping(value="/api/registration/changePassword")
+    public MessageDto changePassword(
+            @RequestBody @Valid ChangePasswordDto changePassword,
+            final BindingResult result,
+            HttpServletRequest request
+    ){
+//        LOGGER.info("Change Password");
+        if (result.hasErrors()){
+            return new MessageDto(
+                    MessageConstants.WARNING,
+                    result.getAllErrors().get(0).getDefaultMessage()
+            );
+        }
+        MyUserPrincipal myUser = (MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL");
+        if (!userService.validChangePassword(changePassword.getPassRaw(), myUser.getPassword())){
+            return new MessageDto(
+                    MessageConstants.WARNING,
+                    MessageUtil.getMessage("message.changePassword.invalidRaw")
+            );
+        }
+        try {
+            myUser.setUser(userService.changeUserPassword(myUser.getUser(), changePassword.getPassNew()));
+            SessionUtil.getInstance().putValue(request, "USER_MODEL", myUser);
+        }catch (Exception ex){
+            return new MessageDto(
+                    MessageConstants.DANGER,
+                    MessageUtil.getMessage("message.changePassword.Failure")
+            );
+        }
+
+        return new MessageDto(
+                MessageConstants.SUCCESS,
+                MessageUtil.getMessage("message.changePassword.Suc")
         );
     }
 

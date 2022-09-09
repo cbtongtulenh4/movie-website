@@ -104,7 +104,7 @@ public class TVSeasonEntity extends BaseEntity{
             cascade = CascadeType.ALL, fetch = FetchType.LAZY
     )
     @EqualsAndHashCode.Exclude @ToString.Exclude
-//    @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
+    @JoinColumn(name = "cm_season_id", referencedColumnName = "id")
     private Set<CommentEntity> comments = new HashSet<>();
 
     @ManyToMany(cascade = {

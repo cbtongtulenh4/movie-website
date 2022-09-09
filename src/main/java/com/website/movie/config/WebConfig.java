@@ -9,7 +9,6 @@ import com.google.api.services.drive.Drive;
 import com.website.movie.events.custom.EventListener;
 import com.website.movie.events.custom.EventMultiCaster;
 import com.website.movie.events.custom.SimpleEventMultiCaster;
-import com.website.movie.interceptor.SessionTimerInterceptor;
 import com.website.movie.interceptor.UserInterceptor;
 import com.website.movie.security.custom.RequestMatcherRegistry;
 import com.website.movie.utils.EmailUtil;
@@ -167,7 +166,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 
     @Override
     public void addInterceptors(final InterceptorRegistry registry){
-        registry.addInterceptor(new SessionTimerInterceptor());
+//        registry.addInterceptor(new SessionTimerInterceptor());
         registry.addInterceptor(new UserInterceptor());
     }
 

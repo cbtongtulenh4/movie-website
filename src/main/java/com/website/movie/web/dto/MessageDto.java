@@ -28,4 +28,8 @@ public class MessageDto {
         this.content = content;
         this.target = target;
     }
+
+    public String toStringJson(){
+        return "{\"type\" : \""+ type +"\", \"content\" : \""+ content +"\", \"target\" : \""+ target +"\"}";
+    }
 }

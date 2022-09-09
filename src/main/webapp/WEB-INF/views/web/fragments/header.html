@@ -14,18 +14,18 @@
             <a href="#" class="close">x</a>
             <h3>Login</h3>
             <div th:replace="web/fragments/alert :: alert(${message})"></div>
-            <form method="post" th:action="@{/handleLogin}" th:object="${userLogin}">
+            <form method="post">
                 <div class="row">
                     <label for="username">
                         Username:
-                        <input type="text" th:name="username" id="username" placeholder="Hugh Jackman" required="required" />
+                        <input type="text" name="username" id="username" placeholder="Hugh Jackman" required="required" />
                     </label>
                 </div>
 
                 <div class="row">
                     <label for="password">
                         Password:
-                        <input type="password" th:name="password" id="password" placeholder="******" required="required" />
+                        <input type="password" name="password" id="password" placeholder="******" required="required" />
                     </label>
                 </div>
                 <div class="row">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit" onclick="startAnimation();">Login</button>
+                    <button type="button" onclick="handleLogin();">Login</button>
                 </div>
             </form>
             <div class="row">
@@ -101,6 +101,70 @@
     <!--end of signup form popup-->
 </div>
 
+<!-- cart section -->
+<div class="overlay" th:fragment="cart-handle">
+    <div id="cart-box">
+        <h3>Movie Pay</h3>
+        <ul class="line-items">
+            <li>
+				<span style="display: flex; align-items: center;">
+					<input type="checkbox" checked onchange="countLineItem();" data-price="5" value="1" style="margin-right: 10px;">
+					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+				</span>
+                <span>One Pices</span>
+                <span>1</span>
+                <span>$7.5</span>
+            </li>
+            <li>
+				<span style="display: flex; align-items: center;">
+					<input type="checkbox" checked onchange="countLineItem();" data-price="5" value="1" style="margin-right: 10px;">
+					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+				</span>
+                <span>One Pices</span>
+                <span>1</span>
+                <span>$7.5</span>
+            </li>
+            <li>
+				<span style="display: flex; align-items: center;">
+					<input type="checkbox" checked onchange="countLineItem();" data-price="9" value="1" style="margin-right: 10px;">
+					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+				</span>
+                <span>One Pices</span>
+                <span>1</span>
+                <span>$7.5</span>
+            </li>
+            <li>
+				<span style="display: flex; align-items: center;">
+					<input type="checkbox" checked onchange="countLineItem();" data-price="5.8" value="1" style="margin-right: 10px;">
+					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+				</span>
+                <span>One Pices</span>
+                <span>1</span>
+                <span>$7.5</span>
+            </li>
+            <li>
+				<span style="display: flex; align-items: center;">
+					<input type="checkbox" checked onchange="countLineItem();" data-price="7" value="1" style="margin-right: 10px;">
+					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+				</span>
+                <span>One Pices</span>
+                <span>1</span>
+                <span>$7.5</span>
+            </li>
+        </ul>
+        <div class="checkout-section">
+            <hr>
+            <div class="total-content">
+                <div class="sub-total">
+                    <h4>5<span> MOVIE</span></h4>
+                    <h4 class="total">$100</h4>
+                </div>
+                <button class="checkout-btn">Checkout</button>
+            </div>
+        </div>
+    </div>
+<!-- end cart section -->
+</div>
 
 <header class="ht-header" th:fragment="header">
     <div class="container">
@@ -196,17 +260,18 @@
                     </li>
                     <li><a href="#">Help</a></li>
                     <div th:if="${session.USER_MODEL}" th:remove="tag">
+                        <li><div class="cart-btn" onclick="cartHandle();"><img th:src="@{/template/img/uploads/cart.png}" alt=""></div></li>
                         <li>
                             <div class="account" id="ic-account">
                                 <div class="profile" id="sm-profile" onclick="smallProfile();">
-                                    <img th:src="@{/template/img/uploads/girl.jpg}" alt="">
+                                    <img th:src="'https://drive.google.com/uc?export=view&id=' + ${session.USER_MODEL.user.profile.avatar}" alt="">
                                 </div>
                                 <div class="menu hide">
                                     <h3 th:text="${session.USER_MODEL.user.username}">XXX</h3>
                                     <ul>
                                         <li>
                                             <i class="fa fa-user" aria-hidden="true"></i>
-                                            <a href="#">My Profile</a>
+                                            <a th:href="@{/userprofile}">My Profile</a>
                                         </li>
                                         <li>
                                             <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -265,7 +330,7 @@
         });
         async function registrationUserAccount(){
             startAnimation();
-            let registerForm = document.querySelector('#signup-content form');
+            let registerForm = signupSection.querySelector('form');
             var formData = new FormData(registerForm);
             let response = await fetch("/MovieWebsite/api/registration", {
                 method : 'POST',
@@ -307,9 +372,30 @@
             stopAnimation();
         }
 
+        async function handleLogin(){
+            startAnimation();
+            let loginForm = loginSection.querySelector('form');
+            let formData = new FormData(loginForm);
+            let response = await fetch("/MovieWebsite/api/handleLogin",{
+                method : 'POST',
+                body : JSON.stringify(Object.fromEntries(formData)),
+                headers : {
+                    'Accept' : 'application/json',
+                    'Content-Type' : 'application/json'
+                }
+            });
+            let data = await response.text();
+            if(data.includes("/")){
+				window.location.href = data;
+			}
+            let message = JSON.parse(data);
+            setSignMessageBox(loginForm, message.type, message.content);
+            stopAnimation();
+        }
+
         function setSignMessageBox(afterTag, typeMsg, contentMsg){
             let signContent = afterTag.parentNode;
-            let signMsg = signContent.querySelector('alert');
+            let signMsg = signContent.querySelector('.alert');
             if(signMsg == null) {
                 let msgBox = document.createElement('div');
                 msgBox.classList = "alert alert-" + typeMsg;
@@ -323,7 +409,49 @@
         }
 
 
+    function countLineItem(){
+		let cartBox = document.getElementById('cart-box');
+		cartBox.contains
+		let items = cartBox.querySelectorAll('ul li input[type=checkbox]:checked');
+		let subTotal = cartBox.querySelector('.checkout-section .sub-total')
+		subTotal.querySelector('h4').innerHTML
+			= items.length + `<span> `+ ((items.length > 1) ? 'MOVIES' : 'MOVIE') + `</span>`;
 
+		let priceTotal = 0;
+		items.forEach(el =>{
+			priceTotal += Number(el.dataset.price);
+		})
+		subTotal.querySelector('.total').textContent = "$" + priceTotal;
+	}
+
+	function cartHandle() {
+		let cartBox = document.getElementById('cart-box');
+		let cartWrap = cartBox.parentNode;
+		cartWrap.classList.add("openform");
+		countLineItem();
+		document.addEventListener('click', function(e) {
+            let target = e.target;
+            if(target.classList.contains('overlay')){
+                target.classList = "overlay";
+            }
+		})
+	}
+
+    function addToCart(movie){
+		let cart = document.getElementById('cart-box');
+		let item = document.createElement('li');
+		item.innerHTML = `
+			<span style="display: flex; align-items: center;">
+				<input type="checkbox" checked onchange="countLineItem();" data-price="`+ movie.cost +`" value="`+ movie.id +`" style="margin-right: 10px;">
+				<img src="`+ movie.thumbnail +`" alt="">
+			</span>
+			<span>`+ movie.title +`</span>
+			<span>1</span>
+			<span>$`+ movie.cost +`</span>
+		`;
+		cart.querySelector('.line-items').appendChild(item);
+
+	}
     </script>
 </th:block>
 </body>

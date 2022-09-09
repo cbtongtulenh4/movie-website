@@ -8,7 +8,6 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html xmlns:th="http://www.thymeleaf.org" lang="en" class="no-js">
 
-<!-- celebritysingle12:04-->
 <head>
     <!-- Basic need -->
     <title>Open Pediatrics</title>
@@ -30,12 +29,19 @@
     <link rel="stylesheet" th:href="@{/template/css/main.css}">
     <link rel="stylesheet" th:href="@{/template/css/video.css}">
     <link rel="stylesheet" th:href="@{/template/css/watch.css}">
+    <link rel="stylesheet" th:href="@{/template/css/update.css}">
+    <link rel="stylesheet" th:href="@{/template/css/loading.css}">
+    <script th:src="@{/template/js/update.js}"></script>
 
 </head>
 <body>
 <!--preloading-->
 <div th:replace="web/fragments/loader :: preloader"></div>
 <!--end of preloading-->
+
+<!-- loading page -->
+<div th:replace="web/fragments/loader :: loading-page"></div>
+<!-- end of loading page -->
 
 <!-- sig in - up -->
 <div th:replace="web/fragments/header :: sign-in-up"></div>
@@ -248,13 +254,11 @@
 <div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
 
-<script th:src="@{/template/js/jquery.js}"></script>
-<script th:src="@{/template/js/plugins.js}"></script>
-<script th:src="@{/template/js/plugins2.js}"></script>
-<script th:src="@{/template/js/custom.js}"></script>
+<th:block th:replace="web/fragments/header :: script"></th:block>
 <script th:src="@{/template/js/video.js}"></script>
 <script th:src="@{/template/js/watch.js}"></script>
 <script th:src="@{/template/js/utils.js}"></script>
+
 <script th:inline="javascript">
 
     var boxCM = document.getElementById('comment-list');
@@ -291,8 +295,9 @@
             </div>
         `;
     }
-
-    loadComments(boxCM, comments);
+    if(comments != null){
+        loadComments(boxCM, comments);
+    }
 
     function loadComments(boxCM, comments) {
         let text="";
@@ -357,7 +362,7 @@
 		cm_post_rp = document.createElement('div');
 		cm_post_rp.classList = "post-comment";
 		var text_post = `
-			<img src="https://drive.google.com/uc?export=view&id=`+ [[session.USER_MODEL.user.profile.avatar]] +`" alt="">
+			<img src="https://drive.google.com/uc?export=view&id=`+ [[${session.USER_MODEL.user.profile.avatar}]] +`" alt="">
 			<div class="content-post" id="content-post-cm">
 				<textarea name="" cols="30" rows="10">Enter something</textarea>
 				<div class="cm-post-btn">
@@ -386,23 +391,21 @@
 			}
 		});
 		var data = await response.json();
-        console.log(data);
         return data;
 	}
 
-	function postComment(postEl, parentId){
+	async function postComment(postEl, parentId){
 	    var content_cm = postEl.querySelector('textarea').value;
 	    const object = {
-	        name : "userName",
+	        name : [[${session.USER_MODEL.user.username}]],
 	        content : content_cm,
-	        pathImg : "/girl1.jpg",
-	        ep : [[${EPISODE.id}]]
+	        pathImg : [[${session.USER_MODEL.user.profile.avatar}]],
+	        ep : [[${EPISODE.numEp}]]
 	    };
-	    var data = fetchAPI("/MovieWebsite/api/movie/season/comment?" + new URLSearchParams({
+	    let data = await fetchAPI("/MovieWebsite/api/movie/season/comment?" + new URLSearchParams({
 	        tvSeasonId : [[${WATCH_MODEL.id}]],
 	        parentId : parentId,
 	    }), object, "POST");
-	    console.log(data);
 	    var li = document.createElement('li');// li element for comment reply
 		var textHTML = commentHTML(data);
 		li.classList = "comment-main";
@@ -411,9 +414,9 @@
 	}
 
 // this method execute comment parent id = 0;
-	post.addEventListener('click', function() {
+	post.addEventListener('click', async function() {
 	    var postEl =  document.getElementById('content-post-cm');
-		var li = postComment(postEl, 0);
+		var li = await postComment(postEl, 0);
 		comment_list.prepend(li); // insert first child into element
 		// comment_list.insertBefore(li, comment_list.firstChild); - this is other way
 	})

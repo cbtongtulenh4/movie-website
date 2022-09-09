@@ -28,35 +28,39 @@
 	<link rel="stylesheet" th:href="@{/template/css/plugins.css}">
 	<link rel="stylesheet" th:href="@{/template/css/main.css}">
 	<link rel="stylesheet" th:href="@{/template/css/update.css}">
+	<link rel="stylesheet" th:href="@{/template/css/loading.css}">
 	<link rel="stylesheet" th:href="@{/template/css/changeAvatar.css}">
 </head>
 <body>
 <!--preloading-->
 <div th:replace="web/fragments/loader :: preloader"></div>
 <!--end of preloading-->
-
+<!-- loading page -->
+<div th:replace="web/fragments/loader :: loading-page"></div>
+<!-- end of loading page -->
 <!-- sig in - up -->
 <div th:replace="web/fragments/header :: sign-in-up"></div>
 <!-- end sig in-up -->
 
 <!-- change avatar form -->
-<div class="login-wrapper openform">
-	<div class="cf-avatar" id="cf-avatar-ct">
-		<div class="box-header">
-			<h3 class="box-title">Preview your new profile picture</h3>
-		</div>
-		<div class="avatar-crop-form">
-			<div class="box-body">
-				<img src="https://drive.google.com/file/d/1-294doQQIj-2qd5b5aGpJPPPVAhq4VZM/view" alt="">
+<div class="overlay">
+	<div class="login-wrapper openform">
+		<div class="cf-avatar" id="cf-avatar-ct">
+			<div class="box-header">
+				<h3 class="box-title">Preview your new profile picture</h3>
 			</div>
-			<div class="box-footer">
-				<button class="fetch-primary" onclick="caFetch();">Set new profile picture</button>
+			<div class="avatar-crop-form">
+				<div class="box-body">
+					<img src="https://drive.google.com/file/d/1-294doQQIj-2qd5b5aGpJPPPVAhq4VZM/view" alt="">
+				</div>
+				<div class="box-footer">
+					<button class="fetch-primary" onclick="caFetch();">Set new profile picture</button>
+				</div>
 			</div>
+			<button class="close-box"><i class="fa fa-times" aria-hidden="true"></i></button>
 		</div>
-		<button class="close-box"><i class="fa fa-times" aria-hidden="true"></i></button>
 	</div>
 </div>
-
 <!-- end change avatar form -->
 
 
@@ -71,7 +75,7 @@
 				<div class="hero-ct">
 					<h1>Edward kennedy’s profile</h1>
 					<ul class="breadcumb">
-						<li class="active"><a href="#">Home</a></li>
+						<li class="active"><a th:href="@{/home}">Home</a></li>
 						<li> <span class="ion-ios-arrow-right"></span>Profile</li>
 					</ul>
 				</div>
@@ -95,56 +99,56 @@
 					<div class="user-fav">
 						<p>Account Details</p>
 						<ul>
-							<li  class="active"><a href="userprofile.html">Profile</a></li>
-							<li><a href="userfavoritelist.html">Favorite movies</a></li>
-							<li><a href="userrate.html">Rated movies</a></li>
+							<li  class="active"><a th:href="@{/userprofile}">Profile</a></li>
+							<li><a th:href="@{/userfavoritelist}">Favorite movies</a></li>
+							<li><a th:href="@{/userrate}">Rated movies</a></li>
 						</ul>
 					</div>
 					<div class="user-fav">
 						<p>Others</p>
 						<ul>
 							<li><a href="#">Change password</a></li>
-							<li><a href="#">Log out</a></li>
+							<li><a th:href="@{/logout}">Log out</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-9 col-sm-12 col-xs-12">
-				<div class="form-style-1 user-pro" action="#">
-					<form th:action="@{/api/user}" class="user" method="PUT" modelAttribute="userProfile">
+				<div class="form-style-1 user-pro">
+					<form class="user" id="changeProfile">
 						<h4>01. Profile details</h4>
-						<input type="hidden" path="id" th:value="${USER_PROFILE.id}">
+						<input type="hidden" name="id" th:value="${USER_PROFILE.id}">
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Username</label>
-								<input type="text" path="name" th:value="${USER_PROFILE.username}" placeholder="edwardkennedy">
+								<input type="text" name="username" th:value="${USER_PROFILE.username}" placeholder="cbtongtulenh4">
 							</div>
 							<div class="col-md-6 form-it">
 								<label>Email Address</label>
-								<input type="text" path="email" th:value="${USER_PROFILE.email}" placeholder="edward@kennedy.com">
+								<input type="text" name="email" th:value="${USER_PROFILE.email}" placeholder="cbtongtulenh4@gmail.com">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
-								<label>First Name</label>
-								<input type="text" path="firstName" placeholder="Edward ">
+								<label>Age</label>
+								<input type="text" name="age" th:value="${USER_PROFILE.age}" placeholder="18+">
 							</div>
 							<div class="col-md-6 form-it">
-								<label>Last Name</label>
-								<input type="text" path="lastName" placeholder="Kennedy">
+								<label>Gender</label>
+								<input type="text" name="gender" th:value="${USER_PROFILE.gender}" placeholder="Female">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-it">
 								<label>Country</label>
-								<select path="country" th:field="${USER_PROFILE.country}">
+								<select name="country" th:field="${USER_PROFILE.country}">
 								  <option th:value="NewYork">NewYork</option>
 								  <option th:value="saab">Others</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-it">
 								<label>State</label>
-								<select path="state" th:field="${USER_PROFILE.state}">
+								<select name="state" th:field="${USER_PROFILE.state}">
 								  <option th:value="Free">Free</option>
 								  <option th:value="saab">Others</option>
 								</select>
@@ -152,11 +156,11 @@
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<input class="submit" type="submit" value="save">
+								<input class="submit" type="button" onclick="changeProfileHandle();" value="save">
 							</div>
 						</div>	
 					</form>
-					<form action="" id="changePassForm" class="password">
+					<form id="changePassForm" class="password">
 						<h4>02. Change password</h4>
 						<div class="row">
 							<div class="col-md-6 form-it">
@@ -178,7 +182,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-2">
-								<input class="submit" id="changePass-btn" type="button" value="change">
+								<input class="submit" onclick="changePasswordHandle();" type="button" value="change">
 							</div>
 						</div>	
 					</form>
@@ -191,14 +195,14 @@
 <div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
 
-<script th:src="@{/template/js/jquery.js}"></script>
-<script th:src="@{/template/js/plugins.js}"></script>
-<script th:src="@{/template/js/plugins2.js}"></script>
-<script th:src="@{/template/js/custom.js}"></script>
-<script th:src="@{/template/js/profile.js}"></script>
 
+
+<th:block th:replace="web/fragments/header :: script"></th:block>
+<script th:src="@{/template/js/profile.js}"></script>
+<script th:src="@{/template/js/utils.js}"></script>
 <script th:inline="javascript">
 	async function caFetch(e) { // change Avatar fetch
+		startAnimation();
 		let fileFetch = document.getElementById('upload-button').files[0];
 		let avatarCt = document.getElementById('avatar-user');
 		let avatarIdOld = [[${USER_PROFILE.avatar}]];
@@ -211,35 +215,49 @@
 		})
 		var avatarIdNew = await response.text();
 		avatarCt.setAttribute('src', "https://drive.google.com/uc?export=view&id=" + avatarIdNew);
+		document.querySelector('#sm-profile img').setAttribute('src', "https://drive.google.com/uc?export=view&id=" + avatarIdNew);
+		stopAnimation();
 	}
 
-	let changePassBtn = document.getElementById('changePass-btn');
-	changePassBtn.addEventListener('click', async function(){
+	async function changeProfileHandle(){
+		startAnimation();
+		let profileForm = document.getElementById('changeProfile');
+		let formData = new FormData(profileForm);
+		formData.append("avatar", [[${USER_PROFILE.avatar}]]);
+		var response = await fetch("/MovieWebsite/api/user", {
+			method : 'PUT',
+			body : JSON.stringify(Object.fromEntries(formData)),
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			}
+		});
+		let message = await response.json();
+		alert(message.content);
+		stopAnimation();
+	}
+
+	async function changePasswordHandle(){
+		startAnimation();
 		let changePassForm = document.getElementById('changePassForm');
 		let requestForm = document.forms.changePassForm;
 		let changePassData = new FormData(requestForm);
-		console.log(changePassData.get('passNew'));
 
-		let test = {
-			'passRaw' : '123456',
-			'passNew' : '1234',
-			'passConfirm' : '1234'
-		}
-		var request = await fetch("/MovieWebsite/changePassword", {
+		var request = await fetch("/MovieWebsite/api/registration/changePassword", {
 			method : 'POST',
-			body : JSON.stringify(test),
+			body : JSON.stringify(Object.fromEntries(changePassData)),
 			headers : {
 			    'Accept': 'application/json',
 				'Content-Type' : 'application/json'
 			}
 		}).then(response => {
-			var messageDto = response.json();
+			let messageDto = response.json();
 			alert(messageDto.content);
 		}).catch(error => {
 			alert(error);
 		});
-	});
-
+		stopAnimation();
+	}
 </script>
 
 </body>

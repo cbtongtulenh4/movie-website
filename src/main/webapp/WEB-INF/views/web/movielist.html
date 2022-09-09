@@ -50,6 +50,8 @@
 <div th:replace="web/fragments/header :: sign-in-up"></div>
 <!-- end sig in-up -->
 
+<div th:replace="web/fragments/header :: cart-handle"></div>
+
 <!-- BEGIN | Header -->
 <div th:replace="web/fragments/header :: header"></div>
 <!-- END | Header -->
@@ -218,7 +220,7 @@
     })
 
     async function getAPI(url, nextPage, maxPageItem) {
-    	startAnimation();
+    	//startAnimation();
 		let requestForm = document.forms.formSubmit;
 		var formData = new FormData(requestForm);
 
@@ -274,6 +276,4 @@
 	customPagination(currentPage, 2, maxPage);
 </script>
 </body>
-
-<!-- movielist07:38-->
 </html>

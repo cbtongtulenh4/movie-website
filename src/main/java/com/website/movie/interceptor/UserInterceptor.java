@@ -74,7 +74,8 @@ public class UserInterceptor implements HandlerInterceptor {
 //            return null;
 //        }
         RequestMatcherRegistry registry = new RequestMatcherRegistry();
-        registry.antMatchers("/admin").access("ADMIN");
+        registry.antMatchers("/admin").access("ADMIN")
+                .and().antMatchers("/profile").access("USER");
 //                .and().antMatchers("/home").access("USER", "ADMIN");
 //                .and().antMatchers("/userprofile").access("*");
         return registry;

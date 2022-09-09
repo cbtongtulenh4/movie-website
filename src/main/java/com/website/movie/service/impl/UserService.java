@@ -8,6 +8,7 @@ import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.helper.converter.UserConvert;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.helper.error.UserNotFoundException;
+import com.website.movie.persistence.dao.IProfileDAO;
 import com.website.movie.persistence.dao.IUserDAO;
 import com.website.movie.persistence.dao.impl.UserImpl;
 import com.website.movie.persistence.entity.ProfileEntity;
@@ -53,6 +54,9 @@ public class UserService implements IUserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    IProfileDAO profileDAO;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Override
@@ -90,6 +94,16 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void saveUserProfileDto(UserProfileDto userProfileDto) {
+
+    }
+
+    @Override
+    public void saveAvatarProfileCustom(long id, String avatar) {
+        profileDAO.saveAvatarById(id, avatar);
+    }
+
+    @Override
     public UserEntity findByUsername(String username) {
         return userRepository.findOneByUsername(username);
     }
@@ -99,6 +113,11 @@ public class UserService implements IUserService {
         UserEntity userEntity = userRepository.findById(id).orElse(null);
         assert userEntity != null;
         return Convert.convertModel(userEntity.getProfile(), UserProfileDto.class);
+    }
+
+    @Override
+    public UserEntity findUserEntityById(Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -128,6 +147,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void saveAllPaidSeasonMovie(long user_id, long[] tvSeason_ids) {
+        for (long tvSeason_id : tvSeason_ids) {
+            userDAO.savePaidSeasonMovie(user_id, tvSeason_id);
+        }
+    }
+
+    @Override
     public List<SimpleTvSeasonDto> getAllPaidSeasonMovie(Long userId) {
         UserEntity userEntity = userRepository.findById(userId).orElse(null);
         assert userEntity != null;
@@ -148,6 +174,7 @@ public class UserService implements IUserService {
             throw new UserNotFoundException("No user found with username:" + userLogin.getUsername());
         }
         user.getRoles().size();
+        user.getProfile();
         MyUserPrincipal myUser = null;
         if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
              myUser = new MyUserPrincipal(user);

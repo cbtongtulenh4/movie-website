@@ -1,10 +1,12 @@
 package com.website.movie.web.controller.web;
 
 import com.website.movie.constant.MessageConstants;
+import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.entity.MovieGenresEntity;
 import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
+import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IMovieService;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.ITvSeasonService;
@@ -90,10 +92,14 @@ public class HomeController {
      */
     @RequestMapping(value = "/{code}")
     public ModelAndView getSingleMovie(
-        @PathVariable final String code
+        @PathVariable final String code,
+        HttpServletRequest request
     ){
         ModelAndView mav = new ModelAndView("web/movieSingle");
-        TVSeasonUiDto tvSeason =  seasonService.getSeasonMovieByCode(code, 1L);
+        TVSeasonUiDto tvSeason =  seasonService.getSeasonMovieByCode(
+                code,
+                ((MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL")).getUser().getId()
+        );
 
         Page<TVSeasonEntity> pagination = seasonService.findAll(
                 PageableUtil.paging(0, 5)
@@ -138,26 +144,23 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/userprofile")
-    public ModelAndView getUserProfile(
-            HttpServletRequest request
-    ){
+    public ModelAndView getUserProfile(HttpServletRequest request){
         ModelAndView mav = new ModelAndView("web/userprofile");
-//        MyUserPrincipal myUser = (MyUserPrincipal) request.getAttribute("USER_MODEL");
-//        UserProfileDto userProfileDto = Convert.convertModel(
-//                myUser.getUser().getProfile(),
-//                UserProfileDto.class
-//        );
-//        userProfileDto.setName(myUser.getUser().getName());
-//        userProfileDto.setEmail(myUser.getEmail());
-        UserProfileDto userProfileDto = new UserProfileDto();
-        userProfileDto.setId(1L);
-        userProfileDto.setEmail("cbtongtulenh4@gmail.com");
-        userProfileDto.setAvatar("1krE9UFmEAiVP2oc9jbyf-8oZapHqb1gz");
-        userProfileDto.setAge(18);
-        userProfileDto.setCountry("New York");
-        userProfileDto.setGender("Boy");
-        userProfileDto.setUsername("Fu.MinhPhuc");
-        userProfileDto.setState("Free");
+        MyUserPrincipal myUser = (MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL");
+        UserProfileDto userProfileDto = Convert.convertModel(
+                myUser.getUser().getProfile(),
+                UserProfileDto.class
+        );
+        userProfileDto.setUsername(myUser.getUser().getUsername());
+//        UserProfileDto userProfileDto = new UserProfileDto();
+//        userProfileDto.setId(1L);
+//        userProfileDto.setEmail("cbtongtulenh4@gmail.com");
+//        userProfileDto.setAvatar("1krE9UFmEAiVP2oc9jbyf-8oZapHqb1gz");
+//        userProfileDto.setAge(18);
+//        userProfileDto.setCountry("New York");
+//        userProfileDto.setGender("Boy");
+//        userProfileDto.setUsername("Fu.MinhPhuc");
+//        userProfileDto.setState("Free");
         mav.addObject("USER_PROFILE", userProfileDto);
         return mav;
     }

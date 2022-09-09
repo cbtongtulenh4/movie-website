@@ -43,7 +43,7 @@ public class SessionTimerInterceptor implements HandlerInterceptor {
                 LOGGER.warn("Logging out, due to inactive session");
             //    InterceptorUtil.clearContext(request);
                 request.logout();
-                response.sendRedirect(request.getContextPath() + "/logout?lang=" + request.getLocale().getLanguage());
+                response.sendRedirect(request.getContextPath() + "/logout");
             }
 
         }

@@ -35,7 +35,7 @@ public interface ITvSeasonService {
 
     Page<TVSeasonEntity> findAll(Pageable paging);
 
-    TVSeasonUiDto getSeasonMovieByCode(String code, final Long user_id);
+    TVSeasonUiDto getSeasonMovieByCode(String code, final long user_id);
 
     List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit);
 

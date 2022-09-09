@@ -8,7 +8,6 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html xmlns:th="http://www.thymeleaf.org" lang="en" class="no-js">
 
-<!-- moviesingle07:38-->
 <head>
     <!-- Basic need -->
     <title>Open Pediatrics</title>
@@ -27,12 +26,18 @@
     <!-- CSS files -->
     <link rel="stylesheet" th:href="@{/template/css/plugins.css}">
     <link rel="stylesheet" th:href="@{/template/css/main.css}">
-
+    <link rel="stylesheet" th:href="@{/template/css/update.css}">
+    <link rel="stylesheet" th:href="@{/template/css/loading.css}">
+    <script th:src="@{/template/js/update.js}"></script>
 </head>
 <body>
 <!--preloading-->
 <div th:replace="web/fragments/loader :: preloader"></div>
 <!--end of preloading-->
+
+<!-- loading page -->
+<div th:replace="web/fragments/loader :: loading-page"></div>
+<!-- end of loading page -->
 
 <!-- sig in - up -->
 <div th:replace="web/fragments/header :: sign-in-up"></div>
@@ -68,7 +73,7 @@
                         </div>
                         <div class="btn-transform transform-vertical">
                             <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-1 yellowbtn" th:text="${SEASON_MOVIE.isPaid} ? 'WATCH NOW':'BUY TICKET'"> <i class="ion-card"></i></a></div>
-                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost} ?:''"><i class="ion-card"></i></a></div>
+                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost != 0} ?:'Free'"><i class="ion-card"></i></a></div>
                         </div>
                     </div>
                 </div>
@@ -899,10 +904,7 @@
 <div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
 
-<script th:src="@{/template/js/jquery.js}"></script>
-<script th:src="@{/template/js/plugins.js}"></script>
-<script th:src="@{/template/js/plugins2.js}"></script>
-<script th:src="@{/template/js/custom.js}"></script>
+<th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
     async function rateAction(e){
@@ -922,14 +924,14 @@
 
 
 
-    async function favoriteAction(e){
-        const tvSeasonId = [[${SEASON_MOVIE.id}]];
-        let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonId";
-        await fetch(url, method: 'POST');
-        e.target.addEventListener('click', async function(){
-            await fetch(url, method: 'DELETE');
-        })
-    }
+//    async function favoriteAction(e){
+  //      const tvSeasonId = [[${SEASON_MOVIE.id}]];
+    //    let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonId";
+      //  await fetch(url, method: 'POST');
+    //    e.target.addEventListener('click', async function(){
+  //          await fetch(url, method: 'DELETE');
+//        })
+//    }
 
 </script>
 

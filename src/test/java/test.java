@@ -23,6 +23,7 @@ public class test {
 
     public static void main(String[] args) {
 
+
 //        java.util.List<Integer> temp = Arrays.asList(4,6,4,2,8,6,1);
 //        Collections.reverse(temp);
 //        System.out.println(temp);

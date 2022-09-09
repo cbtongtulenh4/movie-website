@@ -34,10 +34,10 @@ function stopAnimation(){
     loadPage.style.display = "none";
     if(refreshIntervalId != null) clearInterval(refreshIntervalId);
     let images = document.getElementById('an-box').children;
-    images.forEach(img => {
-        if(img.getAttribute('class') == "block"){
+    for(let img of images){
+        if(img.className == "block"){
             img.className = "none";
             break;
         }
-    });
+    }
 }

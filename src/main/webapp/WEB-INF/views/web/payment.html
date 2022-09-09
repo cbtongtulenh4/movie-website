@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <object th:include="/web/head :: head" th:remove="tag"></object>
+    <object th:include="/web/fragments/head :: head" th:remove="tag"></object>
     <title>Enter Paymennt Info</title>
     
     <script th:inline='javascript'>
@@ -10,7 +10,7 @@
     </script>
     
     <script src="https://js.stripe.com/v3/"></script>
-    <script th:src="@{template/js/client.js}" defer></script>
+    <script th:src="@{template/js/client.js}"></script>
 </head>
 
 <body>

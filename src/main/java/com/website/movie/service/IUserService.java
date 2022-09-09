@@ -23,9 +23,15 @@ public interface IUserService {
 
     ProfileEntity save(ProfileEntity profileEntity);
 
+    void saveUserProfileDto(UserProfileDto userProfileDto);
+
+    void saveAvatarProfileCustom(long profileId, String avatar);
+
     UserEntity findByUsername(String username);
 
     UserProfileDto findById(Long id);
+
+    UserEntity findUserEntityById(Long id);
 
     List<UserProfileDto> getAllUser();
 
@@ -36,6 +42,8 @@ public interface IUserService {
     void deleteFavoriteMovie(final long user_id, final long tvSeason_id);
 
     void savePaidSeasonMovie(final long user_id, final long tvSeason_id);
+
+    void saveAllPaidSeasonMovie(final long user_id, final long[] tvSeason_ids);
 
     List<SimpleTvSeasonDto> getAllPaidSeasonMovie(final Long id);
 

@@ -1,4 +1,4 @@
-
+ // util -----------------------------------------------------
 // find first ancestor of el with tagName
 	function upToParent(el, tagName) {
 		tagName = tagName.toLowerCase();
@@ -10,7 +10,9 @@
 		}
 		return null;
 	}
-// pagination custom
+// end util ---------------------------------------------------
+
+// pagination custom----------------------------------------------
 
 	function customPagination(currentPage, visiblePage, maxPage){
 		let boundLower = document.getElementById('lower-bound');
@@ -66,8 +68,9 @@
 		element.appendChild(icon);
 		return element;
 	}
-
+//	    startAnimation();
 	function nextSubmit(id, startPage, endPage) {
+
 		let next = document.getElementById(id);
 		next.addEventListener('click', function(){
 			var nextPage = (id === "next-left") ? (startPage - 1) : (endPage + 1);
@@ -76,3 +79,12 @@
 			getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
 		})
 	}
+
+// end pagination custom -----------------------------------------------------------
+
+// start comment section --------------------------------------------
+
+// end comment section ----------------------------------------------
+
+
+

@@ -96,13 +96,13 @@ public class LoginController {
     @RequestMapping(value = "/logout")
     public String getLogout( HttpServletRequest request){
         SessionUtil.getInstance().removeValue(request, "USER_MODEL");
-        return SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/home");
+        return SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/movie-list");
     }
 
     private String AuthorizationUserLogin(final Collection<? extends GrantedAuthority> authorities, final HttpServletRequest request){
         for (GrantedAuthority authority : authorities){
             if (authority.getAuthority().equals(SystemConstants.USER)){
-                return "redirect:/home?lang=" + request.getLocale().getLanguage();
+                return "redirect:/movie-list?lang=" + request.getLocale().getLanguage();
             }
         }
         return "redirect:/admin?lang=" + request.getLocale().getLanguage();

@@ -1,11 +1,15 @@
 package com.website.movie.web.api;
 
+import com.website.movie.constant.MessageConstants;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
+import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IGoogleDriveService;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.IUserService;
+import com.website.movie.utils.SessionUtil;
+import com.website.movie.web.dto.MessageDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.UserProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,24 +57,40 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/api/user")
-    public void updateUser(
-            @ModelAttribute("userProfile") final UserProfileDto userProfileDto
+    public MessageDto updateUser(
+            @RequestBody final UserProfileDto userProfileDto,
+            HttpServletRequest request
     ){
-        UserEntity userEntity = userService.findByUsername(userProfileDto.getUsername());
-        userEntity.setUsername(userProfileDto.getUsername());
-        userEntity.setProfile(
-                Convert.convertModel(userProfileDto, ProfileEntity.class)
-        );
-        userService.save(userEntity);
+        MessageDto messageDto = new MessageDto();
+        try {
+            UserEntity userEntity = userService.findUserEntityById(userProfileDto.getId());
+            userEntity.setUsername(userProfileDto.getUsername());
+            userEntity.setProfile(
+                    Convert.convertModel(userProfileDto, ProfileEntity.class)
+            );
+            userService.save(userEntity);
+            ((MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL")).setUser(userEntity);
+        }catch (Exception e){
+            messageDto.setType(MessageConstants.DANGER);
+            messageDto.setContent("Change Profile Failure");
+            return messageDto;
+        }
+        messageDto.setType(MessageConstants.SUCCESS);
+        messageDto.setContent("Change Profile Successfully");
+        return messageDto;
     }
 
     @PostMapping(value = "/api/user/avatar")
     public String updateUserAvatar(
             @RequestParam(value = "avatarNew") final MultipartFile avatarNew,
-            @RequestParam(value = "avatarOld")final String avatarIdOld
+            @RequestParam(value = "avatarOld")final String avatarIdOld,
+            HttpServletRequest request
     ){
         String avatarID = googleDriveService.uploadFile(avatarNew);
         googleDriveService.deleteFile(avatarIdOld);
+        ProfileEntity profile = ((MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL")).getUser().getProfile();
+        userService.saveAvatarProfileCustom(profile.getId(), avatarID);
+        profile.setAvatar(avatarID);
         return avatarID;
     }
 
@@ -107,5 +127,12 @@ public class UserRestController {
         userService.savePaidSeasonMovie(1, tvSeasonId);
     }
 
+
+    @PutMapping(value = "/api/user/payment-all")
+    public void paymentAllSeasonMovie(
+            @RequestBody final long[] tvSeasonIds
+    ){
+        userService.saveAllPaidSeasonMovie(19, tvSeasonIds);
+    }
 
 }
