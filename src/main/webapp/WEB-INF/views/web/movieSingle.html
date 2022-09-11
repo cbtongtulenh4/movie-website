@@ -73,7 +73,7 @@
                         </div>
                         <div class="btn-transform transform-vertical">
                             <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-1 yellowbtn" th:text="${SEASON_MOVIE.isPaid} ? 'WATCH NOW':'BUY TICKET'"> <i class="ion-card"></i></a></div>
-                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost != 0} ?:'Free'"><i class="ion-card"></i></a></div>
+                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost != 0} ? ${SEASON_MOVIE.cost}:'Free'"><i class="ion-card"></i></a></div>
                         </div>
                     </div>
                 </div>

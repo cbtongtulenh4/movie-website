@@ -75,10 +75,11 @@
 		next.addEventListener('click', function(){
 			var nextPage = (id === "next-left") ? (startPage - 1) : (endPage + 1);
 			var maxPageItem = document.getElementById('max-page-item').value;
-//			window.location.href = "/movie-list?nextPage=" + nextPage + "&maxPageItem=" + maxPageItem;
 			getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
 		})
 	}
+
+
 
 // end pagination custom -----------------------------------------------------------
 

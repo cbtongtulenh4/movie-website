@@ -1,5 +1,6 @@
 package com.website.movie.service.impl;
 
+import com.website.movie.constant.CacheConstants;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
 import com.website.movie.persistence.dao.IUserDAO;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -125,19 +127,38 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     @Override
-    public TVSeasonUiDto getSeasonMovieByCode(String code, long user_id) {
+    public TVSeasonUiDto getTvSeasonUiDtoByCode(String code) {
         TVSeasonEntity tvSeason = tvSeasonRepository.findOneByCode(code);
-        boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
         tvSeason.getGenres().size();
         tvSeason.getStudios().size();
         tvSeason.getLanguages().size();
         tvSeason.getCountry();
+        return MovieConvert.toDto(tvSeason, tvSeason.getCost() <= 0);
+    }
+
+    @Override
+    public TVSeasonUiDto getTvSeasonUiDtoByCode(String code, long user_id) {
+        TVSeasonEntity tvSeason = tvSeasonRepository.findOneByCode(code);
+        tvSeason.getGenres().size();
+        tvSeason.getStudios().size();
+        tvSeason.getLanguages().size();
+        tvSeason.getCountry();
+        boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
         return MovieConvert.toDto(tvSeason, isPaid);
     }
 
     @Override
     public List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit) {
         return MovieConvert.toDto(tvSeasonRepository.findLimitPopularByViews(field, sort, limit));
+    }
+
+    @Override
+    public List<TVSeasonEntity> findTVSeasonByForm(String formCode, String nameTv) {
+        List<TVSeasonEntity> tvSeasons = UtilService.getMemoryCacheValue(tvSeasonRepository, CacheConstants.SEASON_MOVIES)
+                .stream().filter(mv -> mv.getForm().getCode().equals(formCode))
+                         .filter(mv -> mv.getTitle().contains(nameTv))
+                         .collect(Collectors.toList());
+        return tvSeasons;
     }
 
     @Override

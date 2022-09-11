@@ -175,6 +175,8 @@ public class UserService implements IUserService {
         }
         user.getRoles().size();
         user.getProfile();
+        user.getFavoriteMovies();
+        user.getPaidMovies();
         MyUserPrincipal myUser = null;
         if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
              myUser = new MyUserPrincipal(user);

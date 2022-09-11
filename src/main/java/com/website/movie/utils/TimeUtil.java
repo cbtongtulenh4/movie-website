@@ -72,7 +72,7 @@ public class TimeUtil {
 
     public static String getTimeAgoCustom(LocalDateTime past){
         LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
-       long pastTime = past.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+        long pastTime = past.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
         long duration = System.currentTimeMillis() - pastTime;
         StringBuilder result = new StringBuilder();
         int temp;
@@ -80,13 +80,10 @@ public class TimeUtil {
             temp = (int) (duration / timesValue.get(i));
             if (temp > 0){
                 result.append(temp).append(" ").append(timesName.get(i)).append((temp == 1) ? "" : "s").append(" ago");
-                break;
+                return result.toString();
             }
         }
-        if (result.toString().equals("")){
-            result.append("0 second ago");
-        }
-        return result.toString();
+        return "0 second ago";
     }
 
 }

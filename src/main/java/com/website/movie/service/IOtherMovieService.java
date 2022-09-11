@@ -61,6 +61,7 @@ public interface IOtherMovieService {
     SeasonEntity saveSeason(SeasonEntity season);
 
 
+    List<MovieFormEntity>  getAllFormMovie();
     MovieFormEntity saveFormMovie(MovieFormEntity formMovie);
     List<TVSeasonEntity> findLimitTvSeasonByForm(String code);
 

@@ -260,9 +260,13 @@
                     </li>
                     <li><a href="#">Help</a></li>
                     <div th:if="${session.USER_MODEL}" th:remove="tag">
-                        <li><div class="cart-btn" onclick="cartHandle();"><img th:src="@{/template/img/uploads/cart.png}" alt=""></div></li>
                         <li>
-                            <div class="account" id="ic-account">
+                            <a class="cart-btn" onclick="cartHandle();">
+                                <img th:src="@{/template/img/uploads/cart.png}" alt="">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="account" id="ic-account">
                                 <div class="profile" id="sm-profile" onclick="smallProfile();">
                                     <img th:src="'https://drive.google.com/uc?export=view&id=' + ${session.USER_MODEL.user.profile.avatar}" alt="">
                                 </div>
@@ -279,7 +283,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </a>
                         </li>
                     </div>
                     <div th:unless="${session.USER_MODEL}" th:remove="tag">
@@ -292,10 +296,10 @@
         </nav>
 
         <!-- top search form -->
-        <div class="top-search">
+        <div id="top-search">
             <select>
-                <option value="united">TV show</option>
-                <option value="saab">Others</option>
+                <option value="${FM.code}" th:each="FM : ${FORM_MOVIES}" th:text="${FM.name}"></option>
+                <option selected value="all">ALL</option>
             </select>
             <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
         </div>
@@ -452,7 +456,17 @@
 		cart.querySelector('.line-items').appendChild(item);
 
 	}
-    </script>
+
+	async function searchMovieHandle(){
+	    startAnimation();
+	    let tagSearch = document.getElementById('top-search');
+	    let response = await fetch("" + new URLSearchParams({
+	        "formMV" : tagSearch.querySelector('select').value,
+	        "nameMV" : tagSearch.querySelector('input').value
+	    }), method : POST);
+	}
+
+</script>
 </th:block>
 </body>
 </html>

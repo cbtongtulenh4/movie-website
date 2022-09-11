@@ -196,6 +196,8 @@ public class OtherMovieService implements IOtherMovieService {
         return commentRepository.save(commentEntity);
     }
 
+    // form movie handle -------------------------------------
+
     @Override
     public MovieFormEntity saveFormMovie(MovieFormEntity formMovie) {
         if (formMovie.getId() == null){
@@ -205,6 +207,11 @@ public class OtherMovieService implements IOtherMovieService {
         }
         InMemoryCache.getInstance().remove(CacheConstants.MOVIE_FORMS);
         return movieFormRepository.save(formMovie);
+    }
+
+    @Override
+    public List<MovieFormEntity> getAllFormMovie() {
+        return UtilService.getMemoryCacheValue(movieFormRepository, CacheConstants.MOVIE_FORMS);
     }
 
     @Override
@@ -219,6 +226,8 @@ public class OtherMovieService implements IOtherMovieService {
         formMovie.getTvSeasons().sort(Comparator.comparingLong(TVSeasonEntity::getViews));
         return formMovie.getTvSeasons();
     }
+
+    // end form movie handle -----------------------------------
 
     @Override
   //  @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class) - not working

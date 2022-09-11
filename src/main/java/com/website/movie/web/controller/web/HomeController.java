@@ -12,6 +12,7 @@ import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.utils.PageableUtil;
 import com.website.movie.utils.SessionUtil;
+import com.website.movie.utils.custom.CustomPageable;
 import com.website.movie.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,10 +39,13 @@ public class HomeController {
     private IMovieService movieService;
 
     @Autowired
-    private ITvSeasonService seasonService;
+    private ITvSeasonService tvSeasonService;
 
     @Autowired
     private IOtherMovieService otherMovieService;
+
+
+    private final static String FORM_MOVIES = "FORM_MOVIES";
 
     @RequestMapping(value = {"/home", "", "/"}, method = RequestMethod.GET)
     public ModelAndView getHome(HttpServletRequest request){
@@ -54,34 +58,38 @@ public class HomeController {
 
         mav.addObject("ListTvSeason1", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-le")));
         mav.addObject("ListTvSeason2", MovieConvert.toSimpleTvSeasonDto(otherMovieService.findLimitTvSeasonByForm("anime-bo")));
-
+        mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;
     }
 
-    @RequestMapping(value = "/movie-list")
+    @RequestMapping(value = {"/movie-list", "/search/{value}"})
     public ModelAndView getMovies(
+            @PathVariable(value = "value") final String searchValue,
+            @RequestParam final String formMV,
             @RequestParam(value = "sort", defaultValue = "title-1") final String sortParam,
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie
     ){
         ModelAndView mav = new ModelAndView("web/movielist");
-//        List<TVSeasonEntity> tvSeasons =  seasonService.getAllSeasonMovie();
-        Page<TVSeasonEntity> pagination = seasonService.findAll(
-                PageableUtil.paging(pageNo - 1, limitMovie, sortParam)
-        );
-        List<SimpleTvSeasonDto> seasons = new ArrayList<>();
-        pagination.getContent().forEach(e -> {
-            seasons.add(MovieConvert.toSimpleTvSeasonDto(e));
-        });
+        List<TVSeasonEntity> tvSeasons;
+        PaginationDto paginationDto;
+        if (searchValue != null){
+            CustomPageable<TVSeasonEntity> customPageable = new CustomPageable<>(tvSeasonService.findTVSeasonByForm(formMV, searchValue), pageNo - 1, limitMovie);
+            tvSeasons = customPageable.paging();
+            paginationDto = new PaginationDto(limitMovie, pageNo, customPageable.getTotalPages(), customPageable.getTotalElements());
+        }else {
+            Page<TVSeasonEntity> pagination = tvSeasonService.findAll(
+                    PageableUtil.paging(pageNo - 1, limitMovie, sortParam)
+            );
+            tvSeasons = pagination.getContent();
+            paginationDto = new PaginationDto(limitMovie, pageNo, pagination.getTotalPages(), pagination.getTotalElements());
+        }
         List<MovieGenresEntity> genres = otherMovieService.findAllGenreMovie();
 
-        mav.addObject("SEASONS", seasons);
+        mav.addObject("SEASONS", MovieConvert.toSimpleTvSeasonDto(tvSeasons));
         mav.addObject("GENRES", genres);
-        mav.addObject(
-                "PAGINATION",
-                new PaginationDto(limitMovie, pageNo, pagination.getTotalPages(), pagination.getTotalElements())
-        );
-
+        mav.addObject("PAGINATION", paginationDto);
+        mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;
     }
 
@@ -96,12 +104,12 @@ public class HomeController {
         HttpServletRequest request
     ){
         ModelAndView mav = new ModelAndView("web/movieSingle");
-        TVSeasonUiDto tvSeason =  seasonService.getSeasonMovieByCode(
-                code,
-                ((MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL")).getUser().getId()
-        );
+        MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL");
+        TVSeasonUiDto tvSeason;
+        if(myUser == null) tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code);
+        else  tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code, myUser.getUser().getId());
 
-        Page<TVSeasonEntity> pagination = seasonService.findAll(
+        Page<TVSeasonEntity> pagination = tvSeasonService.findAll(
                 PageableUtil.paging(0, 5)
         );
         List<SimpleTvSeasonDto> tvSeasonRelate = new ArrayList<>();
@@ -111,6 +119,7 @@ public class HomeController {
 
         mav.addObject("SEASON_MOVIE", tvSeason);
         mav.addObject("TVSEASON_RELATE", tvSeasonRelate);
+        mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;
     }
 
@@ -120,7 +129,7 @@ public class HomeController {
             @PathVariable final String code
     ){
         ModelAndView mav = new ModelAndView("web/watch");
-        WatchTvSeasonDto watchTvSeasonDto = seasonService.getWatchTvSeasonUiByCode(code);
+        WatchTvSeasonDto watchTvSeasonDto = tvSeasonService.getWatchTvSeasonUiByCode(code);
         Set<TVEpisodeEntity> episodeEntities = new TreeSet<>(Comparator.comparingInt(TVEpisodeEntity::getNumEp));
         episodeEntities.addAll(watchTvSeasonDto.getEpisodes());
         watchTvSeasonDto.setEpisodes(episodeEntities);
@@ -135,6 +144,7 @@ public class HomeController {
         mav.addObject("COMMENTS", commentDtos);
         mav.addObject("WATCH_MODEL", watchTvSeasonDto);
         mav.addObject("EPISODE", episode);
+        mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;
     }
 
@@ -162,6 +172,7 @@ public class HomeController {
 //        userProfileDto.setUsername("Fu.MinhPhuc");
 //        userProfileDto.setState("Free");
         mav.addObject("USER_PROFILE", userProfileDto);
+        mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;
     }
 
@@ -179,6 +190,5 @@ public class HomeController {
     public String getTest(){
         return "web/test";
     }
-
 
 }
