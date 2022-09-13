@@ -43,6 +43,8 @@
 <div th:replace="web/fragments/header :: sign-in-up"></div>
 <!-- end sig in-up -->
 
+<div th:replace="web/fragments/header :: cart-handle"></div>
+
 <!-- BEGIN | Header -->
 <div th:replace="web/fragments/header :: header"></div>
 <!-- END | Header -->
@@ -71,9 +73,9 @@
                             <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
                             <div><a th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.trailer}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
                         </div>
-                        <div class="btn-transform transform-vertical">
-                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-1 yellowbtn" th:text="${SEASON_MOVIE.isPaid} ? 'WATCH NOW':'BUY TICKET'"> <i class="ion-card"></i></a></div>
-                            <div><a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-1'}" class="item item-2 yellowbtn" th:text="${SEASON_MOVIE.cost != 0} ? ${SEASON_MOVIE.cost}:'Free'"><i class="ion-card"></i></a></div>
+                        <div class="btn-transform transform-vertical" id="btn-play">
+                            <div><a class="item item-1 yellowbtn"></a></div>
+                            <div><a class="item item-2 yellowbtn"></a></div>
                         </div>
                     </div>
                 </div>
@@ -911,7 +913,7 @@
         const response = await fetch("/MovieWebsite/api/movie/season/rate?" + new URLSearchParams({
             rateVal : e.target.attribute("value"),
             tvSeasonId : [[${SEASON_MOVIE.id}]]
-        }),method: 'PUT');
+        }),{method: 'PUT'});
         var data = await response.json();
         let valueRate = document.getElementById('value-rate');
         valueRate.innerHTML = `
@@ -920,8 +922,68 @@
                 <span class="rv">`+ data.numPeople +` Reviews</span>
             </p>
         `;
-    });
+    };
 
+    function addToCart(movie){
+		let cart = document.getElementById('cart-box');
+		let item = document.createElement('li');
+		item.innerHTML = `
+			<span style="display: flex; align-items: center;">
+				<input type="checkbox" checked onchange="countLineItem();" data-price="`+ movie.cost +`" value="`+ movie.id +`" style="margin-right: 10px;">
+				<img src="`+ movie.thumbnail +`" alt="">
+			</span>
+			<span class="title">`+ movie.title +`</span>
+			<span>1</span>
+			<span>$`+ movie.cost +`</span>
+		`;
+		cart.querySelector('.line-items').appendChild(item);
+
+        let items = JSON.parse(sessionStorage.getItem("itemCart"));
+		if(items == null) items = [];
+		items.push({
+		    "id" : movie.id,
+		    "title" : movie.title,
+		    "thumbnail" : movie.thumbnail,
+		    "cost" : movie.cost,
+		    "checked" : true
+		});
+		sessionStorage.setItem("itemCart", JSON.stringify(items));
+	}
+
+    window.onload = setPlayMovie();
+
+    function setPlayMovie(){
+        var playBtn = document.getElementById('btn-play');
+        var frontPlay = playBtn.querySelector('.item-1');
+        var backPlay = playBtn.querySelector('.item-2');
+        let movie = [[${SEASON_MOVIE}]];
+        let isOk = movie.cost == 0 || (movie.cost > 0 && movie.isPaid);
+        frontPlay.innerHTML = `<i class="ion-card"></i> ` +  (isOk ? 'WATCH NOW':'BUY TICKET');
+        backPlay.innerHTML = `<i class="ion-card"></i> `;
+        if(!isOk){
+            if(isExistItemCart(movie.id)){
+                backPlay.innerHTML += `($` + movie.cost + `) Added To Cart`;
+                return;
+            }
+            backPlay.addEventListener('click', function add(){
+                addToCart(movie);
+                backPlay.innerHTML += `($` + movie.cost + `) Added To Cart`;
+                backPlay.removeEventListener('click', add);
+            });
+            backPlay.innerHTML += `($` + movie.cost + `) Add To Cart`;
+        }else {
+            backPlay.href = [[@{'/' + movie.code + '/watch/ep-1'}]];
+            backPlay.innerHTML += `Free`;
+        }
+    }
+
+    function isExistItemCart(value){
+        let items = document.querySelectorAll('#cart-box ul li input');
+        for(let item : items){
+            if(value === item.value) return true;
+        }
+        return false;
+    }
 
 
 //    async function favoriteAction(e){

@@ -101,55 +101,19 @@
     <!--end of signup form popup-->
 </div>
 
-<!-- cart section -->
 <div class="overlay" th:fragment="cart-handle">
+    <!-- cart section -->
     <div id="cart-box">
         <h3>Movie Pay</h3>
         <ul class="line-items">
-            <li>
+            <li th:each="item : ${session.itemCart}">
 				<span style="display: flex; align-items: center;">
-					<input type="checkbox" checked onchange="countLineItem();" data-price="5" value="1" style="margin-right: 10px;">
-					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
+					<input type="checkbox" th:checked="${item.checked}" onchange="countLineItem();" th:data-price="${item.cost}" th:value="${item.value}" style="margin-right: 10px;">
+					<img th:src="${item.thumbnail}" alt="">
 				</span>
-                <span>One Pices</span>
+                <span class="title" th:text="${item.title}">...</span>
                 <span>1</span>
-                <span>$7.5</span>
-            </li>
-            <li>
-				<span style="display: flex; align-items: center;">
-					<input type="checkbox" checked onchange="countLineItem();" data-price="5" value="1" style="margin-right: 10px;">
-					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
-				</span>
-                <span>One Pices</span>
-                <span>1</span>
-                <span>$7.5</span>
-            </li>
-            <li>
-				<span style="display: flex; align-items: center;">
-					<input type="checkbox" checked onchange="countLineItem();" data-price="9" value="1" style="margin-right: 10px;">
-					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
-				</span>
-                <span>One Pices</span>
-                <span>1</span>
-                <span>$7.5</span>
-            </li>
-            <li>
-				<span style="display: flex; align-items: center;">
-					<input type="checkbox" checked onchange="countLineItem();" data-price="5.8" value="1" style="margin-right: 10px;">
-					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
-				</span>
-                <span>One Pices</span>
-                <span>1</span>
-                <span>$7.5</span>
-            </li>
-            <li>
-				<span style="display: flex; align-items: center;">
-					<input type="checkbox" checked onchange="countLineItem();" data-price="7" value="1" style="margin-right: 10px;">
-					<img src="http://cdn.animevietsub.cc/data/poster/2022/08/09/animevsub-LgY0W67wHW.jpg" alt="">
-				</span>
-                <span>One Pices</span>
-                <span>1</span>
-                <span>$7.5</span>
+                <span th:text="'$' + ${item.cost}">...</span>
             </li>
         </ul>
         <div class="checkout-section">
@@ -266,7 +230,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="account" id="ic-account">
+                            <div class="account" id="ic-account">
                                 <div class="profile" id="sm-profile" onclick="smallProfile();">
                                     <img th:src="'https://drive.google.com/uc?export=view&id=' + ${session.USER_MODEL.user.profile.avatar}" alt="">
                                 </div>
@@ -283,7 +247,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </a>
+                            </div>
                         </li>
                     </div>
                     <div th:unless="${session.USER_MODEL}" th:remove="tag">
@@ -298,7 +262,7 @@
         <!-- top search form -->
         <div id="top-search">
             <select>
-                <option value="${FM.code}" th:each="FM : ${FORM_MOVIES}" th:text="${FM.name}"></option>
+                <option th:value="${FM.code}" th:each="FM : ${FORM_MOVIES}" th:text="${FM.name}"></option>
                 <option selected value="all">ALL</option>
             </select>
             <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
@@ -437,33 +401,46 @@
             let target = e.target;
             if(target.classList.contains('overlay')){
                 target.classList = "overlay";
+                let records = [];
+                let lineItems = cartBox.querySelectorAll('ul li');
+                lineItems.forEach( el => {
+                    let checkbox = el.querySelector('input');
+                    let record = {
+                        "id" : checkbox.value,
+                        "title" : el.querySelector('.title').textContent,
+                        "thumbnail" : el.querySelector('img').src,
+                        "cost" : checkbox.dataset.price,
+                        "checked" : checkbox.checked
+                    }
+                    records.push(record);
+                });
+                sessionStorage.setItem("itemCart", JSON.stringify(records));
             }
 		})
 	}
 
-    function addToCart(movie){
-		let cart = document.getElementById('cart-box');
-		let item = document.createElement('li');
-		item.innerHTML = `
-			<span style="display: flex; align-items: center;">
-				<input type="checkbox" checked onchange="countLineItem();" data-price="`+ movie.cost +`" value="`+ movie.id +`" style="margin-right: 10px;">
-				<img src="`+ movie.thumbnail +`" alt="">
-			</span>
-			<span>`+ movie.title +`</span>
-			<span>1</span>
-			<span>$`+ movie.cost +`</span>
-		`;
-		cart.querySelector('.line-items').appendChild(item);
-
-	}
+    var tagSearch = document.getElementById('top-search');
+    tagSearch.querySelector('input').addEventListener('keydown', function(e){
+        if(e.key === 'Enter') searchMovieHandle();
+    });
 
 	async function searchMovieHandle(){
 	    startAnimation();
 	    let tagSearch = document.getElementById('top-search');
-	    let response = await fetch("" + new URLSearchParams({
-	        "formMV" : tagSearch.querySelector('select').value,
-	        "nameMV" : tagSearch.querySelector('input').value
-	    }), method : POST);
+	    await fetch("/MovieWebsite/search/"+ tagSearch.querySelector('input').value + "?" + new URLSearchParams({
+	        "formMV" : tagSearch.querySelector('select').value
+	    }), {method : 'POST'})
+	    .then(response => {
+            // HTTP 301 response
+            // HOW CAN I FOLLOW THE HTTP REDIRECT RESPONSE?
+            if (response.redirected) {
+                console.log(response.url);
+                window.location.href = response.url;
+            }
+        })
+        .catch(function(err) {
+            console.info(err + " url: " + url);
+        });
 	}
 
 </script>

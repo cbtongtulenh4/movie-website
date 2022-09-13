@@ -154,11 +154,20 @@ public class TvSeasonService implements ITvSeasonService {
 
     @Override
     public List<TVSeasonEntity> findTVSeasonByForm(String formCode, String nameTv) {
-        List<TVSeasonEntity> tvSeasons = UtilService.getMemoryCacheValue(tvSeasonRepository, CacheConstants.SEASON_MOVIES)
-                .stream().filter(mv -> mv.getForm().getCode().equals(formCode))
-                         .filter(mv -> mv.getTitle().contains(nameTv))
-                         .collect(Collectors.toList());
-        return tvSeasons;
+        List<TVSeasonEntity> tvSeasons = UtilService.getMemoryCacheValue(tvSeasonRepository, CacheConstants.SEASON_MOVIES);
+        try {
+            String searchValue = nameTv.toLowerCase();
+//            nameTv = nameTv.toLowerCase(); // why error Variable used in lambda expression should be final or effectively final
+            if(formCode.equals("all")){
+                return tvSeasons.parallelStream().filter(mv -> mv.getTitle().toLowerCase().contains(searchValue)).collect(Collectors.toList());
+            }else {
+                return tvSeasons.parallelStream().filter(mv -> mv.getForm().getCode().equals(formCode))
+                        .filter(mv -> mv.getTitle().toLowerCase().contains(searchValue)).collect(Collectors.toList());
+            }
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     @Override

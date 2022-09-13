@@ -62,10 +62,10 @@ public class HomeController {
         return mav;
     }
 
-    @RequestMapping(value = {"/movie-list", "/search/{value}"})
+    @RequestMapping(value = {"/movie-list", "/search/{searchValue}"})
     public ModelAndView getMovies(
-            @PathVariable(value = "value") final String searchValue,
-            @RequestParam final String formMV,
+            @PathVariable(required = false) String searchValue,
+            @RequestParam(value = "formMV", required = false) final String formMV,
             @RequestParam(value = "sort", defaultValue = "title-1") final String sortParam,
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie

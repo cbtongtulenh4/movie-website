@@ -2,7 +2,10 @@ import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class test {
     /**
@@ -22,8 +25,10 @@ public class test {
 
 
     public static void main(String[] args) {
+        List<String> list = Stream.iterate(0, n -> n+1).limit(5).map(x -> "abcsfsd").collect(Collectors.toList());
 
-
+//        list.parallelStream().filter(x -> x.contains("abc")).collect(Collectors.toList());
+        System.out.println(list.parallelStream().filter(x -> x.contains("abc")).collect(Collectors.toList()));
 //        java.util.List<Integer> temp = Arrays.asList(4,6,4,2,8,6,1);
 //        Collections.reverse(temp);
 //        System.out.println(temp);

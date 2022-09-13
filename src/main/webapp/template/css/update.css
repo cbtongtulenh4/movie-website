@@ -45,10 +45,17 @@
     min-width: 245px;
 }
 
-.navbar-nav.flex-child-menu .account .profile{
+.navbar-nav.flex-child-menu .account{
     position: relative;
     width: 45px;
     height: 45px;
+    margin: 10px 15px;
+}
+
+.navbar-nav.flex-child-menu .account .profile{
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     cursor: pointer;
     overflow: hidden;

@@ -211,7 +211,7 @@
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
-
+console.log(JSON.stringify(sessionStorage.getItem('itemCart')));
 	let formSubmit = document.getElementById('formSubmit');
 	let btnSubmit = document.getElementById('btn-submit');
     btnSubmit.addEventListener('click', function(){

@@ -42,6 +42,8 @@
 <div th:replace="web/fragments/header :: sign-in-up"></div>
 <!-- end sig in-up -->
 
+<div th:replace="web/fragments/header :: cart-handle"></div>
+
 <!-- change avatar form -->
 <div class="overlay">
 	<div class="login-wrapper openform">
@@ -201,6 +203,7 @@
 <script th:src="@{/template/js/profile.js}"></script>
 <script th:src="@{/template/js/utils.js}"></script>
 <script th:inline="javascript">
+	console.log(JSON.stringify(sessionStorage.getItem('itemCart')));
 	async function caFetch(e) { // change Avatar fetch
 		startAnimation();
 		let fileFetch = document.getElementById('upload-button').files[0];
