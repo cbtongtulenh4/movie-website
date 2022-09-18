@@ -162,15 +162,6 @@ public class HomeController {
                 UserProfileDto.class
         );
         userProfileDto.setUsername(myUser.getUser().getUsername());
-//        UserProfileDto userProfileDto = new UserProfileDto();
-//        userProfileDto.setId(1L);
-//        userProfileDto.setEmail("cbtongtulenh4@gmail.com");
-//        userProfileDto.setAvatar("1krE9UFmEAiVP2oc9jbyf-8oZapHqb1gz");
-//        userProfileDto.setAge(18);
-//        userProfileDto.setCountry("New York");
-//        userProfileDto.setGender("Boy");
-//        userProfileDto.setUsername("Fu.MinhPhuc");
-//        userProfileDto.setState("Free");
         mav.addObject("USER_PROFILE", userProfileDto);
         mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());
         return mav;

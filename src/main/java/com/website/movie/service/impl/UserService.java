@@ -19,6 +19,7 @@ import com.website.movie.persistence.repository.RoleRepository;
 import com.website.movie.persistence.repository.UserRepository;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.IUserService;
+import com.website.movie.utils.custom.CustomPageable;
 import com.website.movie.web.dto.*;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -126,9 +127,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<TVSeasonUiDto> getAllFavoriteMovie(String username) {
+    public List<SimpleTvSeasonDto> getAllFavoriteMovie(String username) {
         UserEntity userEntity = userRepository.findOneByUsername(username);
-        return MovieConvert.toDto(userEntity.getFavoriteMovies());
+        return MovieConvert.toSimpleTvSeasonDto(userEntity.getFavoriteMovies());
     }
 
     @Override
@@ -154,10 +155,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<SimpleTvSeasonDto> getAllPaidSeasonMovie(Long userId) {
+    public CustomPageable<SimpleTvSeasonDto> getAllPaidSeasonMovie(long userId, int pageNo, int limitMovie) {
         UserEntity userEntity = userRepository.findById(userId).orElse(null);
         assert userEntity != null;
-        return MovieConvert.toSimpleTvSeasonDto(userEntity.getPaidMovies());
+        List<SimpleTvSeasonDto> simpleTvSeasonDtos = MovieConvert.toSimpleTvSeasonDto(userEntity.getPaidMovies());
+        return new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
     }
 
     @Override

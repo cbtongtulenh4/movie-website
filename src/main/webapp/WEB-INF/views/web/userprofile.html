@@ -89,7 +89,7 @@
 	<div class="container">
 		<div class="row ipad-width">
 			<div class="col-md-3 col-sm-12 col-xs-12">
-				<div class="user-information">
+				<div class="user-information" id="user-info">
 					<div class="user-img">
 						<a href="#" class="avatar"><img id="avatar-user" th:src="'https://drive.google.com/uc?export=view&id=' + ${USER_PROFILE.avatar}" alt=""><br></a>
 						<a href="#" class="redbtn">Change avatar</a>
@@ -101,9 +101,9 @@
 					<div class="user-fav">
 						<p>Account Details</p>
 						<ul>
-							<li  class="active"><a th:href="@{/userprofile}">Profile</a></li>
-							<li><a th:href="@{/userfavoritelist}">Favorite movies</a></li>
-							<li><a th:href="@{/userrate}">Rated movies</a></li>
+							<li class="active" data-target="info-section"><a data-value="profile">Profile</a></li>
+							<li data-target="movie-section"><a data-value="favorite">Favorite movies</a></li>
+							<li data-target="movie-section"><a data-value="paid">Paid movies</a></li>
 						</ul>
 					</div>
 					<div class="user-fav">
@@ -115,81 +115,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-9 col-sm-12 col-xs-12">
-				<div class="form-style-1 user-pro">
-					<form class="user" id="changeProfile">
-						<h4>01. Profile details</h4>
-						<input type="hidden" name="id" th:value="${USER_PROFILE.id}">
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>Username</label>
-								<input type="text" name="username" th:value="${USER_PROFILE.username}" placeholder="cbtongtulenh4">
-							</div>
-							<div class="col-md-6 form-it">
-								<label>Email Address</label>
-								<input type="text" name="email" th:value="${USER_PROFILE.email}" placeholder="cbtongtulenh4@gmail.com">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>Age</label>
-								<input type="text" name="age" th:value="${USER_PROFILE.age}" placeholder="18+">
-							</div>
-							<div class="col-md-6 form-it">
-								<label>Gender</label>
-								<input type="text" name="gender" th:value="${USER_PROFILE.gender}" placeholder="Female">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>Country</label>
-								<select name="country" th:field="${USER_PROFILE.country}">
-								  <option th:value="NewYork">NewYork</option>
-								  <option th:value="saab">Others</option>
-								</select>
-							</div>
-							<div class="col-md-6 form-it">
-								<label>State</label>
-								<select name="state" th:field="${USER_PROFILE.state}">
-								  <option th:value="Free">Free</option>
-								  <option th:value="saab">Others</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2">
-								<input class="submit" type="button" onclick="changeProfileHandle();" value="save">
-							</div>
-						</div>	
-					</form>
-					<form id="changePassForm" class="password">
-						<h4>02. Change password</h4>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>Old Password</label>
-								<input type="text" name="passRaw" placeholder="**********" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>New Password</label>
-								<input type="text" name="passNew" placeholder="***************" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-it">
-								<label>Confirm New Password</label>
-								<input type="text" name="passConfirm" placeholder="***************" required>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-2">
-								<input class="submit" onclick="changePasswordHandle();" type="button" value="change">
-							</div>
-						</div>	
-					</form>
-				</div>
-			</div>
+			<!-- info section -->
+			<div th:replace="web/fragments/profile :: info"></div>
+			<!-- end info section -->
+			<!-- favorite movie  section -->
+			<div th:replace="web/fragments/profile :: favorite-mv"></div>
+			<!-- end favorite movie section -->
 		</div>
 	</div>
 </div>
@@ -201,9 +132,8 @@
 
 <th:block th:replace="web/fragments/header :: script"></th:block>
 <script th:src="@{/template/js/profile.js}"></script>
-<script th:src="@{/template/js/utils.js}"></script>
 <script th:inline="javascript">
-	console.log(JSON.stringify(sessionStorage.getItem('itemCart')));
+	var updatingMsg = [[#{message.UI.value.null}]];
 	async function caFetch(e) { // change Avatar fetch
 		startAnimation();
 		let fileFetch = document.getElementById('upload-button').files[0];
@@ -261,7 +191,36 @@
 		});
 		stopAnimation();
 	}
-</script>
 
+
+	let userInfo = document.getElementById('user-info');
+	let activesUser = userInfo.querySelectorAll('.user-fav ul li');
+	activesUser.forEach(el => el.firstChild.addEventListener('click', function(e){relateContent(e);}));
+	async function relateContent(e){
+		let targetEl = e.target;
+		var valueCheck = targetEl.dataset.value;
+		for(let el of activesUser){
+			if(el.className === "active") {
+				el.classList = "";
+				document.getElementById(el.dataset.target).style.display = "none";
+				break;
+			}
+		}
+		targetEl = upToParent(e.target, 'li');
+		if(targetEl.dataset.target !== "info-section"){
+			let urlTarget;
+			if(valueCheck === 'favorite') urlTarget = "/MovieWebsite/api/user/favorite";
+			else urlTarget = "/MovieWebsite/api/user/movie/paid";
+			await getAPI(urlTarget, 1, 2, false);
+		}
+		targetEl.classList = "active";
+		document.getElementById(targetEl.dataset.target).style.display = "block";
+	}
+	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
+		findByPage(e, "/MovieWebsite/api/user/favorite", false);
+	});
+
+
+</script>
 </body>
 </html>

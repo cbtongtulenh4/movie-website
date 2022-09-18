@@ -1,7 +1,9 @@
 package com.website.movie.helper.converter;
 
+import com.website.movie.constant.SystemConstants;
 import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
+import com.website.movie.utils.ArrayUtil;
 import com.website.movie.utils.AssertUtil;
 import com.website.movie.web.dto.UserDto;
 import com.website.movie.web.dto.UserProfileDto;
@@ -34,6 +36,7 @@ public class UserConvert {
         result.setPassword(dto.getPassword());
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setEmail(dto.getEmail());
+        if(profileEntity.getAvatar() == null) profileEntity.setAvatar(ArrayUtil.randValue(SystemConstants.AVATAR_ID));
         result.setProfile(profileEntity);
         return result;
     }

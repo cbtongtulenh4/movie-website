@@ -137,6 +137,14 @@ public class TvSeasonService implements ITvSeasonService {
     }
 
     @Override
+    public TVSeasonUiDto getTvSeasonUiDtoById(long id) {
+        TVSeasonEntity tvSeason = tvSeasonRepository.findById(id).orElse(null);
+        if (tvSeason == null) return null;
+        checkTvSeasonUiDto(tvSeason);
+        return MovieConvert.toDto(tvSeason);
+    }
+
+    @Override
     public TVSeasonUiDto getTvSeasonUiDtoByCode(String code, long user_id) {
         TVSeasonEntity tvSeason = tvSeasonRepository.findOneByCode(code);
         tvSeason.getGenres().size();
@@ -168,6 +176,11 @@ public class TvSeasonService implements ITvSeasonService {
             System.out.println(ex.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public String getTitleById(long id) {
+        return tvSeasonRepository.getTitleById(id);
     }
 
     @Override
@@ -244,6 +257,14 @@ public class TvSeasonService implements ITvSeasonService {
             result.add(movieGenresRepository.findByName(genreRequest));
         }
         return result;
+    }
+
+
+    private void checkTvSeasonUiDto(TVSeasonEntity tvSeason){
+        tvSeason.getGenres().size();
+        tvSeason.getStudios().size();
+        tvSeason.getLanguages().size();
+        tvSeason.getCountry();
     }
 
 

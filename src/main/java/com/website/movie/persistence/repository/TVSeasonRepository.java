@@ -32,6 +32,9 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
     TVSeasonEntity findByIdAndFetchAllEagerly(@Param("id") Long id);
 
 
+    @Query("SELECT ms.code FROM TVSeasonEntity ms WHERE ms.id = ?1")
+    String getTitleById(long id);
+
 //    @Query("UPDATE TVSeasonEntity SET :name = :value WHERE id = :id")
 //    void saveAttributeCustomize(@Param("id") Long id, @Param("name") String name, @Param("value") String value);
 

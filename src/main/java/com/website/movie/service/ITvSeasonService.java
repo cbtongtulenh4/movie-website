@@ -37,10 +37,13 @@ public interface ITvSeasonService {
 
     TVSeasonUiDto getTvSeasonUiDtoByCode(String code, final long user_id);
     TVSeasonUiDto getTvSeasonUiDtoByCode(String code);
+    TVSeasonUiDto getTvSeasonUiDtoById(long id);
 
     List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit);
 
     List<TVSeasonEntity> findTVSeasonByForm(String formCode, String nameTv);
+
+    String getTitleById(long id);
 
     //List<TVSeasonEntity> findAll(Pageable paging);
 

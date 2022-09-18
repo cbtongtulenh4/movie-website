@@ -123,7 +123,7 @@
                     <h4>5<span> MOVIE</span></h4>
                     <h4 class="total">$100</h4>
                 </div>
-                <button class="checkout-btn">Checkout</button>
+                <button class="checkout-btn" onclick="checkoutHandle();">Checkout</button>
             </div>
         </div>
     </div>
@@ -275,6 +275,7 @@
     <script th:src="@{/template/js/plugins2.js}"></script>
     <script th:src="@{/template/js/animation.js}"></script>
     <script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
+    <script th:src="@{/template/js/utils.js}"></script>
     <script th:inline="javascript">
         let loginSection = document.getElementById('login-section');
         let signupSection = document.getElementById('signup-section');
@@ -379,12 +380,10 @@
 
     function countLineItem(){
 		let cartBox = document.getElementById('cart-box');
-		cartBox.contains
 		let items = cartBox.querySelectorAll('ul li input[type=checkbox]:checked');
 		let subTotal = cartBox.querySelector('.checkout-section .sub-total')
 		subTotal.querySelector('h4').innerHTML
 			= items.length + `<span> `+ ((items.length > 1) ? 'MOVIES' : 'MOVIE') + `</span>`;
-
 		let priceTotal = 0;
 		items.forEach(el =>{
 			priceTotal += Number(el.dataset.price);
@@ -396,8 +395,9 @@
 		let cartBox = document.getElementById('cart-box');
 		let cartWrap = cartBox.parentNode;
 		cartWrap.classList.add("openform");
+		refreshCart();
 		countLineItem();
-		document.addEventListener('click', function(e) {
+		document.addEventListener('click', function hideCart(e) {
             let target = e.target;
             if(target.classList.contains('overlay')){
                 target.classList = "overlay";
@@ -415,9 +415,57 @@
                     records.push(record);
                 });
                 sessionStorage.setItem("itemCart", JSON.stringify(records));
+                document.removeEventListener('click', hideCart);
             }
 		})
 	}
+
+
+	function refreshCart(){
+	    let itemCart = JSON.parse(sessionStorage.getItem('itemCart'));
+	    if(itemCart === null) return;
+	    let cart = document.getElementById('cart-box');
+	    let container = cart.querySelector('.line-items');
+	    container.innerHTML = ``;
+	    for(let movie of itemCart){
+            let item = document.createElement('li');
+            item.innerHTML = `
+                <span style="display: flex; align-items: center;">
+                    <input type="checkbox" `+ (movie.checked ? 'checked':'')  +` onchange="countLineItem();" data-price="`+ movie.cost +`" value="`+ movie.id +`" style="margin-right: 10px;">
+                    <img src="`+ movie.thumbnail +`" alt="">
+                </span>
+                <span class="title">`+ movie.title +`</span>
+                <span>1</span>
+                <span>$`+ movie.cost +`</span>
+            `;
+            container.appendChild(item);
+		}
+	}
+
+    async function checkoutHandle(){
+        startAnimation();
+        let cartBox = document.querySelector('#cart-box ul');
+        let itemsChecked = cartBox.querySelectorAll('li input[type=checkbox]:checked');
+        let tvSeasonIds = [];
+        itemsChecked.forEach(el => tvSeasonIds.push(Number(el.value)));
+        if(tvSeasonIds.length === 0) return;
+        await fetch("/MovieWebsite/api/user/payment-all", {
+            method : 'PUT',
+            body : JSON.stringify(tvSeasonIds),
+            headers : {
+			    'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			}
+        }).then(alert("successfully")).catch((err) => {alert(err)});
+ //       .then((response) => response.text())
+  //      .then((link) => {window.location.href = "/MovieWebsite/" + link})
+  //      .catch((err) => {alert(err)});
+        itemsChecked.forEach(el => {
+            cartBox.removeChild(upToParent(el, 'li'))
+        });
+        countLineItem();
+        stopAnimation();
+    }
 
     var tagSearch = document.getElementById('top-search');
     tagSearch.querySelector('input').addEventListener('keydown', function(e){

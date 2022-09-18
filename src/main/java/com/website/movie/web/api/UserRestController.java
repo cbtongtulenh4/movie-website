@@ -9,9 +9,8 @@ import com.website.movie.service.IGoogleDriveService;
 import com.website.movie.service.IOtherMovieService;
 import com.website.movie.service.IUserService;
 import com.website.movie.utils.SessionUtil;
-import com.website.movie.web.dto.MessageDto;
-import com.website.movie.web.dto.TVSeasonUiDto;
-import com.website.movie.web.dto.UserProfileDto;
+import com.website.movie.utils.custom.CustomPageable;
+import com.website.movie.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -112,11 +111,34 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/api/user/favorite")
-    public List<TVSeasonUiDto> getAllFavoriteMovie(
+    public MovieListPageDto getAllFavoriteMovie(
+            @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
+            @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
     ){
-//        request.getAttribute("")
-        return userService.getAllFavoriteMovie("cbtongtulenh4@gmail.com");
+        String username = ((MyUserPrincipal)(SessionUtil.getInstance().getValue(request, "USER_MODEL"))).getUsername();
+        List<SimpleTvSeasonDto> simpleTvSeasonDtos = userService.getAllFavoriteMovie(username);
+        CustomPageable<SimpleTvSeasonDto> pageable = new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
+        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
+        return new MovieListPageDto(
+                pageable.paging(),
+                pagination
+        );
+    }
+
+    @GetMapping(value = "/api/user/movie/paid")
+    public MovieListPageDto getAllPaidMovie(
+            @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
+            @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
+            HttpServletRequest request
+    ){
+        Long userId = ((MyUserPrincipal)(SessionUtil.getInstance().getValue(request, "USER_MODEL"))).getUser().getId();
+        CustomPageable<SimpleTvSeasonDto> pageable = userService.getAllPaidSeasonMovie(userId, pageNo, limitMovie);
+        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
+        return new MovieListPageDto(
+                pageable.paging(),
+                pagination
+        );
     }
 
     @PutMapping(value = "/api/user/payment")

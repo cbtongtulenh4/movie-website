@@ -256,7 +256,6 @@
 
 <th:block th:replace="web/fragments/header :: script"></th:block>
 <script th:src="@{/template/js/video.js}"></script>
-<script th:src="@{/template/js/utils.js}"></script>
 <script th:inline="javascript">
     var comments = [[${COMMENTS}]];
     var myUser = [[${session.USER_MODEL}]];

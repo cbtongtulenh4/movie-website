@@ -4308,6 +4308,9 @@ ul {
   padding-bottom: 25px;
   border-bottom: 1px solid #405266;
   margin-bottom: 25px;
+  max-height: 290px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .movie-item-style-2 .mv-item-infor .run-time span {
   margin-left: 15px;
@@ -4622,10 +4625,10 @@ ul {
     margin-top: 15px;
   }
 }
-.topbar-filter .pagination2 span {
+.topbar-filter .pagination2 #page-info{
   margin-right: 15px;
 }
-.topbar-filter .pagination2 span,
+.topbar-filter .pagination2 > #page-info,
 .topbar-filter .pagination2 a {
   font-family: 'Nunito', sans-serif;
   font-size: 14px;

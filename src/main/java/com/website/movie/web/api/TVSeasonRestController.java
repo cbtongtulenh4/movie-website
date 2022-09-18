@@ -15,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -54,11 +52,10 @@ public class TVSeasonRestController {
     }
 
     @GetMapping(value = "/api/movie/season/random")
-    public ModelAndView getIdSeasonMovieRandom(final RedirectAttributes redirectAttributes){
+    public String getIdSeasonMovieRandom(){
         long amountSeasonMovie = tvSeasonService.countSeasonMovie();
         long id = 1 + (long) (Math.random() * (amountSeasonMovie - 1));
-        redirectAttributes.addAttribute("id", id);
-        return new ModelAndView("redirect:/movieSingle");
+        return tvSeasonService.getTitleById(id);
     }
 
     @GetMapping(value = "/api/movie/season/{id}")

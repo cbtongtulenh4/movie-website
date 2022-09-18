@@ -14,16 +14,18 @@
 
 // pagination custom----------------------------------------------
 
-	function customPagination(currentPage, visiblePage, maxPage){
+	function customPagination(urlTarget, currentPage, visiblePage, maxPage, hasFilter){
 		let boundLower = document.getElementById('lower-bound');
 		if (maxPage == 0){
 			boundLower.style.display = 'none';
 			return;
 		}
 		boundLower.style.display = 'flex';
+//		if(currentPage < 1) currentPage = 1;
+//		else if(currentPage > maxPage) currentPage = maxPage;
 		var endPage = visiblePage;
 		var startPage = 1;
-		document.getElementById('page-info').innerHTML = "Page " + currentPage + " of " + maxPage + ": ";
+		document.getElementById('page-info').innerHTML = "Page " + currentPage + " of <span class='maxPage'>" + maxPage + "</span>: ";
 		let pagination = document.getElementById('pagination');
 		pagination.innerHTML = '<div id="pages"></div>';
 		let pages = document.getElementById('pages');
@@ -37,13 +39,13 @@
 				endPage += startPage - 1;
 			}
 			pagination.prepend(newElement('a', "next-left","ion-arrow-left-b"));// add icon next left
-			nextSubmit("next-left", startPage, endPage);
+			nextSubmit(urlTarget, "next-left", startPage, endPage, hasFilter);
 		}else if(endPage > maxPage){
 			endPage = maxPage;
 		}
 		if(endPage < maxPage){ // check add icon next right
 			pagination.appendChild(newElement('a', "next-right", "ion-arrow-right-b"));
-			nextSubmit("next-right", startPage, endPage);
+			nextSubmit(urlTarget, "next-right", startPage, endPage, hasFilter);
 		}
 
 		for (let i = startPage; i <= endPage; i++) {
@@ -55,7 +57,7 @@
 			page.addEventListener('click', function(){
 				nextPage = i;
 				var maxPageItem = document.getElementById('max-page-item').value;
-				getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
+				getAPI(urlTarget , nextPage, maxPageItem, hasFilter);
 			});
 			pages.appendChild(page);
 		}
@@ -69,17 +71,110 @@
 		return element;
 	}
 //	    startAnimation();
-	function nextSubmit(id, startPage, endPage) {
-
+	function nextSubmit(urlTarget, id, startPage, endPage, hasFilter) {
 		let next = document.getElementById(id);
 		next.addEventListener('click', function(){
 			var nextPage = (id === "next-left") ? (startPage - 1) : (endPage + 1);
 			var maxPageItem = document.getElementById('max-page-item').value;
-			getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
+			getAPI(urlTarget , nextPage, maxPageItem, hasFilter);
 		})
 	}
 
 
+    async function getAPI(url, nextPage, maxPageItem, hasFilter) {
+    	startAnimation();
+        let params;
+        if(hasFilter){
+            let requestForm = document.forms.formSubmit;
+            var formData = new FormData(requestForm);
+            let genresData = document.getElementById('genres-sl').selectedOptions;
+             params = new URLSearchParams({
+                nextPage: nextPage,
+                maxPageItem: maxPageItem,
+                title: formData.get('title'),
+                rating: formData.get('rate'),
+                genres: Array.from(genresData).map(({value}) => value),
+                yearFrom : formData.get('yearFrom'),
+                yearFrom : formData.get('yearTo')
+            });
+        }else {
+            params = new URLSearchParams({
+                nextPage: nextPage,
+                maxPageItem: maxPageItem
+            });
+        }
+
+        const response = await fetch(url + "?" + params);
+        var data = await response.json();
+        showListMovie(url, data, hasFilter);
+    }
+
+    function showListMovie(urlTarget, data, hasFilter){
+        let seasonList = '';
+        var host = "/MovieWebsite";
+        var updating = (updatingMsg === undefined) ? "updating ..." : updatingMsg;
+        var pagination = data.pagination;
+
+        let tvSeasonBox = document.getElementById('season-list');
+        let tvSeasonHTML = getTvSeasonHTML(tvSeasonBox);
+        tvSeasonBox.innerHTML = seasonList;
+
+        document.getElementById('am-movies-tt').innerHTML = pagination.maxItems;
+
+        customPagination(urlTarget, pagination.nextPage, 2, pagination.maxPage, hasFilter);
+        stopAnimation();
+    }
+
+    function getTvSeasonHTML(tvSeasonBox){
+        let tvSeasonHTML = '';
+        if(tvSeasonBox.dataset.target === 'list-movie') {
+            for(let SEASON of data.simpleTvSeasons){
+                tvSeasonHTML += `
+                       <div class="movie-item-style-2">
+                           <img src="`+ SEASON.thumbnail +`" alt="">
+                           <div class="mv-item-infor">
+                               <h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `<span> (`+ SEASON.year +`)</span></a></h6>
+                               <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                               <p class="describe">`+ SEASON.summary +`</p>
+                               <p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: `+ SEASON.release +`</span></p>
+                               <p><span>Languages: `+ SEASON.languages +`</span></p>
+                               <p>Duration: <a href="#">`+ ((SEASON.duration != null) ?  SEASON.duration : updating) +`</a></p>
+                               <p>Views: <span>`+ ((SEASON.views != null) ? SEASON.views : updating) +`</span></p>
+                           </div>
+                       </div>
+                   `;
+            }
+        }
+        else {
+            for(let SEASON of data.simpleTvSeasons){
+                tvSeasonHTML += `
+                       <div class="movie-item-style-2 movie-item-style-1">
+                           <img src="`+ SEASON.thumbnail +`" alt="">
+                           <div class="hvr-inner">
+                               <a  href="`+ host +`/` + SEASON.code + `"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+                           </div>
+                           <div class="mv-item-infor">
+                               <h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `</a></h6>
+                               <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                           </div>
+                       </div>
+                   `;
+            }
+        }
+        return tvSeasonHTML;
+    }
+
+    async function findByPage(e, urlTarget, hasFilter){
+		if(e.key === 'Enter'){
+            let maxPageItem = document.getElementById('max-page-item').value;
+            let nextPage = e.target.value;
+            let maxPage = Number(document.querySelector('#page-info .maxPage').textContent);
+            if(nextPage < 1) nextPage = 1;
+            else if(nextPage > maxPage) nextPage = maxPage;
+            await getAPI(urlTarget, nextPage, maxPageItem, hasFilter);
+            stopAnimation();
+		}
+	}
 
 // end pagination custom -----------------------------------------------------------
 

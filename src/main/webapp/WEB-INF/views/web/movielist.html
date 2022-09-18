@@ -87,7 +87,7 @@
 					<a href="movielist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
 					<a  href="moviegrid.html" class="grid"><i class="ion-grid"></i></a>
 				</div>
-				<div id="season-list">
+				<div class="flex-wrap-movielist" id="season-list" data-target="list-movie">
 					<div class="movie-item-style-2" th:each="SEASON : ${SEASONS}">
 						<img th:src="${SEASON.thumbnail}" alt="">
 						<div class="mv-item-infor">
@@ -207,84 +207,25 @@
 <!-- end of footer section-->
 
 
-<script th:src="@{/template/js/utils.js}"></script>
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
-console.log(JSON.stringify(sessionStorage.getItem('itemCart')));
 	let formSubmit = document.getElementById('formSubmit');
 	let btnSubmit = document.getElementById('btn-submit');
     btnSubmit.addEventListener('click', function(){
     	var maxPageItem = document.getElementById('max-page-item').value;
         getAPI("/MovieWebsite/api/movie/season/filter", '1', maxPageItem);
     })
-
-    async function getAPI(url, nextPage, maxPageItem) {
-    	//startAnimation();
-		let requestForm = document.forms.formSubmit;
-		var formData = new FormData(requestForm);
-
-		let genresData = document.getElementById('genres-sl').selectedOptions;
-        const response = await fetch(url + "?" + new URLSearchParams({
-        	nextPage: nextPage,
-        	maxPageItem: maxPageItem,
-        	title: formData.get('title'),
-        	rating: formData.get('rate'),
-        	genres: Array.from(genresData).map(({value}) => value),
-        	yearFrom : formData.get('yearFrom'),
-        	yearFrom : formData.get('yearTo')
-        }));
-
-        var data = await response.json();
-        show(data);
-    }
-
-    function show(data){
-		let seasonList = '';
-		var host = "/MovieWebsite";
-		var updating = [[#{message.UI.value.null}]];
-		var pagination = data.pagination;
-
-		for(let SEASON of data.simpleTvSeasons){
-			seasonList += `
-				<div class="movie-item-style-2">
-					<img src="` + SEASON.thumbnail +`" alt="">
-					<div class="mv-item-infor">
-						<h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `<span> (`+ SEASON.year +`)</span></a></h6>
-						<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-						<p class="describe">`+ SEASON.summary +`</p>
-						<p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: `+ SEASON.release +`</span></p>
-						<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
-						<p>Duration: <a href="#">`+ ((SEASON.duration != null) ?  SEASON.duration : updating) +`</a></p>
-						<p>Views: <span>`+ ((SEASON.views != null) ? SEASON.views : updating) +`</span></p>
-					</div>
-				</div>
-			`;
-		}
-		document.getElementById('season-list').innerHTML = seasonList;
-
-		document.getElementById('am-movies-tt').innerHTML = pagination.maxItems;
-
-		customPagination(pagination.nextPage, 2, pagination.maxPage);
-		stopAnimation();
-	}
-
-	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', async function(e){
-		if(e.key === 'Enter'){
-			startAnimation();
-			let maxPageItem = document.getElementById('max-page-item').value;
-			let nextPage = this.value;
-			await getAPI("/MovieWebsite/api/movie/season/filter", nextPage, maxPageItem);
-			stopAnimation();
-		}
+	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
+		findByPage(e, "/MovieWebsite/api/movie/season/filter", true);
 	});
-
 </script>
 
 <script th:inline="javascript">
 	var maxPage = [[${PAGINATION.maxPage}]];
 	var currentPage = [[${PAGINATION.nextPage}]];
-	customPagination(currentPage, 2, maxPage);
+	var updatingMsg = [[#{message.UI.value.null}]];
+	customPagination("/MovieWebsite/api/movie/season/filter", currentPage, 2, maxPage, true);
 </script>
 </body>
 </html>

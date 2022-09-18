@@ -925,19 +925,6 @@
     };
 
     function addToCart(movie){
-		let cart = document.getElementById('cart-box');
-		let item = document.createElement('li');
-		item.innerHTML = `
-			<span style="display: flex; align-items: center;">
-				<input type="checkbox" checked onchange="countLineItem();" data-price="`+ movie.cost +`" value="`+ movie.id +`" style="margin-right: 10px;">
-				<img src="`+ movie.thumbnail +`" alt="">
-			</span>
-			<span class="title">`+ movie.title +`</span>
-			<span>1</span>
-			<span>$`+ movie.cost +`</span>
-		`;
-		cart.querySelector('.line-items').appendChild(item);
-
         let items = JSON.parse(sessionStorage.getItem("itemCart"));
 		if(items == null) items = [];
 		items.push({
@@ -962,25 +949,26 @@
         backPlay.innerHTML = `<i class="ion-card"></i> `;
         if(!isOk){
             if(isExistItemCart(movie.id)){
-                backPlay.innerHTML += `($` + movie.cost + `) Added To Cart`;
+                backPlay.innerHTML = `<i class="ion-card"></i> ($` + movie.cost + `) Added To Cart`;
                 return;
             }
             backPlay.addEventListener('click', function add(){
                 addToCart(movie);
-                backPlay.innerHTML += `($` + movie.cost + `) Added To Cart`;
+                backPlay.innerHTML = `<i class="ion-card"></i> ($` + movie.cost + `) Added To Cart`;
                 backPlay.removeEventListener('click', add);
             });
             backPlay.innerHTML += `($` + movie.cost + `) Add To Cart`;
         }else {
-            backPlay.href = [[@{'/' + movie.code + '/watch/ep-1'}]];
+            backPlay.href = '/MovieWebsite/' +movie.code + '/watch/ep-1';
             backPlay.innerHTML += `Free`;
         }
     }
 
     function isExistItemCart(value){
-        let items = document.querySelectorAll('#cart-box ul li input');
-        for(let item : items){
-            if(value === item.value) return true;
+        let items = JSON.parse(sessionStorage.getItem('itemCart'));
+        if(items == null) return false;
+        for(let item of items){
+            if(value == item.id) return true;
         }
         return false;
     }

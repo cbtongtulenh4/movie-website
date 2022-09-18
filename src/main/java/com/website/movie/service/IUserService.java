@@ -3,6 +3,7 @@ package com.website.movie.service;
 import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.security.MyUserPrincipal;
+import com.website.movie.utils.custom.CustomPageable;
 import com.website.movie.web.dto.*;
 
 import java.util.*;
@@ -35,7 +36,7 @@ public interface IUserService {
 
     List<UserProfileDto> getAllUser();
 
-    List<TVSeasonUiDto> getAllFavoriteMovie(String email);
+    List<SimpleTvSeasonDto> getAllFavoriteMovie(String email);
 
     void appendFavoriteMovie(final long user_id, final long tvSeason_id);
 
@@ -45,7 +46,7 @@ public interface IUserService {
 
     void saveAllPaidSeasonMovie(final long user_id, final long[] tvSeason_ids);
 
-    List<SimpleTvSeasonDto> getAllPaidSeasonMovie(final Long id);
+    CustomPageable<SimpleTvSeasonDto> getAllPaidSeasonMovie(final long id, int pageNo, int limitMovie);
 
     UserEntity changeUserPassword(UserEntity user, String newPassword);
 
