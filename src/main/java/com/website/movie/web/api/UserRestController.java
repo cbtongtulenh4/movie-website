@@ -99,7 +99,8 @@ public class UserRestController {
             @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
             HttpServletRequest request
     ){
-        userService.appendFavoriteMovie(1, tvSeasonId);
+        long userId = ((MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL")).getUser().getId();
+        userService.appendFavoriteMovie(userId, tvSeasonId);
     }
 
     @DeleteMapping(value = "/api/user/favorite")
@@ -107,7 +108,8 @@ public class UserRestController {
             @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
             HttpServletRequest request
     ){
-        userService.deleteFavoriteMovie(1, tvSeasonId);
+        long userId = ((MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL")).getUser().getId();
+        userService.deleteFavoriteMovie(userId, tvSeasonId);
     }
 
     @GetMapping(value = "/api/user/favorite")

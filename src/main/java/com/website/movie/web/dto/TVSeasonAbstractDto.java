@@ -52,13 +52,19 @@ public class TVSeasonAbstractDto {
         return result;
     }
 
-    public static float calRate(Set<RateEntity> rates){
+    public static float calPercentRate(Set<RateEntity> rates){
         if(rates.isEmpty()) return 10.0F;
         return (float) rates.stream().mapToInt(RateEntity::getValue).sum() / rates.size();
     }
 
-//    public static int getYear(TVSeasonEntity tvSeason){
-//        return tvSeason.getRelease().getYear();
-//    }
+    public static RateDto calRate(Set<RateEntity> rates){
+        RateDto rate = new RateDto();
+        if(!rates.isEmpty()) {
+            rate.setValue((float) rates.stream().mapToInt(RateEntity::getValue).sum() / rates.size());
+            rate.setNumPeople(rates.size());
+        }
+        return rate;
+    }
+
 
 }

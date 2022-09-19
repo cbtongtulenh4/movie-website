@@ -84,7 +84,7 @@
                 <div class="movie-single-ct main-content">
                     <h1 class="bd-hd" th:text="${SEASON_MOVIE.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
                     <div class="social-btn">
-                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i> <span onclick="favoriteAction(event);">Add to Favorite</span></div>
+                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i><span th:text="${SEASON_MOVIE.isFav ? 'Added':'Add'} + ' to Favorite'" onclick="favoriteAction(event);">Add to Favorite</span></div>
                         <div class="hover-bnt">
                             <div class="parent-btn"><i class="ion-android-share-alt"></i>share</div>
                             <div class="hvr-item">
@@ -98,8 +98,8 @@
                     <div class="movie-rate" >
                         <div class="rate" id="value-rate">
                             <i class="ion-android-star"></i>
-                            <p><span>8.1</span> /10<br>
-                                <span class="rv">56 Reviews</span>
+                            <p><span th:text="${SEASON_MOVIE.rate.value}"></span> /10<br>
+                                <span class="rv" th:text="${SEASON_MOVIE.rate.numPeople} + ' Reviews'">x Reviews</span>
                             </p>
                         </div>
                         <div class="rate-star" id="star-box">
@@ -247,11 +247,11 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Duration: </h6>
-                                                <p><a href="#">Joss Whedon</a></p>
+                                                <p><a href="#" th:text="${SEASON_MOVIE.duration} ?: #{message.UI.value.null}"></a></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Showtime: </h6>
-                                                <p><a href="#" >Joss Whedon</a></p>
+                                                <p><a href="#" th:text="${SEASON_MOVIE.showtime} ?: #{message.UI.value.null}"></a></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Status: </h6>
@@ -259,7 +259,7 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Quality: </h6>
-                                                <p  th:text="${SEASON_MOVIE.quality} ?: #{message.UI.value.null}"></p>
+                                                <p th:text="${SEASON_MOVIE.quality} ?: #{message.UI.value.null}"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Language: </h6>
@@ -291,10 +291,10 @@
                                                 <h6>Writer: </h6>
                                                 <p><a href="#" th:text="#{message.UI.value.null}"></a></p>
                                             </div>
-                                            <div class="sb-it">
-                                                <h6>Stars: </h6>
-                                                <p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>
-                                            </div>
+<!--                                            <div class="sb-it">-->
+<!--                                                <h6>Stars: </h6>-->
+<!--                                                <p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>-->
+<!--                                            </div>-->
                                             <div class="sb-it">
                                                 <h6>Genres:</h6>
                                                 <ul th:if="${SEASON_MOVIE.genres == null}">
@@ -313,7 +313,7 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Run Time:</h6>
-                                                <p>141 min</p>
+                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null} + ' min'"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Studio: </h6>
@@ -329,7 +329,7 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>MMPA Rating:</h6>
-                                                <p>PG-13</p>
+                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null} + ' min'"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Country: </h6>
@@ -983,14 +983,18 @@
     }
 
 
-//    async function favoriteAction(e){
-  //      const tvSeasonId = [[${SEASON_MOVIE.id}]];
-    //    let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonId";
-      //  await fetch(url, method: 'POST');
-    //    e.target.addEventListener('click', async function(){
-  //          await fetch(url, method: 'DELETE');
-//        })
-//    }
+    async function favoriteAction(e){
+        startAnimation();
+        let targetEl = e.target;
+        let requestMethod;
+        let isAdd = targetEl.textContent.split(" ")[0].toLowerCase() === 'added';
+        if(isAdd) requestMethod = 'DELETE';
+        else requestMethod = 'POST';
+        let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonID;
+        await fetch(url, {method: requestMethod});
+        targetEl.textContent = (isAdd ? 'Add' : 'Added') + " to Favorite";
+        stopAnimation();
+    }
 
 </script>
 

@@ -42,12 +42,13 @@ public class MovieConvert {
         return dto;
     }
 
-    public static TVSeasonUiDto toDto(TVSeasonEntity entity, boolean isPaid){
+    public static TVSeasonUiDto toDto(TVSeasonEntity entity, boolean isPaid, boolean isFavorite){
         if (entity == null){
             return null;
         }
         TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
         dto.setPaid(isPaid);
+        dto.setFav(isFavorite);
         dto.initValue(
                 entity.getEpisodes(),
                 entity.getGenres(),

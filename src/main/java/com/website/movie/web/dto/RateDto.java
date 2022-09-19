@@ -1,11 +1,8 @@
 package com.website.movie.web.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 public class RateDto {
     /**
@@ -17,5 +14,16 @@ public class RateDto {
 
     private float value;
     private int numPeople;
+
+    public RateDto(){
+        this.value = 10;
+        this.numPeople = 0;
+    }
+
+    public RateDto(float value, int numPeople){
+        this.value = value;
+        this.numPeople = numPeople;
+    }
+
 
 }

@@ -50,7 +50,7 @@ public class SimpleTvSeasonDto extends TVSeasonAbstractDto{
         StringBuilder str = new StringBuilder();
         languages.forEach(e -> str.append(e.getName()).append(", "));
         this.languages = str.toString();
-        this.rate = calRate(rates);
+        this.rate = calPercentRate(rates);
 
 //        this.views = new DecimalFormat("###,###,###").format(this.views);
     }

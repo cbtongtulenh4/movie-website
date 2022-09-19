@@ -19,4 +19,6 @@ public interface IUserDAO extends GenericDAO<UserEntity> {
 
     boolean checkPaidSeasonMovie(final Long user_id, final Long tvSeason_id);
 
+    boolean checkFavoriteSeasonMovie(final Long user_id, final Long tvSeason_id);
+
 }

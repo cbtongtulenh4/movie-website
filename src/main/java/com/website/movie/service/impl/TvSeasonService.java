@@ -133,7 +133,7 @@ public class TvSeasonService implements ITvSeasonService {
         tvSeason.getStudios().size();
         tvSeason.getLanguages().size();
         tvSeason.getCountry();
-        return MovieConvert.toDto(tvSeason, tvSeason.getCost() <= 0);
+        return MovieConvert.toDto(tvSeason, tvSeason.getCost() <= 0, false);
     }
 
     @Override
@@ -152,7 +152,8 @@ public class TvSeasonService implements ITvSeasonService {
         tvSeason.getLanguages().size();
         tvSeason.getCountry();
         boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
-        return MovieConvert.toDto(tvSeason, isPaid);
+        boolean isFav = userDAO.checkFavoriteSeasonMovie(user_id, tvSeason.getId());
+        return MovieConvert.toDto(tvSeason, isPaid, isFav);
     }
 
     @Override
@@ -215,7 +216,7 @@ public class TvSeasonService implements ITvSeasonService {
                             return false;
                         break;
                     case "rate":
-                        if(TVSeasonAbstractDto.calRate(tvSeason.getRates()) > movieFilter.getRate())
+                        if(TVSeasonAbstractDto.calPercentRate(tvSeason.getRates()) > movieFilter.getRate())
                             return false;
                         break;
                     case "year":

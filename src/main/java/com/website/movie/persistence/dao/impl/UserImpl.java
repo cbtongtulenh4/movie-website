@@ -33,6 +33,12 @@ public class UserImpl extends AbstractDAO<UserEntity> implements IUserDAO {
         return count(sql, user_id, tvSeason_id) != 0;
     }
 
+    @Override
+    public boolean checkFavoriteSeasonMovie(Long user_id, Long tvSeason_id) {
+        String sql = "SELECT COUNT(*) FROM favorite_movie WHERE user_id = ? AND tvSeason_id = ?";
+        return count(sql, user_id, tvSeason_id) != 0;
+    }
+
     private Long insertSimpleTable(final String tableName, final long user_id, final long tvSeason_id){
         String sql = "INSERT INTO " + tableName + " VALUES(?, ?)";
         return insert(sql, user_id, tvSeason_id);

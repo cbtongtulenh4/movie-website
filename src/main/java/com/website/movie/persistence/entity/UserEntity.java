@@ -31,16 +31,16 @@ public class UserEntity extends BaseEntity {
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "favorite_movie",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tv_season_id")
+            inverseJoinColumns = @JoinColumn(name = "tvSeason_id")
     )
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<TVSeasonEntity> favoriteMovies = new HashSet<>();
 
-    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.EAGER)
+    @ManyToMany(targetEntity = TVSeasonEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "paid_movie",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -48,7 +48,7 @@ public class UserEntity extends BaseEntity {
     )
     private Set<TVSeasonEntity> paidMovies = new HashSet<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user-rate")
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RateEntity> rates = new HashSet<>();
