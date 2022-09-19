@@ -23,4 +23,15 @@ public class TvEpisodeService implements ITvEpisodeService {
     public TVEpisodeEntity createTvEpisode(TVEpisodeEntity episode) {
         return episodeRepository.save(episode);
     }
+
+    @Override
+    public void savePathById(long id, String path) {
+        episodeRepository.savePathById(id, path);
+    }
+
+    @Override
+    public void saveTvEpisode(TVEpisodeEntity episode) {
+        episodeRepository.save(episode);
+    }
+
 }

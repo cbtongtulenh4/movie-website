@@ -75,7 +75,7 @@
 	<div class="container">
 		<div class="row ipad-width2">
 			<div class="col-md-8 col-sm-12 col-xs-12">
-				<div class="topbar-filter">
+				<div class="topbar-filter" id="topbar-sec">
 					<p>Found <span id="am-movies-tt" th:text="${PAGINATION.maxItems}"></span> movies in total</p>
 					<label>Sort by:</label>
 					<select id="field-sort">
@@ -84,15 +84,15 @@
 						<option value="rating-des">Rating Descending</option>
 						<option value="rating-asc">Rating Ascending</option>
 					</select>Movies per page:
-					<a href="movielist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
-					<a  href="moviegrid.html" class="grid"><i class="ion-grid"></i></a>
+					<a class="list"><i class="ion-ios-list-outline active"></i></a>
+					<a class="grid"><i class="ion-grid"></i></a>
 				</div>
-				<div class="flex-wrap-movielist" id="season-list" data-target="list-movie">
+				<div class="flex-wrap-movielist" id="tv-season-list" data-target="list">
 					<div class="movie-item-style-2" th:each="SEASON : ${SEASONS}">
 						<img th:src="${SEASON.thumbnail}" alt="">
 						<div class="mv-item-infor">
 							<h6><a th:href="@{'/' + ${SEASON.code}}" th:text="${SEASON.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${SEASON.year}+ ')'"></span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+							<p class="rate"><i class="ion-android-star"></i><span th:text="${SEASON.rate}">8.1</span> /10</p>
 							<p class="describe" th:text="${SEASON.summary}">...</p>
 							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
 							<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
@@ -219,6 +219,13 @@
 	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
 		findByPage(e, "/MovieWebsite/api/movie/season/filter", true);
 	});
+
+	document.getElementById('topbar-sec').querySelectorAll('a').forEach(el => {
+		el.addEventListener('click', function(e){
+			tvSeasonViewHandle(e, "/MovieWebsite/api/movie/season/filter", true);
+		})
+	})
+
 </script>
 
 <script th:inline="javascript">

@@ -102,18 +102,18 @@
                                 <span class="rv">56 Reviews</span>
                             </p>
                         </div>
-                        <div class="rate-star" id="icon-rate">
+                        <div class="rate-star" id="star-box">
                             <p>Rate This Movie:  </p>
-                            <i class="ion-ios-star" value="1" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="2" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="3" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="4" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="5" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="6" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="7" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="8" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="9" onclick="rateAction(event);"></i>
-                            <i class="ion-ios-star" value="10" onclick="rateAction(event);"></i>
+                            <i class="ion-ios-star" data-value="1"></i>
+                            <i class="ion-ios-star" data-value="2"></i>
+                            <i class="ion-ios-star" data-value="3"></i>
+                            <i class="ion-ios-star" data-value="4"></i>
+                            <i class="ion-ios-star" data-value="5"></i>
+                            <i class="ion-ios-star" data-value="6"></i>
+                            <i class="ion-ios-star" data-value="7"></i>
+                            <i class="ion-ios-star" data-value="8"></i>
+                            <i class="ion-ios-star" data-value="9"></i>
+                            <i class="ion-ios-star" data-value="10"></i>
                         </div>
                     </div>
                     <div class="movie-tabs">
@@ -237,7 +237,7 @@
                                                 <div th:if="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
                                                     <p>
                                                         <nobr th:each="i : ${SEASON_MOVIE.newEpisode}">
-                                                            <a href="#" th:text="${i}"></a>
+                                                            <a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-' + ${i}}" th:text="${i}"></a>
                                                         </nobr>
                                                     </p>
                                                 </div>
@@ -909,10 +909,18 @@
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
+    var tvSeasonID = [[${SEASON_MOVIE.id}]];
+    var starBox = document.getElementById('star-box');
+    starBox.querySelectorAll("i").forEach(el => {
+        el.addEventListener('click', function(e){
+            rateAction(e);
+        })
+    });
     async function rateAction(e){
+        startAnimation();
         const response = await fetch("/MovieWebsite/api/movie/season/rate?" + new URLSearchParams({
-            rateVal : e.target.attribute("value"),
-            tvSeasonId : [[${SEASON_MOVIE.id}]]
+            rateVal : e.target.dataset.value,
+            tvSeasonId : tvSeasonID
         }),{method: 'PUT'});
         var data = await response.json();
         let valueRate = document.getElementById('value-rate');
@@ -922,6 +930,7 @@
                 <span class="rv">`+ data.numPeople +` Reviews</span>
             </p>
         `;
+        stopAnimation();
     };
 
     function addToCart(movie){

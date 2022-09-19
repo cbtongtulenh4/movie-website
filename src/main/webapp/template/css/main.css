@@ -4244,15 +4244,16 @@ ul {
 .movie_list .movie-item-style-2 img,
 .movie_single .movie-item-style-2 img,
 .userfav_list .movie-item-style-2 img {
-  width: 30%;
+  width: auto;
 }
+/*
 @media (max-width: 767px) {
   .movie_list .movie-item-style-2 img,
   .movie_single .movie-item-style-2 img,
   .userfav_list .movie-item-style-2 img {
     width: auto;
   }
-}
+}*/
 .movie-item-style-2 {
   display: -webkit-flex;
   display: -moz-box;

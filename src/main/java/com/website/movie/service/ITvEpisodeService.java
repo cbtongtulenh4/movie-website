@@ -12,5 +12,9 @@ public interface ITvEpisodeService {
 
     TVEpisodeEntity createTvEpisode(TVEpisodeEntity episode);
 
+    void savePathById(final long id, final String path);
+
+    void saveTvEpisode(TVEpisodeEntity episode);
+
 
 }

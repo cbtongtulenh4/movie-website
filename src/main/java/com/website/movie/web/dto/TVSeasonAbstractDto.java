@@ -22,7 +22,8 @@ public class TVSeasonAbstractDto {
                     Math.min(size, MAX_NEW_EPISODE)
             ];
             int length = newEpisode.length;
-            for (int i = 0, j = size - MAX_NEW_EPISODE; i < length; i++){
+            int j = (length < MAX_NEW_EPISODE) ? 0 : (size - MAX_NEW_EPISODE);
+            for (int i = 0; i < length; i++){
                 newEpisode[i] =  ++j;
             }
         } else {

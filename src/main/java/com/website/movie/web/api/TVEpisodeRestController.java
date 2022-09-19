@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -36,9 +34,9 @@ public class TVEpisodeRestController {
 
     @PostMapping(value = "/api/movie/season/episode")
     public TVSeasonDto createEpisodeSeasonMovie(
-            @RequestBody @Valid final TVEpisodeDto episodeDto,
-            final BindingResult result)
-    {
+        @RequestBody @Valid final TVEpisodeDto episodeDto,
+        final BindingResult result
+    ){
         LOGGER.info("Create a episode season movie with information: {}", episodeDto);
         if (result.hasErrors()){
             throw new InvalidDataException(result);
@@ -53,4 +51,18 @@ public class TVEpisodeRestController {
         return Convert.convertModel(episodeEntity, TVSeasonDto.class);
     }
 
+    @PutMapping(value = "/api/movie/season/episode/path")
+    public void savePathTvEpisodeSeasonMovieById(
+        @RequestParam(value = "id") final Long epID,
+        @RequestParam(value = "path") final String epPath
+    ){
+        episodeService.savePathById(epID, epPath);
+    }
+
+    @PutMapping(value = "/api/movie/season/episode")
+    public void savePathTvEpisodeSeasonMovieById(
+        @RequestBody @Valid final TVEpisodeDto episodeDto
+    ){
+//        episodeService.saveTvEpisode(episodeDto);
+    }
 }

@@ -7,6 +7,7 @@ import com.website.movie.persistence.dao.impl.CommentImpl;
 import com.website.movie.persistence.entity.*;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.service.*;
+import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.CommentDto;
 import com.website.movie.web.dto.MovieCategoryDto;
 import com.website.movie.web.dto.RateDto;
@@ -97,7 +98,7 @@ public class OtherRestController {
             @RequestParam(value = "tvSeasonId") final Long tvSeasonId,
             HttpServletRequest request
     ){
-        MyUserPrincipal myUser = (MyUserPrincipal) request.getAttribute("USER_MODEL");
+        MyUserPrincipal myUser = (MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL");
         UserEntity user = userService.findByUsername(myUser.getUsername());
         TVSeasonEntity tvSeason = tvSeasonService.getSeasonMovieById(tvSeasonId);
         otherMovieService.save(new RateEntity(rateVal, user, tvSeason));

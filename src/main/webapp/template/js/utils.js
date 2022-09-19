@@ -110,31 +110,29 @@
     }
 
     function showListMovie(urlTarget, data, hasFilter){
-        let seasonList = '';
-        var host = "/MovieWebsite";
         var updating = (updatingMsg === undefined) ? "updating ..." : updatingMsg;
         var pagination = data.pagination;
 
-        let tvSeasonBox = document.getElementById('season-list');
-        let tvSeasonHTML = getTvSeasonHTML(tvSeasonBox);
-        tvSeasonBox.innerHTML = seasonList;
+        let tvSeasonBox = document.getElementById('tv-season-list');
+        tvSeasonBox.innerHTML = getTvSeasonHTML(tvSeasonBox.dataset.target, data);
 
         document.getElementById('am-movies-tt').innerHTML = pagination.maxItems;
 
-        customPagination(urlTarget, pagination.nextPage, 2, pagination.maxPage, hasFilter);
+        customPagination(urlTarget, pagination.nextPage, pagination.maxPageItem, pagination.maxPage, hasFilter);
         stopAnimation();
     }
 
-    function getTvSeasonHTML(tvSeasonBox){
+    function getTvSeasonHTML(target, data){
         let tvSeasonHTML = '';
-        if(tvSeasonBox.dataset.target === 'list-movie') {
+        var host = "/MovieWebsite";
+        if(target === 'list') {
             for(let SEASON of data.simpleTvSeasons){
                 tvSeasonHTML += `
                        <div class="movie-item-style-2">
                            <img src="`+ SEASON.thumbnail +`" alt="">
                            <div class="mv-item-infor">
                                <h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `<span> (`+ SEASON.year +`)</span></a></h6>
-                               <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                               <p class="rate"><i class="ion-android-star"></i><span>`+ SEASON.rate +`</span> /10</p>
                                <p class="describe">`+ SEASON.summary +`</p>
                                <p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: `+ SEASON.release +`</span></p>
                                <p><span>Languages: `+ SEASON.languages +`</span></p>
@@ -155,7 +153,7 @@
                            </div>
                            <div class="mv-item-infor">
                                <h6><a href="`+ host +`/` + SEASON.code + `">` + ((SEASON.title != null) ?  SEASON.title : updating)+ `</a></h6>
-                               <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                               <p class="rate"><i class="ion-android-star"></i><span>`+ SEASON.rate +`</span> /10</p>
                            </div>
                        </div>
                    `;
@@ -163,6 +161,25 @@
         }
         return tvSeasonHTML;
     }
+
+
+    async function tvSeasonViewHandle(e, urlTarget, hasFilter){
+        let targetEl = e.target;
+        if(targetEl.tagName !== 'a'){
+            targetEl = upToParent(targetEl, 'a');
+        }
+        targetEl.parentNode.querySelectorAll('a').forEach(el => {
+            el.querySelector('i').classList.remove('active');
+        });
+        targetEl.querySelector('i').classList.add('active');
+        document.getElementById('tv-season-list').dataset.target = targetEl.className;
+        if(targetEl.className === "grid"){
+            document.getElementById('max-page-item').value = 10;
+            await getAPI(urlTarget, 1, 10, hasFilter);
+        }
+        else await getAPI(urlTarget, 1, 2, hasFilter);    
+    }
+
 
     async function findByPage(e, urlTarget, hasFilter){
 		if(e.key === 'Enter'){
