@@ -24,21 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="9c8f1b1e-0acf-4660-afbf-1e7ee9157f15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/helper/converter/MovieConvert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/IUserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/IUserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/UserImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/dao/impl/UserImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/persistence/entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/service/impl/TvSeasonService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/UserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/UserRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/RateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/RateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/SimpleTvSeasonDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonAbstractDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonAbstractDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/TVSeasonUiDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/movieSingle.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/service/impl/TvSeasonService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/RateDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/RateDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/SimpleTvSeasonDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonAbstractDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonAbstractDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/web/LoginRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/api/web/LoginRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/UserLoginDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/website/movie/web/dto/UserLoginDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/fragments/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/userprofile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/web/userprofile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/js/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/js/header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/template/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/template/js/utils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/website/movie/web/dto/TVSeasonUiDto.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,6 +76,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/LAPTOP/IdeaProjects/Spring/movie-website&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   }
 }</component>

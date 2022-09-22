@@ -1,7 +1,5 @@
 package com.website.movie.web.dto;
 
-import com.website.movie.validation.ValidEmail;
-
 public class UserLoginDto {
     /**
      * @Project: MovieWebsite
@@ -12,6 +10,7 @@ public class UserLoginDto {
 
     private String username;
     private String password;
+    private String remember;
 
     public UserLoginDto(){
 
@@ -24,6 +23,12 @@ public class UserLoginDto {
     public UserLoginDto(String email, String password){
         this.username = email;
         this.password = password;
+    }
+
+    public UserLoginDto(String username, String password, String remember) {
+        this.username = username;
+        this.password = password;
+        this.remember = remember;
     }
 
     public String getUsername() {
@@ -42,4 +47,23 @@ public class UserLoginDto {
         this.password = password;
     }
 
+    public String getRemember() {
+        return remember;
+    }
+
+    public void setRemember(String remember) {
+        this.remember = remember;
+    }
+
+    public String toJson(){
+        return "{\'username\':\'" + username + "\',\'password\':\'" + password +"\'}";
+}
+
+    @Override
+    public String toString() {
+        return "UserLoginDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -38,7 +40,8 @@ public class LoginRestController {
     public String handleLogin(
             @RequestBody final UserLoginDto userLogin,
             final BindingResult result,
-            final HttpServletRequest request) throws IOException {
+            final HttpServletRequest request,
+            final HttpServletResponse response) throws IOException {
 //        LOGGER.debug("Login account with information: {}", userLogin);
         if (result.hasErrors()){
 //            throw new InvalidDataException(result);
@@ -57,7 +60,11 @@ public class LoginRestController {
 //            LOGGER.warn("Account Not Enable");
             final String message = messages.getMessage("message.user." + loginStatus, null, request.getLocale());
             return (new MessageDto(MessageConstants.DANGER, message)).toStringJson();
-
+        }
+        if(userLogin.getRemember() != null){
+            Cookie ckUserLogin = new Cookie("USER_LOGIN", userLogin.toJson());
+            ckUserLogin.setMaxAge(86400);
+            response.addCookie(ckUserLogin);
         }
         SessionUtil.getInstance().putValue(request,"USER_MODEL", myUser);// save info user for session
 //        SessionUtil.getInstance().savePreviousPageByRequest(request);

@@ -220,6 +220,12 @@
 		findByPage(e, "/MovieWebsite/api/user/favorite", false);
 	});
 
+	document.getElementById('topbar-sec').querySelectorAll('a').forEach(el => {
+		el.addEventListener('click', function(e){
+			tvSeasonViewHandle(e, "/MovieWebsite/api/user/favorite", false);
+		})
+	})
+
 
 </script>
 </body>

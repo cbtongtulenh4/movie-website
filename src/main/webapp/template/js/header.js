@@ -1,6 +1,23 @@
 let loginSection = document.getElementById('login-section');
 let signupSection = document.getElementById('signup-section');
 
+document.onload = () => {
+    checkRememberLogin();
+}
+
+function checkRememberLogin(){
+    let loginDto = JSON.parse(sessionStorage.getItem("USER_LOGIN"));
+    if(loginDto === null){
+        loginDto = getCookie("USER_LOGIN");
+        if(loginDto === undefined) return;
+        sessionStorage.setItem("USER_LOGIN", loginDto);
+        loginDto = JSON.parse(loginDto);
+    }
+    loginSection.getElementById('username').value = loginDto.username;
+    loginSection.getElementById('password').value = loginDto.password;
+    loginSection.getElementById('remember').checked = true;
+}
+
 if(msgDto){
     if(msgDto.target == 'signup'){
         loginSection.classList.add('openform');
@@ -66,6 +83,7 @@ async function handleLogin(){
     startAnimation();
     let loginForm = loginSection.querySelector('form');
     let formData = new FormData(loginForm);
+    console.log(JSON.stringify(Object.fromEntries(formData)));
     let response = await fetch("/MovieWebsite/api/handleLogin",{
         method : 'POST',
         body : JSON.stringify(Object.fromEntries(formData)),
