@@ -1,6 +1,8 @@
 package com.website.movie.utils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class SessionUtil {
@@ -59,6 +61,17 @@ public class SessionUtil {
         Object rs = request.getSession().getAttribute("PreviousPage");
         if (rs == null) return "redirect:/";
         return rs.toString();
+    }
+
+
+    public boolean hasCookie(String name, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        return Arrays.stream(cookies).anyMatch(el -> el.getName().equals(name));
+    }
+
+    public Cookie getCookie(String name, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        return Arrays.stream(cookies).filter(el -> el.getName().equals(name)).findFirst().orElse(null);
     }
 
 }

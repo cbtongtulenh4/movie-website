@@ -56,7 +56,7 @@ public class UserLoginDto {
     }
 
     public String toJson(){
-        return "{\'username\':\'" + username + "\',\'password\':\'" + password +"\'}";
+        return "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
 }
 
     @Override

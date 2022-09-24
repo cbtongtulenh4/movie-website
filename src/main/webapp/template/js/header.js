@@ -1,7 +1,8 @@
 let loginSection = document.getElementById('login-section');
 let signupSection = document.getElementById('signup-section');
+console.log(decodeURIComponent(getCookie("USER_LOGIN")));
 
-document.onload = () => {
+window.onload = () => {
     checkRememberLogin();
 }
 
@@ -10,7 +11,7 @@ function checkRememberLogin(){
     if(loginDto === null){
         loginDto = getCookie("USER_LOGIN");
         if(loginDto === undefined) return;
-        sessionStorage.setItem("USER_LOGIN", loginDto);
+        sessionStorage.setItem("USER_LOGIN", decodeURIComponent(loginDto));
         loginDto = JSON.parse(loginDto);
     }
     loginSection.getElementById('username').value = loginDto.username;
