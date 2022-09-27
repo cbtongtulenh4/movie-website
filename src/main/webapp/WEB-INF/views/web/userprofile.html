@@ -134,6 +134,7 @@
 <script th:src="@{/template/js/profile.js}"></script>
 <script th:inline="javascript">
 	var updatingMsg = [[#{message.UI.value.null}]];
+	var urlTarget = "/MovieWebsite/api/user/favorite";
 	async function caFetch(e) { // change Avatar fetch
 		startAnimation();
 		let fileFetch = document.getElementById('upload-button').files[0];
@@ -192,7 +193,6 @@
 		stopAnimation();
 	}
 
-
 	let userInfo = document.getElementById('user-info');
 	let activesUser = userInfo.querySelectorAll('.user-fav ul li');
 	activesUser.forEach(el => el.firstChild.addEventListener('click', function(e){relateContent(e);}));
@@ -208,7 +208,6 @@
 		}
 		targetEl = upToParent(e.target, 'li');
 		if(targetEl.dataset.target !== "info-section"){
-			let urlTarget;
 			if(valueCheck === 'favorite') urlTarget = "/MovieWebsite/api/user/favorite";
 			else urlTarget = "/MovieWebsite/api/user/movie/paid";
 			await getAPI(urlTarget, 1, 2, false);
@@ -217,13 +216,23 @@
 		document.getElementById(targetEl.dataset.target).style.display = "block";
 	}
 	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
-		findByPage(e, "/MovieWebsite/api/user/favorite", false);
+		findByPage(e, urlTarget, false);
 	});
 
 	document.getElementById('topbar-sec').querySelectorAll('a').forEach(el => {
 		el.addEventListener('click', function(e){
-			tvSeasonViewHandle(e, "/MovieWebsite/api/user/favorite", false);
+			tvSeasonViewHandle(e, urlTarget, false);
 		})
+	})
+
+	// action select option page
+	document.getElementById('max-page-item').addEventListener('change', function(){
+	    selectOptionPage(urlTarget, this.value, false);
+	})
+
+	// get by field sort
+	document.getElementById('field-sort').addEventListener('change', function(){
+	    selectOptionFieldSort(urlTarget, false);
 	})
 
 

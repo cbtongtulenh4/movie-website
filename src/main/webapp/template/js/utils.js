@@ -111,7 +111,9 @@
                 maxPageItem: maxPageItem
             });
         }
-
+        // sortBy
+        let fieldSort = document.getElementById('field-sort');
+        params.append("sort", fieldSort.value);
         const response = await fetch(url + "?" + params);
         var data = await response.json();
         showListMovie(url, data, hasFilter);
@@ -200,6 +202,14 @@
             stopAnimation();
 		}
 	}
+	function selectOptionPage(urlTarget, maxPageItem, hasFilter){
+	    getAPI(urlTarget, '1', maxPageItem, hasFilter);
+	}
+
+	function selectOptionFieldSort(urlTarget, hasFilter){
+	    var maxPageItem = document.getElementById('max-page-item').value;
+        getAPI(urlTarget, '1', maxPageItem, hasFilter);
+    }
 
 // end pagination custom -----------------------------------------------------------
 

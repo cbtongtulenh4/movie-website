@@ -2,6 +2,7 @@ package com.website.movie.service;
 
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.web.dto.MovieFilterDto;
+import com.website.movie.web.dto.SimpleTvSeasonDto;
 import com.website.movie.web.dto.TVSeasonUiDto;
 import com.website.movie.web.dto.WatchTvSeasonDto;
 import org.springframework.data.domain.Page;
@@ -40,6 +41,7 @@ public interface ITvSeasonService {
     TVSeasonUiDto getTvSeasonUiDtoById(long id);
 
     List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit);
+    List<SimpleTvSeasonDto> findLimitPopularByRate(String sort);
 
     List<TVSeasonEntity> findTVSeasonByForm(String formCode, String nameTv);
 

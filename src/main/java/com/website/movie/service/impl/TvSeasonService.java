@@ -12,10 +12,7 @@ import com.website.movie.persistence.repository.MovieGenresRepository;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.persistence.repository.TVSeasonRepository;
 import com.website.movie.service.ITvSeasonService;
-import com.website.movie.web.dto.MovieFilterDto;
-import com.website.movie.web.dto.TVSeasonAbstractDto;
-import com.website.movie.web.dto.TVSeasonUiDto;
-import com.website.movie.web.dto.WatchTvSeasonDto;
+import com.website.movie.web.dto.*;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +99,8 @@ public class TvSeasonService implements ITvSeasonService {
         return result;
     }
 
+
+
     @Override
     public WatchTvSeasonDto getWatchTvSeasonUiByCode(String code) {
         List<TVSeasonEntity> tvSeasonList = UtilService.getSeasonMovieCache(tvSeasonRepository);
@@ -159,6 +158,11 @@ public class TvSeasonService implements ITvSeasonService {
     @Override
     public List<TVSeasonUiDto> findLimitPopularByViews(String field, String sort, int limit) {
         return MovieConvert.toDto(tvSeasonRepository.findLimitPopularByViews(field, sort, limit));
+    }
+
+    @Override
+    public List<SimpleTvSeasonDto> findLimitPopularByRate(String sort) {
+        return MovieConvert.toSimpleTvSeasonDto(tvSeasonRepository.findLimitPopularByRate(sort));
     }
 
     @Override

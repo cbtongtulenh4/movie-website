@@ -79,10 +79,10 @@
 					<p>Found <span id="am-movies-tt" th:text="${PAGINATION.maxItems}"></span> movies in total</p>
 					<label>Sort by:</label>
 					<select id="field-sort">
-						<option value="views-des">Popularity Descending</option>
+						<option value="views-desc">Popularity Descending</option>
 						<option value="views-asc">Popularity Ascending</option>
-						<option value="rating-des">Rating Descending</option>
-						<option value="rating-asc">Rating Ascending</option>
+						<option value="rate-desc">Rating Descending</option>
+						<option value="rate-asc">Rating Ascending</option>
 					</select>Movies per page:
 					<a class="list"><i class="ion-ios-list-outline active"></i></a>
 					<a class="grid"><i class="ion-grid"></i></a>
@@ -214,7 +214,7 @@
 	let btnSubmit = document.getElementById('btn-submit');
     btnSubmit.addEventListener('click', function(){
     	var maxPageItem = document.getElementById('max-page-item').value;
-        getAPI("/MovieWebsite/api/movie/season/filter", '1', maxPageItem);
+        getAPI("/MovieWebsite/api/movie/season/filter", '1', maxPageItem, true);
     })
 	document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
 		findByPage(e, "/MovieWebsite/api/movie/season/filter", true);
@@ -224,6 +224,14 @@
 		el.addEventListener('click', function(e){
 			tvSeasonViewHandle(e, "/MovieWebsite/api/movie/season/filter", true);
 		})
+	})
+
+	document.getElementById('max-page-item').addEventListener('change', function(){
+	    selectOptionPage("/MovieWebsite/api/movie/season/filter", this.value, true);
+	})
+
+	document.getElementById('field-sort').addEventListener('change', function(){
+	    selectOptionFieldSort("/MovieWebsite/api/movie/season/filter", true);
 	})
 
 </script>

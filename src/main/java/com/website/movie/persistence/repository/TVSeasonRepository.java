@@ -21,6 +21,14 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
     @Query(value = "SELECT * FROM movie_seasons ORDER BY ?1 ?2 LIMIT ?3", nativeQuery = true)
     List<TVSeasonEntity> findLimitPopularByViews(String filed, String sort, int limit);
 
+    @Query(value = "SELECT sm.* FROM movie_seasons as sm INNER JOIN rate on sm.id = rate.tvSeason_id " +
+            "GROUP BY(sm.id) ORDER BY SUM(rate.value) ?1 LIMIT ?2,?3", nativeQuery = true)
+    List<TVSeasonEntity> findLimitPopularByRate(String sort, int offset, int limit);
+
+    @Query(value = "SELECT sm.* FROM movie_seasons as sm INNER JOIN rate on sm.id = rate.tvSeason_id " +
+            "GROUP BY(sm.id) ORDER BY SUM(rate.value) :direction LIMIT 0, 2", nativeQuery = true)
+    List<TVSeasonEntity> findLimitPopularByRate(@Param("direction") String sort);
+
     @Query("SELECT DISTINCT ms FROM TVSeasonEntity ms " +
             "LEFT JOIN FETCH ms.genres " +
             "LEFT JOIN FETCH ms.rates " +
@@ -30,7 +38,6 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
             "LEFT JOIN FETCH ms.languages " +
             "LEFT JOIN FETCH ms.comments WHERE ms.id = :id")
     TVSeasonEntity findByIdAndFetchAllEagerly(@Param("id") Long id);
-
 
     @Query("SELECT ms.code FROM TVSeasonEntity ms WHERE ms.id = ?1")
     String getTitleById(long id);

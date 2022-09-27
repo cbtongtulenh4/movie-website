@@ -89,7 +89,7 @@ public class LoginRestController {
         if(isRemember && ckUserLogin == null){
             try {
                 ckUserLogin = new Cookie("USER_LOGIN", URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
-//                ckUserLogin.setMaxAge(86400);
+                ckUserLogin.setMaxAge(86400);
                 ckUserLogin.setHttpOnly(false);
                 ckUserLogin.setPath("/");
                 response.addCookie(ckUserLogin);

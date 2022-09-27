@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController(value = "TvSeasonRestAPI")
@@ -83,15 +82,16 @@ public class TVSeasonRestController {
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
     ){
-
         MovieFilterDto movieFilterDto = new MovieFilterDto();
         movieFilterDto.init(request, "title", "rating", "genres", "yearFrom", "yearTo");
-        List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto, sortBy(sortParam));
-        List<SimpleTvSeasonDto> simpleTvSeasonDtos = new ArrayList<>();
-        tvSeasonEntity.forEach(e -> simpleTvSeasonDtos.add(MovieConvert.toSimpleTvSeasonDto(e)));
-
+        List<SimpleTvSeasonDto> simpleTvSeasonDtos;
+        if(sortParam.startsWith("rate")){
+            simpleTvSeasonDtos = tvSeasonService.findLimitPopularByRate(sortParam.split("-")[1]);
+        } else {
+            List<TVSeasonEntity> tvSeasonEntity = tvSeasonService.getSeasonMoviesByFilter(movieFilterDto, sortBy(sortParam));
+            simpleTvSeasonDtos = MovieConvert.toSimpleTvSeasonDto(tvSeasonEntity);
+        }
         CustomPageable<SimpleTvSeasonDto> pageable = new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
-
         PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
 
         return new MovieListPageDto(

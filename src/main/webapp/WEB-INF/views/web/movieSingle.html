@@ -953,7 +953,7 @@
         var frontPlay = playBtn.querySelector('.item-1');
         var backPlay = playBtn.querySelector('.item-2');
         let movie = [[${SEASON_MOVIE}]];
-        let isOk = movie.cost == 0 || (movie.cost > 0 && movie.isPaid);
+        let isOk = movie.cost == 0 || movie.paid;
         frontPlay.innerHTML = `<i class="ion-card"></i> ` +  (isOk ? 'WATCH NOW':'BUY TICKET');
         backPlay.innerHTML = `<i class="ion-card"></i> `;
         if(!isOk){
@@ -969,7 +969,7 @@
             backPlay.innerHTML += `($` + movie.cost + `) Add To Cart`;
         }else {
             backPlay.href = '/MovieWebsite/' +movie.code + '/watch/ep-1';
-            backPlay.innerHTML += `Free`;
+            backPlay.innerHTML += movie.paid ? `Paid`:`Free`;
         }
     }
 

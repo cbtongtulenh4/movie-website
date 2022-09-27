@@ -1,7 +1,5 @@
 let loginSection = document.getElementById('login-section');
 let signupSection = document.getElementById('signup-section');
-console.log(decodeURIComponent(getCookie("USER_LOGIN")));
-
 window.onload = () => {
     checkRememberLogin();
 }
@@ -11,12 +9,13 @@ function checkRememberLogin(){
     if(loginDto === null){
         loginDto = getCookie("USER_LOGIN");
         if(loginDto === undefined) return;
-        sessionStorage.setItem("USER_LOGIN", decodeURIComponent(loginDto));
-        loginDto = JSON.parse(loginDto);
+        let temp = decodeURIComponent(loginDto);
+        sessionStorage.setItem("USER_LOGIN", temp);
+        loginDto = JSON.parse(temp);
     }
-    loginSection.getElementById('username').value = loginDto.username;
-    loginSection.getElementById('password').value = loginDto.password;
-    loginSection.getElementById('remember').checked = true;
+    loginSection.querySelector("#username").value = loginDto.username;
+    loginSection.querySelector("#password").value = loginDto.password;
+    loginSection.querySelector("#remember").checked = true;
 }
 
 if(msgDto){
@@ -84,7 +83,6 @@ async function handleLogin(){
     startAnimation();
     let loginForm = loginSection.querySelector('form');
     let formData = new FormData(loginForm);
-    console.log(JSON.stringify(Object.fromEntries(formData)));
     let response = await fetch("/MovieWebsite/api/handleLogin",{
         method : 'POST',
         body : JSON.stringify(Object.fromEntries(formData)),
@@ -222,7 +220,6 @@ await fetch("/MovieWebsite/search/"+ tagSearch.querySelector('input').value + "?
     // HTTP 301 response
     // HOW CAN I FOLLOW THE HTTP REDIRECT RESPONSE?
     if (response.redirected) {
-        console.log(response.url);
         window.location.href = response.url;
     }
 })
