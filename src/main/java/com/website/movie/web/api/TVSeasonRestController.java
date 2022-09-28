@@ -111,7 +111,7 @@ public class TVSeasonRestController {
 
     @GetMapping(value = "/api/movie/tv-season/populars")
     public List<TVSeasonUiDto> getPopularSeasonsMovie(){
-        return tvSeasonService.findLimitPopularByViews("views", "ASddC", 5);
+        return tvSeasonService.findLimitPopularByViews("views", "ASC", 5);
     }
 
 

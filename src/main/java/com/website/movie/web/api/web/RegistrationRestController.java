@@ -2,6 +2,7 @@ package com.website.movie.web.api.web;
 
 import com.website.movie.constant.MessageConstants;
 import com.website.movie.events.OnVerificationTokenCompleteEvent;
+import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
@@ -14,7 +15,10 @@ import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.ChangePasswordDto;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.MessageDto;
-import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserRegistrationDto;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
@@ -38,6 +42,8 @@ public class RegistrationRestController {
      * @ModifiedBy:
      */
 
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private IUserService userService;
 
@@ -50,13 +56,20 @@ public class RegistrationRestController {
     @Autowired
     private MessageSource messages;
 
+    @SneakyThrows
     @PostMapping(value = "/api/registration")
     public MessageDto registrationUserAccount(
-            @RequestBody final UserDto userDto,
+            @RequestBody @Valid final UserRegistrationDto userRegistrationDto,
+            final BindingResult result,
             final HttpServletRequest request)
     {
+        LOGGER.debug("Registering user account with information: {}", userRegistrationDto);
+        if (result.hasErrors()){
+//            throw new MethodArgumentNotValidException(new MethodParameter(this.getClass().getDeclaredMethods()[0], 1), result);
+            throw new InvalidDataException(result);
+        }
         try {
-            UserEntity registered = userService.registerNewUserAccount(userDto);
+            UserEntity registered = userService.registerNewUserAccount(userRegistrationDto);
             final String appUrl = getAppUrl(request);
             final Locale locale = request.getLocale();
             final MailDto mailDto = new MailDto("registrationConfirm?", locale);
@@ -64,16 +77,14 @@ public class RegistrationRestController {
             eventPublisher.publishEvent(new OnVerificationTokenCompleteEvent(registered, appUrl, mailDto));
         }catch (final UserAlreadyExistException uaeEx){
             String message = messages.getMessage("message.regError", null, request.getLocale());
-            MessageDto msg = new MessageDto(MessageConstants.DANGER, message);
-            return msg;
+            return new MessageDto(MessageConstants.DANGER, message);
         }catch (final Exception ex){
             ex.printStackTrace();
-            userService.deleteUserAccount(userDto.getEmail());
+            userService.deleteUserAccount(userRegistrationDto.getEmail());
             return new MessageDto(MessageConstants.DANGER, "Unable to register user");
         }
         String message = messages.getMessage("message.checkEmail", null, request.getLocale());
-        MessageDto msg = new MessageDto(MessageConstants.INFO, message);
-        return msg;
+        return new MessageDto(MessageConstants.INFO, message);
     }
 
 

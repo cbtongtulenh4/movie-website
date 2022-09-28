@@ -61,7 +61,7 @@ public class UserService implements IUserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     @Override
-    public UserEntity registerNewUserAccount(UserDto accountDto) {
+    public UserEntity registerNewUserAccount(UserRegistrationDto accountDto) {
         if(usernameExists(accountDto.getUsername())){
             throw new UserAlreadyExistException("There is an account with that username: "
                         + accountDto.getUsername()
@@ -168,6 +168,14 @@ public class UserService implements IUserService {
         return userRepository.save(user);
     }
 
+    @Override
+    public UserDto changeUserPassword(UserDto userDto, String newPassword) {
+        UserEntity user = userRepository.findById(userDto.getId()).orElse(null);
+        if (user == null) return null;
+        user.setPassword(passwordEncoder.hashPBKDF2(newPassword));
+        return Convert.convertModel(userRepository.save(user), UserDto.class);
+    }
+
     @SneakyThrows
     @Override
     public MyUserPrincipal loadUserByUsername(UserLoginDto userLogin) {
@@ -175,13 +183,9 @@ public class UserService implements IUserService {
         if (user == null){
             throw new UserNotFoundException("No user found with username:" + userLogin.getUsername());
         }
-        user.getRoles().size();
-        user.getProfile();
-        user.getFavoriteMovies();
-        user.getPaidMovies();
         MyUserPrincipal myUser = null;
         if(passwordEncoder.validatePassPBKDF2(userLogin.getPassword(), user.getPassword())){
-             myUser = new MyUserPrincipal(user);
+             myUser = new MyUserPrincipal(Convert.convertModel(user, UserDto.class));
         }
         return myUser;
     }

@@ -36,7 +36,7 @@ public class CommonErrorHandler {
         map.put("message", error.getMessage());
         map.put("timeStamp", TimeUtil.getSysDate());
         map.put("filedError", error.getFieldErrors());
-        return new ResponseEntity<Object>(map,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
     }
 
 

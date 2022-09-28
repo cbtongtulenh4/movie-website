@@ -1,29 +1,39 @@
 package com.website.movie.web.dto;
 
-import com.website.movie.validation.PasswordMatches;
-import com.website.movie.validation.ValidEmail;
-import lombok.AllArgsConstructor;
+import com.website.movie.persistence.entity.ProfileEntity;
+import com.website.movie.persistence.entity.RoleEntity;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Set;
+
 @Data
-@PasswordMatches
 public class UserDto {
     /**
      * @Project: MovieWebsite
-     * @Author: Fu.Minh_Phuc on 17/01/2022
+     * @Author: Fu.Minh_Phuc on 22/01/2022
      * @Github: https://github.com/cbtongtulenh4
      * @ModifiedBy:
      */
 
     private Long id;
-    @ValidEmail
-    private String email;
     private String username;
     private String password;
-    private String matchingPassword;
+    private Boolean enable;
+    private Boolean status;
+
+    private ProfileEntity profile;
+    private Set<RoleEntity> roles;
 
 
+    public UserDto() {
+
+    }
+
+    public UserDto(Long id, String username, String password, Boolean enable, Boolean status) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.enable = enable;
+        this.status = status;
+    }
 }

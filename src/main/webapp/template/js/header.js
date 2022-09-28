@@ -83,20 +83,25 @@ async function handleLogin(){
     startAnimation();
     let loginForm = loginSection.querySelector('form');
     let formData = new FormData(loginForm);
-    let response = await fetch("/MovieWebsite/api/handleLogin",{
+    let data = await fetch("/MovieWebsite/api/handleLogin",{
         method : 'POST',
         body : JSON.stringify(Object.fromEntries(formData)),
         headers : {
             'Accept' : 'application/json',
             'Content-Type' : 'application/json'
         }
+    }).then((response) => {
+        if(response.ok) return response.text();
+        throw new Error('');
+    }).then((data) => {
+        if(data.includes("/")){
+            window.location.href = data;
+        }
+        let message = JSON.parse(data);
+        setSignMessageBox(loginForm, message.type, message.content);
+    }).catch((error) => {
+        console.log(error);
     });
-    let data = await response.text();
-    if(data.includes("/")){
-        window.location.href = data;
-    }
-    let message = JSON.parse(data);
-    setSignMessageBox(loginForm, message.type, message.content);
     stopAnimation();
 }
 

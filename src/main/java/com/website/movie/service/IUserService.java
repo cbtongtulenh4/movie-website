@@ -16,7 +16,7 @@ public interface IUserService {
      * @ModifiedBy:
      */
 
-    UserEntity registerNewUserAccount(UserDto accountDto);
+    UserEntity registerNewUserAccount(UserRegistrationDto accountDto);
 
     UserEntity saveRegisteredUser(final UserEntity user);
 
@@ -49,6 +49,7 @@ public interface IUserService {
     CustomPageable<SimpleTvSeasonDto> getAllPaidSeasonMovie(final long id, int pageNo, int limitMovie);
 
     UserEntity changeUserPassword(UserEntity user, String newPassword);
+    UserDto changeUserPassword(UserDto userDto, String newPassword);
 
     MyUserPrincipal loadUserByUsername(UserLoginDto userLogin);
 

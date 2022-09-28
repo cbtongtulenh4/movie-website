@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,14 +44,9 @@ public class LoginRestController {
     @PostMapping(value = "/api/handleLogin")
     public String handleLogin(
             @RequestBody final UserLoginDto userLogin,
-            final BindingResult result,
             final HttpServletRequest request,
             final HttpServletResponse response) {
         LOGGER.debug("Login account with information: {}", userLogin);
-        if (result.hasErrors()){
-//            throw new InvalidDataException(result);
-            System.out.println("error");
-        }
         MyUserPrincipal myUser = null;
         try {
             myUser = userService.loadUserByUsername(userLogin);

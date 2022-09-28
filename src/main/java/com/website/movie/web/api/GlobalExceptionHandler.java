@@ -13,7 +13,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,6 +26,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -55,7 +55,7 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     public ResponseEntity<?> processValidationError(InvalidDataException ex) {
         List<FieldError> errors = ex.getResult().getFieldErrors();
         for (FieldError error : errors) {
-            LOGGER.error("Filed Name ::: " + error.getField() + "Error Message :::" + error.getDefaultMessage());
+            LOGGER.error("Filed Name ::: " + error.getField() + " - Error Message :::" + error.getDefaultMessage());
         }
         ErrorDto errorDto = new ErrorDto(BAD_REQUEST.value(), ErrorConstants.ERR_VALIDATION);
         return errorHandler.fieldErrorResponse(errorHandler.processFieldErrors(errorDto, errors));
@@ -66,8 +66,10 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        BindingResult result = ex.getBindingResult();
-        List<org.springframework.validation.FieldError> fieldErrors = result.getFieldErrors();
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
+        for (FieldError error : fieldErrors) {
+            LOGGER.error("Filed Name ::: " + error.getField() + " - Error Message :::" + error.getDefaultMessage());
+        }
         ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
         return errorHandler.processFieldErrors(error, fieldErrors);
     }
@@ -76,11 +78,10 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     @ResponseBody
     public ErrorDto handleMail(MailAuthenticationException ex, WebRequest request){
         LOGGER.error(ex.getLocalizedMessage(), ex);
-        ErrorDto errorDto = new ErrorDto(
+        return new ErrorDto(
                 BAD_REQUEST.value(),
                 messages.getMessage("message.email.config.error", null, "Mail Error", request.getLocale())
         );
-        return errorDto;
     }
 
     @ExceptionHandler({NumberFormatException.class})
@@ -101,6 +102,18 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
                 BAD_REQUEST.value(),
                 messages.getMessage("message.error.multipart", null, "Multiple part File error", request.getLocale())
         );
+    }
+
+    @ExceptionHandler({ ConstraintViolationException.class })
+    public ResponseEntity<Object> handleConstraintViolation(
+            ConstraintViolationException ex, WebRequest request) {
+//        List<String> errors = new ArrayList<>();
+//        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+//            errors.add(violation.getRootBeanClass().getName() + " " +
+//                    violation.getPropertyPath() + ": " + violation.getMessage());
+//        }
+//        return errorHandlerController(ex, HttpStatus.BAD_REQUEST);
+        return null;
     }
 
     @ExceptionHandler({ Exception.class })

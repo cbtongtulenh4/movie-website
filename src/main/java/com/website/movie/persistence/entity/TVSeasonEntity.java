@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 @Entity
@@ -43,7 +40,8 @@ public class TVSeasonEntity extends BaseEntity{
     private String summary;
     private Integer seasonNumber; // season th of movie
 //    private LocalDate release; // date for release
-
+    @ElementCollection
+    private List<String> photos = new ArrayList<>();
 
 
     @ManyToOne

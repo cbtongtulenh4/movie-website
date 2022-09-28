@@ -132,7 +132,7 @@ public class TvSeasonService implements ITvSeasonService {
         tvSeason.getStudios().size();
         tvSeason.getLanguages().size();
         tvSeason.getCountry();
-        return MovieConvert.toDto(tvSeason, tvSeason.getCost() <= 0, false);
+        return MovieConvert.toDto(tvSeason, false, false);
     }
 
     @Override

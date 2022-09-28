@@ -15,7 +15,7 @@ import com.website.movie.utils.SessionUtil;
 import com.website.movie.web.dto.ChangePasswordDto;
 import com.website.movie.web.dto.MailDto;
 import com.website.movie.web.dto.MessageDto;
-import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserRegistrationDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +63,11 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public @ResponseBody MessageDto registrationUserAccount(
-            @RequestBody @Valid final UserDto userDto,
+            @RequestBody @Valid final UserRegistrationDto userRegistrationDto,
             final BindingResult result,
             final HttpServletRequest request)
     {
-        LOGGER.debug("Registering user account with information: {}", userDto);
+        LOGGER.debug("Registering user account with information: {}", userRegistrationDto);
 
         // check error valid
 //        if(result.hasErrors()){
@@ -79,7 +79,7 @@ public class RegistrationController {
 //        String targetURL = SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/");
 //        ModelAndView mav = new ModelAndView(targetURL, "user", userDto);
         try {
-            UserEntity registered = userService.registerNewUserAccount(userDto);
+            UserEntity registered = userService.registerNewUserAccount(userRegistrationDto);
             final String appUrl = getAppUrl(request);
             final Locale locale = request.getLocale();
             final MailDto mailDto = new MailDto("registrationConfirm?", locale);
@@ -94,7 +94,7 @@ public class RegistrationController {
         }catch (final Exception ex){
             LOGGER.warn("Unable to register user", ex);
             ex.printStackTrace();
-            userService.deleteUserAccount(userDto.getEmail());
+            userService.deleteUserAccount(userRegistrationDto.getEmail());
 //            mav.addObject(
 //                    "message",
 //                    new MessageDto(MessageConstants.DANGER, "Unable to register user")
@@ -111,7 +111,7 @@ public class RegistrationController {
     @RequestMapping(value = "/registrationConfirm", method = RequestMethod.GET)
     public ModelAndView ConfirmRegistration(
             final HttpServletRequest request,
-            final UserDto userDto,
+            final UserRegistrationDto userRegistrationDto,
             final Model model,
             @RequestParam("token") final String token)
     {
@@ -305,7 +305,7 @@ public class RegistrationController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public String checkTest(
-            @ModelAttribute("user") @Valid final UserDto userDto,
+            @ModelAttribute("user") @Valid final UserRegistrationDto userRegistrationDto,
             final BindingResult result)
     {
         if (result.hasErrors()){

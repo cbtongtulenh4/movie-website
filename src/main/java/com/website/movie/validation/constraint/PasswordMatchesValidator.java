@@ -2,7 +2,7 @@ package com.website.movie.validation.constraint;
 
 import com.website.movie.validation.PasswordMatches;
 import com.website.movie.web.dto.ChangePasswordDto;
-import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserRegistrationDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -27,8 +27,8 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext constraintValidatorContext) {
         if (obj == null) return false;
-        if(obj instanceof UserDto){
-            UserDto user = (UserDto) obj;
+        if(obj instanceof UserRegistrationDto){
+            UserRegistrationDto user = (UserRegistrationDto) obj;
             return user.getPassword().equals(user.getMatchingPassword());
         }
         ChangePasswordDto changePasswordDto = (ChangePasswordDto) obj;

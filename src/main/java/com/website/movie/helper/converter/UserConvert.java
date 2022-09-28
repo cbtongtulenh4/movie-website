@@ -5,7 +5,7 @@ import com.website.movie.persistence.entity.ProfileEntity;
 import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.utils.ArrayUtil;
 import com.website.movie.utils.AssertUtil;
-import com.website.movie.web.dto.UserDto;
+import com.website.movie.web.dto.UserRegistrationDto;
 import com.website.movie.web.dto.UserProfileDto;
 
 import java.util.*;
@@ -18,17 +18,17 @@ public class UserConvert {
      * @ModifiedBy:
      */
 
-    public static UserDto toDTO(UserEntity entity) {
+    public static UserRegistrationDto toDTO(UserEntity entity) {
 //        if(entity == null) return null;
         AssertUtil.notNull(entity, "UserEntity must not be null!");
-        UserDto result = new UserDto();
+        UserRegistrationDto result = new UserRegistrationDto();
         result.setUsername(entity.getUsername());
         result.setId(entity.getId());
         result.setPassword(entity.getPassword());
         return result;
     }
 
-    public static UserEntity toEntity(UserDto dto){
+    public static UserEntity toEntity(UserRegistrationDto dto){
 //        if(dto == null) return null;
         AssertUtil.notNull(dto, "UserDto must not be null!");
         UserEntity result = new UserEntity();

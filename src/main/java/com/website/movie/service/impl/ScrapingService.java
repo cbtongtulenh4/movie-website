@@ -254,7 +254,11 @@ public class ScrapingService implements IScrapingService {
                 tvSeasonEntity.setTrailer(StringUtil.getValueByURL(contain2.attr("src"), -1));
             }
 
-
+            contain2 = contain1.select("#MvTb-Image .ImageMovieList.owl-carousel").first();
+            Elements itemImg = contain2.select(".item  img");
+            for(Element img : itemImg){
+                tvSeasonEntity.getPhotos().add(img.attr("src"));
+            }
             return tvSeasonEntity;
         } catch (IOException e) {
             LOGGER.error("For '" + URL + "': " + e.getMessage());
@@ -277,7 +281,7 @@ public class ScrapingService implements IScrapingService {
 
     public static void main(String[] args) {
         ScrapingService scraping = new ScrapingService();
-        List<MovieEntity> movieEntities = scraping.getJsoupAllMovie("http://animevietsub.tv/", "#hot-home ul li.TPostMv");
+        List<MovieEntity> movieEntities = scraping.getJsoupAllMovie("http://animevietsub.cc/", "#hot-home ul li.TPostMv");
 //        Set<TVSeasonEntity> tvSeasonEntities = scraping.getJsoupAllTVSeason("http://animevietsub.tv/phim/mushoku-tensei-isekai-Ittara-honki-dasu-2nd-season-a4627/");
         System.out.println(movieEntities);
     }

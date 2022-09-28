@@ -147,7 +147,7 @@
                                <p class="run-time"> Run Time: <span>`+ ((SEASON.runtime != null) ? SEASON.runtime : '2h21’')+`</span>    .     <span>MMPA: PG-13 </span>    .     <span>Release: `+ SEASON.release +`</span></p>
                                <p><span>Languages: `+ SEASON.languages +`</span></p>
                                <p>Duration: <a href="#">`+ ((SEASON.duration != null) ?  SEASON.duration : updating) +`</a></p>
-                               <p>Views: <span>`+ ((SEASON.views != null) ? SEASON.views : updating) +`</span></p>
+                               <p>Views: <span>`+ ((SEASON.views != null) ? SEASON.views.toLocaleString() : updating) +`</span></p>
                            </div>
                        </div>
                    `;

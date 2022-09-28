@@ -27,7 +27,7 @@ public class UserEntity extends BaseEntity {
     private Boolean enable;
     private Boolean status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<RoleEntity> roles = new HashSet<>();
 
@@ -46,6 +46,7 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tvSeason_id")
     )
+    @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<TVSeasonEntity> paidMovies = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -55,7 +56,7 @@ public class UserEntity extends BaseEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
-    private ProfileEntity profile = new ProfileEntity();
+    private ProfileEntity profile;
 
     public UserEntity(){
         super();

@@ -156,9 +156,6 @@ public class OtherRestController {
         ));
     }
 
-
-
-
     @PostMapping(value = "/api/scraping/genres")
     public List<String> scrapingGenres(
             @RequestBody ScrapingDto scrapingDto

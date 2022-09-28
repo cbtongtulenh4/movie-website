@@ -1,10 +1,10 @@
 package com.website.movie.security;
 
 import com.website.movie.persistence.entity.RoleEntity;
-import com.website.movie.persistence.entity.UserEntity;
 import com.website.movie.security.custom.GrantedAuthority;
 import com.website.movie.security.custom.SimpleGrantedAuthority;
 import com.website.movie.security.custom.UserDetails;
+import com.website.movie.web.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,9 +19,9 @@ public class MyUserPrincipal implements UserDetails {
      */
 
     private static final long serialVersionUID = 1L;
-    private UserEntity user;
+    private UserDto user;
 
-    public MyUserPrincipal(final UserEntity user){
+    public MyUserPrincipal(final UserDto user){
         this.user = user;
     }
 
@@ -64,11 +64,11 @@ public class MyUserPrincipal implements UserDetails {
         return authorities;
     }
 
-    public UserEntity getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 

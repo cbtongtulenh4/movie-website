@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -42,6 +43,7 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private Long movie_id;
     private boolean isPaid = false;
     private boolean isFav = false;
+    private List<String> photos;
 
     private RateDto rate;
     private int[] newEpisode;

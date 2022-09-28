@@ -97,7 +97,7 @@
 							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
 							<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
 							<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???</a></p>
-							<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
+							<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'COMMA')}: #{message.UI.value.null}"></span></p>
 						</div>
 					</div>
 				</div>

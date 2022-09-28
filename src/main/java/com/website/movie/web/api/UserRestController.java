@@ -68,7 +68,7 @@ public class UserRestController {
                     Convert.convertModel(userProfileDto, ProfileEntity.class)
             );
             userService.save(userEntity);
-            ((MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL")).setUser(userEntity);
+            ((MyUserPrincipal) SessionUtil.getInstance().getValue(request, "USER_MODEL")).setUser(Convert.convertModel(userEntity, UserDto.class));
         }catch (Exception e){
             messageDto.setType(MessageConstants.DANGER);
             messageDto.setContent("Change Profile Failure");
