@@ -46,38 +46,51 @@ async function registrationUserAccount(){
             'Accept' : 'application/json',
             'Content-Type' : 'application/json'
         }
-    });
-    let message = await response.json();
-    await setSignMessageBox(registerForm, message.type, message.content);
-    if(message.type == 'info'){
-        registerForm.style.display = "none";
-        let tokenForm = document.getElementById('token-form');
-        tokenForm.style.display = "block";
-        tokenForm.querySelector('button').addEventListener('click', function(){
-            tokenForm.style.display = "none";
-            registerForm.style.display = "block";
-        });
-        document.addEventListener('keydown', async function(event) {
-            if(event.keyCode == 13){
-                startAnimation();
-                let codeToken = tokenForm.querySelector('#code-token');
-                let response = await fetch("/MovieWebsite/api/registrationConfirm?token=" + codeToken.value, {method : 'POST'});
-                let message = await response.json();
-                if(message.type.toLowerCase() === 'success'){
-                    tokenForm.style.display = "none";
-                    registerForm.style.display = "block";
-                    signupSection.classList = "overlay";
-                    loginSection.classList = "overlay openform";
-                    await setSignMessageBox(loginSection.querySelector('form'), message.type, message.content);
-                } else {
-                    await setSignMessageBox(SignupSection.querySelector('form'), message.type, message.content);
+    }).then((response) => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(response.json());
+    }).then((message) => {
+        setSignMessageBox(registerForm, message.type, message.content);
+        if(message.type == 'info'){
+            registerForm.style.display = "none";
+            let tokenForm = document.getElementById('token-form');
+            tokenForm.style.display = "block";
+            tokenForm.querySelector('button').addEventListener('click', function(){
+                tokenForm.style.display = "none";
+                registerForm.style.display = "block";
+            });
+            document.addEventListener('keydown', async function(event) {
+                if(event.keyCode == 13){
+                    startAnimation();
+                    let codeToken = tokenForm.querySelector('#code-token');
+                    let response = await fetch("/MovieWebsite/api/registrationConfirm?token=" + codeToken.value, {method : 'POST'});
+                    let message = await response.json();
+                    if(message.type.toLowerCase() === 'success'){
+                        tokenForm.style.display = "none";
+                        registerForm.style.display = "block";
+                        signupSection.classList = "overlay";
+                        loginSection.classList = "overlay openform";
+                        await setSignMessageBox(loginSection.querySelector('form'), message.type, message.content);
+                    } else {
+                        await setSignMessageBox(SignupSection.querySelector('form'), message.type, message.content);
+                    }
+                    stopAnimation();
                 }
-                stopAnimation();
-            }
-        });
-    }
+            });
+        }
+    }).catch((errorDto) => {
+        setSignMessageBox(registerForm, "danger", errorDto.message);
+        for(let fieldError of errorDto.fieldErrors){
+            document.getElementById(fieldError.field).title = fieldError.message;
+        }
+    });
     stopAnimation();
 }
+
+
+
 
 async function handleLogin(){
     startAnimation();

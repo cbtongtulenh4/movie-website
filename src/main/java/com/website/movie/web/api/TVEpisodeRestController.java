@@ -30,7 +30,7 @@ public class TVEpisodeRestController {
     @Autowired
     private ITvEpisodeService episodeService;
     @Autowired
-    private ITvSeasonService seasonDto;
+    private ITvSeasonService tvSeasonService;
 
     @PostMapping(value = "/api/movie/season/episode")
     public TVSeasonDto createEpisodeSeasonMovie(
@@ -41,7 +41,7 @@ public class TVEpisodeRestController {
         if (result.hasErrors()){
             throw new InvalidDataException(result);
         }
-        TVSeasonEntity seasonMovie = seasonDto.getSeasonMovieById(episodeDto.getSeason_id());
+        TVSeasonEntity seasonMovie = tvSeasonService.getSeasonMovieById(episodeDto.getSeason_id());
         if (seasonMovie == null){
 
         }
@@ -65,4 +65,14 @@ public class TVEpisodeRestController {
     ){
 //        episodeService.saveTvEpisode(episodeDto);
     }
+
+    @PostMapping(value = "/api/movie/tv-season/episode/path")
+    public void savePathTvEpisode(
+            @RequestParam final String tvSeasonCode,
+            @RequestParam final int numEp,
+            @RequestParam(value = "path") final String newPath
+    ){
+        tvSeasonService.savePathEpisode(tvSeasonCode, numEp, newPath);
+    }
+
 }

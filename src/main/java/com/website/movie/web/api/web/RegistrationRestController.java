@@ -2,7 +2,6 @@ package com.website.movie.web.api.web;
 
 import com.website.movie.constant.MessageConstants;
 import com.website.movie.events.OnVerificationTokenCompleteEvent;
-import com.website.movie.helper.error.InvalidDataException;
 import com.website.movie.helper.error.MailAuthenticationException;
 import com.website.movie.helper.error.UserAlreadyExistException;
 import com.website.movie.persistence.entity.UserEntity;
@@ -22,7 +21,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,8 +66,8 @@ public class RegistrationRestController {
     {
         LOGGER.debug("Registering user account with information: {}", userRegistrationDto);
         if (result.hasErrors()){
-//            throw new MethodArgumentNotValidException(new MethodParameter(this.getClass().getDeclaredMethods()[0], 1), result);
-            throw new InvalidDataException(result);
+            throw new MethodArgumentNotValidException(new MethodParameter(this.getClass().getDeclaredMethods()[0], 1), result);
+//            throw new InvalidDataException(result);
         }
         try {
             UserEntity registered = userService.registerNewUserAccount(userRegistrationDto);

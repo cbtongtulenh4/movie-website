@@ -49,4 +49,7 @@ public interface ITvSeasonService {
 
     //List<TVSeasonEntity> findAll(Pageable paging);
 
+
+    void savePathEpisode(final String tvSeasonCode, final int numEp, final String path);
+
 }

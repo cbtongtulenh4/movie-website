@@ -1,5 +1,6 @@
 package com.website.movie.service.impl;
 
+import com.website.movie.cache.InMemoryCache;
 import com.website.movie.constant.CacheConstants;
 import com.website.movie.helper.converter.Convert;
 import com.website.movie.helper.converter.MovieConvert;
@@ -7,6 +8,7 @@ import com.website.movie.persistence.dao.IUserDAO;
 import com.website.movie.persistence.dao.impl.UserImpl;
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.MovieGenresEntity;
+import com.website.movie.persistence.entity.TVEpisodeEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieGenresRepository;
 import com.website.movie.persistence.repository.MovieRepository;
@@ -25,10 +27,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -186,6 +185,20 @@ public class TvSeasonService implements ITvSeasonService {
     @Override
     public String getTitleById(long id) {
         return tvSeasonRepository.getTitleById(id);
+    }
+
+    @Override
+    public void savePathEpisode(String tvSeasonCode, int numEp, String path) {
+        List<TVSeasonEntity> tvSeasons = (List<TVSeasonEntity>) InMemoryCache.getInstance().get(CacheConstants.SEASON_MOVIES);
+        TVSeasonEntity tvSeason = tvSeasons.parallelStream().filter(el -> el.getCode().equals(tvSeasonCode)).findFirst().orElse(null);
+        if(tvSeason == null) return;
+        for(TVEpisodeEntity ep : tvSeason.getEpisodes()){
+            if(ep.getNumEp() == numEp) {
+                ep.setPath(path);
+                break;
+            }
+        }
+        tvSeasonRepository.save(tvSeason);
     }
 
     @Override

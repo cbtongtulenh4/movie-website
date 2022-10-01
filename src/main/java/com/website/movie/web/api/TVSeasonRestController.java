@@ -115,6 +115,8 @@ public class TVSeasonRestController {
     }
 
 
+
+
     private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store, String sortParam){
         String[] valueSort = sortParam.split("-");
 

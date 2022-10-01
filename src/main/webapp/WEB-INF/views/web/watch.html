@@ -73,7 +73,7 @@
             <main>
                 <div class="ht-video">
                     <div class="video-vd">
-                        <iframe id="server-2" th:src="'https://www.youtube.com/embed/' + ${EPISODE.path}" frameborder="10" ></iframe>
+                        <iframe id="server-2" th:src="'https://www.youtube.com/embed/' + ${EPISODE.path} + '?rel=0&enablejsapi=1'" frameborder="10"  allowfullscreen></iframe>
                         <section style="display: none;">
                             <div class="container-vd">
                                 <div id="video_player">
@@ -183,19 +183,19 @@
                     <div class="vd-tools">
                         <ul>
                             <li>
-                                <span>Value</span>
+                                <span>Next episode</span>
                             </li>
                             <li>
-                                <span>Value</span>
+                                <span>Comment</span>
                             </li>
                             <li>
-                                <span>Value</span>
+                                <span>Turn off the light</span>
                             </li>
                             <li>
-                                <span>Value</span>
+                                <span>Follow</span>
                             </li>
                             <li>
-                                <span>Value</span>
+                                <span>Error</span>
                             </li>
                         </ul>
                         <div class="swap-server">
