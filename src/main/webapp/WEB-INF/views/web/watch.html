@@ -183,29 +183,29 @@
                     <div class="vd-tools">
                         <ul>
                             <li>
-                                <span>Next episode</span>
+                                <span class="tls-skip_next">Next episode</span>
                             </li>
                             <li>
-                                <span>Comment</span>
+                                <span class="tls-comment">Comment</span>
                             </li>
                             <li>
-                                <span>Turn off the light</span>
+                                <span class="tls-lightbulb_outline">Turn off the light</span>
                             </li>
                             <li>
-                                <span>Follow</span>
+                                <span class="tls-bookmark">Follow</span>
                             </li>
                             <li>
-                                <span>Error</span>
+                                <span class="tls-error">Error</span>
                             </li>
                         </ul>
                         <div class="swap-server">
                             <span class="title-server">Choose Server</span>
                             <div class="btn-server">
                                 <ul>
-                                    <li onclick="swapServer();">
+                                    <li onclick="swapServer();" class="active-server">
                                         <span>Youtube</span>
                                     </li>
-                                    <li onclick="swapServer();" class="active-server">
+                                    <li onclick="swapServer();">
                                         <span>Custom</span>
                                     </li>
                                 </ul>
@@ -215,7 +215,7 @@
                 </div>
                 <div class="ht-episode">
                     <h1>Movie Episodes</h1>
-                    <ul>
+                    <ul class="list-episode tab-pane">
                         <li th:each="EP : ${WATCH_MODEL.episodes}" th:class="${EP.numEp} == ${EPISODE.numEp} ? 'active':''">
                             <a th:href="@{'/' + ${WATCH_MODEL.code} + '/watch/ep-' + ${EP.numEp}}">
                                 <span th:value="${EP.numEp}" th:text="${EP.numEp}">01</span>
