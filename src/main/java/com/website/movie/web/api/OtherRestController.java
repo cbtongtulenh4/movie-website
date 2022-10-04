@@ -156,10 +156,15 @@ public class OtherRestController {
         ));
     }
 
+
     @PostMapping(value = "/api/scraping/genres")
     public List<String> scrapingGenres(
             @RequestBody ScrapingDto scrapingDto
     ){
+        movieService.saveAllMovies(scrapingService.getJsoupAllMovie(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        ));
         return scrapingService.getJsoupGenres(
                 scrapingDto.getUrl(),
                 scrapingDto.getContainer()
