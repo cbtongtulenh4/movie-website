@@ -4641,6 +4641,7 @@ ul {
   padding-left: 5px;
   padding-right: 5px;
   color: #4280bf;
+  cursor: pointer;
 }
 .topbar-filter .pagination2 a.active,
 .topbar-filter .pagination2 a:hover {
@@ -5674,20 +5675,32 @@ ul {
 }
 /*movie single hero*/
 .mv-single-hero {
-  background: url('../img/uploads/hero-bg.jpg') no-repeat;
-  height: 598px;
+    height: 598px;
+    background: url('../img/uploads/hero-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
 }
 /*series single hero*/
 .sr-single-hero {
   background: url('../img/uploads/sr-single.jpg') no-repeat;
   height: 598px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
 }
 .hero3 {
   background: url('../img/uploads/celeb-hero-single.jpg') no-repeat;
   height: 538px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
 }
 .common-hero {
   height: 385px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
   background: url('../img/uploads/user-hero-bg.jpg') no-repeat;
 }
 .common-hero:before {

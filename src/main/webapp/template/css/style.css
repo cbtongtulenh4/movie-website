@@ -415,9 +415,6 @@ form.sign-in-form {
   color: #e62117;
 }
 
-body{
-  background-color: #000;
-}
 
 .tls-skip_next::before{
   content: '\e044';
