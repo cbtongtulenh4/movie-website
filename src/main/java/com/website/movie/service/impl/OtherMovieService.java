@@ -54,6 +54,8 @@ public class OtherMovieService implements IOtherMovieService {
     private MovieCharacterRepository characterRepository;
     @Autowired
     private MovieFormRepository movieFormRepository;
+    @Autowired
+    private VideoRepository videoRepository;
 
 
 
@@ -299,6 +301,11 @@ public class OtherMovieService implements IOtherMovieService {
         }
         InMemoryCache.getInstance().remove(CacheConstants.MOVIE_SEASONS);
         return seasonRepository.save(season);
+    }
+
+    @Override
+    public VideoEntity saveVideo(VideoEntity video) {
+        return videoRepository.save(video);
     }
 
     private List<MovieGenresEntity> getAllMovieGenres(){

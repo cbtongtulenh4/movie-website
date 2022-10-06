@@ -33,7 +33,6 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private String showtime;
     private String runtime;
     private String quality;
-    private String trailer;
     private Integer followers;
     private Integer ageLimit = 0;
     private Long views = 0L;
@@ -44,6 +43,7 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private boolean isPaid = false;
     private boolean isFav = false;
     private List<String> photos;
+    private List<VideoEntity> videoEntities;
 
     private RateDto rate;
     private int[] newEpisode;

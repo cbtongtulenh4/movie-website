@@ -141,12 +141,11 @@ public class OtherRestController {
             @RequestParam(value = "isSpam") final boolean isSpam,
             @RequestParam(value = "commentId") final long commentId
     ){
-        
         otherMovieService.updateSpamCommentById(isSpam, commentId);
     }
 
 
-    @PostMapping(value = "/api/scraping/movie")
+    @PostMapping(value = "/api/scraping/all-movie")
     public List<MovieEntity> scrapingAllMovie(
             @RequestBody ScrapingDto scrapingDto
     ){
@@ -161,7 +160,7 @@ public class OtherRestController {
     public List<String> scrapingGenres(
             @RequestBody ScrapingDto scrapingDto
     ){
-        movieService.saveAllMovies(scrapingService.getJsoupAllMovie(
+        movieService.createMovie(scrapingService.getJsoupMovie(
                 scrapingDto.getUrl(),
                 scrapingDto.getContainer()
         ));
@@ -169,6 +168,16 @@ public class OtherRestController {
                 scrapingDto.getUrl(),
                 scrapingDto.getContainer()
         );
+    }
+
+    @PostMapping(value = "/api/scraping/movie")
+    public MovieEntity scrapingMovie(
+            @RequestBody ScrapingDto scrapingDto
+    ){
+        return movieService.createMovie(scrapingService.getJsoupMovie(
+                scrapingDto.getUrl(),
+                scrapingDto.getContainer()
+        ));
     }
 
 

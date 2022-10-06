@@ -102,6 +102,7 @@ public class MovieConvert {
             return null;
         }
         SimpleTvSeasonDto dto = modelMapper.map(entity, SimpleTvSeasonDto.class);
+        dto.setTrailer(entity.getVideos().get(0).getPath());
         dto.initValue(
                 entity.getEpisodes(),
                 entity.getDuration(),

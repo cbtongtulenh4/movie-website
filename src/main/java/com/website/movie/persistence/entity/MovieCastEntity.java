@@ -5,10 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,6 +24,8 @@ public class MovieCastEntity extends BaseEntity{
 
     private String code;
     private String name;
+    @ElementCollection
+    private List<String> photos = new ArrayList<>();
 
 //    @ManyToMany(mappedBy = "casts")
 //    private List<TVSeasonEntity> tvSeasons = new ArrayList<>();

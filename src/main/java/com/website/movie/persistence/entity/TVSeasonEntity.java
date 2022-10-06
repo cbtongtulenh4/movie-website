@@ -33,7 +33,6 @@ public class TVSeasonEntity extends BaseEntity{
     private String showtime;
     private Integer followers = 0;
     private Integer ageLimit = 0;
-    private String trailer;
 //    private Float rate = 10.0F;
     private Long views = 0L;
     @Column(columnDefinition = "TEXT")
@@ -43,6 +42,11 @@ public class TVSeasonEntity extends BaseEntity{
     @ElementCollection
     private List<String> photos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tvSeason",
+            cascade = CascadeType.ALL, fetch = FetchType.EAGER
+    )
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private List<VideoEntity> videos = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "season_id")

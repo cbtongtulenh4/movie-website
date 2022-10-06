@@ -60,6 +60,7 @@ public interface IOtherMovieService {
 
     SeasonEntity saveSeason(SeasonEntity season);
 
+    VideoEntity saveVideo(VideoEntity video);
 
     List<MovieFormEntity>  getAllFormMovie();
     MovieFormEntity saveFormMovie(MovieFormEntity formMovie);

@@ -132,15 +132,15 @@
                                             <p th:text="${SEASON_MOVIE.summary}">...</p>
                                             <div class="title-hd-sm">
                                                 <h4>Videos & Photos</h4>
-                                                <a href="#" class="time">All 5 Videos & 245 Photos <i class="ion-ios-arrow-right"></i></a>
+                                                <a href="#" class="time" th:text="'All ' + ${#list.size(SEASON_MOVIE.videos)} + ' Videos & ' + ${#list.size(SEASON_MOVIE.photos)} + ' Photos'">...<i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <div class="mvsingle-item ov-item">
-                                                <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img th:src="@{/template/img/uploads/image1.jpg}" alt=""></a>
-                                                <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image21.jpg" ><img th:src="@{/template/img/uploads/image2.jpg}" alt=""></a>
-                                                <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img th:src="@{/template/img/uploads/image3.jpg}" alt=""></a>
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/image4.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
+                                                <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
+                                                    <img th:src="@{PHOTO}" alt="">
+                                                </a>
+                                                <div th:each="VIDEO : ${SEASON_MOVIE.videos}" class="vd-it">
+                                                    <img class="vd-img" th:src="${VIDEO.image}" alt="">
+                                                    <a class="fancybox-media hvr-grow" href="'https://www.youtube.com/embed/' + VIDEO.path"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="title-hd-sm">
@@ -156,56 +156,6 @@
                                                     </div>
                                                     <p>...  Robert Downey Jr.</p>
                                                 </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast2.jpg}" alt="">
-                                                        <a href="#">Chris Hemsworth</a>
-                                                    </div>
-                                                    <p>...  Thor</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast3.jpg}" alt="">
-                                                        <a href="#">Mark Ruffalo</a>
-                                                    </div>
-                                                    <p>...  Bruce Banner/ Hulk</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast4.jpg}" alt="">
-                                                        <a href="#">Chris Evans</a>
-                                                    </div>
-                                                    <p>...  Steve Rogers/ Captain America</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast5.jpg}" alt="">
-                                                        <a href="#">Scarlett Johansson</a>
-                                                    </div>
-                                                    <p>...  Natasha Romanoff/ Black Widow</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast6.jpg}" alt="">
-                                                        <a href="#">Jeremy Renner</a>
-                                                    </div>
-                                                    <p>...  Clint Barton/ Hawkeye</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast7.jpg}" alt="">
-                                                        <a href="#">James Spader</a>
-                                                    </div>
-                                                    <p>...  Ultron</p>
-                                                </div>
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast9.jpg}" alt="">
-                                                        <a href="#">Don Cheadle</a>
-                                                    </div>
-                                                    <p>...  James Rhodes/ War Machine</p>
-                                                </div>
-                                            </div>
                                             <div class="title-hd-sm">
                                                 <h4>User reviews</h4>
                                                 <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
@@ -568,41 +518,6 @@
                                                 </div>
                                                 <p>...  (based on Marvel comics)</p>
                                             </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JK</h4>
-                                                    <a href="#">Jack Kirby</a>
-                                                </div>
-                                                <p>...  (based on Marvel comics)</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JS</h4>
-                                                    <a href="#">Joe Simon</a>
-                                                </div>
-                                                <p>...  (character created by: Captain America)</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JS</h4>
-                                                    <a href="#">Joe Simon</a>
-                                                </div>
-                                                <p>...  (character created by: Thanos)</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>RT</h4>
-                                                    <a href="#">Roy Thomas</a>
-                                                </div>
-                                                <p>...  (character created by: Ultron, Vision)</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JB</h4>
-                                                    <a href="#">John Buscema</a>
-                                                </div>
-                                                <p>...  (character created by: Ultron, Vision)</p>
-                                            </div>
                                         </div>
                                         <!-- //== -->
                                         <div class="title-hd-sm">
@@ -739,115 +654,29 @@
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Videos <span>(8)</span></h4>
+                                            <h4>Videos <span th:text="'(' + ${#list.size(SEASON_MOVIE.videos)} + ')'">(8)</span></h4>
                                         </div>
                                         <div class="mvsingle-item media-item">
                                             <div class="vd-item">
                                                 <div class="vd-it">
                                                     <img class="vd-img" th:src="@{/template/img/uploads/vd-item1.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
+                                                    <a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0">
+                                                        <img th:src="@{/template/img/uploads/play-vd.png}" alt="">
+                                                    </a>
                                                 </div>
                                                 <div class="vd-infor">
                                                     <h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
                                                     <p class="time"> 1: 31</p>
                                                 </div>
                                             </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item2.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Featurette: “Avengers Re-Assembled</a></h6>
-                                                    <p class="time"> 1: 03</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item3.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Interview: Robert Downey Jr</a></h6>
-                                                    <p class="time"> 3:27</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item4.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Interview: Scarlett Johansson</a></h6>
-                                                    <p class="time"> 3:27</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item1.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Featurette: Meet Quicksilver & The Scarlet Witch</a></h6>
-                                                    <p class="time"> 1: 31</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item2.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Interview: Director Joss Whedon</a></h6>
-                                                    <p class="time"> 1: 03</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item3.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Interview: Mark Ruffalo</a></h6>
-                                                    <p class="time"> 3:27</p>
-                                                </div>
-                                            </div>
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item4.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="https://www.youtube.com/embed/o-0hcF97wy0"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Official Trailer #2</a></h6>
-                                                    <p class="time"> 3:27</p>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Photos <span> (21)</span></h4>
+                                            <h4>Photos <span th:text="'(' + ${#list.size(SEASON_MOVIE.photos)} + ')'"> (21)</span></h4>
                                         </div>
                                         <div class="mvsingle-item">
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image11.jpg" ><img th:src="@{/template/img/uploads/image1.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery"  href="images/uploads/image21.jpg" ><img th:src="@{/template/img/uploads/image2.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image31.jpg" ><img th:src="@{/template/img/uploads/image3.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image41.jpg" ><img th:src="@{/template/img/uploads/image4.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image51.jpg" ><img th:src="@{/template/img/uploads/image5.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image61.jpg" ><img th:src="@{/template/img/uploads/image6.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image71.jpg" ><img th:src="@{/template/img/uploads/image7.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image81.jpg" ><img th:src="@{/template/img/uploads/image8.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image91.jpg" ><img th:src="@{/template/img/uploads/image9.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image101.jpg" ><img th:src="@{/template/img/uploads/image10.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image111.jpg" ><img th:src="@{/template/img/uploads/image1-1.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image121.jpg" ><img th:src="@{/template/img/uploads/image12.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image131.jpg" ><img th:src="@{/template/img/uploads/image13.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image141.jpg" ><img th:src="@{/template/img/uploads/image14.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image151.jpg" ><img th:src="@{/template/img/uploads/image15.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image161.jpg" ><img th:src="@{/template/img/uploads/image16.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image171.jpg" ><img th:src="@{/template/img/uploads/image17.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image181.jpg" ><img th:src="@{/template/img/uploads/image18.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image191.jpg" ><img th:src="@{/template/img/uploads/image19.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image201.jpg" ><img th:src="@{/template/img/uploads/image20.jpg}" alt=""></a>
-                                            <a class="img-lightbox"  data-fancybox-group="gallery" href="images/uploads/image211.jpg" ><img th:src="@{/template/img/uploads/image2-1.jpg}" alt=""></a>
+                                            <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
+                                                <img th:src="@{PHOTO}" alt="">
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

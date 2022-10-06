@@ -56,6 +56,28 @@ public class ScrapingService implements IScrapingService {
                 .post();
     }
 
+    @Override
+    public MovieEntity getJsoupMovie(String URL, String container) {
+        try {
+            Document document = loadJsoupDocumentCustomized(URL);
+            assert document != null;
+            Element item = document.select(container).first();
+            if(item != null){
+                MovieEntity movie = new MovieEntity();
+                movie.setTitle(item.select(".Title").first().text());
+                movie.setThumbnail(item.select("img[src]").first().attr("src"));
+                movie.setRate(Float.valueOf(item.select("span.Vote.AAIco-star").first().text()));
+
+                String tvSeasonURL = item.select("a").first().attr("href");
+
+                movie.setTvSeasons(getJsoupAllTVSeason(tvSeasonURL, movie));
+                return movie;
+            }
+        } catch (IOException e) {
+            LOGGER.error("For '" + URL + "': " + e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public List<MovieEntity> getJsoupAllMovie(final String URL, final String container) {
@@ -106,6 +128,7 @@ public class ScrapingService implements IScrapingService {
         }
         return null;
     }
+
 
     private Set<TVSeasonEntity> getJsoupAllTVSeason(String URL, MovieEntity movie){
         Set<TVSeasonEntity> tvSeasons = new HashSet<>();
@@ -251,7 +274,10 @@ public class ScrapingService implements IScrapingService {
 
             contain2 = contain1.select("#MvTb-Trailer iframe").first();
             if(contain2 != null){
-                tvSeasonEntity.setTrailer(StringUtil.getValueByURL(contain2.attr("src"), -1));
+                tvSeasonEntity.getVideos().add(
+                        0,
+                        otherMovieService.saveVideo(new VideoEntity(StringUtil.getValueByURL(contain2.attr("src"), -1)))
+                );
             }
 
             contain2 = contain1.select("#MvTb-Image .ImageMovieList.owl-carousel").first();
@@ -281,9 +307,7 @@ public class ScrapingService implements IScrapingService {
 
     public static void main(String[] args) {
         ScrapingService scraping = new ScrapingService();
-        List<MovieEntity> movieEntities = scraping.getJsoupAllMovie("http://animevietsub.cc/", "#hot-home ul li.TPostMv");
-//        Set<TVSeasonEntity> tvSeasonEntities = scraping.getJsoupAllTVSeason("http://animevietsub.tv/phim/mushoku-tensei-isekai-Ittara-honki-dasu-2nd-season-a4627/");
-        System.out.println(movieEntities);
+         System.out.println(scraping.getJsoupMovie("http://animevietsub.cc/", "#single-home ul li.TPostMv #post-4650"));
     }
 
 
