@@ -39,7 +39,7 @@ async function registrationUserAccount(){
     startAnimation();
     let registerForm = signupSection.querySelector('form');
     var formData = new FormData(registerForm);
-    let response = await fetch("/MovieWebsite/api/registration", {
+    await fetch("/MovieWebsite/api/registration", {
         method : 'POST',
         body : JSON.stringify(Object.fromEntries(formData)),
         headers : {
@@ -47,10 +47,11 @@ async function registrationUserAccount(){
             'Content-Type' : 'application/json'
         }
     }).then((response) => {
+        let json = response.json();
         if (response.ok) {
-            return response.json();
+            return json;
         }
-        return Promise.reject(response.json());
+        return json.then(Promise.reject.bind(Promise));
     }).then((message) => {
         setSignMessageBox(registerForm, message.type, message.content);
         if(message.type == 'info'){
@@ -82,8 +83,12 @@ async function registrationUserAccount(){
         }
     }).catch((errorDto) => {
         setSignMessageBox(registerForm, "danger", errorDto.message);
+        let lb_alerts = document.querySelectorAll("#login-content form .row span");
+        for(let alert of lb_alerts){
+            alert.textContent = "";
+        }
         for(let fieldError of errorDto.fieldErrors){
-            document.getElementById(fieldError.field).title = fieldError.message;
+            document.getElementById('err-' + fieldError.field).textContent = fieldError.message;
         }
     });
     stopAnimation();

@@ -48,7 +48,7 @@ public class ErrorDto implements Serializable {
     public void add(FieldError fieldError){
         fieldErrors.add(new FieldErrorDto(
                 fieldError.getField(),
-                fieldError.getCode())
+                fieldError.getDefaultMessage())
         );
     }
 

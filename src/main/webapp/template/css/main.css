@@ -8460,5 +8460,50 @@ input[type=number] {
     -moz-appearance:textfield; /* Firefox */
 }
 
+.tab-pane{
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar{
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb{
+  border-left: solid 4px;
+  box-shadow: inset 0 0 0 10px;
+  overflow: auto;
+  color: #e62117;
+}
 
 
+.tls-skip_next::before{
+  content: '\e044';
+  margin-right: 5px;
+}
+
+.tls-comment::before{
+  content: '\f086';
+  margin-right: 5px;
+}
+
+.tls-lightbulb_outline::before{
+  content: '\e90f';
+  margin-right: 5px;
+}
+
+.tls-bookmark::before{
+  content: '\e866';
+  margin-right: 5px;
+}
+
+.tls-error::before{
+  content: '\e000';
+  margin-right: 5px;
+}
+
+label .alert-error{
+    font-size: small;
+    color: red;
+    text-transform: lowercase;
+    margin-left: 10px;
+}

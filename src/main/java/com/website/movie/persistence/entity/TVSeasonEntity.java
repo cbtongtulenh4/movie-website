@@ -42,12 +42,6 @@ public class TVSeasonEntity extends BaseEntity{
     @ElementCollection
     private List<String> photos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tvSeason",
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER
-    )
-    @EqualsAndHashCode.Exclude @ToString.Exclude
-    private List<VideoEntity> videos = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "season_id")
     private SeasonEntity season;
@@ -60,6 +54,11 @@ public class TVSeasonEntity extends BaseEntity{
     @JsonBackReference(value = "tvSeason-form")
     @JoinColumn(name = "form_id")
     private MovieFormEntity form;
+
+    @OneToMany(targetEntity = VideoEntity.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "video_id", referencedColumnName = "id")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private List<VideoEntity> videos = new ArrayList<>();
 
     @ManyToMany(cascade = {
             CascadeType.MERGE, CascadeType.REFRESH

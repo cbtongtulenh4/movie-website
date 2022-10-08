@@ -276,7 +276,7 @@ public class ScrapingService implements IScrapingService {
             if(contain2 != null){
                 tvSeasonEntity.getVideos().add(
                         0,
-                        otherMovieService.saveVideo(new VideoEntity(StringUtil.getValueByURL(contain2.attr("src"), -1)))
+                        new VideoEntity(StringUtil.getValueByURL(contain2.attr("src"), -1))
                 );
             }
 

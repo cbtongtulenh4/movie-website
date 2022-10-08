@@ -1,9 +1,6 @@
 package com.website.movie.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -24,10 +21,10 @@ public class VideoEntity {
     private String image;
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude @EqualsAndHashCode.Exclude
-    @JsonBackReference(value = "video-tv-season")
-    private TVSeasonEntity tvSeason;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @ToString.Exclude @EqualsAndHashCode.Exclude
+//    @JsonBackReference(value = "video-tv-season")
+//    private TVSeasonEntity tvSeason;
 
     public VideoEntity(){
         this.image = "";

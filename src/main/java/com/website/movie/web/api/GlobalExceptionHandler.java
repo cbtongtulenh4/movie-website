@@ -68,9 +68,9 @@ public class GlobalExceptionHandler{  //extends ResponseEntityExceptionHandler{
     public ErrorDto methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         for (FieldError error : fieldErrors) {
-            LOGGER.error("Filed Name ::: " + error.getField() + " - Error Message :::" + error.getDefaultMessage());
+            LOGGER.error("Filed Name ::: " + error.getField() + " - Error Message ::: " + error.getDefaultMessage());
         }
-        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "validation error");
+        ErrorDto error = new ErrorDto(BAD_REQUEST.value(), "Validation Error");
         return errorHandler.processFieldErrors(error, fieldErrors);
     }
 

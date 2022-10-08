@@ -71,7 +71,7 @@
                     <div class="movie-btn">
                         <div class="btn-transform transform-vertical red">
                             <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-                            <div><a th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.trailer}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+                            <div><a th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.videos.get(0).path}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
                         </div>
                         <div class="btn-transform transform-vertical" id="btn-play">
                             <div><a class="item item-1 yellowbtn"></a></div>
@@ -132,7 +132,7 @@
                                             <p th:text="${SEASON_MOVIE.summary}">...</p>
                                             <div class="title-hd-sm">
                                                 <h4>Videos & Photos</h4>
-                                                <a href="#" class="time" th:text="'All ' + ${#list.size(SEASON_MOVIE.videos)} + ' Videos & ' + ${#list.size(SEASON_MOVIE.photos)} + ' Photos'">...<i class="ion-ios-arrow-right"></i></a>
+                                                <a href="#" class="time" th:text="'All ' + ${#lists.size(SEASON_MOVIE.videos)} + ' Videos & ' + ${#lists.size(SEASON_MOVIE.photos)} + ' Photos'">...<i class="ion-ios-arrow-right"></i></a>
                                             </div>
                                             <div class="mvsingle-item ov-item">
                                                 <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
@@ -156,9 +156,10 @@
                                                     </div>
                                                     <p>...  Robert Downey Jr.</p>
                                                 </div>
-                                            <div class="title-hd-sm">
-                                                <h4>User reviews</h4>
-                                                <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
+                                                <div class="title-hd-sm">
+                                                    <h4>User reviews</h4>
+                                                    <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
+                                                </div>
                                             </div>
                                             <!-- movie user review -->
                                             <div class="mv-user-review-item">
@@ -654,7 +655,7 @@
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Videos <span th:text="'(' + ${#list.size(SEASON_MOVIE.videos)} + ')'">(8)</span></h4>
+                                            <h4>Videos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.videos)} + ')'">(8)</span></h4>
                                         </div>
                                         <div class="mvsingle-item media-item">
                                             <div class="vd-item">
@@ -671,7 +672,7 @@
                                             </div>
                                         </div>
                                         <div class="title-hd-sm">
-                                            <h4>Photos <span th:text="'(' + ${#list.size(SEASON_MOVIE.photos)} + ')'"> (21)</span></h4>
+                                            <h4>Photos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.photos)} + ')'"> (21)</span></h4>
                                         </div>
                                         <div class="mvsingle-item">
                                             <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
@@ -734,7 +735,6 @@
 <!-- footer section-->
 <div th:replace="web/fragments/footer :: footer"></div>
 <!-- end of footer section-->
-
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">

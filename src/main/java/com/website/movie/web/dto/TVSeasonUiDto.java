@@ -43,7 +43,7 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private boolean isPaid = false;
     private boolean isFav = false;
     private List<String> photos;
-    private List<VideoEntity> videoEntities;
+    private List<VideoEntity> videos;
 
     private RateDto rate;
     private int[] newEpisode;
