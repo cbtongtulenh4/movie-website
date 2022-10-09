@@ -12,7 +12,7 @@ public interface UserDetails extends Serializable {
 
     String getUsername();
 
-    String getPassword();
+//    String getPassword();
 
     boolean isAccountNonExpired();
 

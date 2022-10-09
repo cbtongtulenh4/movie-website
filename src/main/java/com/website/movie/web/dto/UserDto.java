@@ -17,22 +17,21 @@ public class UserDto {
 
     private Long id;
     private String username;
-    private String password;
+//    private String password;
     private Boolean enable;
     private Boolean status;
 
     private ProfileEntity profile;
     private Set<RoleEntity> roles;
 
-
     public UserDto() {
 
     }
 
-    public UserDto(Long id, String username, String password, Boolean enable, Boolean status) {
+    public UserDto(Long id, String username, Boolean enable, Boolean status) {
         this.id = id;
         this.username = username;
-        this.password = password;
+//        this.password = password;
         this.enable = enable;
         this.status = status;
     }

@@ -242,7 +242,7 @@ public class RegistrationController {
         }
         MyUserPrincipal myUser = (MyUserPrincipal)SessionUtil.getInstance().getValue(request, "USER_MODEL");
         ModelAndView mav = new ModelAndView("redirect:/userprofile");
-        if (!userService.validChangePassword(changePassword.getPassRaw(), myUser.getPassword())){
+        if (!userService.validChangePassword(changePassword.getPassRaw(), myUser.getUser().getId())){
             return new MessageDto(
                     MessageConstants.WARNING,
                     MessageUtil.getMessage("message.changePassword.invalidRaw")

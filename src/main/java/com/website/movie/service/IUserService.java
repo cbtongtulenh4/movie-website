@@ -57,6 +57,6 @@ public interface IUserService {
 
     void deleteUserAccount(final String email);
 
-    boolean validChangePassword(String originalPassword, String storedPassword);
+    boolean validChangePassword(String originalPassword, long userID);
 
 }

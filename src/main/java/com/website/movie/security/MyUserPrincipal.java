@@ -30,10 +30,10 @@ public class MyUserPrincipal implements UserDetails {
         return user.getUsername();
     }
 
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
+//    @Override
+//    public String getPassword() {
+//        return user.getPassword();
+//    }
 
     @Override
     public boolean isAccountNonExpired() {

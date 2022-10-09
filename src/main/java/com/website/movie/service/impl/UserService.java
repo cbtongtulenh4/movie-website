@@ -218,7 +218,8 @@ public class UserService implements IUserService {
     }
 
     @SneakyThrows
-    public boolean validChangePassword(String originalPassword, String storedPassword){
+    public boolean validChangePassword(String originalPassword, long userID){
+        String storedPassword = userRepository.findPasswordById(userID);
         return passwordEncoder.validatePassPBKDF2(originalPassword, storedPassword);
     }
 
