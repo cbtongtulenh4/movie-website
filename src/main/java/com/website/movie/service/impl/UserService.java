@@ -62,7 +62,9 @@ public class UserService implements IUserService {
 
     @Override
     public UserEntity registerNewUserAccount(UserRegistrationDto accountDto) {
-        if(usernameExists(accountDto.getUsername())){
+        UserEntity userExist = userRepository.findOneByUsername(accountDto.getUsername());
+        if(userExist != null){
+            if(!userExist.isEnable()) return userExist;
             throw new UserAlreadyExistException("There is an account with that username: "
                         + accountDto.getUsername()
             );
@@ -80,9 +82,9 @@ public class UserService implements IUserService {
     }
 
     private boolean usernameExists(String username) {
-        return userRepository.findOneByUsername(username) != null;
+        UserEntity user = userRepository.findOneByUsername(username);
+        return (user != null) && user.isEnable();
     }
-
 
     @Override
     public UserEntity save(UserEntity userEntity) {

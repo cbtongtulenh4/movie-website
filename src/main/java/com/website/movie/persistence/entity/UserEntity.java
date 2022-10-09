@@ -58,11 +58,20 @@ public class UserEntity extends BaseEntity {
     @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "user-token")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    private Set<VerificationTokenEntity> verificationToken = new HashSet<>();
+
     public UserEntity(){
         super();
 
         this.enable = false;
         this.status = true;
+    }
+
+    public boolean isEnable(){
+        return enable;
     }
 
     @Override

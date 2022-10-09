@@ -81,7 +81,7 @@ public class RegistrationRestController {
             return new MessageDto(MessageConstants.DANGER, message);
         }catch (final Exception ex){
             ex.printStackTrace();
-            userService.deleteUserAccount(userRegistrationDto.getEmail());
+            userService.deleteUserAccount(userRegistrationDto.getUsername());
             return new MessageDto(MessageConstants.DANGER, "Unable to register user");
         }
         String message = messages.getMessage("message.checkEmail", null, request.getLocale());

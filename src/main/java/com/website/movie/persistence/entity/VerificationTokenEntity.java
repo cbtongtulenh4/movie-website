@@ -1,6 +1,6 @@
 package com.website.movie.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.website.movie.utils.EmailUtil;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -33,12 +33,11 @@ public class VerificationTokenEntity {
             name = "user_id",
             foreignKey = @ForeignKey(name = "FK_VERIFY_USER")
     )
-    @JsonIgnore
+    @JsonBackReference(value = "user-token")
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private UserEntity user;
 
     private Date expiryDate;
-
 
     public VerificationTokenEntity(){
         super();
