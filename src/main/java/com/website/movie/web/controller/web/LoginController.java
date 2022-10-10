@@ -95,8 +95,8 @@ public class LoginController {
 
     @RequestMapping(value = "/logout")
     public String getLogout( HttpServletRequest request){
-//        SessionUtil.getInstance().removeValue(request, "USER_MODEL");
-        request.getSession().invalidate();
+        SessionUtil.getInstance().removeValue(request, "USER_MODEL");
+//        request.getSession().invalidate();
         return SessionUtil.getInstance().getPreviousPageByRequest(request).orElse("redirect:/movie-list");
     }
 

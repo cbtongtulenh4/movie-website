@@ -22,6 +22,6 @@ public class ProfileEntity extends BaseEntity{
     private String gender;
     private String country;
     private String state;
-    private String avatar = "1TW5hzygr4wl4jJDL0qVOVuVnX1KKuSww";
+    private String avatar;
 
 }

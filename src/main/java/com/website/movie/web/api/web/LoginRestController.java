@@ -80,20 +80,21 @@ public class LoginRestController {
     private void saveUserLoginCookie(UserLoginDto userLogin, HttpServletRequest request, HttpServletResponse response){
         boolean isRemember = userLogin.getRemember() != null;
         Cookie ckUserLogin = SessionUtil.getInstance().getCookie("USER_LOGIN", request);
-        if(isRemember && ckUserLogin == null){
-            try {
-                ckUserLogin = new Cookie("USER_LOGIN", URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
-                ckUserLogin.setMaxAge(86400);
-                ckUserLogin.setHttpOnly(false);
-                ckUserLogin.setPath("/");
-                response.addCookie(ckUserLogin);
-            } catch (UnsupportedEncodingException e) {
-                LOGGER.error(e.getMessage());
+        try {
+            if(isRemember && ckUserLogin == null) {
+                    ckUserLogin = new Cookie("USER_LOGIN", URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
+                    ckUserLogin.setMaxAge(86400);
+                    ckUserLogin.setHttpOnly(false);
+                    ckUserLogin.setPath("/");
+            } else if(isRemember){
+                ckUserLogin.setValue(URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
+            } else if (ckUserLogin != null) {
+                ckUserLogin.setValue(null);
+                ckUserLogin.setMaxAge(0);
             }
-        } else if (!isRemember && ckUserLogin != null) {
-            ckUserLogin.setValue(null);
-            ckUserLogin.setMaxAge(0);
             response.addCookie(ckUserLogin);
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error(e.getMessage());
         }
     }
 

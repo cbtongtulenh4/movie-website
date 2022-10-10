@@ -13,7 +13,7 @@
         <div class="login-content">
             <a href="#" class="close">x</a>
             <h3>Login</h3>
-            <div th:replace="web/fragments/alert :: alert(${message})"></div>
+            <div th:replace="web/fragments/alert :: alert(${message} ?: ${session.message})"></div>
             <form method="post">
                 <div class="row">
                     <label for="username">
@@ -274,7 +274,7 @@
     <script th:src="@{/template/js/animation.js}"></script>
     <script th:inline="javascript" th:src="@{/template/js/custom.js}"></script>
     <script th:src="@{/template/js/utils.js}"></script>
-    <script th:inline="javascript">const msgDto = [[${message}]];</script>
+    <script th:inline="javascript">const msgDto = [[${message} ?: ${session.message}]];</script>
     <script th:src="@{/template/js/header.js}"></script>
 </th:block>
 </body>

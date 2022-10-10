@@ -15,7 +15,7 @@ public class CustomPageable<T> {
     private int pageSize;
 
     public CustomPageable(List<T> store, int pageNo, int pageSize) {
-        this.store = store;
+        this.store = (store == null) ? new ArrayList<>() : store;
         this.pageNo = pageNo;
         this.pageSize = pageSize;
     }

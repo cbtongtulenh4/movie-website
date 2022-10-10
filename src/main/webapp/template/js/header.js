@@ -20,9 +20,9 @@ function checkRememberLogin(){
 
 if(msgDto){
     if(msgDto.target == 'signup'){
-        loginSection.classList.add('openform');
-    }else{
         signupSection.classList.add('openform');
+    }else{
+        loginSection.classList.add('openform');
     }
     document.addEventListener('click', function hideForm(e){
         if(e.target.classList.contains('overlay')){

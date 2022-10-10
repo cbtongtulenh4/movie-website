@@ -1,11 +1,13 @@
 package com.website.movie.interceptor;
 
+import com.website.movie.constant.MessageConstants;
 import com.website.movie.security.MyUserPrincipal;
 import com.website.movie.security.custom.ExpressionUrlAuthorization;
 import com.website.movie.security.custom.RequestMatcherRegistry;
 import com.website.movie.utils.InterceptorUtil;
 import com.website.movie.utils.MessageUtil;
 import com.website.movie.utils.SessionUtil;
+import com.website.movie.web.dto.MessageDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +107,8 @@ public class UserInterceptor implements HandlerInterceptor {
         try {
             if (!check) {
 //                request.setAttribute("message", MessageUtil.getMessage("message.user." + message));
-                SessionUtil.getInstance().putValue(request, "message", MessageUtil.getMessage("message.user." + message));
+                MessageDto msgDto = new MessageDto(MessageConstants.DANGER, MessageUtil.getMessage("message.user." + message), "login");
+                SessionUtil.getInstance().putValue(request, "message", msgDto);
 //                request.getServletContext().getRequestDispatcher(request.getRequestURI()).forward(request, response);
                 response.sendRedirect(request.getContextPath() + "/logout");
             }

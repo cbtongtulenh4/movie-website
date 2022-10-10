@@ -71,7 +71,10 @@
                     <div class="movie-btn">
                         <div class="btn-transform transform-vertical red">
                             <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-                            <div><a th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.videos.get(0).path}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
+                            <div>
+                                <p th:if="${SEASON_MOVIE.videos == null OR SEASON_MOVIE.videos.empty}" class="item item-2 redbtn fancybox-media hvr-grow" th:text="#{message.UI.value.null}"></p>
+                                <a th:if="${SEASON_MOVIE.videos != null AND !SEASON_MOVIE.videos.empty}" th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.videos.get(0).path}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a>
+                            </div>
                         </div>
                         <div class="btn-transform transform-vertical" id="btn-play">
                             <div><a class="item item-1 yellowbtn"></a></div>
@@ -280,7 +283,7 @@
                                             </div>
                                             <div class="sb-it">
                                                 <h6>MMPA Rating:</h6>
-                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null} + ' min'"></p>
+                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null}"></p>
                                             </div>
                                             <div class="sb-it">
                                                 <h6>Country: </h6>
