@@ -149,6 +149,7 @@ public class TvSeasonService implements ITvSeasonService {
         tvSeason.getStudios().size();
         tvSeason.getLanguages().size();
         tvSeason.getCountry();
+        tvSeason.getMovie();
         boolean isPaid = userDAO.checkPaidSeasonMovie(user_id, tvSeason.getId());
         boolean isFav = userDAO.checkFavoriteSeasonMovie(user_id, tvSeason.getId());
         return MovieConvert.toDto(tvSeason, isPaid, isFav);
@@ -199,6 +200,12 @@ public class TvSeasonService implements ITvSeasonService {
             }
         }
         tvSeasonRepository.save(tvSeason);
+    }
+
+    @Override
+    public Page<TVSeasonEntity> findAllRelateTvSeasonByMovieId(long movieId, Pageable paging) {
+        Page<TVSeasonEntity> pagedResult = tvSeasonRepository.findAllByMovie_id(movieId, paging);
+        return pagedResult;
     }
 
     @Override

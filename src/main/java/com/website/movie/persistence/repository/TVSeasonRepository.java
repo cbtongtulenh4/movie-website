@@ -1,11 +1,13 @@
 package com.website.movie.persistence.repository;
 
 import com.website.movie.persistence.entity.TVSeasonEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.*;
+import java.util.List;
 
 public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> {
     /**
@@ -45,7 +47,7 @@ public interface TVSeasonRepository extends JpaRepository<TVSeasonEntity, Long> 
 //    @Query("UPDATE TVSeasonEntity SET :name = :value WHERE id = :id")
 //    void saveAttributeCustomize(@Param("id") Long id, @Param("name") String name, @Param("value") String value);
 
-
+    Page<TVSeasonEntity> findAllByMovie_id(long movieId, Pageable pageable);
 
 
 

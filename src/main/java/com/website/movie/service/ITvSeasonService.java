@@ -52,4 +52,6 @@ public interface ITvSeasonService {
 
     void savePathEpisode(final String tvSeasonCode, final int numEp, final String path);
 
+    Page<TVSeasonEntity> findAllRelateTvSeasonByMovieId(long movieId, Pageable paging);
+
 }

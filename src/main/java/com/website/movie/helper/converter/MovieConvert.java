@@ -49,6 +49,7 @@ public class MovieConvert {
         TVSeasonUiDto dto = modelMapper.map(entity, TVSeasonUiDto.class);
         dto.setPaid(isPaid);
         dto.setFav(isFavorite);
+        dto.setMovie_id(entity.getMovie().getId());
         dto.initValue(
                 entity.getEpisodes(),
                 entity.getGenres(),

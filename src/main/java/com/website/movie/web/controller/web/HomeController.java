@@ -108,17 +108,8 @@ public class HomeController {
         TVSeasonUiDto tvSeason;
         if(myUser == null) tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code);
         else  tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code, myUser.getUser().getId());
-
-        tvSeason.get
-
-        Page<TVSeasonEntity> pagination = tvSeasonService.findAll(
-                PageableUtil.paging(0, 5)
-        );
-        List<SimpleTvSeasonDto> tvSeasonRelate = new ArrayList<>();
-        pagination.getContent().forEach(e -> {
-            tvSeasonRelate.add(MovieConvert.toSimpleTvSeasonDto(e));
-        });
-
+        MovieListPageDto<SimpleTvSeasonDto> tvSeasonRelate =
+                movieService.findAllRelateTvSeasonById(tvSeason.getMovie_id(), tvSeason.getId(), 1, 2);
         mav.addObject("SEASON_MOVIE", tvSeason);
         mav.addObject("TVSEASON_RELATE", tvSeasonRelate);
         mav.addObject(FORM_MOVIES, otherMovieService.getAllFormMovie());

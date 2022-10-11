@@ -1,5 +1,8 @@
 package com.website.movie.utils.custom;
 
+import com.website.movie.web.dto.MovieListPageDto;
+import com.website.movie.web.dto.PaginationDto;
+
 import java.util.*;
 
 public class CustomPageable<T> {
@@ -40,4 +43,12 @@ public class CustomPageable<T> {
     public long getTotalElements(){
         return store.size();
     }
+
+    public MovieListPageDto<T> toMovieListPage(){
+        return new MovieListPageDto<T>(
+                paging(),
+                new PaginationDto(pageSize, pageNo, getTotalPages(), getTotalElements())
+        );
+    }
+
 }

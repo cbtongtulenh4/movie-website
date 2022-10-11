@@ -7,7 +7,10 @@ import com.website.movie.service.IMovieService;
 import com.website.movie.service.ITvSeasonService;
 import com.website.movie.utils.PageableUtil;
 import com.website.movie.utils.custom.CustomPageable;
-import com.website.movie.web.dto.*;
+import com.website.movie.web.dto.MovieFilterDto;
+import com.website.movie.web.dto.MovieListPageDto;
+import com.website.movie.web.dto.SimpleTvSeasonDto;
+import com.website.movie.web.dto.TVSeasonUiDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,11 @@ public class TVSeasonRestController {
         return seasonDto;
     }
 
+    @GetMapping(value = "/api/movie/tv-season/all")
+    public List<TVSeasonEntity> getAllTVSeasons(){
+        return tvSeasonService.getAllSeasonMovie();
+    }
+
     @GetMapping(value = "/api/movie/season/random")
     public String getIdSeasonMovieRandom(){
         long amountSeasonMovie = tvSeasonService.countSeasonMovie();
@@ -75,7 +83,7 @@ public class TVSeasonRestController {
 
 
     @GetMapping(value = "/api/movie/season/filter")
-    public MovieListPageDto getMoviesByFilter(
+    public MovieListPageDto<SimpleTvSeasonDto> getMoviesByFilter(
 //            @RequestBody final MovieFilterDto movieFilterDto,
             @RequestParam(value = "sort", defaultValue = "views-des") final String sortParam,
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
@@ -92,12 +100,7 @@ public class TVSeasonRestController {
             simpleTvSeasonDtos = MovieConvert.toSimpleTvSeasonDto(tvSeasonEntity);
         }
         CustomPageable<SimpleTvSeasonDto> pageable = new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
-        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
-
-        return new MovieListPageDto(
-                pageable.paging(),
-                pagination
-        );
+        return pageable.toMovieListPage();
     }
 
     @GetMapping(value = "/api/movie/season")
@@ -114,14 +117,19 @@ public class TVSeasonRestController {
         return tvSeasonService.findLimitPopularByViews("views", "ASC", 5);
     }
 
-
+    @GetMapping(value = "/api/movie/tv-season/relate")
+    public MovieListPageDto<SimpleTvSeasonDto> getAllRelateTvSeason(
+            @RequestParam(value = "movieId") final long movieId,
+            @RequestParam(value = "tvSeasonId") final long tvSeasonId,
+            @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
+            @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie
+    ){
+        return movieService.findAllRelateTvSeasonById(movieId, tvSeasonId, pageNo, limitMovie);
+    }
 
 
     private List<SimpleTvSeasonDto> sortBy(List<SimpleTvSeasonDto> store, String sortParam){
         String[] valueSort = sortParam.split("-");
-
-
-
         return null;
     }
 

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class MovieListPageDto {
+public class MovieListPageDto<T> {
     /**
      * @Project: MovieWebsite
      * @Author: Fu.Minh_Phuc on 15/02/2022
@@ -13,16 +13,31 @@ public class MovieListPageDto {
      * @ModifiedBy:
      */
 
-    private List<SimpleTvSeasonDto> simpleTvSeasons;
+    private List<T> tvSeasons;
     private PaginationDto pagination;
 
     public MovieListPageDto(){
 
     }
 
-    public MovieListPageDto(List<SimpleTvSeasonDto> simpleTvSeasons, PaginationDto pagination){
-        this.simpleTvSeasons = simpleTvSeasons;
+    public MovieListPageDto(List<T> tvSeasons, PaginationDto pagination){
+        this.tvSeasons = tvSeasons;
         this.pagination = pagination;
     }
 
+    public List<T> getTvSeasons() {
+        return tvSeasons;
+    }
+
+    public void setTvSeasons(List<T> tvSeasons) {
+        this.tvSeasons = tvSeasons;
+    }
+
+    public PaginationDto getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(PaginationDto pagination) {
+        this.pagination = pagination;
+    }
 }

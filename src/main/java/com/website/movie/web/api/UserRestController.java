@@ -113,7 +113,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/api/user/favorite")
-    public MovieListPageDto getAllFavoriteMovie(
+    public MovieListPageDto<SimpleTvSeasonDto> getAllFavoriteMovie(
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
@@ -121,26 +121,18 @@ public class UserRestController {
         String username = ((MyUserPrincipal)(SessionUtil.getInstance().getValue(request, "USER_MODEL"))).getUsername();
         List<SimpleTvSeasonDto> simpleTvSeasonDtos = userService.getAllFavoriteMovie(username);
         CustomPageable<SimpleTvSeasonDto> pageable = new CustomPageable<>(simpleTvSeasonDtos, pageNo, limitMovie);
-        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
-        return new MovieListPageDto(
-                pageable.paging(),
-                pagination
-        );
+        return pageable.toMovieListPage();
     }
 
     @GetMapping(value = "/api/user/movie/paid")
-    public MovieListPageDto getAllPaidMovie(
+    public MovieListPageDto<SimpleTvSeasonDto> getAllPaidMovie(
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie,
             HttpServletRequest request
     ){
         Long userId = ((MyUserPrincipal)(SessionUtil.getInstance().getValue(request, "USER_MODEL"))).getUser().getId();
         CustomPageable<SimpleTvSeasonDto> pageable = userService.getAllPaidSeasonMovie(userId, pageNo, limitMovie);
-        PaginationDto pagination = new PaginationDto(limitMovie, pageNo, pageable.getTotalPages(), pageable.getTotalElements());
-        return new MovieListPageDto(
-                pageable.paging(),
-                pagination
-        );
+        return pageable.toMovieListPage();
     }
 
     @PutMapping(value = "/api/user/payment")

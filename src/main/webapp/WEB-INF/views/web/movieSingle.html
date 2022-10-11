@@ -504,7 +504,7 @@
                                             <h3>Related Movies To</h3>
                                             <h2 th:text="${SEASON_MOVIE.title}"></h2>
                                             <div class="topbar-filter">
-                                                <p>Found <span th:text="${#lists.size(TVSEASON_RELATE)} + 'movies'"></span> in total</p>
+                                                <p>Found <span th:text="${TVSEASON_RELATE.pagination.maxItems} + 'movies'"></span> in total</p>
                                                 <label>Sort by:</label>
                                                 <select>
                                                     <option value="popularity">Popularity Descending</option>
@@ -515,7 +515,7 @@
                                                     <option value="date">Release date Ascending</option>
                                                 </select>
                                             </div>
-                                            <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE}">
+                                            <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE.tvSeasons}">
                                                 <img th:src="${tvSeason.thumbnail}" alt="">
                                                 <div class="mv-item-infor">
                                                     <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
@@ -527,14 +527,20 @@
                                                     <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
                                                 </div>
                                             </div>
-                                            <div class="topbar-filter">
-                                                <label>Movies per page:</label>
-                                                <select>
-                                                    <option value="2">2 Movies</option>
+                                            <div class="topbar-filter" id="lower-bound">
+                                                <div class="find-movie" >
+                                                    <label>Movies per page:</label>
+                                                    <div class="search-page">
+                                                        <input type="number" placeholder="page">
+                                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <select id="max-page-item">
+                                                    <option selected value="2">2 Movies</option>
                                                     <option value="5">5 Movies</option>
                                                 </select>
                                                 <div class="pagination2" style="display: flex;">
-                                                    <span id="page-info">Page 1 of 2:</span>
+                                                    <div id="page-info">Page 1 of <span class="maxPage">2</span>:</div>
                                                     <div id="pagination" style="display: flex;">
                                                         <div id="pages"></div>
                                                     </div>
@@ -643,6 +649,22 @@
         targetEl.textContent = (isAdd ? 'Add' : 'Added') + " to Favorite";
         stopAnimation();
     }
+
+
+    var urlTarget = "/api/movie/tv-season/relate";
+    document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
+		findByPage(e, urlTarget, false);
+	});
+
+	// action select option page
+	document.getElementById('max-page-item').addEventListener('change', function(){
+	    selectOptionPage(urlTarget, this.value, false);
+	})
+
+	// get by field sort
+	document.getElementById('field-sort').addEventListener('change', function(){
+	    selectOptionFieldSort(urlTarget, false);
+	})
 
 </script>
 

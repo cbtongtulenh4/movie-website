@@ -5,7 +5,9 @@ import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
+import com.website.movie.utils.custom.CustomPageable;
 import com.website.movie.web.dto.MovieDto;
+import com.website.movie.web.dto.MovieListPageDto;
 import com.website.movie.web.dto.SimpleTvSeasonDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,5 +93,15 @@ public class MovieService implements IMovieService {
         if (movie == null) return null;
         Set<TVSeasonEntity> tvSeasons = movie.getTvSeasons();
         return MovieConvert.toSimpleTvSeasonDto(tvSeasons);
+    }
+
+    @Override
+    public MovieListPageDto<SimpleTvSeasonDto> findAllRelateTvSeasonById(long movieId, long tvSeasonId, int pageNo, int pageSize) {
+        MovieEntity movie = movieRepository.findById(movieId).orElse(null);
+        if (movie == null) return null;
+        Set<TVSeasonEntity> tvSeasons = movie.getTvSeasons();
+        tvSeasons.removeIf(el -> el.getId() == tvSeasonId);
+        CustomPageable<SimpleTvSeasonDto> customPageable = new CustomPageable<>(MovieConvert.toSimpleTvSeasonDto(tvSeasons), pageNo, pageSize);
+        return customPageable.toMovieListPage();
     }
 }
