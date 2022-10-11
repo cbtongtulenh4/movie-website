@@ -81,18 +81,19 @@ public class LoginRestController {
         boolean isRemember = userLogin.getRemember() != null;
         Cookie ckUserLogin = SessionUtil.getInstance().getCookie("USER_LOGIN", request);
         try {
-            if(isRemember && ckUserLogin == null) {
+            if(isRemember) {
+                if(ckUserLogin == null){
                     ckUserLogin = new Cookie("USER_LOGIN", URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
                     ckUserLogin.setMaxAge(86400);
                     ckUserLogin.setHttpOnly(false);
                     ckUserLogin.setPath("/");
-            } else if(isRemember){
-                ckUserLogin.setValue(URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
+                } else ckUserLogin.setValue(URLEncoder.encode(userLogin.toJson(), StandardCharsets.UTF_8.toString()));
+                response.addCookie(ckUserLogin);
             } else if (ckUserLogin != null) {
                 ckUserLogin.setValue(null);
                 ckUserLogin.setMaxAge(0);
+                response.addCookie(ckUserLogin);
             }
-            response.addCookie(ckUserLogin);
         } catch (UnsupportedEncodingException e) {
             LOGGER.error(e.getMessage());
         }

@@ -46,212 +46,211 @@
 <!-- sig in - up -->
 <div th:replace="web/fragments/header :: sign-in-up"></div>
 <!-- end sig in-up -->
+<div id="main">
+    <!-- BEGIN | Header -->
+    <div th:replace="web/fragments/header :: header"></div>
+    <!-- END | Header -->
 
-<!-- BEGIN | Header -->
-<div th:replace="web/fragments/header :: header"></div>
-<!-- END | Header -->
-
-
-<div class="hero hero3" th:style="'background-image: url('+ ${WATCH_MODEL.photos.get(0)} +');'">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- <h1> movie listing - list</h1>
-                <ul class="breadcumb">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
-                </ul> -->
+    <div class="hero hero3" th:style="'background-image: url('+ ${WATCH_MODEL.photos.get(0)} +');'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <h1> movie listing - list</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                    </ul> -->
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- celebrity single section-->
+    <!-- celebrity single section-->
 
-<div class="page-single movie-single cebleb-single">
-    <div class="container">
-        <div class="row ipad-width">
-            <main>
-                <div class="ht-video">
-                    <div class="video-vd">
-                        <iframe id="server-2" th:src="'https://www.youtube.com/embed/' + ${EPISODE.path} + '?rel=0&enablejsapi=1'" frameborder="10"  allowfullscreen></iframe>
-                        <section style="display: none;">
-                            <div class="container-vd">
-                                <div id="video_player">
-                                    <video preload="metadata" id="main-video">
-<!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
-<!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
-                                        <!-- <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4">
-                                        <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4"> -->
-                                        <source th:src="'https://www.youtube.com/watch?v=' + ${EPISODE.path}" type="video/mp4" />
-                                        <track id="track1" label="English" kind="subtitles" src="./How To Get Started With VSCode.vtt" srclang="en">
-                                        <track id="track2" label="Urdu" kind="subtitles" src="./test.vtt" srclang="en">
-                                    </video>
-                                    <p class="caption_text"></p>
-                                    <div class="progressAreaTime">0:00</div>
+    <div class="page-single movie-single cebleb-single">
+        <div class="container">
+            <div class="row ipad-width">
+                <main>
+                    <div class="ht-video">
+                        <div class="video-vd">
+                            <iframe id="server-2" th:src="'https://www.youtube.com/embed/' + ${EPISODE.path} + '?rel=0&enablejsapi=1'" frameborder="10"  allowfullscreen></iframe>
+                            <section style="display: none;">
+                                <div class="container-vd">
+                                    <div id="video_player">
+                                        <video preload="metadata" id="main-video">
+    <!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
+    <!--                                        <source src="https://jsoncompare.org/LearningContainer/SampleFiles/Video/MP4/Sample-MP4-Video-File-for-Testing.mp4" type="video/mp4">-->
+                                            <!-- <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4">
+                                            <source src="pexels-karolina-grabowska-7709470.mp4" type="video/mp4"> -->
+                                            <source th:src="'https://www.youtube.com/watch?v=' + ${EPISODE.path}" type="video/mp4" />
+                                            <track id="track1" label="English" kind="subtitles" src="./How To Get Started With VSCode.vtt" srclang="en">
+                                            <track id="track2" label="Urdu" kind="subtitles" src="./test.vtt" srclang="en">
+                                        </video>
+                                        <p class="caption_text"></p>
+                                        <div class="progressAreaTime">0:00</div>
 
-                                    <div class="controls">
-                                        <div class="progress-area">
-                                            <div class="progress-bar">
-                                                <span></span>
-                                            </div>
-                                        </div>
-
-                                    <div class="controls-list">
-                                        <div class="controls-left">
-									  <span class="icon">
-										<i class="material-icons fast-rewind">replay_10</i>
-									  </span>
-
-                                                <span class="icon">
-										<i class="material-icons play_pause">play_arrow</i>
-									  </span>
-
-                                                <span class="icon">
-										<i class="material-icons fast-forward">forward_10</i>
-									  </span>
-
-                                                <span class="icon">
-										<i class="material-icons volume">volume_up</i>
-
-										<input type="range" min="0" max="100" class="volume_range" />
-									  </span>
-
-                                                <div class="timer">
-                                                    <span class="current">0:00</span>
-                                                    <span class="duration">0:00</span>
+                                        <div class="controls">
+                                            <div class="progress-area">
+                                                <div class="progress-bar">
+                                                    <span></span>
                                                 </div>
                                             </div>
 
-                                            <div class="controls-right">
-									  <span class="icon">
-										<i class="material-icons auto-play"></i>
-									  </span>
+                                        <div class="controls-list">
+                                            <div class="controls-left">
+                                          <span class="icon">
+                                            <i class="material-icons fast-rewind">replay_10</i>
+                                          </span>
 
-                                                <span class="icon">
-										<i class="material-icons captionsBtn">closed_caption</i>
-									  </span>
+                                                    <span class="icon">
+                                            <i class="material-icons play_pause">play_arrow</i>
+                                          </span>
 
-                                                <span class="icon">
-										<i class="material-icons settingsBtn">settings</i>
-									  </span>
+                                                    <span class="icon">
+                                            <i class="material-icons fast-forward">forward_10</i>
+                                          </span>
 
-                                                <span class="icon">
-										<i class="material-icons picture_in_picutre">picture_in_picture_alt</i>
-									  </span>
+                                                    <span class="icon">
+                                            <i class="material-icons volume">volume_up</i>
 
-                                                <span class="icon">
-										<i class="material-icons fullscreen">fullscreen</i>
-									  </span>
+                                            <input type="range" min="0" max="100" class="volume_range" />
+                                          </span>
+
+                                                    <div class="timer">
+                                                        <span class="current">0:00</span>
+                                                        <span class="duration">0:00</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="controls-right">
+                                          <span class="icon">
+                                            <i class="material-icons auto-play"></i>
+                                          </span>
+
+                                                    <span class="icon">
+                                            <i class="material-icons captionsBtn">closed_caption</i>
+                                          </span>
+
+                                                    <span class="icon">
+                                            <i class="material-icons settingsBtn">settings</i>
+                                          </span>
+
+                                                    <span class="icon">
+                                            <i class="material-icons picture_in_picutre">picture_in_picture_alt</i>
+                                          </span>
+
+                                                    <span class="icon">
+                                            <i class="material-icons fullscreen">fullscreen</i>
+                                          </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="settings">
+                                            <div class="playback">
+                                                <span>Playback Speed</span>
+                                                <ul>
+                                                    <li data-speed="0.25">0.25</li>
+
+                                                    <li data-speed="0.5">0.5</li>
+
+                                                    <li data-speed="0.75">0.75</li>
+
+                                                    <li data-speed="1" class="active">Normal</li>
+
+                                                    <li data-speed="1.25">1.25</li>
+
+                                                    <li data-speed="1.5">1.5</li>
+
+                                                    <li data-speed="1.75">1.75</li>
+
+                                                    <li data-speed="2">2</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div id="captions">
+                                            <div class="caption">
+                                                <span>Select Subtitle</span>
+                                                <ul>
+
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div id="settings">
-                                        <div class="playback">
-                                            <span>Playback Speed</span>
-                                            <ul>
-                                                <li data-speed="0.25">0.25</li>
-
-                                                <li data-speed="0.5">0.5</li>
-
-                                                <li data-speed="0.75">0.75</li>
-
-                                                <li data-speed="1" class="active">Normal</li>
-
-                                                <li data-speed="1.25">1.25</li>
-
-                                                <li data-speed="1.5">1.5</li>
-
-                                                <li data-speed="1.75">1.75</li>
-
-                                                <li data-speed="2">2</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div id="captions">
-                                        <div class="caption">
-                                            <span>Select Subtitle</span>
-                                            <ul>
-
-                                            </ul>
-                                        </div>
-                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="vd-tools">
+                            <ul>
+                                <li>
+                                    <span class="tls-skip_next">Next episode</span>
+                                </li>
+                                <li>
+                                    <span class="tls-comment">Comment</span>
+                                </li>
+                                <li>
+                                    <span class="tls-lightbulb_outline">Turn off the light</span>
+                                </li>
+                                <li>
+                                    <span class="tls-bookmark">Follow</span>
+                                </li>
+                                <li>
+                                    <span class="tls-error">Error</span>
+                                </li>
+                            </ul>
+                            <div class="swap-server">
+                                <span class="title-server">Choose Server</span>
+                                <div class="btn-server">
+                                    <ul>
+                                        <li onclick="swapServer();" class="active-server">
+                                            <span>Youtube</span>
+                                        </li>
+                                        <li onclick="swapServer();">
+                                            <span>Custom</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </section>
+                        </div>
                     </div>
-                    <div class="vd-tools">
-                        <ul>
-                            <li>
-                                <span class="tls-skip_next">Next episode</span>
-                            </li>
-                            <li>
-                                <span class="tls-comment">Comment</span>
-                            </li>
-                            <li>
-                                <span class="tls-lightbulb_outline">Turn off the light</span>
-                            </li>
-                            <li>
-                                <span class="tls-bookmark">Follow</span>
-                            </li>
-                            <li>
-                                <span class="tls-error">Error</span>
+                    <div class="ht-episode">
+                        <h1>Movie Episodes</h1>
+                        <ul class="list-episode tab-pane">
+                            <li th:each="EP : ${WATCH_MODEL.episodes}" th:class="${EP.numEp} == ${EPISODE.numEp} ? 'active':''">
+                                <a th:href="@{'/' + ${WATCH_MODEL.code} + '/watch/ep-' + ${EP.numEp}}">
+                                    <span th:value="${EP.numEp}" th:text="${EP.numEp}">01</span>
+                                </a>
                             </li>
                         </ul>
-                        <div class="swap-server">
-                            <span class="title-server">Choose Server</span>
-                            <div class="btn-server">
-                                <ul>
-                                    <li onclick="swapServer();" class="active-server">
-                                        <span>Youtube</span>
-                                    </li>
-                                    <li onclick="swapServer();">
-                                        <span>Custom</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+    <!--                    <li>-->
+    <!--                        <a href=""><span>01</span></a>-->
+    <!--                    </li>-->
                     </div>
-                </div>
-                <div class="ht-episode">
-                    <h1>Movie Episodes</h1>
-                    <ul class="list-episode tab-pane">
-                        <li th:each="EP : ${WATCH_MODEL.episodes}" th:class="${EP.numEp} == ${EPISODE.numEp} ? 'active':''">
-                            <a th:href="@{'/' + ${WATCH_MODEL.code} + '/watch/ep-' + ${EP.numEp}}">
-                                <span th:value="${EP.numEp}" th:text="${EP.numEp}">01</span>
-                            </a>
-                        </li>
-                    </ul>
-<!--                    <li>-->
-<!--                        <a href=""><span>01</span></a>-->
-<!--                    </li>-->
-                </div>
-                <div class="ht-chat">
-                    <h1>Leave Comment</h1>
-                    <div th:if="${session.USER_MODEL}" th:remove="tag">
-                        <div class="post-comment" >
-                            <img th:src="'https://drive.google.com/uc?export=view&id=' + ${session.USER_MODEL.user.profile.avatar}" alt="">
-                            <div class="content-post" id="content-post-cm">
-                                <textarea name="" placeholder="Enter something" cols="30" rows="10"></textarea>
-                                <div class="cm-post-btn">
-                                    <button id="post-mn-cm">POST</button>
+                    <div class="ht-chat">
+                        <h1>Leave Comment</h1>
+                        <div th:if="${session.USER_MODEL}" th:remove="tag">
+                            <div class="post-comment" >
+                                <img th:src="'https://drive.google.com/uc?export=view&id=' + ${session.USER_MODEL.user.profile.avatar}" alt="">
+                                <div class="content-post" id="content-post-cm">
+                                    <textarea name="" placeholder="Enter something" cols="30" rows="10"></textarea>
+                                    <div class="cm-post-btn">
+                                        <button id="post-mn-cm">POST</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <ul class="comments-list" id="comment-list"></ul>
+                        <button class="see-more-btn">See mores 10 comments</button>
                     </div>
-                    <ul class="comments-list" id="comment-list"></ul>
-                    <button class="see-more-btn">See mores 10 comments</button>
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
     </div>
+    <!-- celebrity single section-->
+
+    <!-- footer section-->
+    <div th:replace="web/fragments/footer :: footer"></div>
+    <!-- end of footer section-->
 </div>
-<!-- celebrity single section-->
-
-<!-- footer section-->
-<div th:replace="web/fragments/footer :: footer"></div>
-<!-- end of footer section-->
-
 <th:block th:replace="web/fragments/header :: script"></th:block>
 <script th:src="@{/template/js/video.js}"></script>
 <script th:inline="javascript">

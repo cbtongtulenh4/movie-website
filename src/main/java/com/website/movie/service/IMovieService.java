@@ -2,6 +2,7 @@ package com.website.movie.service;
 
 import com.website.movie.persistence.entity.MovieEntity;
 import com.website.movie.web.dto.MovieDto;
+import com.website.movie.web.dto.SimpleTvSeasonDto;
 
 import java.util.List;
 
@@ -26,5 +27,5 @@ public interface IMovieService {
 
     List<MovieEntity> scrapingMovieData(final String URL, final String container);
 
-
+    List<SimpleTvSeasonDto> findAllTvSeasonById(long movieId);
 }

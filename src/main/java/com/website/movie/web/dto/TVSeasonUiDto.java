@@ -52,6 +52,7 @@ public class TVSeasonUiDto extends TVSeasonAbstractDto{
     private Set<StudioEntity> studios;
     private Set<LanguageEntity> languages;
     private Set<MovieDirectorEntity> directors;
+    private Set<MovieCastEntity> casts;
 
     public void initValue(
             Set<TVEpisodeEntity> episodes,

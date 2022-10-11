@@ -8,7 +8,6 @@
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html xmlns:th="http://www.thymeleaf.org" lang="en" class="no-js">
 
-<!-- movielist07:38-->
 <head>
 	<!-- Basic need -->
 	<title>Open Pediatrics</title>
@@ -51,161 +50,161 @@
 <!-- end sig in-up -->
 
 <div th:replace="web/fragments/header :: cart-handle"></div>
+<div id="main">
+	<!-- BEGIN | Header -->
+	<div th:replace="web/fragments/header :: header"></div>
+	<!-- END | Header -->
 
-<!-- BEGIN | Header -->
-<div th:replace="web/fragments/header :: header"></div>
-<!-- END | Header -->
-
-<div class="hero common-hero">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="hero-ct">
-					<h1> movie listing - list</h1>
-					<ul class="breadcumb">
-						<li class="active"><a href="#">Home</a></li>
-						<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
-					</ul>
+	<div class="hero common-hero">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="hero-ct">
+						<h1> movie listing - list</h1>
+						<ul class="breadcumb">
+							<li class="active"><a href="#">Home</a></li>
+							<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="page-single movie_list">
-	<div class="container">
-		<div class="row ipad-width2">
-			<div class="col-md-8 col-sm-12 col-xs-12">
-				<div class="topbar-filter" id="topbar-sec">
-					<p>Found <span id="am-movies-tt" th:text="${PAGINATION.maxItems}"></span> movies in total</p>
-					<label>Sort by:</label>
-					<select id="field-sort">
-						<option value="views-desc">Popularity Descending</option>
-						<option value="views-asc">Popularity Ascending</option>
-						<option value="rate-desc">Rating Descending</option>
-						<option value="rate-asc">Rating Ascending</option>
-					</select>Movies per page:
-					<a class="list"><i class="ion-ios-list-outline active"></i></a>
-					<a class="grid"><i class="ion-grid"></i></a>
-				</div>
-				<div class="flex-wrap-movielist" id="tv-season-list" data-target="list">
-					<div class="movie-item-style-2" th:each="SEASON : ${SEASONS}">
-						<img th:src="${SEASON.thumbnail}" alt="">
-						<div class="mv-item-infor">
-							<h6><a th:href="@{'/' + ${SEASON.code}}" th:text="${SEASON.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${SEASON.year}+ ')'"></span></a></h6>
-							<p class="rate"><i class="ion-android-star"></i><span th:text="${SEASON.rate}">8.1</span> /10</p>
-							<p class="describe" th:text="${SEASON.summary}">...</p>
-							<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
-							<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
-							<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???</a></p>
-							<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'COMMA')}: #{message.UI.value.null}"></span></p>
+	<div class="page-single movie_list">
+		<div class="container">
+			<div class="row ipad-width2">
+				<div class="col-md-8 col-sm-12 col-xs-12">
+					<div class="topbar-filter" id="topbar-sec">
+						<p>Found <span id="am-movies-tt" th:text="${PAGINATION.maxItems}"></span> movies in total</p>
+						<label>Sort by:</label>
+						<select id="field-sort">
+							<option value="views-desc">Popularity Descending</option>
+							<option value="views-asc">Popularity Ascending</option>
+							<option value="rate-desc">Rating Descending</option>
+							<option value="rate-asc">Rating Ascending</option>
+						</select>Movies per page:
+						<a class="list"><i class="ion-ios-list-outline active"></i></a>
+						<a class="grid"><i class="ion-grid"></i></a>
+					</div>
+					<div class="flex-wrap-movielist" id="tv-season-list" data-target="list">
+						<div class="movie-item-style-2" th:each="SEASON : ${SEASONS}">
+							<img th:src="${SEASON.thumbnail}" alt="">
+							<div class="mv-item-infor">
+								<h6><a th:href="@{'/' + ${SEASON.code}}" th:text="${SEASON.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${SEASON.year}+ ')'"></span></a></h6>
+								<p class="rate"><i class="ion-android-star"></i><span th:text="${SEASON.rate}">8.1</span> /10</p>
+								<p class="describe" th:text="${SEASON.summary}">...</p>
+								<p class="run-time"> Run Time: <span th:text="${SEASON.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${SEASON.release}">...</span></p>
+								<p><span th:text="'Languages: ' + ${SEASON.languages}"></span></p>
+								<p>Duration: <a href="#" th:text="${SEASON.duration} ?: #{message.UI.value.null}">005/???</a></p>
+								<p>Views: <span th:text="${SEASON.views} ? ${#numbers.formatInteger(SEASON.views,3,'COMMA')}: #{message.UI.value.null}"></span></p>
+							</div>
+						</div>
+					</div>
+					<div class="topbar-filter" id="lower-bound">
+						<div class="find-movie" >
+							<label>Movies per page:</label>
+							<div class="search-page">
+								<input type="number" placeholder="page">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+						<select th:field="${PAGINATION.maxPageItem}" id="max-page-item">
+							<option th:value="2">2 Movies</option>
+							<option th:value="5">5 Movies</option>
+							<option th:value="10">10 Movies</option>
+						</select>
+						<div class="pagination2" style="display: flex;">
+							<span id="page-info">Page 1 of 2:</span>
+							<div id="pagination" style="display: flex;">
+								<div id="pages"></div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="topbar-filter" id="lower-bound">
-					<div class="find-movie" >
-						<label>Movies per page:</label>
-						<div class="search-page">
-							<input type="number" placeholder="page">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</div>
-					</div>
-					<select th:field="${PAGINATION.maxPageItem}" id="max-page-item">
-						<option th:value="2">2 Movies</option>
-						<option th:value="5">5 Movies</option>
-						<option th:value="10">10 Movies</option>
-					</select>
-					<div class="pagination2" style="display: flex;">
-						<span id="page-info">Page 1 of 2:</span>
-						<div id="pagination" style="display: flex;">
-							<div id="pages"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-12 col-xs-12">
-				<div class="sidebar">
-					<div class="searh-form">
-						<h4 class="sb-title">Search for movie</h4>
-						<form class="form-style-1" id="formSubmit" action="" method="GET">
-							<div class="row">
-								<div class="col-md-12 form-it">
-									<label>Movie name</label>
-									<input type="text" name="title" placeholder="Enter keywords">
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Genres & Subgenres</label>
-									<div class="group-ip">
-										<select
-											name="genres" id="genres-sl" multiple="multiple" class="ui fluid dropdown">
-											<option value="">Enter to filter genres</option>
-											<option th:each="GENRE : ${GENRES}" th:value="${GENRE.name}" th:text="${GENRE.name}"></option>
+				<div class="col-md-4 col-sm-12 col-xs-12">
+					<div class="sidebar">
+						<div class="searh-form">
+							<h4 class="sb-title">Search for movie</h4>
+							<form class="form-style-1" id="formSubmit" action="" method="GET">
+								<div class="row">
+									<div class="col-md-12 form-it">
+										<label>Movie name</label>
+										<input type="text" name="title" placeholder="Enter keywords">
+									</div>
+									<div class="col-md-12 form-it">
+										<label>Genres & Subgenres</label>
+										<div class="group-ip">
+											<select
+												name="genres" id="genres-sl" multiple="multiple" class="ui fluid dropdown">
+												<option value="">Enter to filter genres</option>
+												<option th:each="GENRE : ${GENRES}" th:value="${GENRE.name}" th:text="${GENRE.name}"></option>
+											</select>
+										</div>
+
+									</div>
+									<div class="col-md-12 form-it">
+										<label>Rating Range</label>
+
+										 <select name="rate">
+											<option value="10">-- Below 10 star --</option>
+											<option value="9">-- Below 9 star --</option>
+											<option value="8">-- Below 8 star --</option>
+											<option value="7">-- Below 7 star --</option>
 										</select>
+
 									</div>
-									
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Rating Range</label>
-									
-									 <select name="rate">
-										<option value="10">-- Below 10 star --</option>
-										<option value="9">-- Below 9 star --</option>
-										<option value="8">-- Below 8 star --</option>
-										<option value="7">-- Below 7 star --</option>
-									</select>
-									
-								</div>
-								<div class="col-md-12 form-it">
-									<label>Release Year</label>
-									<div class="row">
-										<div class="col-md-6">
-											<select name="yearFrom">
-												<option value="">From</option>
-												<option value="2010">2010</option>
-												<option value="2012">2012</option>
-												<option value="2014">2014</option>
-											</select>
-										</div>
-										<div class="col-md-6">
-											<select name="yearTo">
-												<option value="">To</option>
-												<option value="2018">2018</option>
-												<option value="2020">2020</option>
-												<option value="2022">2022</option>
-											</select>
+									<div class="col-md-12 form-it">
+										<label>Release Year</label>
+										<div class="row">
+											<div class="col-md-6">
+												<select name="yearFrom">
+													<option value="">From</option>
+													<option value="2010">2010</option>
+													<option value="2012">2012</option>
+													<option value="2014">2014</option>
+												</select>
+											</div>
+											<div class="col-md-6">
+												<select name="yearTo">
+													<option value="">To</option>
+													<option value="2018">2018</option>
+													<option value="2020">2020</option>
+													<option value="2022">2022</option>
+												</select>
+											</div>
 										</div>
 									</div>
+									<div class="col-md-12 ">
+										<input id="btn-submit" class="submit" type="button" value="submit">
+									</div>
 								</div>
-								<div class="col-md-12 ">
-									<input id="btn-submit" class="submit" type="button" value="submit">
+							</form>
+						</div>
+						<div class="ads">
+							<img th:src="@{/template/img/uploads/ads1.png}" alt="">
+						</div>
+						<div class="sb-facebook sb-it">
+							<h4 class="sb-title">Find us on Facebook</h4>
+							<iframe src="#" data-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftemplatespoint.net%2F%3Ffref%3Dts&tabs=timeline&width=340&height=315px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"  height="315" style="width:100%;border:none;overflow:hidden" ></iframe>
+						</div>
+						<div class="sb-twitter sb-it">
+							<h4 class="sb-title">Tweet to us</h4>
+							<div class="slick-tw">
+								<div class="tweet item" ><!-- Put your twiter id here -->
+								</div>
+								<div class="tweet item" ><!-- Put your 2nd twiter account id here -->
 								</div>
 							</div>
-						</form>
-					</div>
-					<div class="ads">
-						<img th:src="@{/template/img/uploads/ads1.png}" alt="">
-					</div>
-					<div class="sb-facebook sb-it">
-						<h4 class="sb-title">Find us on Facebook</h4>
-						<iframe src="#" data-src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftemplatespoint.net%2F%3Ffref%3Dts&tabs=timeline&width=340&height=315px&small_header=true&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"  height="315" style="width:100%;border:none;overflow:hidden" ></iframe>
-					</div>
-					<div class="sb-twitter sb-it">
-						<h4 class="sb-title">Tweet to us</h4>
-						<div class="slick-tw">
-							<div class="tweet item" ><!-- Put your twiter id here -->
-							</div>
-							<div class="tweet item" ><!-- Put your 2nd twiter account id here -->
-							</div>
-						</div>							
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- footer section-->
+	<div th:replace="web/fragments/footer :: footer"></div>
+	<!-- end of footer section-->
 </div>
-<!-- footer section-->
-<div th:replace="web/fragments/footer :: footer"></div>
-<!-- end of footer section-->
-
 
 <th:block th:replace="web/fragments/header :: script"></th:block>
 

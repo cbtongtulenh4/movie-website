@@ -66,7 +66,7 @@ public class HomeController {
     public ModelAndView getMovies(
             @PathVariable(required = false) String searchValue,
             @RequestParam(value = "formMV", required = false) final String formMV,
-            @RequestParam(value = "sort", defaultValue = "title-1") final String sortParam,
+            @RequestParam(value = "sort", defaultValue = "views-des") final String sortParam,
             @RequestParam(value = "nextPage", defaultValue = "1") final int pageNo,
             @RequestParam(value = "maxPageItem", defaultValue = "2") final int limitMovie
     ){
@@ -108,6 +108,8 @@ public class HomeController {
         TVSeasonUiDto tvSeason;
         if(myUser == null) tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code);
         else  tvSeason =  tvSeasonService.getTvSeasonUiDtoByCode(code, myUser.getUser().getId());
+
+        tvSeason.get
 
         Page<TVSeasonEntity> pagination = tvSeasonService.findAll(
                 PageableUtil.paging(0, 5)

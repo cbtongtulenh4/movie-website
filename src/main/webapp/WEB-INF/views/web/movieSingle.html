@@ -44,301 +44,132 @@
 <!-- end sig in-up -->
 
 <div th:replace="web/fragments/header :: cart-handle"></div>
+<div id="main">
 
-<!-- BEGIN | Header -->
-<div th:replace="web/fragments/header :: header"></div>
-<!-- END | Header -->
+    <!-- BEGIN | Header -->
+    <div th:replace="web/fragments/header :: header"></div>
+    <!-- END | Header -->
 
-<div class="hero mv-single-hero" th:style="'background-image: url('+ ${SEASON_MOVIE.photos.get(0)} +');'">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- <h1> movie listing - list</h1>
-                <ul class="breadcumb">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
-                </ul> -->
+    <div class="hero mv-single-hero" th:style="'background-image: url('+ ${SEASON_MOVIE.photos.get(0)} +');'">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <h1> movie listing - list</h1>
+                    <ul class="breadcumb">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li> <span class="ion-ios-arrow-right"></span> movie listing</li>
+                    </ul> -->
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="page-single movie-single movie_single">
-    <div class="container">
-        <div class="row ipad-width2">
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="movie-img sticky-sb">
-                    <img th:src="${SEASON_MOVIE.thumbnail}" alt="">
-                    <div class="movie-btn">
-                        <div class="btn-transform transform-vertical red">
-                            <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-                            <div>
-                                <p th:if="${SEASON_MOVIE.videos == null OR SEASON_MOVIE.videos.empty}" class="item item-2 redbtn fancybox-media hvr-grow" th:text="#{message.UI.value.null}"></p>
-                                <a th:if="${SEASON_MOVIE.videos != null AND !SEASON_MOVIE.videos.empty}" th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.videos.get(0).path}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a>
+    <div class="page-single movie-single movie_single">
+        <div class="container">
+            <div class="row ipad-width2">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="movie-img sticky-sb">
+                        <img th:src="${SEASON_MOVIE.thumbnail}" alt="">
+                        <div class="movie-btn">
+                            <div class="btn-transform transform-vertical red">
+                                <div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
+                                <div>
+                                    <p th:if="${SEASON_MOVIE.videos == null OR SEASON_MOVIE.videos.empty}" class="item item-2 redbtn fancybox-media hvr-grow" th:text="#{message.UI.value.null}"></p>
+                                    <a th:if="${SEASON_MOVIE.videos != null AND !SEASON_MOVIE.videos.empty}" th:href="'https://www.youtube.com/embed/' + ${SEASON_MOVIE.videos.get(0).path}" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="btn-transform transform-vertical" id="btn-play">
-                            <div><a class="item item-1 yellowbtn"></a></div>
-                            <div><a class="item item-2 yellowbtn"></a></div>
+                            <div class="btn-transform transform-vertical" id="btn-play">
+                                <div><a class="item item-1 yellowbtn"></a></div>
+                                <div><a class="item item-2 yellowbtn"></a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                <div class="movie-single-ct main-content">
-                    <h1 class="bd-hd" th:text="${SEASON_MOVIE.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
-                    <div class="social-btn">
-                        <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i><span th:text="${SEASON_MOVIE.isFav ? 'Added':'Add'} + ' to Favorite'" onclick="favoriteAction(event);">Add to Favorite</span></div>
-                        <div class="hover-bnt">
-                            <div class="parent-btn"><i class="ion-android-share-alt"></i>share</div>
-                            <div class="hvr-item">
-                                <div class="hvr-grow"><i class="ion-social-facebook"></i></div>
-                                <div class="hvr-grow"><i class="ion-social-twitter"></i></div>
-                                <div class="hvr-grow"><i class="ion-social-googleplus"></i></div>
-                                <div class="hvr-grow"><i class="ion-social-youtube"></i></div>
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <div class="movie-single-ct main-content">
+                        <h1 class="bd-hd" th:text="${SEASON_MOVIE.title}">Skyfall: Quantum of Spectre <span>2015</span></h1>
+                        <div class="social-btn">
+                            <div class="parent-btn" id="social-parent-btn"><i class="ion-heart"></i><span th:text="${SEASON_MOVIE.isFav ? 'Added':'Add'} + ' to Favorite'" onclick="favoriteAction(event);">Add to Favorite</span></div>
+                            <div class="hover-bnt">
+                                <div class="parent-btn"><i class="ion-android-share-alt"></i>share</div>
+                                <div class="hvr-item">
+                                    <div class="hvr-grow"><i class="ion-social-facebook"></i></div>
+                                    <div class="hvr-grow"><i class="ion-social-twitter"></i></div>
+                                    <div class="hvr-grow"><i class="ion-social-googleplus"></i></div>
+                                    <div class="hvr-grow"><i class="ion-social-youtube"></i></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="movie-rate" >
-                        <div class="rate" id="value-rate">
-                            <i class="ion-android-star"></i>
-                            <p><span th:text="${SEASON_MOVIE.rate.value}"></span> /10<br>
-                                <span class="rv" th:text="${SEASON_MOVIE.rate.numPeople} + ' Reviews'">x Reviews</span>
-                            </p>
+                        <div class="movie-rate" >
+                            <div class="rate" id="value-rate">
+                                <i class="ion-android-star"></i>
+                                <p><span th:text="${SEASON_MOVIE.rate.value}"></span> /10<br>
+                                    <span class="rv" th:text="${SEASON_MOVIE.rate.numPeople} + ' Reviews'">x Reviews</span>
+                                </p>
+                            </div>
+                            <div class="rate-star" id="star-box">
+                                <p>Rate This Movie:  </p>
+                                <i class="ion-ios-star" data-value="1"></i>
+                                <i class="ion-ios-star" data-value="2"></i>
+                                <i class="ion-ios-star" data-value="3"></i>
+                                <i class="ion-ios-star" data-value="4"></i>
+                                <i class="ion-ios-star" data-value="5"></i>
+                                <i class="ion-ios-star" data-value="6"></i>
+                                <i class="ion-ios-star" data-value="7"></i>
+                                <i class="ion-ios-star" data-value="8"></i>
+                                <i class="ion-ios-star" data-value="9"></i>
+                                <i class="ion-ios-star" data-value="10"></i>
+                            </div>
                         </div>
-                        <div class="rate-star" id="star-box">
-                            <p>Rate This Movie:  </p>
-                            <i class="ion-ios-star" data-value="1"></i>
-                            <i class="ion-ios-star" data-value="2"></i>
-                            <i class="ion-ios-star" data-value="3"></i>
-                            <i class="ion-ios-star" data-value="4"></i>
-                            <i class="ion-ios-star" data-value="5"></i>
-                            <i class="ion-ios-star" data-value="6"></i>
-                            <i class="ion-ios-star" data-value="7"></i>
-                            <i class="ion-ios-star" data-value="8"></i>
-                            <i class="ion-ios-star" data-value="9"></i>
-                            <i class="ion-ios-star" data-value="10"></i>
-                        </div>
-                    </div>
-                    <div class="movie-tabs">
-                        <div class="tabs">
-                            <ul class="tab-links tabs-mv">
-                                <li class="active"><a href="#overview">Overview</a></li>
-                                <li><a href="#reviews"> Reviews</a></li>
-                                <li><a href="#cast">  Cast & Crew </a></li>
-                                <li><a href="#media"> Media</a></li>
-                                <li><a href="#moviesrelated"> Related Movies</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="overview" class="tab active">
-                                    <div class="row">
-                                        <div class="col-md-8 col-sm-12 col-xs-12">
-                                            <p th:text="${SEASON_MOVIE.summary}">...</p>
-                                            <div class="title-hd-sm">
-                                                <h4>Videos & Photos</h4>
-                                                <a href="#" class="time" th:text="'All ' + ${#lists.size(SEASON_MOVIE.videos)} + ' Videos & ' + ${#lists.size(SEASON_MOVIE.photos)} + ' Photos'">...<i class="ion-ios-arrow-right"></i></a>
-                                            </div>
-                                            <div class="mvsingle-item ov-item">
-                                                <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
-                                                    <img th:src="@{PHOTO}" alt="">
-                                                </a>
-                                                <div th:each="VIDEO : ${SEASON_MOVIE.videos}" class="vd-it">
-                                                    <img class="vd-img" th:src="${VIDEO.image}" alt="">
-                                                    <a class="fancybox-media hvr-grow" href="'https://www.youtube.com/embed/' + VIDEO.path"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
+                        <div class="movie-tabs">
+                            <div class="tabs">
+                                <ul class="tab-links tabs-mv">
+                                    <li class="active"><a href="#overview">Overview</a></li>
+                                    <li><a href="#reviews"> Reviews</a></li>
+                                    <li><a href="#cast">  Cast & Crew </a></li>
+                                    <li><a href="#media"> Media</a></li>
+                                    <li><a href="#moviesrelated"> Related Movies</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="overview" class="tab active">
+                                        <div class="row">
+                                            <div class="col-md-8 col-sm-12 col-xs-12">
+                                                <p th:text="${SEASON_MOVIE.summary}">...</p>
+                                                <div class="title-hd-sm">
+                                                    <h4>Videos & Photos</h4>
+                                                    <a href="#" class="time" th:text="'All ' + ${#lists.size(SEASON_MOVIE.videos)} + ' Videos & ' + ${#lists.size(SEASON_MOVIE.photos)} + ' Photos'">...<i class="ion-ios-arrow-right"></i></a>
                                                 </div>
-                                            </div>
-                                            <div class="title-hd-sm">
-                                                <h4>cast</h4>
-                                                <a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
-                                            </div>
-                                            <!-- movie cast -->
-                                            <div class="mvcast-item">
-                                                <div class="cast-it">
-                                                    <div class="cast-left">
-                                                        <img th:src="@{/template/img/uploads/cast1.jpg}" alt="">
-                                                        <a href="#">Robert Downey Jr.</a>
+                                                <div class="mvsingle-item ov-item">
+                                                    <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
+                                                        <img th:src="${PHOTO}" alt="">
+                                                    </a>
+                                                    <div th:each="VIDEO : ${SEASON_MOVIE.videos}" class="vd-it">
+                                                        <img class="vd-img" th:src="${VIDEO.image}" alt="">
+                                                        <a class="fancybox-media hvr-grow" href="'https://www.youtube.com/embed/' + VIDEO.path"><img th:src="@{/template/img/uploads/play-vd.png}" alt=""></a>
                                                     </div>
-                                                    <p>...  Robert Downey Jr.</p>
                                                 </div>
                                                 <div class="title-hd-sm">
-                                                    <h4>User reviews</h4>
-                                                    <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
+                                                    <h4>cast</h4>
+                                                    <a href="#" class="time">Full Cast & Crew  <i class="ion-ios-arrow-right"></i></a>
                                                 </div>
-                                            </div>
-                                            <!-- movie user review -->
-                                            <div class="mv-user-review-item">
-                                                <h3>Best Marvel movie in my opinion</h3>
-                                                <div class="no-star">
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star"></i>
-                                                    <i class="ion-android-star last"></i>
-                                                </div>
-                                                <p class="time">
-                                                    17 December 2016 by <a href="#"> hawaiipierson</a>
-                                                </p>
-                                                <p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-xs-12 col-sm-12">
-                                            <div class="sb-it">
-                                                <h6>New episode: </h6>
-                                                <div th:if="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
-                                                    <p>
-                                                        <nobr th:each="i : ${SEASON_MOVIE.newEpisode}">
-                                                            <a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-' + ${i}}" th:text="${i}"></a>
-                                                        </nobr>
-                                                    </p>
-                                                </div>
-                                                <div th:unless="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
-                                                    <p th:text="#{message.UI.value.null}"></p>
-                                                </div>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Duration: </h6>
-                                                <p><a href="#" th:text="${SEASON_MOVIE.duration} ?: #{message.UI.value.null}"></a></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Showtime: </h6>
-                                                <p><a href="#" th:text="${SEASON_MOVIE.showtime} ?: #{message.UI.value.null}"></a></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Status: </h6>
-                                                <p th:text="${SEASON_MOVIE.status} ?: #{message.UI.value.null}"></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Quality: </h6>
-                                                <p th:text="${SEASON_MOVIE.quality} ?: #{message.UI.value.null}"></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Language: </h6>
-                                                <div th:if="${SEASON_MOVIE.languages.empty}">
-                                                    <p th:text="#{message.UI.value.null}"></p>
-                                                </div>
-                                                <p>
-                                                <div th:each="language : ${SEASON_MOVIE.languages}" th:remove="tag">
-                                                    <a href="#" th:text="${language.name}"></a>
-                                                    <span>, </span>
-                                                </div>
-                                                </p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Director: </h6>
-                                                <div th:if="${SEASON_MOVIE.directors}" th:remove="tag">
-                                                    <p>
-                                                    <div th:each="director : ${SEASON_MOVIE.directors}" th:remove="tag">
-                                                        <a href="#" th:text="${director.name}"></a>
-                                                        <span>,</span>
+                                                <!-- movie cast -->
+                                                <div class="mvcast-item">
+                                                    <div th:if="${SEASON_MOVIE.casts == null OR SEASON_MOVIE.casts.empty}" th:remove="tag">
+                                                        <p th:text="#{message.UI.value.null}"></p>
                                                     </div>
-                                                    </p>
-                                                </div>
-                                                <div th:unless="${SEASON_MOVIE.directors}" th:remove="tag">
-                                                    <p th:text="#{message.UI.value.null}"></p>
-                                                </div>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Writer: </h6>
-                                                <p><a href="#" th:text="#{message.UI.value.null}"></a></p>
-                                            </div>
-<!--                                            <div class="sb-it">-->
-<!--                                                <h6>Stars: </h6>-->
-<!--                                                <p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>-->
-<!--                                            </div>-->
-                                            <div class="sb-it">
-                                                <h6>Genres:</h6>
-                                                <ul th:if="${SEASON_MOVIE.genres == null}">
-                                                    <p th:text="#{message.UI.value.null}"></p>
-                                                </ul>
-                                                <p>
-                                                    <div th:each="genre : ${SEASON_MOVIE.genres}" th:remove="tag">
-                                                        <a href="#" th:text="${genre}"></a>
-                                                        <span>, </span>
+                                                    <div class="cast-it" th:each="CAST : ${SEASON_MOVIE.casts}">
+                                                        <div class="cast-left">
+                                                            <img th:src="${CAST.photos} ? ${CAST.photos.get(0)}:''" alt="">
+                                                            <a href="#" th:text="${CAST.name}">Robert Downey Jr.</a>
+                                                        </div>
+                                                        <p>...  Robert Downey Jr.</p>
                                                     </div>
-                                                </p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Release Date:</h6>
-                                                <p th:text="${SEASON_MOVIE.release}">...</p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Run Time:</h6>
-                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null} + ' min'"></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Studio: </h6>
-                                                <div th:if="${SEASON_MOVIE.studios.empty}">
-                                                    <p th:text="#{message.UI.value.null}"></p>
+                                                    <div class="title-hd-sm">
+                                                        <h4>User reviews</h4>
+                                                        <a href="#" class="time">See All 56 Reviews <i class="ion-ios-arrow-right"></i></a>
+                                                    </div>
                                                 </div>
-                                                <p>
-                                                <div th:each="studio : ${SEASON_MOVIE.studios}" th:remove="tag">
-                                                    <a href="#" th:text="${studio.name}"></a>
-                                                    <span>, </span>
-                                                </div>
-                                                </p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>MMPA Rating:</h6>
-                                                <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null}"></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Country: </h6>
-                                                <div th:if="${SEASON_MOVIE.country}">
-                                                    <p><a href="#" th:text="${SEASON_MOVIE.country.name}"></a></p>
-                                                </div>
-                                                <div th:unless="${SEASON_MOVIE.country}">
-                                                    <p th:text="#{message.UI.value.null}"></p>
-                                                </div>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Number of followers: </h6>
-                                                <p><a href="#" th:text="${SEASON_MOVIE.followers}"></a></p>
-                                            </div>
-                                            <div class="sb-it">
-                                                <h6>Plot Keywords:</h6>
-                                                <p class="tags">
-                                                    <span class="time"><a href="#">superhero</a></span>
-                                                    <span class="time"><a href="#">marvel universe</a></span>
-                                                    <span class="time"><a href="#">comic</a></span>
-                                                    <span class="time"><a href="#">blockbuster</a></span>
-                                                    <span class="time"><a href="#">final battle</a></span>
-                                                </p>
-                                            </div>
-<!--                                            <div class="ads">-->
-<!--                                                <img th:src="@{/template/img/uploads/ads1.png}" alt="">-->
-<!--                                            </div>-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="reviews" class="tab review">
-                                    <div class="row">
-                                        <div class="rv-hd">
-                                            <div class="div">
-                                                <h3>Related Movies To</h3>
-                                                <h2>Skyfall: Quantum of Spectre</h2>
-                                            </div>
-                                            <a href="#" class="redbtn">Write Review</a>
-                                        </div>
-                                        <div class="topbar-filter">
-                                            <p>Found <span>56 reviews</span> in total</p>
-                                            <label>Filter by:</label>
-                                            <select>
-                                                <option value="popularity">Popularity Descending</option>
-                                                <option value="popularity">Popularity Ascending</option>
-                                                <option value="rating">Rating Descending</option>
-                                                <option value="rating">Rating Ascending</option>
-                                                <option value="date">Release date Descending</option>
-                                                <option value="date">Release date Ascending</option>
-                                            </select>
-                                        </div>
-                                        <div class="mv-user-review-item">
-                                            <div class="user-infor">
-                                                <img th:src="@{/template/img/uploads/userava1.jpg}" alt="">
-                                                <div>
+                                                <!-- movie user review -->
+                                                <div class="mv-user-review-item">
                                                     <h3>Best Marvel movie in my opinion</h3>
                                                     <div class="no-star">
                                                         <i class="ion-android-star"></i>
@@ -355,373 +186,358 @@
                                                     <p class="time">
                                                         17 December 2016 by <a href="#"> hawaiipierson</a>
                                                     </p>
+                                                    <p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>
                                                 </div>
                                             </div>
-                                            <p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>
-                                        </div>
-                                        <div class="mv-user-review-item">
-                                            <div class="user-infor">
-                                                <img th:src="@{/template/img/uploads/userava2.jpg}" alt="">
-                                                <div>
-                                                    <h3>Just about as good as the first one!</h3>
-                                                    <div class="no-star">
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
+                                            <div class="col-md-4 col-xs-12 col-sm-12">
+                                                <div class="sb-it">
+                                                    <h6>New episode: </h6>
+                                                    <div th:if="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
+                                                        <p>
+                                                            <nobr th:each="i : ${SEASON_MOVIE.newEpisode}">
+                                                                <a th:href="@{'/' + ${SEASON_MOVIE.code} + '/watch/ep-' + ${i}}" th:text="${i}"></a>
+                                                            </nobr>
+                                                        </p>
                                                     </div>
-                                                    <p class="time">
-                                                        17 December 2016 by <a href="#"> hawaiipierson</a>
+                                                    <div th:unless="${SEASON_MOVIE.newEpisode != null}" th:remove="tag">
+                                                        <p th:text="#{message.UI.value.null}"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Duration: </h6>
+                                                    <p><a href="#" th:text="${SEASON_MOVIE.duration} ?: #{message.UI.value.null}"></a></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Showtime: </h6>
+                                                    <p><a href="#" th:text="${SEASON_MOVIE.showtime} ?: #{message.UI.value.null}"></a></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Status: </h6>
+                                                    <p th:text="${SEASON_MOVIE.status} ?: #{message.UI.value.null}"></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Quality: </h6>
+                                                    <p th:text="${SEASON_MOVIE.quality} ?: #{message.UI.value.null}"></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Language: </h6>
+                                                    <div th:if="${SEASON_MOVIE.languages == null OR SEASON_MOVIE.languages.empty}" th:remove="tag">
+                                                        <p th:text="#{message.UI.value.null}"></p>
+                                                    </div>
+                                                    <p><div th:each="language : ${SEASON_MOVIE.languages}" th:remove="tag">
+                                                        <a href="#" th:text="${language.name}"></a>
+                                                        <span>, </span>
+                                                    </div></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Director: </h6>
+                                                    <div th:if="${SEASON_MOVIE.directors == null OR SEASON_MOVIE.directors.empty}" th:remove="tag">
+                                                        <p th:text="#{message.UI.value.null}"></p>
+                                                    </div>
+                                                    <p><div th:each="director : ${SEASON_MOVIE.directors}" th:remove="tag">
+                                                        <a href="#" th:text="${director.name}"></a>
+                                                        <span>,</span>
+                                                    </div></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Writer: </h6>
+                                                    <p><a href="#" th:text="#{message.UI.value.null}"></a></p>
+                                                </div>
+    <!--                                            <div class="sb-it">-->
+    <!--                                                <h6>Stars: </h6>-->
+    <!--                                                <p><a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a> <a href="#">Mark Ruffalo,</a><a href="#"> Scarlett Johansson</a></p>-->
+    <!--                                            </div>-->
+                                                <div class="sb-it">
+                                                    <h6>Genres:</h6>
+                                                    <div th:if="${SEASON_MOVIE.genres == null}" th:remove="tag">
+                                                        <p th:text="#{message.UI.value.null}"></p>
+                                                    </div>
+                                                    <p>
+                                                        <div th:each="genre : ${SEASON_MOVIE.genres}" th:remove="tag">
+                                                            <a href="#" th:text="${genre}"></a>
+                                                            <span>, </span>
+                                                        </div>
                                                     </p>
                                                 </div>
-                                            </div>
-                                            <p>Avengers Age of Ultron is an excellent sequel and a worthy MCU title! There are a lot of good and one thing that feels off in my opinion. </p>
-
-                                            <p>THE GOOD:</p>
-
-                                            <p>First off the action in this movie is amazing, to buildings crumbling, to evil blue eyed robots tearing stuff up, this movie has the action perfectly handled. And with that action comes visuals. The visuals are really good, even though you can see clearly where they are through the movie, but that doesn't detract from the experience. While all the CGI glory is taking place, there are lovable characters that are in the mix. First off the original characters, Iron Man, Captain America, Thor, Hulk, Black Widow, and Hawkeye, are just as brilliant as they are always. And Joss Whedon fixed my main problem in the first Avengers by putting in more Hawkeye and him more fleshed out. Then there is the new Avengers, Quicksilver, Scarletwich, and Vision, they are pretty cool in my opinion. Vision in particular is pretty amazing in all his scenes.</p>
-
-                                            <p>THE BAD:</p>
-
-                                            <p>The beginning of the film  it's fine until towards the second act and there is when it starts to feel a little rushed. Also I do feel like there are scenes missing but there was talk of an extended version on Blu-Ray so that's cool.</p>
-                                        </div>
-                                        <div class="mv-user-review-item">
-                                            <div class="user-infor">
-                                                <img th:src="@{/template/img/uploads/userava3.jpg}" alt="">
-                                                <div>
-                                                    <h3>One of the most boring exepirences from watching a movie</h3>
-                                                    <div class="no-star">
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
+                                                <div class="sb-it">
+                                                    <h6>Release Date:</h6>
+                                                    <p th:text="${SEASON_MOVIE.release}">...</p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Run Time:</h6>
+                                                    <p th:text="${SEASON_MOVIE.runtime} ? (${SEASON_MOVIE.runtime} + ' min'): #{message.UI.value.null}"></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Studio: </h6>
+                                                    <div th:if="${SEASON_MOVIE.studios == null OR SEASON_MOVIE.studios.empty}">
+                                                        <p th:text="#{message.UI.value.null}"></p>
                                                     </div>
-                                                    <p class="time">
-                                                        26 March 2017 by<a href="#"> christopherfreeman</a>
+                                                    <p>
+                                                    <div th:each="studio : ${SEASON_MOVIE.studios}" th:remove="tag">
+                                                        <a href="#" th:text="${studio.name}"></a>
+                                                        <span>, </span>
+                                                    </div>
                                                     </p>
                                                 </div>
-                                            </div>
-                                            <p>I can't right much... it's just so forgettable...Okay, from what I remember, I remember just sitting down on my seat and waiting for the movie to begin. 5 minutes into the movie, boring scene of Tony Stark just talking to his "dead" friends saying it's his fault. 10 minutes in: Boring scene of Ultron and Jarvis having robot space battles(I dunno:/). 15 minutes in: I leave the theatre.2nd attempt at watching it: I fall asleep. What woke me up is the next movie on Netflix when the movie was over.</p>
-
-                                            <p>Bottemline: It's boring...</p>
-
-                                            <p>10/10 because I'm a Marvel Fanboy</p>
-                                        </div>
-                                        <div class="mv-user-review-item ">
-                                            <div class="user-infor">
-                                                <img th:src="@{/template/img/uploads/userava4.jpg}" alt="">
-                                                <div>
-                                                    <h3>That spirit of fun</h3>
-                                                    <div class="no-star">
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                    </div>
-                                                    <p class="time">
-                                                        26 March 2017 by <a href="#"> juliawest</a>
+                                                <div class="sb-it">
+                                                    <h6>MMPA Rating:</h6>
+                                                    <p th:text="${SEASON_MOVIE.runtime} ?: #{message.UI.value.null}"></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Country: </h6>
+                                                    <p><a href="#" th:text="${SEASON_MOVIE.country} ? ${SEASON_MOVIE.country.name}:#{message.UI.value.null}"></a></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Number of followers: </h6>
+                                                    <p><a href="#" th:text="${SEASON_MOVIE.followers}"></a></p>
+                                                </div>
+                                                <div class="sb-it">
+                                                    <h6>Plot Keywords:</h6>
+                                                    <p class="tags">
+                                                        <span class="time"><a href="#">superhero</a></span>
+                                                        <span class="time"><a href="#">marvel universe</a></span>
+                                                        <span class="time"><a href="#">comic</a></span>
+                                                        <span class="time"><a href="#">blockbuster</a></span>
+                                                        <span class="time"><a href="#">final battle</a></span>
                                                     </p>
                                                 </div>
-                                            </div>
-                                            <p>If there were not an audience for Marvel comic heroes than clearly these films would not be made, to answer one other reviewer although I sympathize with him somewhat. The world is indeed an infinitely more complex place than the world of Marvel comics with clearly identifiable heroes and villains. But I get the feeling that from Robert Downey, Jr. on down the organizer and prime mover as Iron Man behind the Avengers these players do love doing these roles because it's a lot of fun. If they didn't show that spirit of fun to the audience than these films would never be made.</p>
-
-                                            <p>So in that spirit of fun Avengers: Age Of Ultron comes before us and everyone looks like they're having a good time saving the world. A computer program got loose and took form in this dimension named Ultron and James Spader who is completely unrecognizable is running amuck in the earth. No doubt Star Trek fans took notice that this guy's mission is to cleanse the earth much like that old earth probe NOMAD which got its programming mixed up in that classic Star Trek prime story. Wouldst Captain James T. Kirk of the Enterprise had a crew like Downey has at his command.</p>
-                                            <p>My favorite is always Chris Evans because of the whole cast he best gets into the spirit of being a superhero. Of all of them, he's already played two superheroes, Captain America and Johnny Storm the Human Torch. I'll be before he's done Evans will play a couple of more as long as the money's good and he enjoys it.</p>
-
-                                            <p>Pretend you're a kid again and enjoy, don't take it so seriously.</p>
-                                        </div>
-                                        <div class="mv-user-review-item last">
-                                            <div class="user-infor">
-                                                <img th:src="@{/template/img/uploads/userava5.jpg}" alt="">
-                                                <div>
-                                                    <h3>Impressive Special Effects and Cast</h3>
-                                                    <div class="no-star">
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                        <i class="ion-android-star last"></i>
-                                                    </div>
-                                                    <p class="time">
-                                                        26 March 2017 by <a href="#"> johnnylee</a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <p>The Avengers raid a Hydra base in Sokovia commanded by Strucker and they retrieve Loki's scepter. They also discover that Strucker had been conducting experiments with the orphan twins Pietro Maximoff (Aaron Taylor-Johnson), who has super speed, and Wanda Maximoff (Elizabeth Olsen), who can control minds and project energy. Tony Stark (Robert Downey Jr.) discovers an Artificial Intelligence in the scepter and convinces Bruce Banner (Mark Ruffalo) to secretly help him to transfer the A.I. to his Ultron defense system. However, the Ultron understands that is necessary to annihilate mankind to save the planet, attacks the Avengers and flees to Sokovia with the scepter. He builds an armature for self-protection and robots for his army and teams up with the twins. The Avengers go to Clinton Barton's house to recover, but out of the blue, Nick Fury (Samuel L. Jackson) arrives and convinces them to fight against Ultron. Will they succeed? </p>
-
-                                            <p>"Avengers: Age of Ultron" is an entertaining adventure with impressive special effects and cast. The storyline might be better, since most of the characters do not show any chemistry. However, it is worthwhile watching this film since the amazing special effects are not possible to be described in words. Why Pietro has to die is also not possible to be explained. My vote is eight.</p>
-                                        </div>
-                                        <div class="topbar-filter">
-                                            <label>Reviews per page:</label>
-                                            <select>
-                                                <option value="range">5 Reviews</option>
-                                                <option value="saab">10 Reviews</option>
-                                            </select>
-                                            <div class="pagination2">
-                                                <span>Page 1 of 6:</span>
-                                                <a class="active" href="#">1</a>
-                                                <a href="#">2</a>
-                                                <a href="#">3</a>
-                                                <a href="#">4</a>
-                                                <a href="#">5</a>
-                                                <a href="#">6</a>
-                                                <a href="#"><i class="ion-arrow-right-b"></i></a>
+    <!--                                            <div class="ads">-->
+    <!--                                                <img th:src="@{/template/img/uploads/ads1.png}" alt="">-->
+    <!--                                            </div>-->
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="cast" class="tab">
-                                    <div class="row">
-                                        <h3>Cast & Crew of</h3>
-                                        <h2>Avengers: Age of Ultron</h2>
-                                        <!-- //== -->
-                                        <div class="title-hd-sm">
-                                            <h4>Directors & Credit Writers</h4>
-                                        </div>
-                                        <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JW</h4>
-                                                    <a href="#">Joss Whedon</a>
+                                    <div id="reviews" class="tab review">
+                                        <div class="row">
+                                            <div class="rv-hd">
+                                                <div class="div">
+                                                    <h3>Related Movies To</h3>
+                                                    <h2>Skyfall: Quantum of Spectre</h2>
                                                 </div>
-                                                <p>...  Director</p>
+                                                <a href="#" class="redbtn">Write Review</a>
                                             </div>
-                                        </div>
-                                        <!-- //== -->
-                                        <div class="title-hd-sm">
-                                            <h4>Directors & Credit Writers</h4>
-                                        </div>
-                                        <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>SL</h4>
-                                                    <a href="#">Stan Lee</a>
-                                                </div>
-                                                <p>...  (based on Marvel comics)</p>
+                                            <div class="topbar-filter">
+                                                <p>Found <span>56 reviews</span> in total</p>
+                                                <label>Filter by:</label>
+                                                <select>
+                                                    <option value="popularity">Popularity Descending</option>
+                                                    <option value="popularity">Popularity Ascending</option>
+                                                    <option value="rating">Rating Descending</option>
+                                                    <option value="rating">Rating Ascending</option>
+                                                    <option value="date">Release date Descending</option>
+                                                    <option value="date">Release date Ascending</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                        <!-- //== -->
-                                        <div class="title-hd-sm">
-                                            <h4>Cast</h4>
-                                        </div>
-                                        <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast1.jpg}" alt="">
-                                                    <a href="#">Robert Downey Jr.</a>
+                                            <div class="mv-user-review-item">
+                                                <div class="user-infor">
+                                                    <img th:src="@{/template/img/uploads/userava1.jpg}" alt="">
+                                                    <div>
+                                                        <h3>Best Marvel movie in my opinion</h3>
+                                                        <div class="no-star">
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star"></i>
+                                                            <i class="ion-android-star last"></i>
+                                                        </div>
+                                                        <p class="time">
+                                                            17 December 2016 by <a href="#"> hawaiipierson</a>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <p>...  Robert Downey Jr.</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast2.jpg}" alt="">
-                                                    <a href="#">Chris Hemsworth</a>
-                                                </div>
-                                                <p>...  Thor</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast3.jpg}" alt="">
-                                                    <a href="#">Mark Ruffalo</a>
-                                                </div>
-                                                <p>...  Bruce Banner/ Hulk</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast4.jpg}" alt="">
-                                                    <a href="#">Chris Evans</a>
-                                                </div>
-                                                <p>...  Steve Rogers/ Captain America</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast5.jpg}" alt="">
-                                                    <a href="#">Scarlett Johansson</a>
-                                                </div>
-                                                <p>...  Natasha Romanoff/ Black Widow</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast6.jpg}" alt="">
-                                                    <a href="#">Jeremy Renner</a>
-                                                </div>
-                                                <p>...  Clint Barton/ Hawkeye</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast7.jpg}" alt="">
-                                                    <a href="#">James Spader</a>
-                                                </div>
-                                                <p>...  Ultron</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <img th:src="@{/template/img/uploads/cast9.jpg}" alt="">
-                                                    <a href="#">Don Cheadle</a>
-                                                </div>
-                                                <p>...  James Rhodes/ War Machine</p>
-                                            </div>
-                                        </div>
-                                        <!-- //== -->
-                                        <div class="title-hd-sm">
-                                            <h4>Produced by</h4>
-                                        </div>
-                                        <div class="mvcast-item">
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>VA</h4>
-                                                    <a href="#">Victoria Alonso</a>
-                                                </div>
-                                                <p>...  executive producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>MB</h4>
-                                                    <a href="#">Mitchel Bell</a>
-                                                </div>
-                                                <p>...  co-producer (as Mitch Bell)</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JC</h4>
-                                                    <a href="#">Jamie Christopher</a>
-                                                </div>
-                                                <p>...  associate producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>LD</h4>
-                                                    <a href="#">Louis D’Esposito</a>
-                                                </div>
-                                                <p>...  executive producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JF</h4>
-                                                    <a href="#">Jon Favreau</a>
-                                                </div>
-                                                <p>...  executive producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>KF</h4>
-                                                    <a href="#">Kevin Feige</a>
-                                                </div>
-                                                <p>...  producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>AF</h4>
-                                                    <a href="#">Alan Fine</a>
-                                                </div>
-                                                <p>...  executive producer</p>
-                                            </div>
-                                            <div class="cast-it">
-                                                <div class="cast-left">
-                                                    <h4>JF</h4>
-                                                    <a href="#">Jeffrey Ford</a>
-                                                </div>
-                                                <p>...  associate producer</p>
+                                                <p>This is by far one of my favorite movies from the MCU. The introduction of new Characters both good and bad also makes the movie more exciting. giving the characters more of a back story can also help audiences relate more to different characters better, and it connects a bond between the audience and actors or characters. Having seen the movie three times does not bother me here as it is as thrilling and exciting every time I am watching it. In other words, the movie is by far better than previous movies (and I do love everything Marvel), the plotting is splendid (they really do out do themselves in each film, there are no problems watching it more than once.</p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="media" class="tab">
-                                    <div class="row">
-                                        <div class="rv-hd">
-                                            <div>
-                                                <h3>Videos & Photos of</h3>
-                                                <h2>Skyfall: Quantum of Spectre</h2>
+                                    <div id="cast" class="tab">
+                                        <div class="row">
+                                            <h3>Cast & Crew of</h3>
+                                            <h2>Avengers: Age of Ultron</h2>
+                                            <!-- //== -->
+                                            <div class="title-hd-sm">
+                                                <h4>Directors & Credit Writers</h4>
+
                                             </div>
-                                        </div>
-                                        <div class="title-hd-sm">
-                                            <h4>Videos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.videos)} + ')'">(8)</span></h4>
-                                        </div>
-                                        <div class="mvsingle-item media-item">
-                                            <div class="vd-item">
-                                                <div class="vd-it">
-                                                    <img class="vd-img" th:src="@{/template/img/uploads/vd-item1.jpg}" alt="">
-                                                    <a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0">
-                                                        <img th:src="@{/template/img/uploads/play-vd.png}" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="vd-infor">
-                                                    <h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
-                                                    <p class="time"> 1: 31</p>
+                                            <p th:text="#{message.UI.value.null}"></p>
+<!--                                            <div class="mvcast-item">-->
+<!--                                                <div class="cast-it">-->
+<!--                                                    <div class="cast-left">-->
+<!--                                                        <h4>JW</h4>-->
+<!--                                                        <a href="#">Joss Whedon</a>-->
+<!--                                                    </div>-->
+<!--                                                    <p>...  Director</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                            <!-- //== -->
+                                            <div class="title-hd-sm">
+                                                <h4>Directors & Credit Writers</h4>
+                                            </div>
+                                            <p th:text="#{message.UI.value.null}"></p>
+<!--                                            <div class="mvcast-item">-->
+<!--                                                <div class="cast-it">-->
+<!--                                                    <div class="cast-left">-->
+<!--                                                        <h4>SL</h4>-->
+<!--                                                        <a href="#">Stan Lee</a>-->
+<!--                                                    </div>-->
+<!--                                                    <p>...  (based on Marvel comics)</p>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                            <!-- //== -->
+                                            <div class="title-hd-sm">
+                                                <h4>Cast</h4>
+                                            </div>
+                                            <div class="mvcast-item">
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <img th:src="@{/template/img/uploads/cast1.jpg}" alt="">
+                                                        <a href="#">Robert Downey Jr.</a>
+                                                    </div>
+                                                    <p>...  Robert Downey Jr.</p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="title-hd-sm">
-                                            <h4>Photos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.photos)} + ')'"> (21)</span></h4>
-                                        </div>
-                                        <div class="mvsingle-item">
-                                            <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
-                                                <img th:src="@{PHOTO}" alt="">
-                                            </a>
+                                            <!-- //== -->
+                                            <div class="title-hd-sm">
+                                                <h4>Produced by</h4>
+                                            </div>
+                                            <div class="mvcast-item">
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>VA</h4>
+                                                        <a href="#">Victoria Alonso</a>
+                                                    </div>
+                                                    <p>...  executive producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>MB</h4>
+                                                        <a href="#">Mitchel Bell</a>
+                                                    </div>
+                                                    <p>...  co-producer (as Mitch Bell)</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>JC</h4>
+                                                        <a href="#">Jamie Christopher</a>
+                                                    </div>
+                                                    <p>...  associate producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>LD</h4>
+                                                        <a href="#">Louis D’Esposito</a>
+                                                    </div>
+                                                    <p>...  executive producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>JF</h4>
+                                                        <a href="#">Jon Favreau</a>
+                                                    </div>
+                                                    <p>...  executive producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>KF</h4>
+                                                        <a href="#">Kevin Feige</a>
+                                                    </div>
+                                                    <p>...  producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>AF</h4>
+                                                        <a href="#">Alan Fine</a>
+                                                    </div>
+                                                    <p>...  executive producer</p>
+                                                </div>
+                                                <div class="cast-it">
+                                                    <div class="cast-left">
+                                                        <h4>JF</h4>
+                                                        <a href="#">Jeffrey Ford</a>
+                                                    </div>
+                                                    <p>...  associate producer</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="moviesrelated" class="tab">
-                                    <div class="row">
-                                        <h3>Related Movies To</h3>
-                                        <h2 th:text="${SEASON_MOVIE.title}"></h2>
-                                        <div class="topbar-filter">
-                                            <p>Found <span th:text="${#lists.size(TVSEASON_RELATE)} + 'movies'"></span> in total</p>
-                                            <label>Sort by:</label>
-                                            <select>
-                                                <option value="popularity">Popularity Descending</option>
-                                                <option value="popularity">Popularity Ascending</option>
-                                                <option value="rating">Rating Descending</option>
-                                                <option value="rating">Rating Ascending</option>
-                                                <option value="date">Release date Descending</option>
-                                                <option value="date">Release date Ascending</option>
-                                            </select>
-                                        </div>
-                                        <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE}">
-                                            <img th:src="${tvSeason.thumbnail}" alt="">
-                                            <div class="mv-item-infor">
-                                                <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
-                                                <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                                <p class="describe" th:text="${tvSeason.summary}">...</p>
-                                                <p class="run-time"> Run Time: <span th:text="${tvSeason.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${tvSeason.release}">...</span></p>
-                                                <p><span th:text="'Languages: ' + ${tvSeason.languages}"></span></p>
-                                                <p>Duration: <a href="#" th:text="${tvSeason.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
-                                                <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
+                                    <div id="media" class="tab">
+                                        <div class="row">
+                                            <div class="rv-hd">
+                                                <div>
+                                                    <h3>Videos & Photos of</h3>
+                                                    <h2>Skyfall: Quantum of Spectre</h2>
+                                                </div>
+                                            </div>
+                                            <div class="title-hd-sm">
+                                                <h4>Videos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.videos)} + ')'">(8)</span></h4>
+                                            </div>
+                                            <div class="mvsingle-item media-item">
+                                                <div class="vd-item">
+                                                    <div class="vd-it">
+                                                        <img class="vd-img" th:src="@{/template/img/uploads/vd-item1.jpg}" alt="">
+                                                        <a class="fancybox-media hvr-grow"  href="https://www.youtube.com/embed/o-0hcF97wy0">
+                                                            <img th:src="@{/template/img/uploads/play-vd.png}" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="vd-infor">
+                                                        <h6> <a href="#">Trailer:  Watch New Scenes</a></h6>
+                                                        <p class="time"> 1: 31</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="title-hd-sm">
+                                                <h4>Photos <span th:text="'(' + ${#lists.size(SEASON_MOVIE.photos)} + ')'"> (21)</span></h4>
+                                            </div>
+                                            <div class="mvsingle-item">
+                                                <a th:each="PHOTO : ${SEASON_MOVIE.photos}" class="img-lightbox" data-fancybox-group="gallery">
+                                                    <img th:src="@{PHOTO}" alt="">
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="topbar-filter">
-                                            <label>Movies per page:</label>
-                                            <select>
-                                                <option value="5">5 Movies</option>
-                                                <option value="10">10 Movies</option>
-                                            </select>
-                                            <div class="pagination2" style="display: flex;">
-                                                <span id="page-info">Page 1 of 2:</span>
-                                                <div id="pagination" style="display: flex;">
-                                                    <div id="pages"></div>
+                                    </div>
+                                    <div id="moviesrelated" class="tab">
+                                        <div class="row">
+                                            <h3>Related Movies To</h3>
+                                            <h2 th:text="${SEASON_MOVIE.title}"></h2>
+                                            <div class="topbar-filter">
+                                                <p>Found <span th:text="${#lists.size(TVSEASON_RELATE)} + 'movies'"></span> in total</p>
+                                                <label>Sort by:</label>
+                                                <select>
+                                                    <option value="popularity">Popularity Descending</option>
+                                                    <option value="popularity">Popularity Ascending</option>
+                                                    <option value="rating">Rating Descending</option>
+                                                    <option value="rating">Rating Ascending</option>
+                                                    <option value="date">Release date Descending</option>
+                                                    <option value="date">Release date Ascending</option>
+                                                </select>
+                                            </div>
+                                            <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE}">
+                                                <img th:src="${tvSeason.thumbnail}" alt="">
+                                                <div class="mv-item-infor">
+                                                    <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
+                                                    <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                                    <p class="describe" th:text="${tvSeason.summary}">...</p>
+                                                    <p class="run-time"> Run Time: <span th:text="${tvSeason.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${tvSeason.release}">...</span></p>
+                                                    <p><span th:text="'Languages: ' + ${tvSeason.languages}"></span></p>
+                                                    <p>Duration: <a href="#" th:text="${tvSeason.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
+                                                    <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
+                                                </div>
+                                            </div>
+                                            <div class="topbar-filter">
+                                                <label>Movies per page:</label>
+                                                <select>
+                                                    <option value="2">2 Movies</option>
+                                                    <option value="5">5 Movies</option>
+                                                </select>
+                                                <div class="pagination2" style="display: flex;">
+                                                    <span id="page-info">Page 1 of 2:</span>
+                                                    <div id="pagination" style="display: flex;">
+                                                        <div id="pages"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -734,10 +550,10 @@
             </div>
         </div>
     </div>
+    <!-- footer section-->
+    <div th:replace="web/fragments/footer :: footer"></div>
+    <!-- end of footer section-->
 </div>
-<!-- footer section-->
-<div th:replace="web/fragments/footer :: footer"></div>
-<!-- end of footer section-->
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">

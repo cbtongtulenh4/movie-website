@@ -6,6 +6,7 @@ import com.website.movie.persistence.entity.TVSeasonEntity;
 import com.website.movie.persistence.repository.MovieRepository;
 import com.website.movie.service.IMovieService;
 import com.website.movie.web.dto.MovieDto;
+import com.website.movie.web.dto.SimpleTvSeasonDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -81,5 +83,13 @@ public class MovieService implements IMovieService {
     public List<MovieEntity> scrapingMovieData(String URL, String container) {
 
         return null;
+    }
+
+    @Override
+    public List<SimpleTvSeasonDto> findAllTvSeasonById(long movieId) {
+        MovieEntity movie = movieRepository.findById(movieId).orElse(null);
+        if (movie == null) return null;
+        Set<TVSeasonEntity> tvSeasons = movie.getTvSeasons();
+        return MovieConvert.toSimpleTvSeasonDto(tvSeasons);
     }
 }
