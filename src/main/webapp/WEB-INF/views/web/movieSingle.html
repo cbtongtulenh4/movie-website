@@ -504,9 +504,9 @@
                                             <h3>Related Movies To</h3>
                                             <h2 th:text="${SEASON_MOVIE.title}"></h2>
                                             <div class="topbar-filter">
-                                                <p>Found <span th:text="${TVSEASON_RELATE.pagination.maxItems} + 'movies'"></span> in total</p>
+                                                <p>Found <span id="am-movies-tt" th:text="${TVSEASON_RELATE.pagination.maxItems} + ' movies'"></span> in total</p>
                                                 <label>Sort by:</label>
-                                                <select>
+                                                <select id="field-sort">
                                                     <option value="popularity">Popularity Descending</option>
                                                     <option value="popularity">Popularity Ascending</option>
                                                     <option value="rating">Rating Descending</option>
@@ -515,16 +515,18 @@
                                                     <option value="date">Release date Ascending</option>
                                                 </select>
                                             </div>
-                                            <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE.tvSeasons}">
-                                                <img th:src="${tvSeason.thumbnail}" alt="">
-                                                <div class="mv-item-infor">
-                                                    <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
-                                                    <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
-                                                    <p class="describe" th:text="${tvSeason.summary}">...</p>
-                                                    <p class="run-time"> Run Time: <span th:text="${tvSeason.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${tvSeason.release}">...</span></p>
-                                                    <p><span th:text="'Languages: ' + ${tvSeason.languages}"></span></p>
-                                                    <p>Duration: <a href="#" th:text="${tvSeason.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
-                                                    <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
+                                            <div class="flex-wrap-movielist" id="tv-season-list" data-target="list">
+                                                <div class="movie-item-style-2" th:each="tvSeason : ${TVSEASON_RELATE.tvSeasons}">
+                                                    <img th:src="${tvSeason.thumbnail}" alt="">
+                                                    <div class="mv-item-infor">
+                                                        <h6><a th:href="@{'/' + ${tvSeason.code}}" th:text="${tvSeason.title} ?: #{message.UI.value.null}">oblivion <span th:text="' (' +${tvSeason.year}+ ')'"></span></a></h6>
+                                                        <p class="rate"><i class="ion-android-star"></i><span>8.1</span> /10</p>
+                                                        <p class="describe" th:text="${tvSeason.summary}">...</p>
+                                                        <p class="run-time"> Run Time: <span th:text="${tvSeason.runtime} ?: '2h21’'"></span>    .     <span>MMPA: PG-13 </span>    .     <span th:text="'Release: ' + ${tvSeason.release}">...</span></p>
+                                                        <p><span th:text="'Languages: ' + ${tvSeason.languages}"></span></p>
+                                                        <p>Duration: <a href="#" th:text="${tvSeason.duration} ?: #{message.UI.value.null}">005/???Note</a></p>
+                                                        <p>Views: <span th:text="${tvSeason.views} ? ${#numbers.formatInteger(tvSeason.views,3,'POINT')}: #{message.UI.value.null}"></span></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="topbar-filter" id="lower-bound">
@@ -563,7 +565,7 @@
 <th:block th:replace="web/fragments/header :: script"></th:block>
 
 <script th:inline="javascript">
-    var tvSeasonID = [[${SEASON_MOVIE.id}]];
+    var tvSeason = [[${SEASON_MOVIE}]];
     var starBox = document.getElementById('star-box');
     starBox.querySelectorAll("i").forEach(el => {
         el.addEventListener('click', function(e){
@@ -574,7 +576,7 @@
         startAnimation();
         const response = await fetch("/MovieWebsite/api/movie/season/rate?" + new URLSearchParams({
             rateVal : e.target.dataset.value,
-            tvSeasonId : tvSeasonID
+            tvSeasonId : tvSeason.id
         }),{method: 'PUT'});
         var data = await response.json();
         let valueRate = document.getElementById('value-rate');
@@ -591,10 +593,10 @@
         let items = JSON.parse(sessionStorage.getItem("itemCart"));
 		if(items == null) items = [];
 		items.push({
-		    "id" : movie.id,
-		    "title" : movie.title,
-		    "thumbnail" : movie.thumbnail,
-		    "cost" : movie.cost,
+		    "id" : tvSeason.id,
+		    "title" : tvSeason.title,
+		    "thumbnail" : tvSeason.thumbnail,
+		    "cost" : tvSeason.cost,
 		    "checked" : true
 		});
 		sessionStorage.setItem("itemCart", JSON.stringify(items));
@@ -606,24 +608,23 @@
         var playBtn = document.getElementById('btn-play');
         var frontPlay = playBtn.querySelector('.item-1');
         var backPlay = playBtn.querySelector('.item-2');
-        let movie = [[${SEASON_MOVIE}]];
-        let isOk = movie.cost == 0 || movie.paid;
+        let isOk = tvSeason.cost == 0 || tvSeason.paid;
         frontPlay.innerHTML = `<i class="ion-card"></i> ` +  (isOk ? 'WATCH NOW':'BUY TICKET');
         backPlay.innerHTML = `<i class="ion-card"></i> `;
         if(!isOk){
-            if(isExistItemCart(movie.id)){
-                backPlay.innerHTML = `<i class="ion-card"></i> ($` + movie.cost + `) Added To Cart`;
+            if(isExistItemCart(tvSeason.id)){
+                backPlay.innerHTML = `<i class="ion-card"></i> ($` + tvSeason.cost + `) Added To Cart`;
                 return;
             }
             backPlay.addEventListener('click', function add(){
                 addToCart(movie);
-                backPlay.innerHTML = `<i class="ion-card"></i> ($` + movie.cost + `) Added To Cart`;
+                backPlay.innerHTML = `<i class="ion-card"></i> ($` + tvSeason.cost + `) Added To Cart`;
                 backPlay.removeEventListener('click', add);
             });
-            backPlay.innerHTML += `($` + movie.cost + `) Add To Cart`;
+            backPlay.innerHTML += `($` + tvSeason.cost + `) Add To Cart`;
         }else {
-            backPlay.href = '/MovieWebsite/' +movie.code + '/watch/ep-1';
-            backPlay.innerHTML += movie.paid ? `Paid`:`Free`;
+            backPlay.href = '/MovieWebsite/' +tvSeason.code + '/watch/ep-1';
+            backPlay.innerHTML += tvSeason.paid ? `Paid`:`Free`;
         }
     }
 
@@ -644,16 +645,16 @@
         let isAdd = targetEl.textContent.split(" ")[0].toLowerCase() === 'added';
         if(isAdd) requestMethod = 'DELETE';
         else requestMethod = 'POST';
-        let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeasonID;
+        let url = "/MovieWebsite/api/user/favorite?tvSeasonId=" + tvSeason.id;
         await fetch(url, {method: requestMethod});
         targetEl.textContent = (isAdd ? 'Add' : 'Added') + " to Favorite";
         stopAnimation();
     }
 
 
-    var urlTarget = "/api/movie/tv-season/relate";
+    var urlTarget = "/MovieWebsite/api/movie/tv-season/relate";
     document.querySelector('#lower-bound .find-movie input').addEventListener('keydown', function(e){
-		findByPage(e, urlTarget, false);
+		findByPage(e, getTargetURL(urlTarget), false);
 	});
 
 	// action select option page
@@ -663,10 +664,22 @@
 
 	// get by field sort
 	document.getElementById('field-sort').addEventListener('change', function(){
-	    selectOptionFieldSort(urlTarget, false);
+	    selectOptionFieldSort(getTargetURL(urlTarget), false);
 	})
 
-</script>
+	var maxPage = [[${TVSEASON_RELATE.pagination.maxPage}]];
+	var currentPage = [[${TVSEASON_RELATE.pagination.nextPage}]];
+	var updatingMsg = [[#{message.UI.value.null}]];
+	customPagination(getTargetURL(urlTarget), currentPage, 2, maxPage);
 
+    function getTargetURL(urlTarget){
+        let params = new URLSearchParams({
+            movieId : tvSeason.movie_id,
+            tvSeasonId : tvSeason.id
+        });
+        return urlTarget + "?" + params + "&";
+    }
+
+</script>
 </body>
 </html>

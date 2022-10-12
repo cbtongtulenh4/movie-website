@@ -114,7 +114,8 @@
         // sortBy
         let fieldSort = document.getElementById('field-sort');
         params.append("sort", fieldSort.value);
-        const response = await fetch(url + "?" + params);
+        if(url.charAt(url.length - 1) !== '&') url += '?';
+        const response = await fetch(url + params);
         var data = await response.json();
         showListMovie(url, data, hasFilter);
     }
@@ -136,7 +137,7 @@
         let tvSeasonHTML = '';
         var host = "/MovieWebsite";
         if(target === 'list') {
-            for(let SEASON of data.simpleTvSeasons){
+            for(let SEASON of data.tvSeasons){
                 tvSeasonHTML += `
                        <div class="movie-item-style-2">
                            <img src="`+ SEASON.thumbnail +`" alt="">
@@ -154,7 +155,7 @@
             }
         }
         else {
-            for(let SEASON of data.simpleTvSeasons){
+            for(let SEASON of data.tvSeasons){
                 tvSeasonHTML += `
                        <div class="movie-item-style-2 movie-item-style-1">
                            <img src="`+ SEASON.thumbnail +`" alt="">
