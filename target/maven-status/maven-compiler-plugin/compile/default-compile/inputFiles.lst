@@ -5,6 +5,7 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\RoleService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\encoder\PasswordEncoder.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieEntity.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\impl\ProfileImpl.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\OtherMovieService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\validation\Size.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\controller\web\ChargeController.java
@@ -15,8 +16,8 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\UserService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\TVSeasonRestController.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\MovieRestController.java
-C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieCrewRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\validation\PasswordMatches.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\UserRegistrationDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\TVImagesEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\helper\error\MailAuthenticationException.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\controller\error\ErrorController.java
@@ -32,8 +33,11 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\payment\CurrencyUtil.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\GlobalExceptionHandler.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\IUserDAO.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\ScrapingDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\MessageUtil.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\GoogleDriveService.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\constant\CacheConstants.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\IVerificationTokenDAO.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\CountryRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\security\custom\GrantedAuthority.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\constant\MessageConstants.java
@@ -41,8 +45,10 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\RateEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\PasswordUtil.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\web\LoginRestController.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieDirectorEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieGenresRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\custom\CustomPageable.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\ScrapingService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\cache\Cache.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\ITvSeasonService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\MovieDto.java
@@ -60,6 +66,7 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\TVSeasonEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\CommentDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\PageableUtil.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\IProfileDAO.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\impl\UserImpl.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\validation\ValidPassword.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\SubtitleEntity.java
@@ -72,7 +79,6 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\CommentRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\security\custom\UserDetails.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\IOtherMovieService.java
-C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieCrewEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\UserRestController.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\IGoogleDriveService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\TvEpisodeService.java
@@ -88,6 +94,7 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\ErrorDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieCastEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\helper\error\CommonErrorHandler.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\VideoEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\validation\constraint\EmailValidator.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieCategoryRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\UserProfileDto.java
@@ -101,6 +108,7 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\security\custom\UserBuilder.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\ProfileRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\IVerificationTokenService.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\UtilService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\interceptor\UserInterceptor.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\config\DataConfig.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\VerificationTokenEntity.java
@@ -110,11 +118,13 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\RatingEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\SeasonRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\events\custom\EventMultiCaster.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieCharacterRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\VerificationTokenService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\validation\constraint\PasswordValidator.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\MovieService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieCastRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\controller\web\HomeController.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\ChangePasswordDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\VerificationTokenRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\MovieFilterDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\helper\error\UserAlreadyExistException.java
@@ -125,6 +135,7 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\cache\InMemoryCache.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\security\custom\SimpleGrantedAuthority.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\impl\TvSeasonService.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\IScrapingService.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\ICommentDAO.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\api\web\RegistrationRestController.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\ValidationUtil.java
@@ -134,15 +145,19 @@ C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movi
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\helper\error\RestResponseEntityExceptionHandler.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\MovieCategoryDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\utils\EmailUtil.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\impl\VerificationTokenImpl.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\MovieDirectorRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\QualityMovieEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieGenresEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\service\IMovieService.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\repository\VideoRepository.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\MessageDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\impl\CommentImpl.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\impl\AbstractDAO.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\LanguageEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\web\dto\TVSeasonDto.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\CountryEntity.java
+C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\entity\MovieCharacterEntity.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\persistence\dao\GenericDAO.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\helper\mapper\RowMapper.java
 C:\Users\LAPTOP\IdeaProjects\Spring\movie-website\src\main\java\com\website\movie\interceptor\SessionTimerInterceptor.java

@@ -84,3 +84,5 @@ or use
 // error NotFoundException: Could not open servletContext resource[....]
     - or is cause by tomcat deployment directory not direct to webapp
     - or can specific full url in config resource in webConfig by point end of tomcat
+
+// sort list by name fields: https://stackoverflow.com/questions/71728516/sort-list-of-objects-by-names-of-fields-in-java

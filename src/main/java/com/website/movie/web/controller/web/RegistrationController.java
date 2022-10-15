@@ -157,7 +157,7 @@ public class RegistrationController {
         if(user == null){
             MessageDto msg = new MessageDto(
                     MessageConstants.DANGER,
-                    messages.getMessage("message.userNotFound", null, locale)
+                    messages.getMessage("message.user.NotFound", null, locale)
             );
             model.addAttribute("message", msg);
             return "redirect:/login?lang=" + locale.getLanguage();
